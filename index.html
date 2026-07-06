@@ -636,7 +636,7 @@
             <h3 data-i18n="plan1_title">Plano Essencial</h3>
             <div class="price">R$ 350<small data-i18n="plan1_price_note">Pagamento à vista via Pix</small></div>
             <p class="desc" data-i18n="plan1_desc">Otimização completa do perfil da sua empresa no Google Maps: categoria certa, descrição com palavras-chave, horários, fotos e demais informações, do zero até a primeira posição no seu setor. Entrega do nosso trabalho em até 48h após a confirmação do pagamento. Pagamento via Pix.</p>
-            <a href="#contato" class="btn btn-plan btn-plan-wa" data-plan-key="plan1_title" data-i18n="plan1_cta">Escolher este plano</a>
+            <a href="#contato" class="btn btn-plan btn-plan-wa" data-msg-key="plan1_wa_msg" data-i18n="plan1_cta">Escolher este plano</a>
           </div>
 
           <div class="plan c-blue plan-featured">
@@ -660,7 +660,7 @@
             <h3 data-i18n="plan2_title">Plano Flexível</h3>
             <div class="price">2x R$ 200<small data-i18n="plan2_price_note">2x via Pix · Total R$ 400,00</small></div>
             <p class="desc" data-i18n="plan2_desc">A mesma otimização completa do Plano Essencial, dividida em 2 pagamentos de R$ 200 via Pix. Entrega do nosso trabalho em até 48h após a confirmação da primeira parcela.</p>
-            <a href="#contato" class="btn btn-plan btn-plan-wa" data-plan-key="plan2_title" data-i18n="plan2_cta">Escolher este plano</a>
+            <a href="#contato" class="btn btn-plan btn-plan-wa" data-msg-key="plan2_wa_msg" data-i18n="plan2_cta">Escolher este plano</a>
           </div>
 
           <div class="plan c-green">
@@ -686,7 +686,7 @@
             <h3 data-i18n="plan3_title">Plano Recuperação</h3>
             <div class="price">R$ 600<small data-i18n="plan3_price_note">Correção de cadastro · via Pix</small></div>
             <p class="desc" data-i18n="plan3_desc">Diagnóstico e correção de perfis duplicados, incorretos ou suspensos no mapa: mesclagem junto ao Google, verificação de propriedade e correção de todos os dados. Entrega do nosso trabalho técnico em até 48h — a reativação segue o prazo de análise do próprio Google, que pode ser imediata ou levar até 5 dias úteis. Pagamento via Pix.</p>
-            <a href="#contato" class="btn btn-plan btn-plan-wa" data-plan-key="plan3_title" data-i18n="plan3_cta">Escolher este plano</a>
+            <a href="#contato" class="btn btn-plan btn-plan-wa" data-msg-key="plan3_wa_msg" data-i18n="plan3_cta">Escolher este plano</a>
           </div>
         </div>
 
@@ -775,7 +775,7 @@
             <h3 data-i18n="support_title">Manutenção de sistemas em TI</h3>
             <p data-i18n="support_desc">Formatação, configuração de sistemas e aceleração de desempenho para notebooks, computadores, celulares e tablets.</p>
             <p class="note" data-i18n="support_note">Nota: atendimento especializado em software. Não realizamos manutenção de hardware ou troca de peças físicas.</p>
-            <a href="#contato" class="btn btn-plan btn-plan-wa" data-plan-key="support_title" data-i18n="support_cta">Solicitar suporte</a>
+            <a href="#contato" class="btn btn-plan btn-plan-wa" data-msg-key="support_wa_msg" data-i18n="support_cta">Solicitar suporte</a>
           </div>
         </div>
       </div>
@@ -971,7 +971,10 @@ const translations = {
     support_desc:"Formatação, configuração de sistemas e aceleração de desempenho para notebooks, computadores, celulares e tablets.",
     support_note:"Nota: atendimento especializado em software. Não realizamos manutenção de hardware ou troca de peças físicas.",
     support_cta:"Solicitar suporte",
-    whats_msg_template:"Olá! Tudo bem? Aqui é da agência PYNN 😊. Tenho interesse em: {plan}. Para agilizar o atendimento, meu nome é: ",
+    plan1_wa_msg:"Olá! Encontrei a PYNN pelo site e tenho interesse em contratar o Plano Essencial de otimização do perfil no Google Maps. Poderiam me passar mais detalhes? Meu nome: ",
+    plan2_wa_msg:"Olá! Encontrei a PYNN pelo site e tenho interesse em contratar o Plano Flexível (parcelado em 2x) de otimização do perfil no Google Maps. Poderiam me passar mais detalhes? Meu nome: ",
+    plan3_wa_msg:"Olá! Encontrei a PYNN pelo site e preciso de ajuda com o Plano Recuperação para corrigir ou reativar meu perfil no Google Maps. Poderiam me passar mais detalhes? Meu nome: ",
+    support_wa_msg:"Olá! Encontrei a PYNN pelo site e gostaria de solicitar suporte técnico em TI. Poderiam me passar mais detalhes? Meu nome: ",
     stats_label:"Empresas atendidas",
     contact_eyebrow:"Contato", contact_title:'Vamos colocar sua <em>empresa no topo</em>.',
     security_note:"Nunca envie senhas ou dados bancários por este formulário. Aguarde nosso contato oficial.",
@@ -1032,7 +1035,10 @@ const translations = {
     support_desc:"Formateo, configuración de sistemas y aceleración de rendimiento para portátiles, computadoras, celulares y tablets.",
     support_note:"Nota: atención especializada en software. No realizamos mantenimiento de hardware ni cambio de piezas físicas.",
     support_cta:"Solicitar soporte",
-    whats_msg_template:"¡Hola! ¿Todo bien? Aquí es la agencia PYNN 😊. Tengo interés en: {plan}. Para agilizar la atención, mi nombre es: ",
+    plan1_wa_msg:"¡Hola! Encontré a PYNN en el sitio web y me interesa contratar el Plan Esencial de optimización de perfil en Google Maps. ¿Podrían darme más detalles? Mi nombre: ",
+    plan2_wa_msg:"¡Hola! Encontré a PYNN en el sitio web y me interesa contratar el Plan Flexible (en 2 pagos) de optimización de perfil en Google Maps. ¿Podrían darme más detalles? Mi nombre: ",
+    plan3_wa_msg:"¡Hola! Encontré a PYNN en el sitio web y necesito ayuda con el Plan Recuperación para corregir o reactivar mi perfil en Google Maps. ¿Podrían darme más detalles? Mi nombre: ",
+    support_wa_msg:"¡Hola! Encontré a PYNN en el sitio web y me gustaría solicitar soporte técnico en TI. ¿Podrían darme más detalles? Mi nombre: ",
     stats_label:"Empresas atendidas",
     contact_eyebrow:"Contacto", contact_title:'Pongamos tu <em>empresa en la cima</em>.',
     security_note:"Nunca envíes contraseñas o datos bancarios por este formulario. Espera nuestro contacto oficial.",
@@ -1093,7 +1099,10 @@ const translations = {
     support_desc:"Formatting, system setup, and performance boosts for laptops, computers, phones, and tablets.",
     support_note:"Note: software support only. We do not perform hardware repairs or physical part replacement.",
     support_cta:"Request support",
-    whats_msg_template:"Hi! How are you? This is PYNN agency 😊. I'm interested in: {plan}. To speed things up, my name is: ",
+    plan1_wa_msg:"Hello! I found PYNN through your website and I'm interested in the Essential Plan for Google Maps profile optimization. Could you share more details? My name: ",
+    plan2_wa_msg:"Hello! I found PYNN through your website and I'm interested in the Flexible Plan (2 installments) for Google Maps profile optimization. Could you share more details? My name: ",
+    plan3_wa_msg:"Hello! I found PYNN through your website and I need help with the Recovery Plan to fix or reactivate my Google Maps listing. Could you share more details? My name: ",
+    support_wa_msg:"Hello! I found PYNN through your website and I'd like to request IT technical support. Could you share more details? My name: ",
     stats_label:"Businesses served",
     contact_eyebrow:"Contact", contact_title:"Let's get your <em>business to the top</em>.",
     security_note:"Never send passwords or banking details through this form. Wait for our official contact.",
@@ -1180,9 +1189,8 @@ document.querySelectorAll('.btn-plan-wa').forEach(btn=>{
   btn.addEventListener('click', (e)=>{
     e.preventDefault();
     const t = translations[currentLang];
-    const planKey = btn.getAttribute('data-plan-key');
-    const planName = t[planKey] || '';
-    const message = t.whats_msg_template.replace('{plan}', planName);
+    const msgKey = btn.getAttribute('data-msg-key');
+    const message = t[msgKey] || '';
     window.open('https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(message), '_blank');
   });
 });
