@@ -27,7 +27,7 @@
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Space+Grotesk:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,500&family=Space+Grotesk:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <style>
   :root{
@@ -323,9 +323,24 @@
   .plan:hover .icon-3d{ transform:scale(1.05); }
   .plan .tag{ font-family:'Inter',sans-serif; font-weight:700; font-size:.66rem; letter-spacing:.08em; color:var(--fg-muted); text-transform:uppercase; }
   .plan h3{ font-size:1.2rem; margin:12px 0 10px; }
-  .plan .price{ font-family:'Fraunces',serif; font-weight:600; font-size:1.5rem; margin:12px 0; }
+  .plan .price{ font-family:'Archivo Black',sans-serif; font-weight:400; font-size:1.5rem; margin:12px 0; letter-spacing:-0.01em; }
   .plan .price small{ font-size:.68rem; color:var(--fg-muted); display:block; margin-top:4px; font-family:'Inter',sans-serif; }
   .plan p.desc{ color:var(--fg-muted); font-size:.92rem; flex-grow:1; }
+  .plan .btn-plan{
+    width:100%; justify-content:center; text-align:center;
+    margin-top:22px; font-weight:600;
+    box-shadow:none;
+  }
+  .plan.c-coral .btn-plan{ background:var(--coral); color:#fff; }
+  .plan.c-coral .btn-plan:hover{ transform:translateY(-2px); box-shadow:0 14px 28px -10px var(--coral); }
+  .plan.c-blue .btn-plan{ background:var(--blue); color:#04060c; }
+  .plan.c-blue .btn-plan:hover{ transform:translateY(-2px); box-shadow:0 14px 28px -10px var(--blue); }
+  .plan.c-green .btn-plan{ background:var(--green); color:#04060c; }
+  .plan.c-green .btn-plan:hover{ transform:translateY(-2px); box-shadow:0 14px 28px -10px var(--green); }
+  .support-block .btn-plan-wa{
+    margin-top:18px; background:var(--yellow); color:#04060c; font-weight:600;
+  }
+  .support-block .btn-plan-wa:hover{ transform:translateY(-2px); box-shadow:0 14px 28px -10px var(--yellow); }
 
   .support-block{
     background:var(--bg-panel-2); border:1px solid var(--border); border-radius:var(--radius);
@@ -348,7 +363,7 @@
 
   /* ---------- STATS ---------- */
   .stats-inner{ text-align:center; }
-  .counter{ font-family:'Fraunces',serif; font-weight:700; font-size:clamp(3.2rem,10vw,6.2rem); line-height:1; color:var(--coral); }
+  .counter{ font-family:'Archivo Black',sans-serif; font-weight:400; font-size:clamp(3rem,9vw,5.6rem); line-height:1; color:var(--coral); letter-spacing:-0.02em; }
   .stats-inner p{ color:var(--fg-muted); margin-top:14px; font-family:'Inter',sans-serif; font-size:.78rem; letter-spacing:.1em; text-transform:uppercase; }
 
   /* ---------- CONTACT ---------- */
@@ -621,7 +636,9 @@
             <h3 data-i18n="plan1_title">Plano Essencial</h3>
             <div class="price">R$ 350<small data-i18n="plan1_price_note">Pagamento à vista via Pix</small></div>
             <p class="desc" data-i18n="plan1_desc">Otimização completa do perfil da sua empresa no Google Maps: categoria certa, descrição com palavras-chave, horários, fotos e demais informações, do zero até a primeira posição no seu setor. Entrega do nosso trabalho em até 48h após a confirmação do pagamento. Pagamento via Pix.</p>
+            <a href="#contato" class="btn btn-plan btn-plan-wa" data-plan-key="plan1_title" data-i18n="plan1_cta">Escolher este plano</a>
           </div>
+
           <div class="plan c-blue plan-featured">
             <span class="ribbon" data-i18n="plan2_ribbon">Mais escolhido</span>
             <div class="icon-3d">
@@ -643,7 +660,9 @@
             <h3 data-i18n="plan2_title">Plano Flexível</h3>
             <div class="price">2x R$ 200<small data-i18n="plan2_price_note">2x via Pix · Total R$ 400,00</small></div>
             <p class="desc" data-i18n="plan2_desc">A mesma otimização completa do Plano Essencial, dividida em 2 pagamentos de R$ 200 via Pix. Entrega do nosso trabalho em até 48h após a confirmação da primeira parcela.</p>
+            <a href="#contato" class="btn btn-plan btn-plan-wa" data-plan-key="plan2_title" data-i18n="plan2_cta">Escolher este plano</a>
           </div>
+
           <div class="plan c-green">
             <div class="icon-3d">
               <svg viewBox="0 0 64 64" width="52" height="52" aria-hidden="true">
@@ -667,6 +686,7 @@
             <h3 data-i18n="plan3_title">Plano Recuperação</h3>
             <div class="price">R$ 600<small data-i18n="plan3_price_note">Correção de cadastro · via Pix</small></div>
             <p class="desc" data-i18n="plan3_desc">Diagnóstico e correção de perfis duplicados, incorretos ou suspensos no mapa: mesclagem junto ao Google, verificação de propriedade e correção de todos os dados. Entrega do nosso trabalho técnico em até 48h — a reativação segue o prazo de análise do próprio Google, que pode ser imediata ou levar até 5 dias úteis. Pagamento via Pix.</p>
+            <a href="#contato" class="btn btn-plan btn-plan-wa" data-plan-key="plan3_title" data-i18n="plan3_cta">Escolher este plano</a>
           </div>
         </div>
 
@@ -755,6 +775,7 @@
             <h3 data-i18n="support_title">Manutenção de sistemas em TI</h3>
             <p data-i18n="support_desc">Formatação, configuração de sistemas e aceleração de desempenho para notebooks, computadores, celulares e tablets.</p>
             <p class="note" data-i18n="support_note">Nota: atendimento especializado em software. Não realizamos manutenção de hardware ou troca de peças físicas.</p>
+            <a href="#contato" class="btn btn-plan btn-plan-wa" data-plan-key="support_title" data-i18n="support_cta">Solicitar suporte</a>
           </div>
         </div>
       </div>
@@ -945,9 +966,13 @@ const translations = {
     plan2_desc:"A mesma otimização completa do Plano Essencial, dividida em 2 pagamentos de R$ 200 via Pix. Entrega do nosso trabalho em até 48h após a confirmação da primeira parcela.",
     plan3_tag:"Google Maps · Recuperação", plan3_title:"Plano Recuperação", plan3_price_note:"Correção de cadastro · via Pix",
     plan3_desc:"Diagnóstico e correção de perfis duplicados, incorretos ou suspensos no mapa: mesclagem junto ao Google, verificação de propriedade e correção de todos os dados. Entrega do nosso trabalho técnico em até 48h — a reativação segue o prazo de análise do próprio Google, que pode ser imediata ou levar até 5 dias úteis. Pagamento via Pix.",
+    plan1_cta:"Escolher este plano", plan2_cta:"Escolher este plano", plan3_cta:"Escolher este plano",
     support_tag:"Suporte Técnico", support_title:"Manutenção de sistemas em TI",
     support_desc:"Formatação, configuração de sistemas e aceleração de desempenho para notebooks, computadores, celulares e tablets.",
     support_note:"Nota: atendimento especializado em software. Não realizamos manutenção de hardware ou troca de peças físicas.",
+    support_cta:"Solicitar suporte",
+    prompt_name:"Antes de continuar, qual é o seu nome?",
+    whats_msg_template:"Olá! Meu nome é {name}. Tenho interesse em: {plan}.",
     stats_label:"Empresas atendidas",
     contact_eyebrow:"Contato", contact_title:'Vamos colocar sua <em>empresa no topo</em>.',
     security_note:"Nunca envie senhas ou dados bancários por este formulário. Aguarde nosso contato oficial.",
@@ -1003,9 +1028,13 @@ const translations = {
     plan2_desc:"La misma optimización completa del Plan Esencial, dividida en 2 pagos de R$ 200 vía Pix. Entrega de nuestro trabajo en hasta 48h tras la confirmación de la primera cuota.",
     plan3_tag:"Google Maps · Recuperación", plan3_title:"Plan Recuperación", plan3_price_note:"Corrección de registro · vía Pix",
     plan3_desc:"Diagnóstico y corrección de perfiles duplicados, incorrectos o suspendidos en el mapa: fusión ante Google, verificación de propiedad y corrección de todos los datos. Entrega de nuestro trabajo técnico en hasta 48h — la reactivación sigue el plazo de análisis del propio Google, que puede ser inmediata o tardar hasta 5 días hábiles. Pago vía Pix.",
+    plan1_cta:"Elegir este plan", plan2_cta:"Elegir este plan", plan3_cta:"Elegir este plan",
     support_tag:"Soporte Técnico", support_title:"Mantenimiento de sistemas en TI",
     support_desc:"Formateo, configuración de sistemas y aceleración de rendimiento para portátiles, computadoras, celulares y tablets.",
     support_note:"Nota: atención especializada en software. No realizamos mantenimiento de hardware ni cambio de piezas físicas.",
+    support_cta:"Solicitar soporte",
+    prompt_name:"Antes de continuar, ¿cuál es tu nombre?",
+    whats_msg_template:"¡Hola! Mi nombre es {name}. Estoy interesado/a en: {plan}.",
     stats_label:"Empresas atendidas",
     contact_eyebrow:"Contacto", contact_title:'Pongamos tu <em>empresa en la cima</em>.',
     security_note:"Nunca envíes contraseñas o datos bancarios por este formulario. Espera nuestro contacto oficial.",
@@ -1061,9 +1090,13 @@ const translations = {
     plan2_desc:"The same full optimization as the Essential Plan, split into 2 payments of R$ 200 via Pix. Our work is delivered within 48h after the first installment is confirmed.",
     plan3_tag:"Google Maps · Recovery", plan3_title:"Recovery Plan", plan3_price_note:"Listing correction · via Pix",
     plan3_desc:"Diagnosis and correction of duplicated, incorrect, or suspended map listings: merge request with Google, ownership verification, and correction of all data. Our technical work is delivered within 48h — reactivation follows Google's own review timeline, which can be immediate or take up to 5 business days. Payment via Pix.",
+    plan1_cta:"Choose this plan", plan2_cta:"Choose this plan", plan3_cta:"Choose this plan",
     support_tag:"IT Support", support_title:"System maintenance",
     support_desc:"Formatting, system setup, and performance boosts for laptops, computers, phones, and tablets.",
     support_note:"Note: software support only. We do not perform hardware repairs or physical part replacement.",
+    support_cta:"Request support",
+    prompt_name:"Before we continue, what's your name?",
+    whats_msg_template:"Hi! My name is {name}. I'm interested in: {plan}.",
     stats_label:"Businesses served",
     contact_eyebrow:"Contact", contact_title:"Let's get your <em>business to the top</em>.",
     security_note:"Never send passwords or banking details through this form. Wait for our official contact.",
@@ -1142,6 +1175,23 @@ contactForm.addEventListener('submit', ()=>{
   const btn = contactForm.querySelector('button[type="submit"]');
   btn.disabled = true;
   document.getElementById('formMsg').textContent = translations[currentLang].form_sent;
+});
+
+/* ---------- PLAN / SUPPORT BUTTONS -> WHATSAPP WITH READY MESSAGE ---------- */
+const WHATSAPP_NUMBER = '5586988846870';
+document.querySelectorAll('.btn-plan-wa').forEach(btn=>{
+  btn.addEventListener('click', (e)=>{
+    e.preventDefault();
+    const t = translations[currentLang];
+    const planKey = btn.getAttribute('data-plan-key');
+    const planName = t[planKey] || '';
+    const name = window.prompt(t.prompt_name);
+    if(!name || !name.trim()) return;
+    const message = t.whats_msg_template
+      .replace('{name}', name.trim())
+      .replace('{plan}', planName);
+    window.open('https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(message), '_blank');
+  });
 });
 
 /* ---------- QR CODES ---------- */
