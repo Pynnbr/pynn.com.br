@@ -1,0 +1,1180 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PYNN — Otimização Google Maps &amp; Suporte Técnico</title>
+<meta name="description" content="PYNN — Agência de otimização Google Maps e suporte técnico em TI. Mais de 103 empresas atendidas.">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#3b82f6">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%93%8D%3C/text%3E%3C/svg%3E">
+<meta property="og:title" content="PYNN — Otimização Google Maps &amp; Suporte Técnico">
+<meta property="og:description" content="Agência de otimização Google Maps e suporte técnico em TI. Mais de 103 empresas atendidas.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "PYNN",
+  "description": "Agência de otimização de perfis no Google Maps e suporte técnico em TI.",
+  "email": "pynn.br@gmail.com",
+  "telephone": "+5586988846870",
+  "sameAs": ["https://www.instagram.com/pynn.br/"],
+  "areaServed": "BR"
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Space+Grotesk:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<style>
+  :root{
+    --bg:#050505;
+    --bg-panel:#111113;
+    --bg-panel-2:#19191c;
+    --fg:#f5f5f4;
+    --fg-muted:#96968f;
+    --border:#2a2a2c;
+
+    --coral:#3b82f6;
+    --coral-soft:#3b82f61f;
+    --blue:#4f8ef7;
+    --blue-soft:#4f8ef71a;
+    --green:#33d17a;
+    --green-soft:#33d17a1a;
+    --yellow:#ffc247;
+    --yellow-soft:#ffc2471a;
+
+    --radius-sm:16px;
+    --radius:24px;
+    --radius-lg:36px;
+    --radius-pill:999px;
+    --ease:cubic-bezier(.16,1,.3,1);
+  }
+  html.light{
+    --bg:#fafafa;
+    --bg-panel:#ffffff;
+    --bg-panel-2:#f0f0ef;
+    --fg:#121212;
+    --fg-muted:#6b6b68;
+    --border:#e2e2df;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    background:var(--bg);
+    color:var(--fg);
+    font-family:'Inter',sans-serif;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+    transition:background-color .4s var(--ease), color .4s var(--ease);
+    overflow-x:hidden;
+    position:relative;
+  }
+  body::before{
+    content:"";
+    position:absolute; top:0; left:0; right:0; height:900px; z-index:-2; pointer-events:none;
+    background: radial-gradient(1100px circle at 50% -8%, var(--coral-soft), transparent 62%);
+  }
+  body::after{
+    content:"";
+    position:absolute; top:0; left:0; right:0; height:900px; z-index:-1; pointer-events:none;
+    background-image: radial-gradient(circle, var(--border) 1px, transparent 1px);
+    background-size: 26px 26px;
+    opacity:.5;
+    -webkit-mask-image: linear-gradient(180deg, black, transparent 65%);
+    mask-image: linear-gradient(180deg, black, transparent 65%);
+  }
+  a{color:inherit; text-decoration:none;}
+  ::selection{background:var(--coral); color:#fff;}
+  img,svg{display:block; max-width:100%;}
+
+  .eyebrow{
+    font-family:'Inter',sans-serif;
+    font-weight:700;
+    font-size:.7rem;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--fg-muted);
+  }
+  h1,h2,h3{
+    font-family:'Fraunces',serif;
+    font-weight:600;
+    letter-spacing:-0.01em;
+    line-height:1.1;
+  }
+  h1 em, h2 em{ font-style:italic; font-weight:500; color:var(--coral); }
+  .wrap{ max-width:1180px; margin:0 auto; padding:0 24px; }
+  section{padding:64px 0;}
+  @media(max-width:768px){ section{padding:36px 0;} }
+
+  /* ---------- NAV ---------- */
+  header{ position:fixed; top:0; left:0; right:0; z-index:100; padding:14px 18px; }
+  nav.wrap{
+    position:relative;
+    display:flex; align-items:center; justify-content:space-between;
+    height:66px; max-width:1180px;
+    background:var(--bg-panel);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:0 14px 0 22px;
+    box-shadow:0 16px 32px -26px rgba(0,0,0,.55);
+  }
+  .logo{ display:flex; align-items:center; height:30px; flex-shrink:0; }
+  .logo-img{ height:100%; width:auto; display:block; filter:invert(1) brightness(1.15); transition:filter .3s; }
+  html.light .logo-img{ filter:none; }
+
+  /* Desktop link menu (hidden on mobile — same links live in the settings menu) */
+  .nav-menu{ display:none; align-items:center; gap:28px; }
+  .nav-menu a{
+    font-size:.86rem; font-weight:500; color:var(--fg-muted);
+    transition:color .2s;
+  }
+  .nav-menu a:hover{ color:var(--fg); }
+  @media(min-width:700px){ .nav-menu{ display:flex; } }
+
+  .nav-controls{ display:flex; align-items:center; gap:10px; }
+  .nav-cta{ display:none; }
+  @media(min-width:640px){
+    .nav-cta{
+      display:inline-block;
+      font-family:'Inter',sans-serif;
+      font-size:.72rem; letter-spacing:.04em;
+      background:var(--coral); color:#fff;
+      font-weight:600;
+      padding:11px 20px; border-radius:var(--radius-sm);
+      transition:transform .2s, box-shadow .2s;
+    }
+    .nav-cta:hover{ transform:translateY(-2px); box-shadow:0 10px 24px -8px var(--coral); }
+  }
+
+  /* Settings menu (sections + language + appearance) */
+  .settings-wrap{ position:relative; }
+  .settings-btn{
+    width:38px; height:38px; flex-shrink:0;
+    display:flex; align-items:center; justify-content:center;
+    background:var(--bg-panel-2); border:1px solid var(--border); border-radius:var(--radius-sm);
+    color:var(--fg); cursor:pointer;
+    transition:border-color .2s, color .2s;
+  }
+  .settings-btn:hover{ border-color:var(--coral); }
+  .settings-btn[aria-expanded="true"]{ border-color:var(--coral); color:var(--coral); }
+  .settings-panel{
+    position:absolute; top:calc(100% + 12px); right:0; z-index:10;
+    width:230px;
+    background:var(--bg-panel); border:1px solid var(--border); border-radius:var(--radius);
+    padding:8px;
+    box-shadow:0 24px 48px -20px rgba(0,0,0,.6);
+    opacity:0; transform:translateY(-8px) scale(.98); pointer-events:none;
+    transition:opacity .2s var(--ease), transform .2s var(--ease);
+  }
+  .settings-panel.open{ opacity:1; transform:translateY(0) scale(1); pointer-events:auto; }
+  .settings-row{ display:flex; align-items:center; justify-content:space-between; gap:12px; padding:12px 10px; }
+  .settings-row + .settings-row{ border-top:1px solid var(--border); }
+  .settings-label{ font-family:'Inter',sans-serif; font-size:.76rem; color:var(--fg-muted); font-weight:600; }
+  .settings-row--menu{ flex-direction:column; align-items:stretch; gap:2px; padding:6px; }
+  .settings-row--menu a{ padding:11px 8px; border-radius:12px; font-size:.88rem; font-weight:500; color:var(--fg); }
+  .settings-row--menu a:hover{ background:var(--bg-panel-2); }
+  @media(min-width:700px){ .settings-row--menu{ display:none; } }
+  .segmented{ display:flex; background:var(--bg-panel-2); border:1px solid var(--border); border-radius:var(--radius-sm); padding:2px; }
+  .segmented button{
+    border:none; background:none; color:var(--fg-muted); font-family:'Inter',sans-serif;
+    font-size:.68rem; font-weight:700; letter-spacing:.02em; padding:6px 10px; border-radius:6px; cursor:pointer;
+    transition:background .2s, color .2s;
+  }
+  .segmented button.active{ background:var(--coral); color:#fff; }
+  .appearance-toggle{
+    display:flex; align-items:center; gap:6px;
+    font-family:'Inter',sans-serif; font-size:.72rem; font-weight:600; color:var(--fg);
+    background:var(--bg-panel-2); border:1px solid var(--border); border-radius:var(--radius-sm);
+    padding:8px 12px; cursor:pointer; transition:border-color .2s;
+  }
+  .appearance-toggle:hover{ border-color:var(--coral); }
+
+  /* ---------- HERO ---------- */
+  .hero{ padding-top:150px; padding-bottom:56px; position:relative; }
+  .hero-photo{
+    background-image:url('https://images.unsplash.com/photo-1761850648640-2ee5870ee883?fm=jpg&q=70&w=1600&auto=format&fit=crop');
+    background-size:cover; background-position:center;
+  }
+  .hero-overlay{
+    position:absolute; inset:0;
+    background:
+      linear-gradient(180deg, color-mix(in srgb, var(--bg) 88%, transparent) 0%, var(--bg) 92%),
+      linear-gradient(120deg, color-mix(in srgb, var(--bg) 80%, transparent), color-mix(in srgb, var(--bg) 55%, transparent));
+  }
+  .hero-center{ position:relative; z-index:1; }
+  .hero-center{ max-width:760px; margin:0 auto; text-align:center; }
+  .hero h1{ font-size:clamp(2.3rem, 6vw, 3.6rem); margin:20px auto 24px; }
+  .hero p.lead{ font-size:1.05rem; color:var(--fg-muted); max-width:52ch; margin:0 auto 32px; }
+  .hero-actions{ display:flex; gap:14px; flex-wrap:wrap; justify-content:center; }
+  .btn{
+    font-family:'Inter',sans-serif;
+    font-size:.76rem; letter-spacing:.05em;
+    padding:16px 26px;
+    border-radius:var(--radius-pill);
+    display:inline-flex; align-items:center; gap:8px;
+    transition:transform .25s var(--ease), box-shadow .25s var(--ease);
+  }
+  .btn-solid{ background:var(--coral); color:#fff; font-weight:600; }
+  .btn-solid:hover{ transform:translateY(-2px); box-shadow:0 14px 28px -10px var(--coral); }
+  .btn-ghost{ border:1.5px solid var(--border); color:var(--fg); background:var(--bg-panel); }
+  .btn-ghost:hover{ border-color:var(--fg); transform:translateY(-2px); }
+
+  .hero-chips{ display:flex; gap:12px; flex-wrap:wrap; justify-content:center; margin-top:40px; }
+  .chip{
+    background:var(--bg-panel); border:1px solid var(--border);
+    border-radius:var(--radius-pill);
+    padding:10px 18px;
+    font-family:'Inter',sans-serif; font-size:.74rem;
+    color:var(--fg);
+    display:inline-flex; align-items:center; gap:6px;
+  }
+  .chip em{ font-style:normal; color:var(--fg-muted); }
+  .chip strong{ color:var(--coral); }
+
+  @media (prefers-reduced-motion: reduce){
+    .plan .ribbon, html{ animation:none !important; transition:none !important; }
+  }
+  @media(max-width:640px){ .hero-chips{ flex-direction:column; align-items:center; } }
+
+  /* ---------- SECTION CARD (replaces hard-edged sections) ---------- */
+  .section-card{
+    border-radius:var(--radius-lg);
+    padding:56px;
+    border:1px solid var(--border);
+  }
+  .section-card.tint-coral{ background:linear-gradient(180deg, var(--coral-soft), var(--bg-panel) 40%); }
+  .section-card.tint-blue{ background:linear-gradient(180deg, var(--blue-soft), var(--bg-panel) 40%); }
+  .section-card.tint-green{ background:linear-gradient(180deg, var(--green-soft), var(--bg-panel) 40%); }
+  .section-card.tint-yellow{ background:linear-gradient(180deg, var(--yellow-soft), var(--bg-panel) 40%); }
+  .section-card.tint-plain{ background:var(--bg-panel); }
+  .section-plain{ padding:0; border:none; background:none; }
+  @media(max-width:768px){ .section-card{ padding:32px 24px; } }
+  @media(max-width:480px){
+    .section-card{ padding:22px 16px; }
+    .plan{ padding:26px 20px; }
+    .hero{ padding-top:128px; }
+    .hero-chips{ gap:10px; }
+    nav.wrap{ padding:0 8px 0 18px; }
+  }
+
+  .section-head{ max-width:640px; margin-bottom:48px; }
+  .section-head h2{ font-size:clamp(1.8rem,3.2vw,2.4rem); margin-top:10px; }
+  .section-head p{ color:var(--fg-muted); margin-top:14px; }
+
+  /* ---------- ABOUT ---------- */
+  .about-grid{ display:block; max-width:680px; margin:0 auto; }
+  .about-name{ font-family:'Fraunces',serif; font-size:1.4rem; margin-top:18px; }
+  .about-role{ color:var(--coral); font-size:.82rem; margin-top:4px; font-family:'Inter',sans-serif; letter-spacing:.04em; text-transform:uppercase; }
+  .about-copy p{ margin-bottom:16px; color:var(--fg-muted); }
+  .about-copy strong{ color:var(--fg); font-weight:600; }
+  .badge-row{ display:flex; gap:10px; flex-wrap:wrap; margin-top:26px; }
+  .badge{
+    border:1px solid var(--border); background:var(--bg-panel-2);
+    padding:10px 16px; border-radius:var(--radius-pill);
+    font-family:'Inter',sans-serif; font-weight:600; font-size:.7rem; letter-spacing:.02em; color:var(--fg-muted);
+  }
+  .badge.b-coral{ color:var(--coral); border-color:var(--coral-soft); background:var(--coral-soft); }
+  .badge.b-blue{ color:var(--blue); border-color:var(--blue-soft); background:var(--blue-soft); }
+  .badge.b-green{ color:var(--green); border-color:var(--green-soft); background:var(--green-soft); }
+
+  /* ---------- PROCESS ---------- */
+  .process-grid{ display:grid; grid-template-columns:1fr 1fr; gap:36px; margin-top:8px; }
+  @media(max-width:760px){ .process-grid{ grid-template-columns:1fr; } }
+  .process-col h3{ font-size:1.05rem; margin-bottom:14px; }
+  .i18n-list ul, .i18n-list ol{ padding-left:20px; color:var(--fg-muted); font-size:.92rem; }
+  .i18n-list li{ margin-bottom:10px; }
+  .i18n-list strong{ color:var(--fg); font-weight:600; }
+  .process-note{
+    margin-top:36px; background:var(--bg-panel-2); border:1px solid var(--border);
+    border-radius:var(--radius); padding:20px 24px;
+  }
+  .process-note p{ color:var(--fg-muted); font-size:.9rem; }
+  .process-note p + p{ margin-top:10px; }
+  .process-note strong{ color:var(--fg); }
+
+  /* ---------- SERVICES ---------- */
+  .plans{ display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-bottom:18px; }
+  @media(max-width:900px){ .plans{ grid-template-columns:1fr; } }
+  .plan{
+    position:relative;
+    background:var(--bg-panel-2); border:1px solid var(--border); border-radius:var(--radius);
+    padding:32px 26px; display:flex; flex-direction:column;
+    transition:transform .35s var(--ease), box-shadow .35s var(--ease), border-color .35s var(--ease);
+  }
+  .plan:hover{
+    transform:translateY(-6px);
+    box-shadow:0 20px 34px -22px rgba(0,0,0,.5);
+    border-color:var(--fg-muted);
+  }
+  .plan.plan-featured{ border-color:var(--blue); }
+  .plan.plan-featured:hover{ transform:translateY(-8px); }
+  .plan .ribbon{
+    position:absolute; top:-13px; left:26px;
+    background:var(--blue); color:#04060c;
+    font-family:'Inter',sans-serif; font-weight:700; font-size:.66rem; letter-spacing:.04em;
+    text-transform:uppercase;
+    padding:6px 14px; border-radius:var(--radius-pill);
+  }
+  .icon-3d{ margin-bottom:14px; transition:transform .3s var(--ease); }
+  .icon-3d svg{ filter:drop-shadow(0 3px 6px rgba(0,0,0,.3)); }
+  .plan:hover .icon-3d{ transform:scale(1.05); }
+  .plan .tag{ font-family:'Inter',sans-serif; font-weight:700; font-size:.66rem; letter-spacing:.08em; color:var(--fg-muted); text-transform:uppercase; }
+  .plan h3{ font-size:1.2rem; margin:12px 0 10px; }
+  .plan .price{ font-family:'Fraunces',serif; font-weight:600; font-size:1.5rem; margin:12px 0; }
+  .plan .price small{ font-size:.68rem; color:var(--fg-muted); display:block; margin-top:4px; font-family:'Inter',sans-serif; }
+  .plan p.desc{ color:var(--fg-muted); font-size:.92rem; flex-grow:1; }
+
+  .support-block{
+    background:var(--bg-panel-2); border:1px solid var(--border); border-radius:var(--radius);
+    padding:20px; display:grid; grid-template-columns:.9fr 1.1fr; gap:28px; align-items:center;
+  }
+  @media(max-width:760px){ .support-block{ grid-template-columns:1fr; } }
+  .support-photo{
+    border-radius:var(--radius-sm); overflow:hidden; aspect-ratio:4/3;
+    display:flex; align-items:center; justify-content:center;
+    background:linear-gradient(160deg, var(--bg-panel-2), var(--bg-panel));
+    padding:18px;
+  }
+  .support-photo svg{ width:100%; height:100%; max-width:340px; filter:drop-shadow(0 14px 22px rgba(0,0,0,.28)); }
+  .support-block h3{ font-size:1.15rem; margin-bottom:12px; }
+  .support-block p{ color:var(--fg-muted); font-size:.94rem; }
+  .support-block .note{
+    font-family:'Inter',sans-serif; font-size:.74rem; color:var(--fg-muted);
+    background:var(--blue-soft); border-radius:var(--radius-sm); padding:14px 16px; margin-top:14px;
+  }
+
+  /* ---------- STATS ---------- */
+  .stats-inner{ text-align:center; }
+  .counter{ font-family:'Fraunces',serif; font-weight:700; font-size:clamp(3.2rem,10vw,6.2rem); line-height:1; color:var(--coral); }
+  .stats-inner p{ color:var(--fg-muted); margin-top:14px; font-family:'Inter',sans-serif; font-size:.78rem; letter-spacing:.1em; text-transform:uppercase; }
+
+  /* ---------- CONTACT ---------- */
+  .contact-grid{ display:grid; grid-template-columns:1fr 1fr; gap:52px; }
+  @media(max-width:900px){ .contact-grid{ grid-template-columns:1fr; } }
+  .field{ margin-bottom:18px; }
+  .field label{
+    display:block; font-family:'Inter',sans-serif; font-size:.68rem; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--fg-muted); margin-bottom:8px;
+  }
+  .field input, .field textarea{
+    width:100%; background:var(--bg-panel-2); border:1.5px solid var(--border); color:var(--fg);
+    padding:14px 18px; font-family:'Inter',sans-serif; font-size:.95rem; border-radius:var(--radius-sm);
+    transition:border-color .2s;
+  }
+  .field input:focus, .field textarea:focus{ outline:none; border-color:var(--coral); }
+  .field textarea{ min-height:110px; resize:vertical; }
+  .security-note{
+    display:flex; gap:12px; background:var(--blue-soft);
+    padding:16px 20px; border-radius:var(--radius-sm); margin-bottom:20px; font-size:.85rem; color:var(--fg-muted);
+  }
+  .security-note svg{ flex-shrink:0; margin-top:2px; color:var(--blue); }
+  .consent{ display:flex; align-items:flex-start; gap:10px; margin-bottom:22px; font-size:.85rem; color:var(--fg-muted); }
+  .consent input{ margin-top:3px; accent-color:var(--coral); width:16px; height:16px; flex-shrink:0; }
+  .consent a{ text-decoration:underline; color:var(--fg); }
+  .form-msg{ font-family:'Inter',sans-serif; font-size:.78rem; margin-top:10px; min-height:18px; color:var(--green); }
+
+  .contact-side h3{ font-family:'Fraunces',serif; font-size:1.15rem; margin-bottom:16px; }
+  .qr-row{ display:flex; gap:18px; flex-wrap:wrap; margin-top:22px; }
+  .qr-card{
+    background:var(--bg-panel-2); padding:20px;
+    border-radius:var(--radius); text-align:center; width:150px;
+  }
+  .qr-card .qr-box{ width:110px; height:110px; margin:0 auto 12px; background:#fff; padding:6px; border-radius:16px; }
+  .qr-card .qr-box canvas, .qr-card .qr-box img{ width:100% !important; height:100% !important; border-radius:10px; }
+  .qr-card span{ font-family:'Inter',sans-serif; font-size:.66rem; letter-spacing:.05em; color:var(--fg-muted); }
+  .contact-links{ margin-top:24px; display:flex; flex-direction:column; gap:10px; }
+  .contact-links a{
+    font-size:.92rem; color:var(--fg-muted); border-bottom:1px solid transparent; width:fit-content;
+    transition:border-color .2s, color .2s;
+  }
+  .contact-links a:hover{ color:var(--coral); border-color:var(--coral); }
+
+  /* ---------- TERMS ---------- */
+  .terms h3{ font-size:1.02rem; margin:22px 0 8px; font-family:'Inter',sans-serif; font-weight:600; }
+  .terms p, .terms li{ color:var(--fg-muted); font-size:.92rem; margin-bottom:10px; }
+  .terms ul{ padding-left:20px; }
+
+  /* ---------- FOOTER ---------- */
+  footer{ padding:24px 18px 40px; }
+  .footer-card{
+    max-width:1180px; margin:0 auto; border-radius:var(--radius-lg);
+    background:var(--bg-panel); border:1px solid var(--border);
+    padding:48px 52px 28px;
+  }
+  @media(max-width:768px){ .footer-card{ padding:36px 24px 24px; } }
+  .footer-grid{ display:flex; justify-content:space-between; flex-wrap:wrap; gap:32px; margin-bottom:32px; }
+  .footer-col h4{
+    font-family:'Inter',sans-serif; font-size:.68rem; letter-spacing:.08em; text-transform:uppercase;
+    color:var(--fg-muted); margin-bottom:14px;
+  }
+  .footer-col a, .footer-col p{ display:block; color:var(--fg-muted); font-size:.88rem; margin-bottom:8px; }
+  .footer-col a:hover{ color:var(--coral); }
+  .footer-bottom{
+    border-top:1px solid var(--border); padding-top:20px; display:flex; justify-content:space-between;
+    flex-wrap:wrap; gap:12px; font-family:'Inter',sans-serif; font-size:.68rem; color:var(--fg-muted);
+  }
+
+  .skip-link:focus{ position:fixed; top:10px; left:10px; z-index:300; background:var(--coral); color:#fff; padding:10px 16px; border-radius:var(--radius-pill); }
+  .skip-link{ position:absolute; left:-9999px; }
+
+  /* ---------- CONSENT MODAL ---------- */
+  .consent-overlay{
+    position:fixed; inset:0; z-index:400;
+    background:color-mix(in srgb, var(--bg) 82%, transparent);
+    display:flex; align-items:flex-end; justify-content:center;
+    padding:20px;
+    opacity:0; pointer-events:none;
+    transition:opacity .4s var(--ease);
+  }
+  .consent-overlay.show{ opacity:1; pointer-events:auto; }
+  @media(min-width:720px){ .consent-overlay{ align-items:center; } }
+  .consent-box{
+    background:var(--bg-panel); border:1px solid var(--border); border-radius:var(--radius-lg);
+    max-width:520px; width:100%; padding:36px;
+    transform:translateY(24px);
+    transition:transform .45s var(--ease);
+  }
+  .consent-overlay.show .consent-box{ transform:translateY(0); }
+  .consent-box h3{ font-family:'Fraunces',serif; font-size:1.3rem; margin-bottom:12px; }
+  .consent-box p{ color:var(--fg-muted); font-size:.9rem; margin-bottom:20px; }
+  .consent-box a{ color:var(--coral); text-decoration:underline; }
+  .consent-actions{ display:flex; gap:12px; flex-wrap:wrap; }
+  @media (prefers-reduced-motion: reduce){ .consent-overlay, .consent-box{ transition:none; } }
+</style>
+</head>
+<body>
+
+<a href="#main" class="skip-link">Pular para o conteúdo</a>
+
+<!-- CONSENT MODAL -->
+<div class="consent-overlay" id="consentOverlay" role="dialog" aria-modal="true" aria-labelledby="consentTitle">
+  <div class="consent-box">
+    <h3 id="consentTitle" data-i18n="consent_modal_title">Privacidade em primeiro lugar</h3>
+    <p data-i18n="consent_modal_text">Usamos os dados enviados por você apenas para responder ao seu pedido de orçamento ou suporte. Leia nossa <a href="#termos">Política de Privacidade e Termos de Uso</a> antes de continuar.</p>
+    <div class="consent-actions">
+      <button class="btn btn-solid" id="consentAccept" data-i18n="consent_modal_accept">Li e aceito</button>
+    </div>
+  </div>
+</div>
+
+<header>
+  <nav class="wrap">
+    <div class="logo"><img src="data:image/png;base64,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" alt="PYNN" class="logo-img"></div>
+
+    <div class="nav-menu" id="navMenu">
+      <a href="#sobre" data-i18n="menu_about">Sobre</a>
+      <a href="#processo" data-i18n="menu_process">Como funciona</a>
+      <a href="#servicos" data-i18n="menu_services">Serviços</a>
+      <a href="#contato" data-i18n="menu_contact">Contato</a>
+    </div>
+
+    <div class="nav-controls">
+      <a href="#contato" class="nav-cta" data-i18n="nav_cta">Fale conosco</a>
+      <div class="settings-wrap">
+        <button class="settings-btn" id="settingsBtn" aria-haspopup="true" aria-expanded="false" aria-label="Menu e configurações">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.6a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z"></path>
+          </svg>
+        </button>
+        <div class="settings-panel" id="settingsPanel" role="menu">
+          <div class="settings-row settings-row--menu">
+            <a href="#sobre" data-i18n="menu_about">Sobre</a>
+            <a href="#processo" data-i18n="menu_process">Como funciona</a>
+            <a href="#servicos" data-i18n="menu_services">Serviços</a>
+            <a href="#contato" data-i18n="menu_contact">Contato</a>
+          </div>
+          <div class="settings-row">
+            <span class="settings-label" data-i18n="settings_language">Idioma</span>
+            <div class="segmented" id="langSegmented">
+              <button type="button" data-lang="pt" class="active">PT</button>
+              <button type="button" data-lang="es">ES</button>
+              <button type="button" data-lang="en">EN</button>
+            </div>
+          </div>
+          <div class="settings-row">
+            <span class="settings-label" data-i18n="settings_appearance">Aparência</span>
+            <button type="button" class="appearance-toggle" id="themeToggle" aria-label="Alternar tema claro/escuro">
+              <span id="themeIcon">●</span> <span id="themeLabel" data-i18n="theme_dark">Escuro</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<main id="main">
+
+  <!-- HERO -->
+  <section class="hero hero-photo">
+    <div class="hero-overlay"></div>
+    <div class="wrap hero-center">
+      <p class="eyebrow" data-i18n="hero_eyebrow">Otimização Google Maps · Suporte Técnico</p>
+      <h1 data-i18n="hero_title">Sua empresa, <em>encontrada</em> antes da concorrência.</h1>
+      <p class="lead" data-i18n="hero_lead">Conduzimos negócios da página dois até a primeira posição no Google Maps — e mantemos seus equipamentos funcionando no ritmo certo. Método técnico, resultado mensurável.</p>
+      <div class="hero-actions">
+        <a href="#contato" class="btn btn-solid" data-i18n="hero_cta1">Solicitar orçamento</a>
+        <a href="#servicos" class="btn btn-ghost" data-i18n="hero_cta2">Ver planos</a>
+      </div>
+      <div class="hero-chips">
+        <span class="chip">★ 5.0 <em data-i18n="chip_rating_label">média dos clientes</em></span>
+        <span class="chip"><strong>+103</strong> <em data-i18n="chip_count_label">empresas no topo</em></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about" id="sobre">
+    <div class="wrap">
+      <div class="section-plain">
+        <div class="about-grid">
+          <div class="about-copy">
+            <p class="eyebrow" data-i18n="about_eyebrow">Sobre mim</p>
+            <h2 data-i18n="about_title" style="margin:12px 0 22px; font-size:clamp(1.7rem,3vw,2.2rem);">Disciplina que <em>vira resultado</em>.</h2>
+            <p data-i18n="about_p1">Sou estudante de <strong>Redes de Computadores (Superior)</strong> no Instituto Federal do Maranhão (IFMA). Sou uma pessoa com deficiência múltipla, e minha trajetória é marcada pela superação — conquistei o <strong>1º lugar no Sisu/Enem 2024</strong>.</p>
+            <p data-i18n="about_p2">Essa mesma disciplina que me levou ao topo da classificação nacional é a que aplico todos os dias para colocar empresas no topo do Google Maps. Autoridade técnica, seriedade e acessibilidade guiam cada projeto que assino.</p>
+            <div class="badge-row">
+              <span class="badge b-coral" data-i18n="about_badge1">IFMA · Redes de Computadores</span>
+              <span class="badge b-blue" data-i18n="about_badge2">1º lugar Sisu/Enem 2024</span>
+              <span class="badge b-green" data-i18n="about_badge3">+103 empresas atendidas</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS / EXPLANATION -->
+  <section class="process" id="processo">
+    <div class="wrap">
+      <div class="section-plain">
+        <div class="section-head">
+          <p class="eyebrow" data-i18n="process_eyebrow">Como funciona</p>
+          <h2 data-i18n="process_title">O que é a otimização do <em>Google Maps</em>, e por que ela importa</h2>
+          <p data-i18n="process_intro">O perfil da sua empresa no Google Maps (o Perfil da Empresa no Google) é o que aparece quando alguém pesquisa pelo seu tipo de negócio ou pelo nome dele — no mapa, na busca do Google e no Google Meu Negócio. Otimizar esse perfil significa ajustar categoria, descrição, palavras-chave, fotos, horários e demais informações para que o Google entenda melhor o seu negócio e o mostre para quem está procurando na sua região.</p>
+        </div>
+
+        <div class="process-grid">
+          <div class="process-col">
+            <h3 data-i18n="process_why_title">Por que isso importa</h3>
+            <div class="i18n-list" data-i18n="process_why_list">
+              <ul>
+                <li>A maioria das buscas por "perto de mim" termina em contato ou visita dentro de 24 horas.</li>
+                <li>Um perfil bem otimizado aparece antes da concorrência, sem pagar por anúncio.</li>
+                <li>Muitas empresas ainda não otimizam o próprio perfil — isso é uma vantagem competitiva rápida de conquistar.</li>
+                <li>Informações completas (fotos, horários, categoria certa) aumentam a confiança de quem está decidindo te procurar.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="process-col">
+            <h3 data-i18n="process_how_title">Como funciona, passo a passo</h3>
+            <div class="i18n-list" data-i18n="process_how_list">
+              <ol>
+                <li><strong>Diagnóstico:</strong> analisamos o estado atual do seu perfil (ou a ausência dele).</li>
+                <li><strong>Otimização técnica:</strong> categoria, descrição com palavras-chave, horários, área de atendimento, fotos e demais campos.</li>
+                <li><strong>Envio ao Google:</strong> as alterações são enviadas para análise da plataforma.</li>
+                <li><strong>Análise do Google:</strong> normalmente entra no ar rapidamente, mas em alguns casos o Google leva até 5 dias úteis analisando as informações para confirmar que está tudo correto antes de liberar. Isso é normal e não significa que algo deu errado.</li>
+                <li><strong>Perfil ativo:</strong> sua empresa passa a aparecer otimizada no mapa e na busca.</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+
+        <div class="process-note">
+          <p data-i18n="process_delivery_note"><strong>Nosso prazo de entrega:</strong> o trabalho técnico é entregue em até 48h após a confirmação do pagamento. <strong>Prazo do Google:</strong> a ativação pode ser imediata ou levar até 5 dias úteis, dependendo da análise da própria plataforma.</p>
+          <p data-i18n="process_payment_note"><strong>Pagamento:</strong> aceitamos somente via Pix.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="services" id="servicos">
+    <div class="wrap">
+      <div class="section-card tint-blue">
+        <div class="section-head">
+          <p class="eyebrow" data-i18n="services_eyebrow">Serviços</p>
+          <h2 data-i18n="services_title">Planos <em>claros</em>, sem letras miúdas.</h2>
+          <p data-i18n="services_lead">Escolha o plano de otimização de Google Maps que faz sentido para o seu momento, ou conte com nosso suporte técnico especializado.</p>
+        </div>
+
+        <div class="plans">
+          <div class="plan c-coral">
+            <div class="icon-3d">
+              <svg viewBox="0 0 64 64" width="52" height="52" aria-hidden="true">
+                <defs>
+                  <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0" stop-color="#7fb0ff"/>
+                    <stop offset="1" stop-color="#3b82f6"/>
+                  </linearGradient>
+                </defs>
+                <path d="M32 6C20.4 6 11 15.4 11 27c0 15.5 21 31 21 31s21-15.5 21-31C53 15.4 43.6 6 32 6Z" fill="url(#g1)"/>
+                <circle cx="32" cy="27" r="9" fill="#eaf2ff"/>
+                <ellipse cx="26" cy="20" rx="6" ry="3" fill="#ffffff" opacity=".5"/>
+              </svg>
+            </div>
+            <span class="tag" data-i18n="plan1_tag">Google Maps</span>
+            <h3 data-i18n="plan1_title">Plano Essencial</h3>
+            <div class="price">R$ 350<small data-i18n="plan1_price_note">Pagamento à vista via Pix</small></div>
+            <p class="desc" data-i18n="plan1_desc">Otimização completa do perfil da sua empresa no Google Maps: categoria certa, descrição com palavras-chave, horários, fotos e demais informações, do zero até a primeira posição no seu setor. Entrega do nosso trabalho em até 48h após a confirmação do pagamento. Pagamento via Pix.</p>
+          </div>
+          <div class="plan c-blue plan-featured">
+            <span class="ribbon" data-i18n="plan2_ribbon">Mais escolhido</span>
+            <div class="icon-3d">
+              <svg viewBox="0 0 64 64" width="52" height="52" aria-hidden="true">
+                <defs>
+                  <linearGradient id="g2" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0" stop-color="#8fd8ff"/>
+                    <stop offset="1" stop-color="#4f8ef7"/>
+                  </linearGradient>
+                </defs>
+                <path d="M32 6C20.4 6 11 15.4 11 27c0 15.5 21 31 21 31s21-15.5 21-31C53 15.4 43.6 6 32 6Z" fill="url(#g2)"/>
+                <circle cx="32" cy="27" r="9" fill="#eaf6ff"/>
+                <ellipse cx="26" cy="20" rx="6" ry="3" fill="#ffffff" opacity=".5"/>
+                <circle cx="48" cy="14" r="10" fill="#0d1117" stroke="#4f8ef7" stroke-width="1.5"/>
+                <text x="48" y="18" text-anchor="middle" font-size="9" font-weight="700" fill="#eaf6ff" font-family="Inter,sans-serif">2x</text>
+              </svg>
+            </div>
+            <span class="tag" data-i18n="plan2_tag">Google Maps</span>
+            <h3 data-i18n="plan2_title">Plano Flexível</h3>
+            <div class="price">2x R$ 200<small data-i18n="plan2_price_note">2x via Pix · Total R$ 400,00</small></div>
+            <p class="desc" data-i18n="plan2_desc">A mesma otimização completa do Plano Essencial, dividida em 2 pagamentos de R$ 200 via Pix. Entrega do nosso trabalho em até 48h após a confirmação da primeira parcela.</p>
+          </div>
+          <div class="plan c-green">
+            <div class="icon-3d">
+              <svg viewBox="0 0 64 64" width="52" height="52" aria-hidden="true">
+                <defs>
+                  <linearGradient id="g3" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0" stop-color="#6be3b0"/>
+                    <stop offset="1" stop-color="#33d17a"/>
+                  </linearGradient>
+                </defs>
+                <path d="M32 6C20.4 6 11 15.4 11 27c0 15.5 21 31 21 31s21-15.5 21-31C53 15.4 43.6 6 32 6Z" fill="url(#g3)"/>
+                <circle cx="32" cy="27" r="9" fill="#eafff3"/>
+                <ellipse cx="26" cy="20" rx="6" ry="3" fill="#ffffff" opacity=".5"/>
+                <g transform="translate(44,10)">
+                  <circle r="10" fill="#0d1117" stroke="#33d17a" stroke-width="1.5"/>
+                  <path d="M-4,-1 A4.2,4.2 0 1 1 -3.4,2.4" fill="none" stroke="#eafff3" stroke-width="1.6" stroke-linecap="round"/>
+                  <path d="M-5.2,-3 L-3.6,-0.6 L-6.2,0.2 Z" fill="#eafff3"/>
+                </g>
+              </svg>
+            </div>
+            <span class="tag" data-i18n="plan3_tag">Google Maps · Recuperação</span>
+            <h3 data-i18n="plan3_title">Plano Recuperação</h3>
+            <div class="price">R$ 600<small data-i18n="plan3_price_note">Correção de cadastro · via Pix</small></div>
+            <p class="desc" data-i18n="plan3_desc">Diagnóstico e correção de perfis duplicados, incorretos ou suspensos no mapa: mesclagem junto ao Google, verificação de propriedade e correção de todos os dados. Entrega do nosso trabalho técnico em até 48h — a reativação segue o prazo de análise do próprio Google, que pode ser imediata ou levar até 5 dias úteis. Pagamento via Pix.</p>
+          </div>
+        </div>
+
+        <div class="support-block">
+          <div class="support-photo">
+            <svg viewBox="0 0 440 320" role="img" aria-label="Ilustração 3D de um notebook em manutenção">
+              <defs>
+                <linearGradient id="lapBody" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0" stop-color="#8fc0ff"/>
+                  <stop offset="1" stop-color="#3b82f6"/>
+                </linearGradient>
+                <linearGradient id="lapBodyDark" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#3568c9"/>
+                  <stop offset="1" stop-color="#204a9e"/>
+                </linearGradient>
+                <linearGradient id="lapScreen" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#1c2740"/>
+                  <stop offset="1" stop-color="#0c1220"/>
+                </linearGradient>
+                <linearGradient id="barGrad" x1="0" y1="1" x2="0" y2="0">
+                  <stop offset="0" stop-color="#4f8ef7"/>
+                  <stop offset="1" stop-color="#8fe3ff"/>
+                </linearGradient>
+                <linearGradient id="gearGrad" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0" stop-color="#6be3b0"/>
+                  <stop offset="1" stop-color="#33d17a"/>
+                </linearGradient>
+                <filter id="softBlur" x="-50%" y="-50%" width="200%" height="200%">
+                  <feGaussianBlur stdDeviation="6"/>
+                </filter>
+              </defs>
+
+              <!-- ground shadow -->
+              <ellipse cx="220" cy="272" rx="140" ry="16" fill="#000" opacity=".22" filter="url(#softBlur)"/>
+
+              <g transform="rotate(-3 220 150)">
+                <!-- keyboard deck (perspective trapezoid) -->
+                <polygon points="70,196 372,196 336,238 106,238" fill="url(#lapBodyDark)"/>
+                <polygon points="70,196 372,196 372,204 70,204" fill="#ffffff" opacity=".15"/>
+                <!-- keyboard keys hint -->
+                <g opacity=".35">
+                  <rect x="128" y="208" width="186" height="4" rx="2" fill="#0c1220"/>
+                  <rect x="140" y="218" width="162" height="4" rx="2" fill="#0c1220"/>
+                </g>
+
+                <!-- screen back -->
+                <rect x="98" y="34" width="246" height="168" rx="16" fill="url(#lapBody)"/>
+                <!-- screen bezel -->
+                <rect x="112" y="48" width="218" height="140" rx="10" fill="url(#lapScreen)"/>
+                <!-- top highlight -->
+                <rect x="112" y="48" width="218" height="10" rx="5" fill="#ffffff" opacity=".18"/>
+
+                <!-- performance bars inside screen -->
+                <rect x="140" y="140" width="18" height="34" rx="4" fill="url(#barGrad)"/>
+                <rect x="168" y="122" width="18" height="52" rx="4" fill="url(#barGrad)"/>
+                <rect x="196" y="100" width="18" height="74" rx="4" fill="url(#barGrad)"/>
+                <path d="M140 138 168 118 196 96 222 78" fill="none" stroke="#eaf6ff" stroke-width="3" stroke-linecap="round" opacity=".8"/>
+                <circle cx="222" cy="78" r="6" fill="#eaf6ff"/>
+
+                <!-- small status dots -->
+                <circle cx="252" cy="66" r="3" fill="#ff6b6b" opacity=".85"/>
+                <circle cx="264" cy="66" r="3" fill="#ffc247" opacity=".85"/>
+                <circle cx="276" cy="66" r="3" fill="#33d17a" opacity=".85"/>
+              </g>
+
+              <!-- floating gear (maintenance) -->
+              <g transform="translate(348,54)">
+                <circle r="26" fill="#0d1117" stroke="url(#gearGrad)" stroke-width="2.5"/>
+                <g fill="none" stroke="url(#gearGrad)" stroke-width="3.4" stroke-linecap="round">
+                  <path d="M0 -12 L0 -18 M0 12 L0 18 M-12 0 L-18 0 M12 0 L18 0 M-8.5 -8.5 L-12.7 -12.7 M8.5 8.5 L12.7 12.7 M-8.5 8.5 L-12.7 12.7 M8.5 -8.5 L12.7 -12.7"/>
+                </g>
+                <circle r="8" fill="url(#gearGrad)"/>
+              </g>
+
+              <!-- floating signal / connectivity -->
+              <g transform="translate(70,66)">
+                <circle r="22" fill="#0d1117" stroke="#ffc247" stroke-width="2.5"/>
+                <path d="M-9 6 A13 13 0 0 1 9 6" fill="none" stroke="#ffc247" stroke-width="3" stroke-linecap="round"/>
+                <path d="M-4.5 9 A6.5 6.5 0 0 1 4.5 9" fill="none" stroke="#ffc247" stroke-width="3" stroke-linecap="round"/>
+                <circle cx="0" cy="10.5" r="2.4" fill="#ffc247"/>
+              </g>
+            </svg>
+          </div>
+          <div style="padding:12px 24px 12px 0;">
+            <span class="tag" data-i18n="support_tag">Suporte Técnico</span>
+            <h3 data-i18n="support_title">Manutenção de sistemas em TI</h3>
+            <p data-i18n="support_desc">Formatação, configuração de sistemas e aceleração de desempenho para notebooks, computadores, celulares e tablets.</p>
+            <p class="note" data-i18n="support_note">Nota: atendimento especializado em software. Não realizamos manutenção de hardware ou troca de peças físicas.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <section class="stats">
+    <div class="wrap">
+      <div class="section-plain stats-inner">
+        <div class="counter" id="counter" data-target="103">+103</div>
+        <p data-i18n="stats_label">Empresas atendidas</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contato">
+    <div class="wrap">
+      <div class="section-card tint-green">
+        <div class="section-head">
+          <p class="eyebrow" data-i18n="contact_eyebrow">Contato</p>
+          <h2 data-i18n="contact_title">Vamos colocar sua <em>empresa no topo</em>.</h2>
+        </div>
+
+        <div class="contact-grid">
+          <form id="contactForm" action="https://formsubmit.co/pynn.br@gmail.com" method="POST">
+            <input type="hidden" name="_subject" value="Novo contato via site PYNN">
+            <input type="hidden" name="_template" value="table">
+            <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
+            <div class="security-note">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 2 3 6v6c0 5 4 9 9 10 5-1 9-5 9-10V6l-9-4Z"/><path d="M9 12l2 2 4-4"/></svg>
+              <span data-i18n="security_note">Nunca envie senhas ou dados bancários por este formulário. Aguarde nosso contato oficial.</span>
+            </div>
+
+            <div class="field">
+              <label for="fname" data-i18n="field_name">Nome</label>
+              <input id="fname" name="name" type="text" required>
+            </div>
+            <div class="field">
+              <label for="femail" data-i18n="field_email">E-mail</label>
+              <input id="femail" name="email" type="email" required>
+            </div>
+            <div class="field">
+              <label for="fsubject" data-i18n="field_subject">Assunto</label>
+              <input id="fsubject" name="subject" type="text" required>
+            </div>
+            <div class="field">
+              <label for="fmessage" data-i18n="field_message">Mensagem</label>
+              <textarea id="fmessage" name="message" required></textarea>
+            </div>
+
+            <label class="consent">
+              <input type="checkbox" required>
+              <span data-i18n="consent_text">Li e concordo com a <a href="#termos">Política de Privacidade e Termos de Uso</a> da agência.</span>
+            </label>
+
+            <button type="submit" class="btn btn-solid" data-i18n="form_submit">Enviar mensagem</button>
+            <div class="form-msg" id="formMsg"></div>
+          </form>
+
+          <div class="contact-side">
+            <h3 data-i18n="contact_side_title">Fale direto conosco</h3>
+            <div class="contact-links">
+              <a href="mailto:pynn.br@gmail.com">pynn.br@gmail.com</a>
+              <a href="tel:+5586988846870">Telefone — (86) 98884-6870</a>
+              <a href="https://wa.me/5586988846870" target="_blank" rel="noopener">WhatsApp — (86) 98884-6870</a>
+              <a href="https://www.instagram.com/pynn.br/" target="_blank" rel="noopener">Instagram — @pynn.br</a>
+            </div>
+
+            <div class="qr-row">
+              <div class="qr-card">
+                <div class="qr-box" id="qrWhats"></div>
+                <span data-i18n="qr_whats">Escanear · WhatsApp</span>
+              </div>
+              <div class="qr-card">
+                <div class="qr-box" id="qrInsta"></div>
+                <span data-i18n="qr_insta">Escanear · Instagram</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TERMS -->
+  <section class="terms" id="termos">
+    <div class="wrap">
+      <div class="section-plain" style="max-width:820px; margin:0 auto;">
+        <p class="eyebrow" data-i18n="terms_eyebrow">Legal</p>
+        <h2 style="margin:12px 0 22px; font-size:1.8rem;" data-i18n="terms_title">Política de Privacidade e Termos de Uso</h2>
+
+        <h3 data-i18n="terms_h1">1. Dados coletados</h3>
+        <p data-i18n="terms_p1">Coletamos apenas os dados fornecidos voluntariamente no formulário de contato: nome, e-mail, assunto e mensagem. Não solicitamos senhas, dados bancários ou informações sensíveis por este canal.</p>
+
+        <h3 data-i18n="terms_h2">2. Finalidade do uso</h3>
+        <p data-i18n="terms_p2">As informações são utilizadas exclusivamente para responder à sua solicitação de orçamento ou suporte, e não são compartilhadas com terceiros.</p>
+
+        <h3 data-i18n="terms_h3">3. Segurança</h3>
+        <p data-i18n="terms_p3">Todo contato oficial parte dos canais informados nesta página. Desconfie de mensagens que solicitem pagamentos ou dados fora desses canais.</p>
+
+        <h3 data-i18n="terms_h4">4. Seus direitos</h3>
+        <p data-i18n="terms_p4">Você pode solicitar a exclusão dos seus dados a qualquer momento, entrando em contato pelo e-mail pynn.br@gmail.com.</p>
+
+        <h3 data-i18n="terms_h5">5. Aceite</h3>
+        <p data-i18n="terms_p5">Ao marcar a caixa de aceite no formulário de contato — ou ao clicar em "Li e aceito" no aviso inicial — você confirma estar de acordo com estes termos.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="footer-card">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h4 data-i18n="footer_agency">Agência</h4>
+        <p>PYNN</p>
+      </div>
+      <div class="footer-col">
+        <h4 data-i18n="footer_contact">Contato</h4>
+        <a href="mailto:pynn.br@gmail.com">pynn.br@gmail.com</a>
+        <a href="https://wa.me/5586988846870" target="_blank" rel="noopener">WhatsApp</a>
+        <a href="https://www.instagram.com/pynn.br/" target="_blank" rel="noopener">Instagram</a>
+      </div>
+      <div class="footer-col">
+        <h4 data-i18n="footer_legal">Legal</h4>
+        <a href="#termos" data-i18n="footer_terms">Política de Privacidade e Termos de Uso</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span id="year"></span> PYNN</span>
+      <span data-i18n="footer_note">Feito com precisão técnica.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+
+/* ---------- THEME ---------- */
+const themeToggle = document.getElementById('themeToggle');
+const themeLabel = document.getElementById('themeLabel');
+const themeIcon = document.getElementById('themeIcon');
+let isLight = true;
+function applyTheme(light){
+  document.documentElement.classList.toggle('light', light);
+  themeIcon.textContent = light ? '○' : '●';
+  themeLabel.setAttribute('data-i18n', light ? 'theme_light' : 'theme_dark');
+  setLang(currentLang);
+}
+themeToggle.addEventListener('click', ()=>{ isLight = !isLight; applyTheme(isLight); });
+
+/* ---------- I18N ---------- */
+const translations = {
+  pt: {
+    nav_cta:"Fale conosco",
+    menu_about:"Sobre", menu_process:"Como funciona", menu_services:"Serviços", menu_contact:"Contato",
+    theme_dark:"Escuro", theme_light:"Claro",
+    settings_language:"Idioma", settings_appearance:"Aparência",
+    hero_eyebrow:"Otimização Google Maps · Suporte Técnico",
+    hero_title:'Sua empresa, <em>encontrada</em> antes da concorrência.',
+    hero_lead:"Conduzimos negócios da página dois até a primeira posição no Google Maps — em qualquer lugar do mapa. Método técnico, resultado mensurável.",
+    hero_cta1:"Solicitar orçamento", hero_cta2:"Ver planos",
+    chip_rating_label:"média dos clientes", chip_count_label:"empresas no topo", chip_page_label:"Da pág. 2 à pág. 1",
+    about_eyebrow:"Sobre mim", about_role:"FUNDADOR · PYNN",
+    mini_name:"Nome da Empresa", mini_city:"São Luís, MA", mini_rating:"5.0", mini_desc:"Assim é como sua empresa pode aparecer no Google Maps depois da otimização PYNN.",
+    about_title:'Disciplina que <em>vira resultado</em>.',
+    about_p1:"Sou estudante de <strong>Redes de Computadores (Superior)</strong> no Instituto Federal do Maranhão (IFMA). Sou uma pessoa com deficiência múltipla, e minha trajetória é marcada pela superação — conquistei o <strong>1º lugar no Sisu/Enem 2024</strong>.",
+    about_p2:"Essa mesma disciplina que me levou ao topo da classificação nacional é a que aplico todos os dias para colocar empresas no topo do Google Maps. Autoridade técnica, seriedade e acessibilidade guiam cada projeto que assino.",
+    about_badge1:"IFMA · Redes de Computadores", about_badge2:"1º lugar Sisu/Enem 2024", about_badge3:"+103 empresas atendidas",
+    process_eyebrow:"Como funciona",
+    process_title:'O que é a otimização do <em>Google Maps</em>, e por que ela importa',
+    process_intro:"O perfil da sua empresa no Google Maps (o Perfil da Empresa no Google) é o que aparece quando alguém pesquisa pelo seu tipo de negócio ou pelo nome dele — no mapa, na busca do Google e no Google Meu Negócio. Otimizar esse perfil significa ajustar categoria, descrição, palavras-chave, fotos, horários e demais informações para que o Google entenda melhor o seu negócio e o mostre para quem está procurando na sua região.",
+    process_why_title:"Por que isso importa",
+    process_why_list:'<ul><li>A maioria das buscas por "perto de mim" termina em contato ou visita dentro de 24 horas.</li><li>Um perfil bem otimizado aparece antes da concorrência, sem pagar por anúncio.</li><li>Muitas empresas ainda não otimizam o próprio perfil — isso é uma vantagem competitiva rápida de conquistar.</li><li>Informações completas (fotos, horários, categoria certa) aumentam a confiança de quem está decidindo te procurar.</li></ul>',
+    process_how_title:"Como funciona, passo a passo",
+    process_how_list:'<ol><li><strong>Diagnóstico:</strong> analisamos o estado atual do seu perfil (ou a ausência dele).</li><li><strong>Otimização técnica:</strong> categoria, descrição com palavras-chave, horários, área de atendimento, fotos e demais campos.</li><li><strong>Envio ao Google:</strong> as alterações são enviadas para análise da plataforma.</li><li><strong>Análise do Google:</strong> normalmente entra no ar rapidamente, mas em alguns casos o Google leva até 5 dias úteis analisando as informações para confirmar que está tudo correto antes de liberar. Isso é normal e não significa que algo deu errado.</li><li><strong>Perfil ativo:</strong> sua empresa passa a aparecer otimizada no mapa e na busca.</li></ol>',
+    process_delivery_note:'<strong>Nosso prazo de entrega:</strong> o trabalho técnico é entregue em até 48h após a confirmação do pagamento. <strong>Prazo do Google:</strong> a ativação pode ser imediata ou levar até 5 dias úteis, dependendo da análise da própria plataforma.',
+    process_payment_note:'<strong>Pagamento:</strong> aceitamos somente via Pix.',
+    services_eyebrow:"Serviços",
+    services_title:'Planos <em>claros</em>, sem letras miúdas.',
+    services_lead:"Escolha o plano de otimização de Google Maps que faz sentido para o seu momento, ou conte com nosso suporte técnico especializado.",
+    plan1_tag:"Google Maps", plan1_title:"Plano Essencial", plan1_price_note:"Pagamento à vista via Pix",
+    plan1_desc:"Otimização completa do perfil da sua empresa no Google Maps: categoria certa, descrição com palavras-chave, horários, fotos e demais informações, do zero até a primeira posição no seu setor. Entrega do nosso trabalho em até 48h após a confirmação do pagamento. Pagamento via Pix.",
+    plan2_tag:"Google Maps", plan2_ribbon:"Mais escolhido", plan2_title:"Plano Flexível", plan2_price_note:"2x via Pix · Total R$ 400,00",
+    plan2_desc:"A mesma otimização completa do Plano Essencial, dividida em 2 pagamentos de R$ 200 via Pix. Entrega do nosso trabalho em até 48h após a confirmação da primeira parcela.",
+    plan3_tag:"Google Maps · Recuperação", plan3_title:"Plano Recuperação", plan3_price_note:"Correção de cadastro · via Pix",
+    plan3_desc:"Diagnóstico e correção de perfis duplicados, incorretos ou suspensos no mapa: mesclagem junto ao Google, verificação de propriedade e correção de todos os dados. Entrega do nosso trabalho técnico em até 48h — a reativação segue o prazo de análise do próprio Google, que pode ser imediata ou levar até 5 dias úteis. Pagamento via Pix.",
+    support_tag:"Suporte Técnico", support_title:"Manutenção de sistemas em TI",
+    support_desc:"Formatação, configuração de sistemas e aceleração de desempenho para notebooks, computadores, celulares e tablets.",
+    support_note:"Nota: atendimento especializado em software. Não realizamos manutenção de hardware ou troca de peças físicas.",
+    stats_label:"Empresas atendidas",
+    contact_eyebrow:"Contato", contact_title:'Vamos colocar sua <em>empresa no topo</em>.',
+    security_note:"Nunca envie senhas ou dados bancários por este formulário. Aguarde nosso contato oficial.",
+    field_name:"Nome", field_email:"E-mail", field_subject:"Assunto", field_message:"Mensagem",
+    consent_text:'Li e concordo com a <a href="#termos">Política de Privacidade e Termos de Uso</a> da agência.',
+    form_submit:"Enviar mensagem",
+    contact_side_title:"Fale direto conosco",
+    qr_whats:"Escanear · WhatsApp", qr_insta:"Escanear · Instagram",
+    terms_eyebrow:"Legal", terms_title:"Política de Privacidade e Termos de Uso",
+    terms_h1:"1. Dados coletados", terms_p1:"Coletamos apenas os dados fornecidos voluntariamente no formulário de contato: nome, e-mail, assunto e mensagem. Não solicitamos senhas, dados bancários ou informações sensíveis por este canal.",
+    terms_h2:"2. Finalidade do uso", terms_p2:"As informações são utilizadas exclusivamente para responder à sua solicitação de orçamento ou suporte, e não são compartilhadas com terceiros.",
+    terms_h3:"3. Segurança", terms_p3:"Todo contato oficial parte dos canais informados nesta página. Desconfie de mensagens que solicitem pagamentos ou dados fora desses canais.",
+    terms_h4:"4. Seus direitos", terms_p4:"Você pode solicitar a exclusão dos seus dados a qualquer momento, entrando em contato pelo e-mail pynn.br@gmail.com.",
+    terms_h5:"5. Aceite", terms_p5:'Ao marcar a caixa de aceite no formulário de contato — ou ao clicar em "Li e aceito" no aviso inicial — você confirma estar de acordo com estes termos.',
+    footer_agency:"Agência", footer_contact:"Contato", footer_legal:"Legal", footer_terms:"Política de Privacidade e Termos de Uso",
+    footer_note:"Feito com precisão técnica.",
+    form_sent:"Enviando sua mensagem...",
+    consent_modal_title:"Privacidade em primeiro lugar",
+    consent_modal_text:'Usamos os dados enviados por você apenas para responder ao seu pedido de orçamento ou suporte. Leia nossa <a href="#termos">Política de Privacidade e Termos de Uso</a> antes de continuar.',
+    consent_modal_accept:"Li e aceito"
+  },
+  es: {
+    nav_cta:"Hablemos",
+    menu_about:"Sobre", menu_process:"Cómo funciona", menu_services:"Servicios", menu_contact:"Contacto",
+    theme_dark:"Oscuro", theme_light:"Claro",
+    settings_language:"Idioma", settings_appearance:"Apariencia",
+    hero_eyebrow:"Optimización Google Maps · Soporte Técnico",
+    hero_title:'Tu empresa, <em>encontrada</em> antes que la competencia.',
+    hero_lead:"Llevamos negocios de la página dos a la primera posición de Google Maps — en cualquier lugar del mapa. Método técnico, resultado medible.",
+    hero_cta1:"Solicitar presupuesto", hero_cta2:"Ver planes",
+    chip_rating_label:"promedio de clientes", chip_count_label:"empresas en la cima", chip_page_label:"De la pág. 2 a la pág. 1",
+    about_eyebrow:"Sobre mí", about_role:"FUNDADOR · PYNN",
+    mini_name:"Nombre de la Empresa", mini_city:"São Luís, MA", mini_rating:"5.0", mini_desc:"Así es como tu empresa puede aparecer en Google Maps después de la optimización PYNN.",
+    about_title:'Disciplina que <em>se convierte en resultado</em>.',
+    about_p1:"Soy estudiante de <strong>Redes de Computadoras (Superior)</strong> en el Instituto Federal de Maranhão (IFMA). Soy una persona con discapacidad múltiple, y mi trayectoria está marcada por la superación — obtuve el <strong>1er lugar en el Sisu/Enem 2024</strong>.",
+    about_p2:"Esa misma disciplina que me llevó a la cima de la clasificación nacional es la que aplico cada día para poner empresas en la cima de Google Maps. Autoridad técnica, seriedad y accesibilidad guían cada proyecto que firmo.",
+    about_badge1:"IFMA · Redes de Computadoras", about_badge2:"1er lugar Sisu/Enem 2024", about_badge3:"+103 empresas atendidas",
+    process_eyebrow:"Cómo funciona",
+    process_title:'¿Qué es la optimización de <em>Google Maps</em> y por qué importa?',
+    process_intro:"El perfil de tu empresa en Google Maps (el Perfil de Empresa en Google) es lo que aparece cuando alguien busca tu tipo de negocio o su nombre — en el mapa, en la búsqueda de Google y en Google Mi Negocio. Optimizar ese perfil significa ajustar categoría, descripción, palabras clave, fotos, horarios y demás información para que Google entienda mejor tu negocio y lo muestre a quien lo busca en tu región.",
+    process_why_title:"Por qué esto importa",
+    process_why_list:'<ul><li>La mayoría de las búsquedas "cerca de mí" terminan en contacto o visita dentro de 24 horas.</li><li>Un perfil bien optimizado aparece antes que la competencia, sin pagar publicidad.</li><li>Muchas empresas todavía no optimizan su propio perfil — es una ventaja competitiva rápida de conseguir.</li><li>La información completa (fotos, horarios, categoría correcta) aumenta la confianza de quien decide buscarte.</li></ul>',
+    process_how_title:"Cómo funciona, paso a paso",
+    process_how_list:'<ol><li><strong>Diagnóstico:</strong> analizamos el estado actual de tu perfil (o su ausencia).</li><li><strong>Optimización técnica:</strong> categoría, descripción con palabras clave, horarios, área de servicio, fotos y demás campos.</li><li><strong>Envío a Google:</strong> los cambios se envían para revisión de la plataforma.</li><li><strong>Revisión de Google:</strong> normalmente se activa rápido, pero en algunos casos Google tarda hasta 5 días hábiles revisando la información para confirmar que todo está correcto antes de liberarlo. Esto es normal y no significa que algo salió mal.</li><li><strong>Perfil activo:</strong> tu empresa aparece optimizada en el mapa y en la búsqueda.</li></ol>',
+    process_delivery_note:'<strong>Nuestro plazo de entrega:</strong> el trabajo técnico se entrega en hasta 48h tras la confirmación del pago. <strong>Plazo de Google:</strong> la activación puede ser inmediata o tardar hasta 5 días hábiles, según la revisión de la propia plataforma.',
+    process_payment_note:'<strong>Pago:</strong> aceptamos solo vía Pix.',
+    services_eyebrow:"Servicios",
+    services_title:'Planes <em>claros</em>, sin letra pequeña.',
+    services_lead:"Elige el plan de optimización de Google Maps que se ajuste a tu momento, o cuenta con nuestro soporte técnico especializado.",
+    plan1_tag:"Google Maps", plan1_title:"Plan Esencial", plan1_price_note:"Pago al contado vía Pix",
+    plan1_desc:"Optimización completa del perfil de tu empresa en Google Maps: categoría correcta, descripción con palabras clave, horarios, fotos y demás información, desde cero hasta la primera posición en tu sector. Entrega de nuestro trabajo en hasta 48h tras la confirmación del pago. Pago vía Pix.",
+    plan2_tag:"Google Maps", plan2_ribbon:"Más elegido", plan2_title:"Plan Flexible", plan2_price_note:"2x vía Pix · Total R$ 400,00",
+    plan2_desc:"La misma optimización completa del Plan Esencial, dividida en 2 pagos de R$ 200 vía Pix. Entrega de nuestro trabajo en hasta 48h tras la confirmación de la primera cuota.",
+    plan3_tag:"Google Maps · Recuperación", plan3_title:"Plan Recuperación", plan3_price_note:"Corrección de registro · vía Pix",
+    plan3_desc:"Diagnóstico y corrección de perfiles duplicados, incorrectos o suspendidos en el mapa: fusión ante Google, verificación de propiedad y corrección de todos los datos. Entrega de nuestro trabajo técnico en hasta 48h — la reactivación sigue el plazo de análisis del propio Google, que puede ser inmediata o tardar hasta 5 días hábiles. Pago vía Pix.",
+    support_tag:"Soporte Técnico", support_title:"Mantenimiento de sistemas en TI",
+    support_desc:"Formateo, configuración de sistemas y aceleración de rendimiento para portátiles, computadoras, celulares y tablets.",
+    support_note:"Nota: atención especializada en software. No realizamos mantenimiento de hardware ni cambio de piezas físicas.",
+    stats_label:"Empresas atendidas",
+    contact_eyebrow:"Contacto", contact_title:'Pongamos tu <em>empresa en la cima</em>.',
+    security_note:"Nunca envíes contraseñas o datos bancarios por este formulario. Espera nuestro contacto oficial.",
+    field_name:"Nombre", field_email:"Correo", field_subject:"Asunto", field_message:"Mensaje",
+    consent_text:'He leído y acepto la <a href="#termos">Política de Privacidad y Términos de Uso</a> de la agencia.',
+    form_submit:"Enviar mensaje",
+    contact_side_title:"Habla directo con nosotros",
+    qr_whats:"Escanear · WhatsApp", qr_insta:"Escanear · Instagram",
+    terms_eyebrow:"Legal", terms_title:"Política de Privacidad y Términos de Uso",
+    terms_h1:"1. Datos recopilados", terms_p1:"Recopilamos solo los datos proporcionados voluntariamente en el formulario de contacto: nombre, correo, asunto y mensaje. No solicitamos contraseñas ni datos bancarios por este canal.",
+    terms_h2:"2. Finalidad del uso", terms_p2:"La información se utiliza exclusivamente para responder a tu solicitud de presupuesto o soporte, y no se comparte con terceros.",
+    terms_h3:"3. Seguridad", terms_p3:"Todo contacto oficial parte de los canales indicados en esta página. Desconfía de mensajes que soliciten pagos o datos fuera de estos canales.",
+    terms_h4:"4. Tus derechos", terms_p4:"Puedes solicitar la eliminación de tus datos en cualquier momento, escribiendo al correo pynn.br@gmail.com.",
+    terms_h5:"5. Aceptación", terms_p5:'Al marcar la casilla de aceptación en el formulario de contacto — o al hacer clic en "Leí y acepto" en el aviso inicial — confirmas estar de acuerdo con estos términos.',
+    footer_agency:"Agencia", footer_contact:"Contacto", footer_legal:"Legal", footer_terms:"Política de Privacidad y Términos de Uso",
+    footer_note:"Hecho con precisión técnica.",
+    form_sent:"Enviando tu mensaje...",
+    consent_modal_title:"La privacidad primero",
+    consent_modal_text:'Usamos los datos que envías solo para responder a tu solicitud de presupuesto o soporte. Lee nuestra <a href="#termos">Política de Privacidad y Términos de Uso</a> antes de continuar.',
+    consent_modal_accept:"Leí y acepto"
+  },
+  en: {
+    nav_cta:"Get in touch",
+    menu_about:"About", menu_process:"How it works", menu_services:"Services", menu_contact:"Contact",
+    theme_dark:"Dark", theme_light:"Light",
+    settings_language:"Language", settings_appearance:"Appearance",
+    hero_eyebrow:"Google Maps Optimization · IT Support",
+    hero_title:'Your business, <em>found</em> before your competitors.',
+    hero_lead:"We move businesses from page two to the #1 spot on Google Maps — anywhere on the map. Technical method, measurable results.",
+    hero_cta1:"Request a quote", hero_cta2:"View plans",
+    chip_rating_label:"average customer score", chip_count_label:"businesses on top", chip_page_label:"From page 2 to page 1",
+    about_eyebrow:"About me", about_role:"FOUNDER · PYNN",
+    mini_name:"Business Name", mini_city:"São Luís, MA", mini_rating:"5.0", mini_desc:"This is how your business can appear on Google Maps after PYNN optimization.",
+    about_title:'Discipline that <em>becomes results</em>.',
+    about_p1:"I'm a Computer Networking student (bachelor's degree) at the Federal Institute of Maranhão (IFMA). I live with multiple disabilities, and my path has been defined by perseverance — I placed <strong>1st nationally in Sisu/Enem 2024</strong>.",
+    about_p2:"The same discipline that took me to the top of the national ranking is what I apply every day to put businesses at the top of Google Maps. Technical authority, seriousness, and accessibility guide every project I take on.",
+    about_badge1:"IFMA · Computer Networking", about_badge2:"1st place Sisu/Enem 2024", about_badge3:"+103 businesses served",
+    process_eyebrow:"How it works",
+    process_title:'What Google Maps optimization is, and why it matters',
+    process_intro:"Your business's Google Maps profile (the Google Business Profile) is what shows up when someone searches for your type of business or its name — on the map, in Google Search, and on Google My Business. Optimizing that profile means adjusting category, description, keywords, photos, hours, and other information so Google understands your business better and shows it to people searching in your area.",
+    process_why_title:"Why it matters",
+    process_why_list:'<ul><li>Most "near me" searches end in a contact or visit within 24 hours.</li><li>A well-optimized profile shows up ahead of competitors, without paying for ads.</li><li>Many businesses still don\'t optimize their own profile — that\'s a competitive edge that\'s quick to gain.</li><li>Complete information (photos, hours, correct category) builds trust for people deciding whether to reach out.</li></ul>',
+    process_how_title:"How it works, step by step",
+    process_how_list:'<ol><li><strong>Diagnosis:</strong> we review the current state of your profile (or lack of one).</li><li><strong>Technical optimization:</strong> category, keyword-driven description, hours, service area, photos, and other fields.</li><li><strong>Submission to Google:</strong> changes are sent for the platform\'s review.</li><li><strong>Google\'s review:</strong> changes usually go live quickly, but in some cases Google takes up to 5 business days reviewing the information to confirm everything is correct before releasing it. That\'s normal and doesn\'t mean anything went wrong.</li><li><strong>Active profile:</strong> your business appears optimized on the map and in search.</li></ol>',
+    process_delivery_note:'<strong>Our delivery time:</strong> technical work is delivered within 48h after payment confirmation. <strong>Google\'s timeline:</strong> activation can be immediate or take up to 5 business days, depending on the platform\'s own review.',
+    process_payment_note:'<strong>Payment:</strong> we accept Pix only.',
+    services_eyebrow:"Services",
+    services_title:'Straightforward plans, <em>no fine print</em>.',
+    services_lead:"Choose the Google Maps optimization plan that fits your business, or rely on our specialized IT support.",
+    plan1_tag:"Google Maps", plan1_title:"Essential Plan", plan1_price_note:"One-time payment via Pix",
+    plan1_desc:"Full optimization of your business profile on Google Maps: correct category, keyword-driven description, hours, photos and more, from zero to the top spot in your category. Our work is delivered within 48h after payment confirmation. Payment via Pix.",
+    plan2_tag:"Google Maps", plan2_ribbon:"Most chosen", plan2_title:"Flexible Plan", plan2_price_note:"2x via Pix · Total R$ 400.00",
+    plan2_desc:"The same full optimization as the Essential Plan, split into 2 payments of R$ 200 via Pix. Our work is delivered within 48h after the first installment is confirmed.",
+    plan3_tag:"Google Maps · Recovery", plan3_title:"Recovery Plan", plan3_price_note:"Listing correction · via Pix",
+    plan3_desc:"Diagnosis and correction of duplicated, incorrect, or suspended map listings: merge request with Google, ownership verification, and correction of all data. Our technical work is delivered within 48h — reactivation follows Google's own review timeline, which can be immediate or take up to 5 business days. Payment via Pix.",
+    support_tag:"IT Support", support_title:"System maintenance",
+    support_desc:"Formatting, system setup, and performance boosts for laptops, computers, phones, and tablets.",
+    support_note:"Note: software support only. We do not perform hardware repairs or physical part replacement.",
+    stats_label:"Businesses served",
+    contact_eyebrow:"Contact", contact_title:"Let's get your <em>business to the top</em>.",
+    security_note:"Never send passwords or banking details through this form. Wait for our official contact.",
+    field_name:"Name", field_email:"Email", field_subject:"Subject", field_message:"Message",
+    consent_text:'I have read and agree to the agency\'s <a href="#termos">Privacy Policy and Terms of Use</a>.',
+    form_submit:"Send message",
+    contact_side_title:"Talk to us directly",
+    qr_whats:"Scan · WhatsApp", qr_insta:"Scan · Instagram",
+    terms_eyebrow:"Legal", terms_title:"Privacy Policy and Terms of Use",
+    terms_h1:"1. Data collected", terms_p1:"We only collect data voluntarily provided in the contact form: name, email, subject, and message. We never request passwords or banking details through this channel.",
+    terms_h2:"2. Purpose of use", terms_p2:"Information is used exclusively to respond to your quote or support request, and is never shared with third parties.",
+    terms_h3:"3. Security", terms_p3:"All official contact comes from the channels listed on this page. Be wary of messages requesting payments or data outside these channels.",
+    terms_h4:"4. Your rights", terms_p4:"You may request deletion of your data at any time by contacting pynn.br@gmail.com.",
+    terms_h5:"5. Acceptance", terms_p5:'By checking the consent box on the contact form — or clicking "I agree" on the initial notice — you confirm agreement with these terms.',
+    footer_agency:"Agency", footer_contact:"Contact", footer_legal:"Legal", footer_terms:"Privacy Policy and Terms of Use",
+    footer_note:"Built with technical precision.",
+    form_sent:"Sending your message...",
+    consent_modal_title:"Privacy first",
+    consent_modal_text:'We only use the data you send to respond to your quote or support request. Read our <a href="#termos">Privacy Policy and Terms of Use</a> before continuing.',
+    consent_modal_accept:"I agree"
+  }
+};
+
+let currentLang = 'pt';
+function setLang(lang){
+  currentLang = lang;
+  document.documentElement.lang = lang === 'pt' ? 'pt-BR' : lang;
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const key = el.getAttribute('data-i18n');
+    const val = translations[lang][key];
+    if(val === undefined) return;
+    if(val.includes('<')) el.innerHTML = val;
+    else el.textContent = val;
+  });
+}
+document.querySelectorAll('#langSegmented button').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    document.querySelectorAll('#langSegmented button').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    setLang(btn.getAttribute('data-lang'));
+  });
+});
+setLang('pt');
+applyTheme(true);
+
+/* ---------- SETTINGS MENU (nav links + language + appearance) ---------- */
+const settingsBtn = document.getElementById('settingsBtn');
+const settingsPanel = document.getElementById('settingsPanel');
+settingsBtn.addEventListener('click', (e)=>{
+  e.stopPropagation();
+  const open = settingsPanel.classList.toggle('open');
+  settingsBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+});
+settingsPanel.querySelectorAll('.settings-row--menu a').forEach(a=>{
+  a.addEventListener('click', ()=>{
+    settingsPanel.classList.remove('open');
+    settingsBtn.setAttribute('aria-expanded','false');
+  });
+});
+document.addEventListener('click', (e)=>{
+  if(settingsPanel.classList.contains('open') && !settingsPanel.contains(e.target) && e.target !== settingsBtn){
+    settingsPanel.classList.remove('open');
+    settingsBtn.setAttribute('aria-expanded','false');
+  }
+});
+document.addEventListener('keydown', (e)=>{
+  if(e.key === 'Escape'){
+    settingsPanel.classList.remove('open');
+    settingsBtn.setAttribute('aria-expanded','false');
+  }
+});
+
+/* ---------- FORM ---------- */
+const contactForm = document.getElementById('contactForm');
+contactForm.addEventListener('submit', ()=>{
+  const btn = contactForm.querySelector('button[type="submit"]');
+  btn.disabled = true;
+  document.getElementById('formMsg').textContent = translations[currentLang].form_sent;
+});
+
+/* ---------- QR CODES ---------- */
+window.addEventListener('load', ()=>{
+  if(window.QRCode){
+    new QRCode(document.getElementById('qrWhats'), {
+      text:'https://wa.me/5586988846870', width:110, height:110,
+      colorDark:'#0e0f16', colorLight:'#ffffff', correctLevel: QRCode.CorrectLevel.M
+    });
+    new QRCode(document.getElementById('qrInsta'), {
+      text:'https://www.instagram.com/pynn.br/', width:110, height:110,
+      colorDark:'#0e0f16', colorLight:'#ffffff', correctLevel: QRCode.CorrectLevel.M
+    });
+  }
+});
+
+/* ---------- CONSENT MODAL ---------- */
+const consentOverlay = document.getElementById('consentOverlay');
+const consentAccept = document.getElementById('consentAccept');
+window.addEventListener('load', ()=>{
+  setTimeout(()=>{
+    consentOverlay.classList.add('show');
+    consentAccept.focus();
+  }, 500);
+});
+consentAccept.addEventListener('click', ()=>{
+  consentOverlay.classList.remove('show');
+});
+document.addEventListener('keydown', (e)=>{
+  if(e.key === 'Escape' && consentOverlay.classList.contains('show')){
+    consentOverlay.classList.remove('show');
+  }
+});
+</script>
+</body>
+</html>
