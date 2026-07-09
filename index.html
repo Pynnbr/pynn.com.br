@@ -688,6 +688,15 @@ var QRCode;
     --bg-panel-2: color-mix(in srgb, var(--coral) 28%, var(--bg-panel-2-base));
     --border: color-mix(in srgb, var(--coral) 40%, var(--border));
   }
+  /* No modo escuro a mesma mistura fica muito mais forte visualmente (fundo quase preto
+     realça a cor bem mais que um fundo branco), então usamos uma proporção mais baixa
+     para não ficar carregado quando combinado com logo colorido + cards coloridos. */
+  html.bg-tint:not(.light){
+    --bg: color-mix(in srgb, var(--coral) 16%, var(--bg-base));
+    --bg-panel: color-mix(in srgb, var(--coral) 11%, var(--bg-panel-base));
+    --bg-panel-2: color-mix(in srgb, var(--coral) 13%, var(--bg-panel-2-base));
+    --border: color-mix(in srgb, var(--coral) 22%, var(--border));
+  }
   *{box-sizing:border-box; margin:0; padding:0; -webkit-tap-highlight-color:transparent; }
   html{ -webkit-tap-highlight-color:transparent; }
   a, button, .settings-btn, .nav-cta, .btn, .segmented button, .appearance-toggle{
@@ -979,10 +988,13 @@ var QRCode;
     padding:56px;
     border:1px solid var(--border);
   }
-  .section-card.tint-coral{ background:linear-gradient(180deg, var(--coral-soft), var(--bg-panel) 40%); }
-  .section-card.tint-blue{ background:linear-gradient(180deg, var(--blue-soft), var(--bg-panel) 40%); }
-  .section-card.tint-green{ background:linear-gradient(180deg, var(--green-soft), var(--bg-panel) 40%); }
-  .section-card.tint-yellow{ background:linear-gradient(180deg, var(--yellow-soft), var(--bg-panel) 40%); }
+  /* Todos os cartões seguem a MESMA cor escolhida no seletor (--coral-soft),
+     em vez de cada seção ter uma cor própria fixa (azul/verde/amarelo).
+     Isso evita várias cores diferentes brigando na tela ao mesmo tempo. */
+  .section-card.tint-coral,
+  .section-card.tint-blue,
+  .section-card.tint-green,
+  .section-card.tint-yellow{ background:linear-gradient(180deg, var(--coral-soft), var(--bg-panel) 40%); }
   .section-card.tint-plain{ background:var(--bg-panel); }
   .section-plain{ padding:0; border:none; background:none; }
   @media(max-width:768px){ .section-card{ padding:32px 24px; } }
