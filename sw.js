@@ -4,7 +4,7 @@
 // IMPORTANTE: sempre que você publicar uma nova versão do site, mude o
 // número da CACHE_NAME abaixo (v2, v3, v4...). Isso faz o navegador perceber
 // que este arquivo mudou e disparar a atualização do app instalado.
-const CACHE_NAME = 'pynn-cache-v2';
+const CACHE_NAME = 'pynn-cache-v3';
 const CORE_ASSETS = [
   './',
   './index.html'
