@@ -995,23 +995,21 @@ var QRCode;
   .btn{
     font-family:'Inter',sans-serif;
     font-size:.82rem; font-weight:700; letter-spacing:.01em;
-    padding:17px 30px;
-    border-radius:var(--radius-pill);
+    padding:15px 28px;
+    border-radius:12px;
     display:inline-flex; align-items:center; gap:9px;
-    transition:none !important;
-    animation:none !important;
+    white-space:nowrap;
+    transition:background-color .15s var(--ease), border-color .15s var(--ease), transform .15s var(--ease), box-shadow .15s var(--ease);
   }
   .btn-solid{
-    background:linear-gradient(180deg, color-mix(in srgb, var(--coral) 92%, #fff), var(--coral));
+    background:var(--coral);
     color:var(--coral-text);
-    box-shadow:0 10px 24px -8px color-mix(in srgb, var(--coral) 70%, transparent), inset 0 1px 0 rgba(255,255,255,.25);
+    box-shadow:0 8px 18px -8px color-mix(in srgb, var(--coral) 55%, transparent);
   }
-  .btn-solid::after{
-    content:"→"; display:inline-block; font-weight:700;
-  }
+  .btn-solid:hover{ background:color-mix(in srgb, var(--coral) 88%, #000); transform:translateY(-2px); box-shadow:0 12px 22px -8px color-mix(in srgb, var(--coral) 60%, transparent); }
   .btn-solid:disabled{ opacity:.45; cursor:not-allowed; box-shadow:none; }
-  .btn-ghost{ border:1.5px solid var(--border); color:var(--fg); background:var(--bg-panel); box-shadow:0 1px 2px rgba(0,0,0,.03); }
-  .btn-ghost:hover{ border-color:var(--coral); color:var(--coral-fg); background:var(--coral-soft); }
+  .btn-ghost{ border:1.5px solid var(--border); color:var(--fg); background:var(--bg-panel); }
+  .btn-ghost:hover{ border-color:var(--coral); color:var(--coral-fg); transform:translateY(-2px); }
 
   .hero-chips{ display:flex; gap:14px; flex-wrap:wrap; justify-content:center; margin-top:36px; }
   .chip{
@@ -1051,6 +1049,7 @@ var QRCode;
   @media(max-width:480px){
     .section-card{ padding:22px 16px; }
     .plan{ padding:26px 20px; }
+    .plan .btn-plan{ font-size:.76rem; padding-left:14px; padding-right:14px; }
     .hero{ padding-top:16px; }
     .hero-chips{ gap:10px; }
     header{ padding:10px 12px; }
@@ -1100,7 +1099,7 @@ var QRCode;
   .process-note strong{ color:var(--fg); }
 
   /* ---------- SERVICES ---------- */
-  .plans{ display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-bottom:18px; }
+  .plans{ display:grid; grid-template-columns:repeat(auto-fit, minmax(260px,1fr)); gap:18px; margin-bottom:18px; }
   @media(max-width:900px){ .plans{ grid-template-columns:1fr; } }
   .plan{
     position:relative;
@@ -1130,21 +1129,32 @@ var QRCode;
   .plan .price{ font-family:'Archivo Black',sans-serif; font-weight:700; font-size:1.5rem; margin:12px 0; letter-spacing:-0.01em; }
   .plan .price small{ font-size:.68rem; color:var(--fg-muted); display:block; margin-top:4px; font-family:'Inter',sans-serif; }
   .plan p.desc{ color:var(--fg-muted); font-size:.92rem; flex-grow:1; }
+  .plan .note{
+    font-family:'Inter',sans-serif; font-size:.72rem; color:var(--fg-muted);
+    background:var(--yellow-soft); border-radius:var(--radius-sm); padding:12px 14px; margin-top:14px;
+  }
   .plan .btn-plan{
     width:100%; justify-content:center; text-align:center;
     margin-top:22px; font-weight:600;
-    box-shadow:none;
+    padding-left:18px; padding-right:18px;
+    box-shadow:0 6px 14px -8px rgba(0,0,0,.35);
+    transition:background-color .15s var(--ease), transform .15s var(--ease), box-shadow .15s var(--ease);
   }
+  .plan .btn-plan:hover{ transform:translateY(-2px); box-shadow:0 10px 20px -8px rgba(0,0,0,.4); }
   .plan.c-coral .btn-plan{ background:var(--coral); color:var(--coral-text); }
-  .plan.c-coral .btn-plan:hover{ box-shadow:0 14px 28px -10px var(--coral); }
+  .plan.c-coral .btn-plan:hover{ background:color-mix(in srgb, var(--coral) 88%, #000); }
   .plan.c-blue .btn-plan{ background:var(--blue); color:#04060c; }
-  .plan.c-blue .btn-plan:hover{ box-shadow:0 14px 28px -10px var(--blue); }
+  .plan.c-blue .btn-plan:hover{ background:color-mix(in srgb, var(--blue) 88%, #000); }
   .plan.c-green .btn-plan{ background:var(--green); color:#04060c; }
-  .plan.c-green .btn-plan:hover{ box-shadow:0 14px 28px -10px var(--green); }
+  .plan.c-green .btn-plan:hover{ background:color-mix(in srgb, var(--green) 88%, #000); }
+  .plan.c-yellow .btn-plan{ background:var(--yellow); color:#04060c; }
+  .plan.c-yellow .btn-plan:hover{ background:color-mix(in srgb, var(--yellow) 88%, #000); }
   .support-block .btn-plan-wa{
     margin-top:18px; background:var(--yellow); color:#04060c; font-weight:600;
+    box-shadow:0 6px 14px -8px rgba(0,0,0,.35);
+    transition:background-color .15s var(--ease), transform .15s var(--ease), box-shadow .15s var(--ease);
   }
-  .support-block .btn-plan-wa:hover{ box-shadow:0 14px 28px -10px var(--yellow); }
+  .support-block .btn-plan-wa:hover{ background:color-mix(in srgb, var(--yellow) 88%, #000); transform:translateY(-2px); box-shadow:0 10px 20px -8px rgba(0,0,0,.4); }
 
   .support-block{
     background:var(--bg-panel-2); border:1px solid var(--border); border-radius:var(--radius);
@@ -1550,6 +1560,32 @@ var QRCode;
             <p class="desc" data-i18n="plan3_desc">Diagnóstico e correção de perfis duplicados, incorretos ou suspensos no mapa: mesclagem junto ao Google, verificação de propriedade e correção de todos os dados. Entrega do nosso trabalho técnico em até 48h — a reativação segue o prazo de análise do próprio Google, que pode ser imediata ou levar até 5 dias úteis. Pagamento via Pix.</p>
             <a href="#contato" class="btn btn-plan btn-plan-wa" data-msg-key="plan3_wa_msg" data-i18n="plan3_cta">Escolher este plano</a>
           </div>
+
+          <div class="plan c-yellow">
+            <div class="icon-3d">
+              <svg viewBox="0 0 64 64" width="52" height="52" aria-hidden="true">
+                <defs>
+                  <linearGradient id="g4" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0" stop-color="#ffe08a"/>
+                    <stop offset="1" stop-color="#ffc247"/>
+                  </linearGradient>
+                </defs>
+                <rect x="9" y="16" width="46" height="34" rx="6" fill="#0d1117" stroke="url(#g4)" stroke-width="2"/>
+                <rect x="9" y="16" width="46" height="9" rx="6" fill="url(#g4)"/>
+                <circle cx="15" cy="20.5" r="1.6" fill="#0d1117"/>
+                <circle cx="20" cy="20.5" r="1.6" fill="#0d1117"/>
+                <circle cx="25" cy="20.5" r="1.6" fill="#0d1117"/>
+                <rect x="16" y="32" width="32" height="4" rx="2" fill="url(#g4)" opacity=".85"/>
+                <rect x="16" y="40" width="20" height="4" rx="2" fill="url(#g4)" opacity=".55"/>
+              </svg>
+            </div>
+            <span class="tag" data-i18n="plan4_tag">Criação de Sites</span>
+            <h3 data-i18n="plan4_title">Plano Site</h3>
+            <div class="price">A partir de R$ 1.000<small data-i18n="plan4_price_note">Valor varia conforme o projeto</small></div>
+            <p class="desc" data-i18n="plan4_desc">Sou dev e crio sites profissionais, responsivos e otimizados para aparecer no Google: currículo online, portfólio, landing page ou site institucional da sua empresa. Estrutura, textos e design pensados para converter visitas em contato.</p>
+            <p class="note" data-i18n="plan4_note">Nota: não desenvolvemos sites que envolvam banco de dados (ex: login de usuários, e-commerce com carrinho, sistemas dinâmicos). Trabalhamos com sites institucionais, portfólio, landing page e currículo online.</p>
+            <a href="#contato" class="btn btn-plan btn-plan-wa" data-msg-key="plan4_wa_msg" data-i18n="plan4_cta">Solicitar orçamento</a>
+          </div>
         </div>
 
         <div class="support-block">
@@ -1947,6 +1983,10 @@ const translations = {
     plan3_tag:"Google Maps · Recuperação", plan3_title:"Plano Recuperação", plan3_price_note:"Correção de cadastro · via Pix",
     plan3_desc:"Diagnóstico e correção de perfis duplicados, incorretos ou suspensos no mapa: mesclagem junto ao Google, verificação de propriedade e correção de todos os dados. Entrega do nosso trabalho técnico em até 48h — a reativação segue o prazo de análise do próprio Google, que pode ser imediata ou levar até 5 dias úteis. Pagamento via Pix.",
     plan1_cta:"Escolher este plano", plan2_cta:"Escolher este plano", plan3_cta:"Escolher este plano",
+    plan4_tag:"Criação de Sites", plan4_title:"Plano Site", plan4_price_note:"Valor varia conforme o projeto",
+    plan4_desc:"Sou dev e crio sites profissionais, responsivos e otimizados para aparecer no Google: currículo online, portfólio, landing page ou site institucional da sua empresa. Estrutura, textos e design pensados para converter visitas em contato.",
+    plan4_cta:"Solicitar orçamento",
+    plan4_note:"Nota: não desenvolvemos sites que envolvam banco de dados (ex: login de usuários, e-commerce com carrinho, sistemas dinâmicos). Trabalhamos com sites institucionais, portfólio, landing page e currículo online.",
     support_tag:"Suporte Técnico", support_title:"Manutenção de sistemas em TI",
     support_desc:"Formatação, configuração de sistemas e aceleração de desempenho para notebooks, computadores, celulares e tablets.",
     support_note:"Nota: atendimento especializado em software. Não realizamos manutenção de hardware ou troca de peças físicas.",
@@ -1954,6 +1994,7 @@ const translations = {
     plan1_wa_msg:"Olá! Encontrei a PYNN pelo site e tenho interesse em contratar o Plano Essencial de otimização do perfil no Google Maps. Poderiam me passar mais detalhes? Meu nome: ",
     plan2_wa_msg:"Olá! Encontrei a PYNN pelo site e tenho interesse em contratar o Plano Flexível (parcelado em 2x) de otimização do perfil no Google Maps. Poderiam me passar mais detalhes? Meu nome: ",
     plan3_wa_msg:"Olá! Encontrei a PYNN pelo site e preciso de ajuda com o Plano Recuperação para corrigir ou reativar meu perfil no Google Maps. Poderiam me passar mais detalhes? Meu nome: ",
+    plan4_wa_msg:"Olá! Encontrei a PYNN pelo site e tenho interesse em criar um site. Poderiam me passar mais detalhes sobre o Plano Site? Meu nome: ",
     support_wa_msg:"Olá! Encontrei a PYNN pelo site e gostaria de solicitar suporte técnico em TI. Poderiam me passar mais detalhes? Meu nome: ",
     stats_label:"Empresas atendidas",
     contact_eyebrow:"Contato", contact_title:'Vamos colocar sua <em>empresa no topo</em>.',
@@ -2019,6 +2060,10 @@ const translations = {
     plan3_tag:"Google Maps · Recuperación", plan3_title:"Plan Recuperación", plan3_price_note:"Corrección de registro · vía Pix",
     plan3_desc:"Diagnóstico y corrección de perfiles duplicados, incorrectos o suspendidos en el mapa: fusión ante Google, verificación de propiedad y corrección de todos los datos. Entrega de nuestro trabajo técnico en hasta 48h — la reactivación sigue el plazo de análisis del propio Google, que puede ser inmediata o tardar hasta 5 días hábiles. Pago vía Pix.",
     plan1_cta:"Elegir este plan", plan2_cta:"Elegir este plan", plan3_cta:"Elegir este plan",
+    plan4_tag:"Creación de Sitios", plan4_title:"Plan Sitio Web", plan4_price_note:"El valor varía según el proyecto",
+    plan4_desc:"Soy dev y creo sitios web profesionales, responsivos y optimizados para aparecer en Google: currículum online, portafolio, landing page o sitio institucional de tu empresa. Estructura, textos y diseño pensados para convertir visitas en contacto.",
+    plan4_cta:"Solicitar presupuesto",
+    plan4_note:"Nota: no desarrollamos sitios que involucren bases de datos (ej: inicio de sesión de usuarios, e-commerce con carrito, sistemas dinámicos). Trabajamos con sitios institucionales, portafolio, landing page y currículum online.",
     support_tag:"Soporte Técnico", support_title:"Mantenimiento de sistemas en TI",
     support_desc:"Formateo, configuración de sistemas y aceleración de rendimiento para portátiles, computadoras, celulares y tablets.",
     support_note:"Nota: atención especializada en software. No realizamos mantenimiento de hardware ni cambio de piezas físicas.",
@@ -2026,6 +2071,7 @@ const translations = {
     plan1_wa_msg:"¡Hola! Encontré a PYNN en el sitio web y me interesa contratar el Plan Esencial de optimización de perfil en Google Maps. ¿Podrían darme más detalles? Mi nombre: ",
     plan2_wa_msg:"¡Hola! Encontré a PYNN en el sitio web y me interesa contratar el Plan Flexible (en 2 pagos) de optimización de perfil en Google Maps. ¿Podrían darme más detalles? Mi nombre: ",
     plan3_wa_msg:"¡Hola! Encontré a PYNN en el sitio web y necesito ayuda con el Plan Recuperación para corregir o reactivar mi perfil en Google Maps. ¿Podrían darme más detalles? Mi nombre: ",
+    plan4_wa_msg:"¡Hola! Encontré a PYNN en el sitio web y me interesa crear un sitio web. ¿Podrían darme más detalles sobre el Plan Sitio Web? Mi nombre: ",
     support_wa_msg:"¡Hola! Encontré a PYNN en el sitio web y me gustaría solicitar soporte técnico en TI. ¿Podrían darme más detalles? Mi nombre: ",
     stats_label:"Empresas atendidas",
     contact_eyebrow:"Contacto", contact_title:'Pongamos tu <em>empresa en la cima</em>.',
@@ -2091,6 +2137,10 @@ const translations = {
     plan3_tag:"Google Maps · Recovery", plan3_title:"Recovery Plan", plan3_price_note:"Listing correction · via Pix",
     plan3_desc:"Diagnosis and correction of duplicated, incorrect, or suspended map listings: merge request with Google, ownership verification, and correction of all data. Our technical work is delivered within 48h — reactivation follows Google's own review timeline, which can be immediate or take up to 5 business days. Payment via Pix.",
     plan1_cta:"Choose this plan", plan2_cta:"Choose this plan", plan3_cta:"Choose this plan",
+    plan4_tag:"Website Creation", plan4_title:"Website Plan", plan4_price_note:"Price varies by project",
+    plan4_desc:"I'm a dev, and I build professional, responsive websites optimized to rank on Google: online resumes, portfolios, landing pages, or your company's institutional site. Structure, copy, and design built to turn visits into contact.",
+    plan4_cta:"Request a quote",
+    plan4_note:"Note: we don't build sites involving databases (e.g. user login, e-commerce with a shopping cart, dynamic systems). We work with institutional sites, portfolios, landing pages, and online resumes.",
     support_tag:"IT Support", support_title:"System maintenance",
     support_desc:"Formatting, system setup, and performance boosts for laptops, computers, phones, and tablets.",
     support_note:"Note: software support only. We do not perform hardware repairs or physical part replacement.",
@@ -2098,6 +2148,7 @@ const translations = {
     plan1_wa_msg:"Hello! I found PYNN through your website and I'm interested in the Essential Plan for Google Maps profile optimization. Could you share more details? My name: ",
     plan2_wa_msg:"Hello! I found PYNN through your website and I'm interested in the Flexible Plan (2 installments) for Google Maps profile optimization. Could you share more details? My name: ",
     plan3_wa_msg:"Hello! I found PYNN through your website and I need help with the Recovery Plan to fix or reactivate my Google Maps listing. Could you share more details? My name: ",
+    plan4_wa_msg:"Hello! I found PYNN through your website and I'm interested in getting a website built. Could you share more details about the Website Plan? My name: ",
     support_wa_msg:"Hello! I found PYNN through your website and I'd like to request IT technical support. Could you share more details? My name: ",
     stats_label:"Businesses served",
     contact_eyebrow:"Contact", contact_title:"Let's get your <em>business to the top</em>.",
