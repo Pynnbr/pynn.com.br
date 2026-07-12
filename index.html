@@ -1047,8 +1047,9 @@ var QRCode;
   .section-plain{ padding:0; border:none; background:none; }
   @media(max-width:768px){ .section-card{ padding:32px 24px; } }
   @media(max-width:480px){
-    .section-card{ padding:22px 16px; }
-    .plan{ padding:26px 20px; }
+    .section-card{ padding:20px 10px; border:none; border-radius:0; margin:0 -24px; width:auto; }
+    html.card-mode-border .section-card{ border:1px solid var(--border); border-radius:var(--radius-lg); margin:0; width:auto; padding:20px 12px; }
+    .plan{ padding:22px 16px; }
     .plan .btn-plan{ font-size:.76rem; padding-left:14px; padding-right:14px; }
     .hero{ padding-top:16px; }
     .hero-chips{ gap:10px; }
@@ -1243,9 +1244,9 @@ var QRCode;
   .qr-row{ display:flex; gap:18px; flex-wrap:wrap; margin-top:22px; }
   .qr-card{
     background:var(--bg-panel-2); padding:20px;
-    border-radius:var(--radius); text-align:center; width:150px;
+    border-radius:var(--radius); text-align:center; width:190px;
   }
-  .qr-card .qr-box{ width:110px; height:110px; margin:0 auto 12px; background:#fff; padding:6px; border-radius:16px; }
+  .qr-card .qr-box{ width:150px; height:150px; margin:0 auto 12px; background:#fff; padding:8px; border-radius:16px; }
   .qr-card .qr-box canvas, .qr-card .qr-box img{ width:100% !important; height:100% !important; border-radius:10px; }
   .qr-card span{ font-family:'Inter',sans-serif; font-size:.66rem; letter-spacing:.05em; color:var(--fg-muted); }
   .contact-links{ margin-top:24px; display:flex; flex-direction:column; gap:10px; }
@@ -1324,6 +1325,32 @@ var QRCode;
   .consent-box a{ color:var(--coral-fg); text-decoration:underline; }
   .consent-actions{ display:flex; gap:12px; flex-wrap:wrap; }
   @media (prefers-reduced-motion: reduce){ .consent-overlay, .consent-box{ transition:none; } }
+
+  /* ---------- ONBOARDING TOUR ---------- */
+  .tour-box{ position:relative; text-align:center; }
+  .tour-skip{
+    position:absolute; top:16px; right:16px; background:none; border:none;
+    font-family:'Inter',sans-serif; font-size:.72rem; font-weight:700; color:var(--fg-muted);
+    letter-spacing:.04em; text-transform:uppercase; padding:6px 8px;
+  }
+  .tour-skip:hover{ color:var(--coral-fg); }
+  .tour-icon{
+    width:56px; height:56px; margin:0 auto 6px;
+    display:flex; align-items:center; justify-content:center;
+    background:var(--coral-soft); color:var(--coral-fg);
+    border-radius:50%;
+  }
+  .tour-icon svg{ width:26px; height:26px; flex-shrink:0; }
+  .tour-progress{
+    font-family:'Inter',sans-serif; font-size:.68rem; font-weight:700; letter-spacing:.08em;
+    text-transform:uppercase; color:var(--coral-fg); margin-bottom:8px !important;
+  }
+  .tour-box h3{ margin-bottom:10px; }
+  .tour-dots{ display:flex; gap:8px; justify-content:center; margin:18px 0; }
+  .tour-dots span{ width:7px; height:7px; border-radius:50%; background:var(--border); transition:background .3s var(--ease), transform .3s var(--ease); }
+  .tour-dots span.active{ background:var(--coral-fg); transform:scale(1.3); }
+  .tour-box .consent-actions{ justify-content:center; }
+  #tourBack[disabled]{ opacity:0; pointer-events:none; }
 </style>
 </head>
 <body>
@@ -1343,6 +1370,27 @@ var QRCode;
     <p data-i18n="consent_modal_text">Usamos os dados enviados por você apenas para responder ao seu pedido de orçamento ou suporte. Leia nossa <a href="#termos">Política de Privacidade e Termos de Uso</a> antes de continuar.</p>
     <div class="consent-actions">
       <button class="btn btn-solid" id="consentAccept" data-i18n="consent_modal_accept">Li e aceito</button>
+    </div>
+  </div>
+</div>
+
+<!-- ONBOARDING TOUR (mostra só na primeira visita) -->
+<div class="consent-overlay tour-overlay" id="tourOverlay" role="dialog" aria-modal="true" aria-labelledby="tourTitle">
+  <div class="consent-box tour-box">
+    <button type="button" class="tour-skip" id="tourSkip" data-i18n="tour_skip">Pular</button>
+    <div class="tour-icon" id="tourIcon">
+      <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="12" cy="12" r="3"></circle>
+        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.6a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z"></path>
+      </svg>
+    </div>
+    <p class="tour-progress" id="tourProgress">Passo 1 de 4</p>
+    <h3 id="tourTitle" data-i18n="tour_step1_title">Menu de configurações</h3>
+    <p id="tourText" data-i18n="tour_step1_text">No ícone de engrenagem, no topo, você muda idioma, tema claro/escuro, cor do site e o formato dos cartões (tela cheia ou com borda).</p>
+    <div class="tour-dots" id="tourDots"></div>
+    <div class="consent-actions">
+      <button class="btn btn-ghost" id="tourBack" data-i18n="tour_back">Voltar</button>
+      <button class="btn btn-solid" id="tourNext" data-i18n="tour_next">Próximo</button>
     </div>
   </div>
 </div>
@@ -1410,6 +1458,12 @@ var QRCode;
             <span class="settings-label" data-i18n="settings_bg_tint">Cor no fundo</span>
             <button type="button" class="appearance-toggle" id="bgTintToggle" aria-pressed="false" aria-label="Ativar ou desativar cor do tema no fundo">
               <span id="bgTintIcon">○</span> <span id="bgTintLabel" data-i18n="bgtint_off">Desativado</span>
+            </button>
+          </div>
+          <div class="settings-row">
+            <span class="settings-label" data-i18n="settings_card_mode">Cartões</span>
+            <button type="button" class="appearance-toggle" id="cardModeToggle" aria-pressed="false" aria-label="Alternar entre tela cheia e com borda">
+              <span id="cardModeIcon">▭</span> <span id="cardModeLabel" data-i18n="cardmode_full">Tela cheia</span>
             </button>
           </div>
           <div class="settings-row">
@@ -1971,6 +2025,23 @@ function applyBgTint(on, persist){
 }
 bgTintToggle.addEventListener('click', ()=> applyBgTint(!bgTintOn, true));
 
+/* ---------- TELA CHEIA OU COM BORDA (cartões no mobile) ---------- */
+const cardModeToggle = document.getElementById('cardModeToggle');
+const cardModeIcon = document.getElementById('cardModeIcon');
+const cardModeLabel = document.getElementById('cardModeLabel');
+let cardModeBorder = false;
+try{ cardModeBorder = localStorage.getItem('pynn-card-mode') === 'border'; }catch(e){}
+function applyCardMode(border, persist){
+  cardModeBorder = border;
+  document.documentElement.classList.toggle('card-mode-border', border);
+  cardModeToggle.setAttribute('aria-pressed', border ? 'true' : 'false');
+  cardModeIcon.textContent = border ? '▢' : '▭';
+  cardModeLabel.setAttribute('data-i18n', border ? 'cardmode_border' : 'cardmode_full');
+  setLang(currentLang);
+  if(persist){ try{ localStorage.setItem('pynn-card-mode', border ? 'border' : 'full'); }catch(e){} }
+}
+cardModeToggle.addEventListener('click', ()=> applyCardMode(!cardModeBorder, true));
+
 /* ---------- ATIVAR/DESATIVAR COR DO TEMA NO LOGOTIPO ---------- */
 const logoTintToggle = document.getElementById('logoTintToggle');
 const logoTintIcon = document.getElementById('logoTintIcon');
@@ -1995,7 +2066,7 @@ const translations = {
     nav_cta:"Fale conosco",
     menu_about:"Sobre", menu_process:"Como funciona", menu_services:"Serviços", menu_contact:"Contato",
     theme_dark:"Escuro", theme_light:"Claro",
-    settings_language:"Idioma", settings_appearance:"Aparência", settings_theme_color:"Cor do tema", settings_bg_tint:"Cor no fundo", bgtint_on:"Ativado", bgtint_off:"Desativado", settings_logo_tint:"Cor no logotipo", logotint_on:"Ativado", logotint_off:"Desativado", captcha_text:"Não sou um robô", captcha_badge:"PYNN Verify",
+    settings_language:"Idioma", settings_appearance:"Aparência", settings_theme_color:"Cor do tema", settings_bg_tint:"Cor no fundo", bgtint_on:"Ativado", bgtint_off:"Desativado", settings_logo_tint:"Cor no logotipo", logotint_on:"Ativado", logotint_off:"Desativado", settings_card_mode:"Cartões", cardmode_full:"Tela cheia", cardmode_border:"Com borda", captcha_text:"Não sou um robô", captcha_badge:"PYNN Verify",
     hero_eyebrow:"Otimização Google Maps · Suporte Técnico",
     hero_title:'Sua empresa, <em>encontrada</em> antes da concorrência.',
     hero_lead:"Conduzimos negócios da página dois até a primeira posição no Google Maps — em qualquer lugar do mapa. Método técnico, resultado mensurável.",
@@ -2066,13 +2137,27 @@ const translations = {
     form_error:"Não foi possível enviar. Tente novamente ou fale conosco pelo WhatsApp.",
     consent_modal_title:"Privacidade em primeiro lugar",
     consent_modal_text:'Usamos os dados enviados por você apenas para responder ao seu pedido de orçamento ou suporte. Leia nossa <a href="#termos">Política de Privacidade e Termos de Uso</a> antes de continuar.',
-    consent_modal_accept:"Li e aceito"
+    consent_modal_accept:"Li e aceito",
+    tour_title:"Como o site funciona",
+    tour_progress:"Passo {n} de {total}",
+    tour_step1_title:"Menu de configurações",
+    tour_step1_text:"No ícone de engrenagem, no topo, você muda idioma, tema claro/escuro, cor do site e o formato dos cartões (tela cheia ou com borda).",
+    tour_step2_title:"Instalar o app",
+    tour_step2_text:"O botão azul com a seta para baixo instala o site como aplicativo no seu celular ou computador, com atalho na tela inicial.",
+    tour_step3_title:"Fale com a gente",
+    tour_step3_text:"Os botões verdes de WhatsApp espalhados pelo site já abrem uma conversa pronta, direto com a nossa equipe.",
+    tour_step4_title:"Menu de navegação",
+    tour_step4_text:"No topo (ou no menu ☰ no celular) você pula direto para Sobre, Como funciona, Serviços ou Contato.",
+    tour_skip:"Pular",
+    tour_back:"Voltar",
+    tour_next:"Próximo",
+    tour_finish:"Entendi, começar"
   },
   es: {
     nav_cta:"Hablemos",
     menu_about:"Sobre", menu_process:"Cómo funciona", menu_services:"Servicios", menu_contact:"Contacto",
     theme_dark:"Oscuro", theme_light:"Claro",
-    settings_language:"Idioma", settings_appearance:"Apariencia", settings_theme_color:"Color del tema", settings_bg_tint:"Color de fondo", bgtint_on:"Activado", bgtint_off:"Desactivado", settings_logo_tint:"Color del logo", logotint_on:"Activado", logotint_off:"Desactivado", captcha_text:"No soy un robot", captcha_badge:"PYNN Verify",
+    settings_language:"Idioma", settings_appearance:"Apariencia", settings_theme_color:"Color del tema", settings_bg_tint:"Color de fondo", bgtint_on:"Activado", bgtint_off:"Desactivado", settings_logo_tint:"Color del logo", logotint_on:"Activado", logotint_off:"Desactivado", settings_card_mode:"Tarjetas", cardmode_full:"Pantalla completa", cardmode_border:"Con borde", captcha_text:"No soy un robot", captcha_badge:"PYNN Verify",
     hero_eyebrow:"Optimización Google Maps · Soporte Técnico",
     hero_title:'Tu empresa, <em>encontrada</em> antes que la competencia.',
     hero_lead:"Llevamos negocios de la página dos a la primera posición de Google Maps — en cualquier lugar del mapa. Método técnico, resultado medible.",
@@ -2143,13 +2228,27 @@ const translations = {
     form_error:"No se pudo enviar. Inténtalo de nuevo o contáctanos por WhatsApp.",
     consent_modal_title:"La privacidad primero",
     consent_modal_text:'Usamos los datos que envías solo para responder a tu solicitud de presupuesto o soporte. Lee nuestra <a href="#termos">Política de Privacidad y Términos de Uso</a> antes de continuar.',
-    consent_modal_accept:"Leí y acepto"
+    consent_modal_accept:"Leí y acepto",
+    tour_title:"Cómo funciona el sitio",
+    tour_progress:"Paso {n} de {total}",
+    tour_step1_title:"Menú de configuración",
+    tour_step1_text:"En el ícono de engranaje, arriba, cambias el idioma, el tema claro/oscuro, el color del sitio y el formato de las tarjetas (pantalla completa o con borde).",
+    tour_step2_title:"Instalar la app",
+    tour_step2_text:"El botón azul con la flecha hacia abajo instala el sitio como aplicación en tu celular u ordenador, con acceso directo en la pantalla de inicio.",
+    tour_step3_title:"Habla con nosotros",
+    tour_step3_text:"Los botones verdes de WhatsApp repartidos por el sitio abren una conversación lista, directo con nuestro equipo.",
+    tour_step4_title:"Menú de navegación",
+    tour_step4_text:"Arriba (o en el menú ☰ en el celular) puedes saltar directo a Sobre, Cómo funciona, Servicios o Contacto.",
+    tour_skip:"Saltar",
+    tour_back:"Atrás",
+    tour_next:"Siguiente",
+    tour_finish:"Entendido, empezar"
   },
   en: {
     nav_cta:"Get in touch",
     menu_about:"About", menu_process:"How it works", menu_services:"Services", menu_contact:"Contact",
     theme_dark:"Dark", theme_light:"Light",
-    settings_language:"Language", settings_appearance:"Appearance", settings_theme_color:"Theme color", settings_bg_tint:"Background color", bgtint_on:"On", bgtint_off:"Off", settings_logo_tint:"Logo color", logotint_on:"On", logotint_off:"Off", captcha_text:"I'm not a robot", captcha_badge:"PYNN Verify",
+    settings_language:"Language", settings_appearance:"Appearance", settings_theme_color:"Theme color", settings_bg_tint:"Background color", bgtint_on:"On", bgtint_off:"Off", settings_logo_tint:"Logo color", logotint_on:"On", logotint_off:"Off", settings_card_mode:"Cards", cardmode_full:"Full screen", cardmode_border:"With border", captcha_text:"I'm not a robot", captcha_badge:"PYNN Verify",
     hero_eyebrow:"Google Maps Optimization · IT Support",
     hero_title:'Your business, <em>found</em> before your competitors.',
     hero_lead:"We move businesses from page two to the #1 spot on Google Maps — anywhere on the map. Technical method, measurable results.",
@@ -2220,7 +2319,21 @@ const translations = {
     form_error:"Couldn't send it. Please try again or reach us on WhatsApp.",
     consent_modal_title:"Privacy first",
     consent_modal_text:'We only use the data you send to respond to your quote or support request. Read our <a href="#termos">Privacy Policy and Terms of Use</a> before continuing.',
-    consent_modal_accept:"I agree"
+    consent_modal_accept:"I agree",
+    tour_title:"How the site works",
+    tour_progress:"Step {n} of {total}",
+    tour_step1_title:"Settings menu",
+    tour_step1_text:"The gear icon at the top lets you change language, light/dark theme, site color, and the card style (full screen or bordered).",
+    tour_step2_title:"Install the app",
+    tour_step2_text:"The blue button with a down arrow installs the site as an app on your phone or computer, with a shortcut on your home screen.",
+    tour_step3_title:"Talk to us",
+    tour_step3_text:"The green WhatsApp buttons around the site open a ready-made chat straight to our team.",
+    tour_step4_title:"Navigation menu",
+    tour_step4_text:"At the top (or the ☰ menu on mobile) you can jump straight to About, How it works, Services, or Contact.",
+    tour_skip:"Skip",
+    tour_back:"Back",
+    tour_next:"Next",
+    tour_finish:"Got it, let's start"
   }
 };
 
@@ -2247,6 +2360,7 @@ setLang('pt');
 applyTheme(true);
 applyBgTint(bgTintOn, false);
 applyLogoTint(logoTintOn, false);
+applyCardMode(cardModeBorder, false);
 
 /* ---------- SETTINGS MENU (nav links + language + appearance) ---------- */
 const settingsBtn = document.getElementById('settingsBtn');
@@ -2329,11 +2443,11 @@ document.querySelectorAll('.btn-plan-wa').forEach(btn=>{
 window.addEventListener('load', ()=>{
   if(window.QRCode){
     new QRCode(document.getElementById('qrWhats'), {
-      text:'https://wa.me/5586988846870', width:110, height:110,
+      text:'https://wa.me/5586988846870', width:150, height:150,
       colorDark:'#0e0f16', colorLight:'#ffffff', correctLevel: QRCode.CorrectLevel.M
     });
     new QRCode(document.getElementById('qrInsta'), {
-      text:'https://www.instagram.com/pynn.br/', width:110, height:110,
+      text:'https://www.instagram.com/pynn.br/', width:150, height:150,
       colorDark:'#0e0f16', colorLight:'#ffffff', correctLevel: QRCode.CorrectLevel.M
     });
   }
@@ -2350,12 +2464,88 @@ window.addEventListener('load', ()=>{
 });
 consentAccept.addEventListener('click', ()=>{
   consentOverlay.classList.remove('show');
+  maybeShowTour();
 });
 document.addEventListener('keydown', (e)=>{
   if(e.key === 'Escape' && consentOverlay.classList.contains('show')){
     consentOverlay.classList.remove('show');
+    maybeShowTour();
   }
 });
+
+/* ---------- ONBOARDING TOUR (só na primeira visita) ---------- */
+const tourOverlay = document.getElementById('tourOverlay');
+const tourIcon = document.getElementById('tourIcon');
+const tourProgress = document.getElementById('tourProgress');
+const tourTitle = document.getElementById('tourTitle');
+const tourText = document.getElementById('tourText');
+const tourDots = document.getElementById('tourDots');
+const tourBack = document.getElementById('tourBack');
+const tourNext = document.getElementById('tourNext');
+const tourSkip = document.getElementById('tourSkip');
+
+const tourIconSvgs = {
+  gear:'<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.6a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z"></path></svg>',
+  download:'<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 19h14"/></svg>',
+  chat:'<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>',
+  compass:'<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon></svg>'
+};
+const tourSteps = [
+  { icon:tourIconSvgs.gear, titleKey:'tour_step1_title', textKey:'tour_step1_text' },
+  { icon:tourIconSvgs.download, titleKey:'tour_step2_title', textKey:'tour_step2_text' },
+  { icon:tourIconSvgs.chat, titleKey:'tour_step3_title', textKey:'tour_step3_text' },
+  { icon:tourIconSvgs.compass, titleKey:'tour_step4_title', textKey:'tour_step4_text' }
+];
+let tourIndex = 0;
+
+tourDots.innerHTML = tourSteps.map(()=> '<span></span>').join('');
+const tourDotEls = tourDots.querySelectorAll('span');
+
+function renderTourStep(){
+  const step = tourSteps[tourIndex];
+  const t = translations[currentLang];
+  tourIcon.innerHTML = step.icon;
+  tourTitle.setAttribute('data-i18n', step.titleKey);
+  tourText.setAttribute('data-i18n', step.textKey);
+  tourTitle.textContent = t[step.titleKey];
+  tourText.textContent = t[step.textKey];
+  tourProgress.textContent = (t.tour_progress || 'Passo {n} de {total}')
+    .replace('{n}', tourIndex + 1).replace('{total}', tourSteps.length);
+  tourDotEls.forEach((d,i)=> d.classList.toggle('active', i === tourIndex));
+  tourBack.disabled = tourIndex === 0;
+  tourNext.textContent = (tourIndex === tourSteps.length - 1) ? t.tour_finish : t.tour_next;
+  tourNext.setAttribute('data-i18n', (tourIndex === tourSteps.length - 1) ? 'tour_finish' : 'tour_next');
+}
+
+function closeTour(){
+  tourOverlay.classList.remove('show');
+  try{ localStorage.setItem('pynn-tour-seen', '1'); }catch(e){}
+}
+
+function maybeShowTour(){
+  let seen = false;
+  try{ seen = localStorage.getItem('pynn-tour-seen') === '1'; }catch(e){}
+  if(seen) return;
+  tourIndex = 0;
+  renderTourStep();
+  setTimeout(()=>{ tourOverlay.classList.add('show'); }, 350);
+}
+
+tourNext.addEventListener('click', ()=>{
+  if(tourIndex === tourSteps.length - 1){ closeTour(); return; }
+  tourIndex++;
+  renderTourStep();
+});
+tourBack.addEventListener('click', ()=>{
+  if(tourIndex === 0) return;
+  tourIndex--;
+  renderTourStep();
+});
+tourSkip.addEventListener('click', closeTour);
+document.addEventListener('keydown', (e)=>{
+  if(e.key === 'Escape' && tourOverlay.classList.contains('show')) closeTour();
+});
+
 /* ---------- PWA: registra o service worker (precisa ser arquivo externo por segurança do navegador) ---------- */
 if('serviceWorker' in navigator){
   var pynnSWReg = null;
@@ -2591,14 +2781,18 @@ if('serviceWorker' in navigator){
 
   function markInstalled(){
     btn.classList.add('is-installed');
+    btn.classList.add('is-hidden');
     btn.setAttribute('disabled', 'true');
     btn.setAttribute('title', 'App já instalado');
     btn.setAttribute('aria-label', 'App já instalado');
+    try{ localStorage.setItem('pynnAppInstalled', '1'); }catch(err){}
   }
 
   // O botão fica visível por padrão (CSS). Só o escondemos se o site já
   // estiver rodando como app instalado — aí não faz sentido mostrá-lo.
-  if(isStandalone()){
+  var wasInstalled = false;
+  try{ wasInstalled = localStorage.getItem('pynnAppInstalled') === '1'; }catch(err){}
+  if(isStandalone() || wasInstalled){
     btn.classList.add('is-hidden');
   }
 
