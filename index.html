@@ -1180,6 +1180,14 @@ var QRCode;
   .plan.c-green .btn-plan:hover{ background:color-mix(in srgb, var(--green) 88%, #000); }
   .plan.c-yellow .btn-plan{ background:var(--yellow); color:#04060c; }
   .plan.c-yellow .btn-plan:hover{ background:color-mix(in srgb, var(--yellow) 88%, #000); }
+  .plan.c-purple .btn-plan{ background:#8b6cf5; color:#fff; }
+  .plan.c-purple .btn-plan:hover{ background:color-mix(in srgb, #8b6cf5 88%, #000); }
+  .plan.c-purple .note{ background:rgba(139,108,245,.14); }
+  .plan.c-pink{ border-color:color-mix(in srgb, #ff6fa5 45%, var(--border)); }
+  .plan.c-pink .ribbon{ background:#ff6fa5; color:#04060c; }
+  .plan.c-pink .btn-plan{ background:#ff6fa5; color:#04060c; }
+  .plan.c-pink .btn-plan:hover{ background:color-mix(in srgb, #ff6fa5 88%, #000); }
+  .plan.c-pink .note{ background:rgba(255,111,165,.14); }
   .support-block .btn-plan-wa{
     margin-top:18px; background:var(--yellow); color:#04060c; font-weight:600;
     box-shadow:0 6px 14px -8px rgba(0,0,0,.35);
@@ -1668,6 +1676,59 @@ var QRCode;
             <p class="note" data-i18n="plan4_note">Nota: não desenvolvemos sites que envolvam banco de dados (ex: login de usuários, e-commerce com carrinho, sistemas dinâmicos). Trabalhamos com sites institucionais, portfólio, landing page e currículo online.</p>
             <a href="#contato" class="btn btn-plan btn-plan-wa" data-msg-key="plan4_wa_msg" data-i18n="plan4_cta">Solicitar orçamento</a>
           </div>
+
+          <div class="plan c-purple">
+            <div class="icon-3d">
+              <svg viewBox="0 0 64 64" width="52" height="52" aria-hidden="true">
+                <defs>
+                  <linearGradient id="g5" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0" stop-color="#c9baff"/>
+                    <stop offset="1" stop-color="#8b6cf5"/>
+                  </linearGradient>
+                </defs>
+                <path d="M32 6C20.4 6 11 15.4 11 27c0 15.5 21 31 21 31s21-15.5 21-31C53 15.4 43.6 6 32 6Z" fill="url(#g5)"/>
+                <circle cx="32" cy="27" r="9" fill="#f5f1ff"/>
+                <ellipse cx="26" cy="20" rx="6" ry="3" fill="#ffffff" opacity=".5"/>
+                <g transform="translate(48,14)">
+                  <circle r="10" fill="#0d1117" stroke="#8b6cf5" stroke-width="1.5"/>
+                  <path d="M-4.4,-1.6 A5,5 0 1 1 -3.6,3" fill="none" stroke="#f5f1ff" stroke-width="1.6" stroke-linecap="round"/>
+                  <path d="M-5.9,-3.5 L-4.1,-0.8 L-6.9,0.1 Z" fill="#f5f1ff"/>
+                </g>
+              </svg>
+            </div>
+            <span class="tag" data-i18n="plan5_tag">Google Maps · Manutenção</span>
+            <h3 data-i18n="plan5_title">Plano Mensal</h3>
+            <div class="price">R$ 90<small data-i18n="plan5_price_note">Por mês · via Pix · cancele quando quiser</small></div>
+            <p class="desc" data-i18n="plan5_desc">Acompanhamento contínuo do seu perfil no Google Maps: revisão mensal de categoria, horários, fotos, respostas a avaliações e ajustes de palavras-chave para manter — e melhorar — sua posição no ranking. Ideal para quem já otimizou o perfil e quer garantir que ele continue no topo.</p>
+            <a href="#contato" class="btn btn-plan btn-plan-wa" data-msg-key="plan5_wa_msg" data-i18n="plan5_cta">Assinar manutenção mensal</a>
+          </div>
+
+          <div class="plan c-pink">
+            <span class="ribbon" data-i18n="plan6_ribbon">Economize até 10%</span>
+            <div class="icon-3d">
+              <svg viewBox="0 0 64 64" width="52" height="52" aria-hidden="true">
+                <defs>
+                  <linearGradient id="g6" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0" stop-color="#ffbcd9"/>
+                    <stop offset="1" stop-color="#ff6fa5"/>
+                  </linearGradient>
+                </defs>
+                <path d="M32 6C20.4 6 11 15.4 11 27c0 15.5 21 31 21 31s21-15.5 21-31C53 15.4 43.6 6 32 6Z" fill="url(#g6)"/>
+                <circle cx="32" cy="27" r="9" fill="#fff0f6"/>
+                <ellipse cx="26" cy="20" rx="6" ry="3" fill="#ffffff" opacity=".5"/>
+                <g transform="translate(48,14)">
+                  <circle r="10" fill="#0d1117" stroke="#ff6fa5" stroke-width="1.5"/>
+                  <text x="0" y="4" text-anchor="middle" font-size="10" font-weight="700" fill="#fff0f6" font-family="Inter,sans-serif">%</text>
+                </g>
+              </svg>
+            </div>
+            <span class="tag" data-i18n="plan6_tag">Desconto progressivo</span>
+            <h3 data-i18n="plan6_title">Plano Combo</h3>
+            <div class="price">Até 10% OFF<small data-i18n="plan6_price_note">Ao combinar mais de um plano PYNN</small></div>
+            <p class="desc" data-i18n="plan6_desc">Contratou mais de um plano PYNN? Você ganha desconto progressivo: 5% ao combinar 2 planos e 10% ao combinar 3 ou mais — por exemplo, Essencial + Manutenção Mensal, ou Site + Google Maps. O desconto é calculado sobre o valor total e aplicado no fechamento.</p>
+            <p class="note" data-i18n="plan6_note">Nota: desconto calculado sobre a soma dos planos escolhidos; não cumulativo com outras promoções. Fale com a gente para simular o valor do seu combo.</p>
+            <a href="#contato" class="btn btn-plan btn-plan-wa" data-msg-key="plan6_wa_msg" data-i18n="plan6_cta">Montar meu combo</a>
+          </div>
         </div>
 
         <div class="support-block">
@@ -2102,6 +2163,13 @@ const translations = {
     plan4_desc:"Sou dev e crio sites profissionais, responsivos e otimizados para aparecer no Google: currículo online, portfólio, landing page ou site institucional da sua empresa. Estrutura, textos e design pensados para converter visitas em contato.",
     plan4_cta:"Solicitar orçamento",
     plan4_note:"Nota: não desenvolvemos sites que envolvam banco de dados (ex: login de usuários, e-commerce com carrinho, sistemas dinâmicos). Trabalhamos com sites institucionais, portfólio, landing page e currículo online.",
+    plan5_tag:"Google Maps · Manutenção", plan5_title:"Plano Mensal", plan5_price_note:"Por mês · via Pix · cancele quando quiser",
+    plan5_desc:"Acompanhamento contínuo do seu perfil no Google Maps: revisão mensal de categoria, horários, fotos, respostas a avaliações e ajustes de palavras-chave para manter — e melhorar — sua posição no ranking. Ideal para quem já otimizou o perfil e quer garantir que ele continue no topo.",
+    plan5_cta:"Assinar manutenção mensal",
+    plan6_tag:"Desconto progressivo", plan6_ribbon:"Economize até 10%", plan6_title:"Plano Combo", plan6_price_note:"Ao combinar mais de um plano PYNN",
+    plan6_desc:"Contratou mais de um plano PYNN? Você ganha desconto progressivo: 5% ao combinar 2 planos e 10% ao combinar 3 ou mais — por exemplo, Essencial + Manutenção Mensal, ou Site + Google Maps. O desconto é calculado sobre o valor total e aplicado no fechamento.",
+    plan6_note:"Nota: desconto calculado sobre a soma dos planos escolhidos; não cumulativo com outras promoções. Fale com a gente para simular o valor do seu combo.",
+    plan6_cta:"Montar meu combo",
     support_tag:"Suporte Técnico", support_title:"Manutenção de sistemas em TI",
     support_desc:"Formatação, configuração de sistemas e aceleração de desempenho para notebooks, computadores, celulares e tablets.",
     support_note:"Nota: atendimento especializado em software. Não realizamos manutenção de hardware ou troca de peças físicas.",
@@ -2110,6 +2178,8 @@ const translations = {
     plan2_wa_msg:"Olá! Encontrei a PYNN pelo site e tenho interesse em contratar o Plano Flexível (parcelado em 2x) de otimização do perfil no Google Maps. Poderiam me passar mais detalhes? Meu nome: ",
     plan3_wa_msg:"Olá! Encontrei a PYNN pelo site e preciso de ajuda com o Plano Recuperação para corrigir ou reativar meu perfil no Google Maps. Poderiam me passar mais detalhes? Meu nome: ",
     plan4_wa_msg:"Olá! Encontrei a PYNN pelo site e tenho interesse em criar um site. Poderiam me passar mais detalhes sobre o Plano Site? Meu nome: ",
+    plan5_wa_msg:"Olá! Encontrei a PYNN pelo site e tenho interesse em assinar o Plano Mensal de manutenção do perfil no Google Maps. Poderiam me passar mais detalhes? Meu nome: ",
+    plan6_wa_msg:"Olá! Encontrei a PYNN pelo site e tenho interesse em combinar mais de um plano para ganhar o desconto do Plano Combo. Poderiam me passar mais detalhes? Meu nome: ",
     support_wa_msg:"Olá! Encontrei a PYNN pelo site e gostaria de solicitar suporte técnico em TI. Poderiam me passar mais detalhes? Meu nome: ",
     contact_eyebrow:"Contato", contact_title:'Vamos colocar sua <em>empresa no topo</em>.',
     security_note:"Nunca envie senhas ou dados bancários por este formulário. Aguarde nosso contato oficial.",
@@ -2193,6 +2263,13 @@ const translations = {
     plan4_desc:"Soy dev y creo sitios web profesionales, responsivos y optimizados para aparecer en Google: currículum online, portafolio, landing page o sitio institucional de tu empresa. Estructura, textos y diseño pensados para convertir visitas en contacto.",
     plan4_cta:"Solicitar presupuesto",
     plan4_note:"Nota: no desarrollamos sitios que involucren bases de datos (ej: inicio de sesión de usuarios, e-commerce con carrito, sistemas dinámicos). Trabajamos con sitios institucionales, portafolio, landing page y currículum online.",
+    plan5_tag:"Google Maps · Mantenimiento", plan5_title:"Plan Mensual", plan5_price_note:"Por mes · vía Pix · cancela cuando quieras",
+    plan5_desc:"Seguimiento continuo de tu perfil en Google Maps: revisión mensual de categoría, horarios, fotos, respuestas a reseñas y ajustes de palabras clave para mantener — y mejorar — tu posición en el ranking. Ideal para quien ya optimizó el perfil y quiere que siga en la cima.",
+    plan5_cta:"Suscribirme al mantenimiento mensual",
+    plan6_tag:"Descuento progresivo", plan6_ribbon:"Ahorra hasta 10%", plan6_title:"Plan Combo", plan6_price_note:"Al combinar más de un plan PYNN",
+    plan6_desc:"¿Contrataste más de un plan PYNN? Obtienes descuento progresivo: 5% al combinar 2 planes y 10% al combinar 3 o más — por ejemplo, Esencial + Mantenimiento Mensual, o Sitio Web + Google Maps. El descuento se calcula sobre el valor total y se aplica al cerrar el trato.",
+    plan6_note:"Nota: descuento calculado sobre la suma de los planes elegidos; no acumulable con otras promociones. Habla con nosotros para simular el valor de tu combo.",
+    plan6_cta:"Armar mi combo",
     support_tag:"Soporte Técnico", support_title:"Mantenimiento de sistemas en TI",
     support_desc:"Formateo, configuración de sistemas y aceleración de rendimiento para portátiles, computadoras, celulares y tablets.",
     support_note:"Nota: atención especializada en software. No realizamos mantenimiento de hardware ni cambio de piezas físicas.",
@@ -2201,6 +2278,8 @@ const translations = {
     plan2_wa_msg:"¡Hola! Encontré a PYNN en el sitio web y me interesa contratar el Plan Flexible (en 2 pagos) de optimización de perfil en Google Maps. ¿Podrían darme más detalles? Mi nombre: ",
     plan3_wa_msg:"¡Hola! Encontré a PYNN en el sitio web y necesito ayuda con el Plan Recuperación para corregir o reactivar mi perfil en Google Maps. ¿Podrían darme más detalles? Mi nombre: ",
     plan4_wa_msg:"¡Hola! Encontré a PYNN en el sitio web y me interesa crear un sitio web. ¿Podrían darme más detalles sobre el Plan Sitio Web? Mi nombre: ",
+    plan5_wa_msg:"¡Hola! Encontré a PYNN en el sitio web y me interesa suscribirme al Plan Mensual de mantenimiento del perfil en Google Maps. ¿Podrían darme más detalles? Mi nombre: ",
+    plan6_wa_msg:"¡Hola! Encontré a PYNN en el sitio web y me interesa combinar más de un plan para obtener el descuento del Plan Combo. ¿Podrían darme más detalles? Mi nombre: ",
     support_wa_msg:"¡Hola! Encontré a PYNN en el sitio web y me gustaría solicitar soporte técnico en TI. ¿Podrían darme más detalles? Mi nombre: ",
     contact_eyebrow:"Contacto", contact_title:'Pongamos tu <em>empresa en la cima</em>.',
     security_note:"Nunca envíes contraseñas o datos bancarios por este formulario. Espera nuestro contacto oficial.",
@@ -2284,6 +2363,13 @@ const translations = {
     plan4_desc:"I'm a dev, and I build professional, responsive websites optimized to rank on Google: online resumes, portfolios, landing pages, or your company's institutional site. Structure, copy, and design built to turn visits into contact.",
     plan4_cta:"Request a quote",
     plan4_note:"Note: we don't build sites involving databases (e.g. user login, e-commerce with a shopping cart, dynamic systems). We work with institutional sites, portfolios, landing pages, and online resumes.",
+    plan5_tag:"Google Maps · Maintenance", plan5_title:"Monthly Plan", plan5_price_note:"Per month · via Pix · cancel anytime",
+    plan5_desc:"Ongoing upkeep of your Google Maps profile: monthly review of category, hours, photos, review replies, and keyword tweaks to maintain — and improve — your ranking. Ideal for businesses that already optimized their profile and want to stay on top.",
+    plan5_cta:"Subscribe to monthly maintenance",
+    plan6_tag:"Progressive discount", plan6_ribbon:"Save up to 10%", plan6_title:"Combo Plan", plan6_price_note:"When combining more than one PYNN plan",
+    plan6_desc:"Hired more than one PYNN plan? You get a progressive discount: 5% off when combining 2 plans and 10% off when combining 3 or more — for example, Essential + Monthly Maintenance, or Website + Google Maps. The discount is calculated on the total value and applied when closing the deal.",
+    plan6_note:"Note: discount calculated on the sum of the chosen plans; not stackable with other promotions. Talk to us to get a quote for your combo.",
+    plan6_cta:"Build my combo",
     support_tag:"IT Support", support_title:"System maintenance",
     support_desc:"Formatting, system setup, and performance boosts for laptops, computers, phones, and tablets.",
     support_note:"Note: software support only. We do not perform hardware repairs or physical part replacement.",
@@ -2292,6 +2378,8 @@ const translations = {
     plan2_wa_msg:"Hello! I found PYNN through your website and I'm interested in the Flexible Plan (2 installments) for Google Maps profile optimization. Could you share more details? My name: ",
     plan3_wa_msg:"Hello! I found PYNN through your website and I need help with the Recovery Plan to fix or reactivate my Google Maps listing. Could you share more details? My name: ",
     plan4_wa_msg:"Hello! I found PYNN through your website and I'm interested in getting a website built. Could you share more details about the Website Plan? My name: ",
+    plan5_wa_msg:"Hello! I found PYNN through your website and I'm interested in subscribing to the Monthly Plan for Google Maps profile maintenance. Could you share more details? My name: ",
+    plan6_wa_msg:"Hello! I found PYNN through your website and I'm interested in combining more than one plan to get the Combo Plan discount. Could you share more details? My name: ",
     support_wa_msg:"Hello! I found PYNN through your website and I'd like to request IT technical support. Could you share more details? My name: ",
     contact_eyebrow:"Contact", contact_title:"Let's get your <em>business to the top</em>.",
     security_note:"Never send passwords or banking details through this form. Wait for our official contact.",
