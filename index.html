@@ -974,9 +974,11 @@ var QRCode;
     padding:8px 12px; cursor:pointer; transition:border-color .2s;
   }
   .appearance-toggle:hover{ border-color:var(--coral); }
+  #readerIcon{ display:inline-flex; }
+  html.reader-off .tts-widget{ display:none !important; }
 
   /* ---------- HERO ---------- */
-  .hero{ padding-top:24px; padding-bottom:56px; position:relative; }
+  .hero{ padding-top:108px; padding-bottom:56px; position:relative; }
   .hero-photo{
     background-image:url('https://images.unsplash.com/photo-1761850648640-2ee5870ee883?fm=jpg&q=70&w=1600&auto=format&fit=crop');
     background-size:cover; background-position:center;
@@ -1051,7 +1053,7 @@ var QRCode;
     html.card-mode-border .section-card{ border:1px solid var(--border); border-radius:var(--radius-lg); margin:0; width:auto; padding:20px 12px; }
     .plan{ padding:22px 16px; }
     .plan .btn-plan{ font-size:.76rem; padding-left:14px; padding-right:14px; }
-    .hero{ padding-top:16px; }
+    .hero{ padding-top:84px; }
     .hero-chips{ gap:10px; }
     header{ padding:10px 12px; }
     nav.wrap{
@@ -1062,6 +1064,11 @@ var QRCode;
     }
     .logo{ height:24px; }
     .settings-btn{ width:34px; height:34px; }
+  }
+
+  /* Um pouco menos de vazio entre o hero e a próxima seção, só no desktop */
+  @media(min-width:769px){
+    .hero{ padding-bottom:36px; }
   }
 
   .section-head{ max-width:640px; margin-bottom:48px; }
@@ -1113,6 +1120,46 @@ var QRCode;
     font-family:'Inter',sans-serif; font-size:.7rem; font-weight:600; letter-spacing:.02em; color:var(--fg-muted);
   }
   .coverage-card.is-hq .coverage-tag{ color:var(--coral-fg); border-color:var(--coral-soft); background:var(--coral-soft); }
+
+  /* ---------- PARTNERS (Parceiros oficiais) ---------- */
+  .partners-benefits{
+    display:grid; grid-template-columns:repeat(3,1fr); gap:22px;
+    margin-top:40px;
+  }
+  @media(max-width:820px){ .partners-benefits{ grid-template-columns:1fr; } }
+  .partners-benefit{
+    background:var(--bg-panel); border:1px solid var(--border); border-radius:var(--radius);
+    padding:26px 22px; text-align:left;
+    transition:transform .35s var(--ease), border-color .35s var(--ease), box-shadow .35s var(--ease);
+  }
+  .partners-benefit:hover{ transform:translateY(-4px); border-color:var(--coral-soft); box-shadow:0 16px 32px -20px rgba(0,0,0,.25); }
+  .partners-benefit-icon{
+    width:44px; height:44px; border-radius:12px;
+    background:var(--coral-soft); color:var(--coral-fg);
+    display:flex; align-items:center; justify-content:center;
+    margin-bottom:16px;
+  }
+  .partners-benefit h3{ font-family:'Fraunces',serif; font-size:1.05rem; margin-bottom:8px; }
+  .partners-benefit p{ color:var(--fg-muted); font-size:.86rem; line-height:1.55; }
+
+  .partners-showcase{
+    display:flex; gap:16px; flex-wrap:wrap; justify-content:center;
+    margin-top:44px;
+  }
+  .partners-slot{
+    width:148px; height:96px;
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px;
+    border:1.5px dashed var(--border); border-radius:var(--radius-sm);
+    color:var(--fg-muted); font-size:.7rem; font-weight:600; letter-spacing:.02em; text-align:center;
+    background:var(--bg-panel-2);
+  }
+  .partners-slot-icon{
+    width:26px; height:26px; border-radius:50%;
+    border:1.5px dashed var(--border);
+    display:flex; align-items:center; justify-content:center;
+    font-size:1rem; line-height:1; color:var(--fg-muted);
+  }
+  .partners-cta{ text-align:center; margin-top:36px; }
 
   /* ---------- PROCESS ---------- */
   .process-grid{ display:grid; grid-template-columns:1fr 1fr; gap:36px; margin-top:8px; }
@@ -1188,6 +1235,10 @@ var QRCode;
   .plan.c-pink .btn-plan{ background:#ff6fa5; color:#04060c; }
   .plan.c-pink .btn-plan:hover{ background:color-mix(in srgb, #ff6fa5 88%, #000); }
   .plan.c-pink .note{ background:rgba(255,111,165,.14); }
+  .plan.c-teal{ border-color:color-mix(in srgb, #14b8a6 45%, var(--border)); }
+  .plan.c-teal .btn-plan{ background:#14b8a6; color:#04060c; }
+  .plan.c-teal .btn-plan:hover{ background:color-mix(in srgb, #14b8a6 88%, #000); }
+  .plan.c-teal .note{ background:rgba(20,184,166,.14); }
   .support-block .btn-plan-wa{
     margin-top:18px; background:var(--yellow); color:#04060c; font-weight:600;
     box-shadow:0 6px 14px -8px rgba(0,0,0,.35);
@@ -1411,6 +1462,7 @@ var QRCode;
       <a href="#sobre" data-i18n="menu_about">Sobre</a>
       <a href="#processo" data-i18n="menu_process">Como funciona</a>
       <a href="#servicos" data-i18n="menu_services">Serviços</a>
+      <a href="#parceiros" data-i18n="menu_partners">Parcerias</a>
       <a href="#contato" data-i18n="menu_contact">Contato</a>
     </div>
 
@@ -1433,6 +1485,7 @@ var QRCode;
             <a href="#sobre" data-i18n="menu_about">Sobre</a>
             <a href="#processo" data-i18n="menu_process">Como funciona</a>
             <a href="#servicos" data-i18n="menu_services">Serviços</a>
+            <a href="#parceiros" data-i18n="menu_partners">Parcerias</a>
             <a href="#contato" data-i18n="menu_contact">Contato</a>
           </div>
           <div class="settings-row">
@@ -1480,6 +1533,18 @@ var QRCode;
               <span id="logoTintIcon">○</span> <span id="logoTintLabel" data-i18n="logotint_off">Desativado</span>
             </button>
           </div>
+          <div class="settings-row">
+            <span class="settings-label" data-i18n="settings_reader">Leitor de voz</span>
+            <button type="button" class="appearance-toggle" id="readerToggle" aria-pressed="true" aria-label="Ativar ou desativar o leitor de voz da página">
+              <span id="readerIcon" aria-hidden="true">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none">
+                  <path d="M4 9v6h4l5 5V4L8 9H4z" fill="currentColor"/>
+                  <path d="M16.4 8.6a5 5 0 0 1 0 6.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+                </svg>
+              </span>
+              <span id="readerLabel" data-i18n="reader_on">Ativado</span>
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -1493,7 +1558,7 @@ var QRCode;
     <div class="hero-overlay"></div>
     <div class="wrap hero-center">
       <p class="eyebrow" data-i18n="hero_eyebrow">Otimização Google Maps · Suporte Técnico</p>
-      <h1 data-i18n="hero_title">Sua empresa, <em>encontrada</em> antes da concorrência.</h1>
+      <h1 data-i18n="hero_title">Sua empresa <em>encontrada</em> antes da concorrência</h1>
       <p class="lead" data-i18n="hero_lead">Conduzimos negócios da página dois até a primeira posição no Google Maps — e mantemos seus equipamentos funcionando no ritmo certo. Método técnico, resultado mensurável.</p>
       <div class="hero-actions">
         <a href="#contato" class="btn btn-solid" data-i18n="hero_cta1">Solicitar orçamento</a>
@@ -1512,6 +1577,8 @@ var QRCode;
         <div class="about-grid">
           <div class="about-copy">
             <p class="eyebrow" data-i18n="about_eyebrow">Sobre mim</p>
+            <p class="about-name" style="font-family:'Fraunces',serif; font-size:1.4rem; font-weight:600; margin:2px 0 2px;">Arthur Richard</p>
+            <p class="about-role" style="font-size:.82rem; letter-spacing:.04em; color:var(--fg-muted); margin:0 0 18px;" data-i18n="about_role">FUNDADOR · PYNN</p>
             <h2 data-i18n="about_title" style="margin:12px 0 22px; font-size:clamp(1.7rem,3vw,2.2rem);">Disciplina que <em>vira resultado</em>.</h2>
             <p data-i18n="about_p1">Sou estudante de <strong>Redes de Computadores (Superior)</strong> no Instituto Federal do Maranhão (IFMA). Sou uma pessoa com deficiência múltipla, e minha trajetória é marcada pela superação — conquistei o <strong>1º lugar no Sisu/Enem 2024</strong>.</p>
             <p data-i18n="about_p2">Essa mesma disciplina que me levou ao topo da classificação nacional é a que aplico todos os dias para colocar empresas no topo do Google Maps. Autoridade técnica, seriedade e acessibilidade guiam cada projeto que assino.</p>
@@ -1703,6 +1770,32 @@ var QRCode;
             <a href="#contato" class="btn btn-plan btn-plan-wa" data-msg-key="plan5_wa_msg" data-i18n="plan5_cta">Assinar manutenção mensal</a>
           </div>
 
+          <div class="plan c-teal">
+            <div class="icon-3d">
+              <svg viewBox="0 0 64 64" width="52" height="52" aria-hidden="true">
+                <defs>
+                  <linearGradient id="g7" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0" stop-color="#7fe8d8"/>
+                    <stop offset="1" stop-color="#14b8a6"/>
+                  </linearGradient>
+                </defs>
+                <path d="M32 6C20.4 6 11 15.4 11 27c0 15.5 21 31 21 31s21-15.5 21-31C53 15.4 43.6 6 32 6Z" fill="url(#g7)"/>
+                <circle cx="32" cy="27" r="9" fill="#e8fff9"/>
+                <ellipse cx="26" cy="20" rx="6" ry="3" fill="#ffffff" opacity=".5"/>
+                <g transform="translate(48,14)">
+                  <circle r="10" fill="#0d1117" stroke="#14b8a6" stroke-width="1.5"/>
+                  <path d="M0,-4.5 L4,1.5 L1.3,1.5 L1.3,5 L-1.3,5 L-1.3,1.5 L-4,1.5 Z" fill="#e8fff9"/>
+                </g>
+              </svg>
+            </div>
+            <span class="tag" data-i18n="plan7_tag">Google Maps · Atualização</span>
+            <h3 data-i18n="plan7_title">Plano Atualização</h3>
+            <div class="price">A partir de R$ 150<small data-i18n="plan7_price_note">Para quem já tem o perfil otimizado · via Pix</small></div>
+            <p class="desc" data-i18n="plan7_desc">Já otimizamos seu perfil (ou você mesmo otimizou) e agora só precisa de ajustes? Atualizamos categoria, horários, fotos, descrição, serviços e palavras-chave para refletir as mudanças do seu negócio e manter — ou recuperar — sua posição no Google Maps. Entrega em até 48h após a confirmação do pagamento.</p>
+            <p class="note" data-i18n="plan7_note">Nota: o valor final depende do volume de alterações necessárias — a partir de R$ 150 para ajustes pontuais. Enviamos o orçamento exato depois de avaliar seu perfil, sem compromisso.</p>
+            <a href="#contato" class="btn btn-plan btn-plan-wa" data-msg-key="plan7_wa_msg" data-i18n="plan7_cta">Solicitar atualização</a>
+          </div>
+
           <div class="plan c-pink">
             <span class="ribbon" data-i18n="plan6_ribbon">Economize até 10%</span>
             <div class="icon-3d">
@@ -1848,6 +1941,73 @@ var QRCode;
     </div>
   </section>
 
+  <!-- PARTNERS -->
+  <section class="partners" id="parceiros">
+    <div class="wrap">
+      <div class="section-plain">
+        <div class="section-head" style="text-align:center; max-width:640px; margin-left:auto; margin-right:auto;">
+          <p class="eyebrow" data-i18n="partners_eyebrow">Parcerias</p>
+          <h2 data-i18n="partners_title">Parceiros <em>oficiais</em></h2>
+          <p data-i18n="partners_lead">Quem se torna parceiro oficial da PYNN ganha um espaço fixo aqui no site: seu logotipo, o nome do seu negócio e o link para o seu site ou rede social, direto nesta área — visível para todo mundo que visita a nossa página.</p>
+        </div>
+
+        <div class="partners-benefits">
+          <div class="partners-benefit">
+            <div class="partners-benefit-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"/>
+                <circle cx="12" cy="12" r="3"/>
+              </svg>
+            </div>
+            <h3 data-i18n="partners_b1_title">Mais visibilidade</h3>
+            <p data-i18n="partners_b1_desc">Seu negócio aparece para quem visita o site da PYNN em busca de otimização no Google Maps ou suporte técnico — um público que já está de olho em melhorar a própria presença online.</p>
+          </div>
+          <div class="partners-benefit">
+            <div class="partners-benefit-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-4Z"/>
+                <path d="M9 12l2 2 4-4"/>
+              </svg>
+            </div>
+            <h3 data-i18n="partners_b2_title">Autoridade e confiança</h3>
+            <p data-i18n="partners_b2_desc">Estar listado como parceiro oficial reforça a credibilidade da sua marca, associando seu negócio a um trabalho técnico sério e com resultado comprovado.</p>
+          </div>
+          <div class="partners-benefit">
+            <div class="partners-benefit-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M17 1l4 4-4 4"/>
+                <path d="M3 11V9a4 4 0 0 1 4-4h14"/>
+                <path d="M7 23l-4-4 4-4"/>
+                <path d="M21 13v2a4 4 0 0 1-4 4H3"/>
+              </svg>
+            </div>
+            <h3 data-i18n="partners_b3_title">Indicações diretas</h3>
+            <p data-i18n="partners_b3_desc">Sempre que fizer sentido, indicamos parceiros oficiais para os nossos próprios clientes — uma via de mão dupla que gera negócio pros dois lados.</p>
+          </div>
+        </div>
+
+        <div class="partners-showcase" id="partnersShowcase">
+          <div class="partners-slot">
+            <span class="partners-slot-icon" aria-hidden="true">+</span>
+            <span data-i18n="partners_slot_text">Seu logo aqui</span>
+          </div>
+          <div class="partners-slot">
+            <span class="partners-slot-icon" aria-hidden="true">+</span>
+            <span data-i18n="partners_slot_text">Seu logo aqui</span>
+          </div>
+          <div class="partners-slot">
+            <span class="partners-slot-icon" aria-hidden="true">+</span>
+            <span data-i18n="partners_slot_text">Seu logo aqui</span>
+          </div>
+        </div>
+
+        <div class="partners-cta">
+          <a href="#contato" class="btn btn-solid btn-plan-wa" data-msg-key="partners_wa_msg" data-i18n="partners_cta">Quero ser parceiro oficial</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- CONTACT -->
   <section class="contact" id="contato">
     <div class="wrap">
@@ -1951,7 +2111,7 @@ var QRCode;
   </section>
 
   <!-- TERMS -->
-  <section class="terms" id="termos">
+  <section class="terms" id="termos" data-tts-skip="true">
     <div class="wrap">
       <div class="section-plain" style="max-width:820px; margin:0 auto;">
         <p class="eyebrow" data-i18n="terms_eyebrow">Legal</p>
@@ -2120,16 +2280,39 @@ function applyLogoTint(on, persist){
 }
 logoTintToggle.addEventListener('click', ()=> applyLogoTint(!logoTintOn, true));
 
+/* ---------- ATIVAR/DESATIVAR O LEITOR DE VOZ (TTS) ---------- */
+const readerToggle = document.getElementById('readerToggle');
+const readerIcon = document.getElementById('readerIcon');
+const readerLabel = document.getElementById('readerLabel');
+const READER_ICON_ON = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M4 9v6h4l5 5V4L8 9H4z" fill="currentColor"/><path d="M16.4 8.6a5 5 0 0 1 0 6.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" fill="none"/></svg>';
+const READER_ICON_OFF = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M4 9v6h4l5 5V4L8 9H4z" fill="currentColor"/><path d="M17 8l5 8M22 8l-5 8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>';
+let readerOn = true;
+try{ readerOn = localStorage.getItem('pynn-reader-off') !== 'true'; }catch(e){}
+function applyReader(on, persist){
+  readerOn = on;
+  document.documentElement.classList.toggle('reader-off', !on);
+  readerToggle.setAttribute('aria-pressed', on ? 'true' : 'false');
+  readerIcon.innerHTML = on ? READER_ICON_ON : READER_ICON_OFF;
+  readerLabel.setAttribute('data-i18n', on ? 'reader_on' : 'reader_off');
+  setLang(currentLang);
+  if(!on){
+    // Se estava lendo, para na hora de desativar.
+    try{ if('speechSynthesis' in window) window.speechSynthesis.cancel(); }catch(e){}
+  }
+  if(persist){ try{ localStorage.setItem('pynn-reader-off', (!on).toString()); }catch(e){} }
+}
+readerToggle.addEventListener('click', ()=> applyReader(!readerOn, true));
+
 
 /* ---------- I18N ---------- */
 const translations = {
   pt: {
     nav_cta:"Fale conosco",
-    menu_about:"Sobre", menu_process:"Como funciona", menu_services:"Serviços", menu_contact:"Contato",
+    menu_about:"Sobre", menu_process:"Como funciona", menu_services:"Serviços", menu_partners:"Parcerias", menu_contact:"Contato",
     theme_dark:"Escuro", theme_light:"Claro",
-    settings_language:"Idioma", settings_appearance:"Aparência", settings_theme_color:"Cor do tema", settings_bg_tint:"Cor no fundo", bgtint_on:"Ativado", bgtint_off:"Desativado", settings_logo_tint:"Cor no logotipo", logotint_on:"Ativado", logotint_off:"Desativado", settings_card_mode:"Cartões", cardmode_full:"Tela cheia", cardmode_border:"Com borda", captcha_text:"Não sou um robô", captcha_badge:"PYNN Verify",
+    settings_language:"Idioma", settings_appearance:"Aparência", settings_theme_color:"Cor do tema", settings_bg_tint:"Cor no fundo", bgtint_on:"Ativado", bgtint_off:"Desativado", settings_logo_tint:"Cor no logotipo", logotint_on:"Ativado", logotint_off:"Desativado", settings_card_mode:"Cartões", cardmode_full:"Tela cheia", cardmode_border:"Com borda", settings_reader:"Leitor de voz", reader_on:"Ativado", reader_off:"Desativado", captcha_text:"Não sou um robô", captcha_badge:"PYNN Verify",
     hero_eyebrow:"Otimização Google Maps · Suporte Técnico",
-    hero_title:'Sua empresa, <em>encontrada</em> antes da concorrência.',
+    hero_title:'Sua empresa <em>encontrada</em> antes da concorrência',
     hero_lead:"Conduzimos negócios da página dois até a primeira posição no Google Maps — em qualquer lugar do mapa. Método técnico, resultado mensurável.",
     hero_cta1:"Solicitar orçamento", hero_cta2:"Ver planos",
     chip_rating_label:"média dos clientes", chip_page_label:"Da pág. 2 à pág. 1",
@@ -2140,6 +2323,13 @@ const translations = {
     about_p2:"Essa mesma disciplina que me levou ao topo da classificação nacional é a que aplico todos os dias para colocar empresas no topo do Google Maps. Autoridade técnica, seriedade e acessibilidade guiam cada projeto que assino.",
     about_badge1:"IFMA · Redes de Computadores", about_badge2:"1º lugar Sisu/Enem 2024",
     coverage_eyebrow:"Cobertura", coverage_title:'Presente em <em>2 estados</em> do Brasil', coverage_desc:"Já atendemos empresas e clientes no Maranhão e no Piauí, com o mesmo padrão técnico em qualquer lugar do mapa.", coverage_ma_tag:"Sede da PYNN", coverage_remote_tag:"Atendimento remoto",
+    partners_eyebrow:"Parcerias", partners_title:'Parceiros <em>oficiais</em>',
+    partners_lead:"Quem se torna parceiro oficial da PYNN ganha um espaço fixo aqui no site: seu logotipo, o nome do seu negócio e o link para o seu site ou rede social, direto nesta área — visível para todo mundo que visita a nossa página.",
+    partners_b1_title:"Mais visibilidade", partners_b1_desc:"Seu negócio aparece para quem visita o site da PYNN em busca de otimização no Google Maps ou suporte técnico — um público que já está de olho em melhorar a própria presença online.",
+    partners_b2_title:"Autoridade e confiança", partners_b2_desc:"Estar listado como parceiro oficial reforça a credibilidade da sua marca, associando seu negócio a um trabalho técnico sério e com resultado comprovado.",
+    partners_b3_title:"Indicações diretas", partners_b3_desc:"Sempre que fizer sentido, indicamos parceiros oficiais para os nossos próprios clientes — uma via de mão dupla que gera negócio pros dois lados.",
+    partners_slot_text:"Seu logo aqui", partners_cta:"Quero ser parceiro oficial",
+    partners_wa_msg:"Olá! Encontrei a PYNN pelo site e tenho interesse em me tornar um parceiro oficial. Poderiam me passar mais detalhes? Meu nome: ",
     process_eyebrow:"Como funciona",
     process_title:'O que é a otimização do <em>Google Maps</em>, e por que ela importa',
     process_intro:"O perfil da sua empresa no Google Maps (o Perfil da Empresa no Google) é o que aparece quando alguém pesquisa pelo seu tipo de negócio ou pelo nome dele — no mapa, na busca do Google e no Google Meu Negócio. Otimizar esse perfil significa ajustar categoria, descrição, palavras-chave, fotos, horários e demais informações para que o Google entenda melhor o seu negócio e o mostre para quem está procurando na sua região.",
@@ -2166,6 +2356,10 @@ const translations = {
     plan5_tag:"Google Maps · Manutenção", plan5_title:"Plano Mensal", plan5_price_note:"Por mês · via Pix · cancele quando quiser",
     plan5_desc:"Acompanhamento contínuo do seu perfil no Google Maps: revisão mensal de categoria, horários, fotos, respostas a avaliações e ajustes de palavras-chave para manter — e melhorar — sua posição no ranking. Ideal para quem já otimizou o perfil e quer garantir que ele continue no topo.",
     plan5_cta:"Assinar manutenção mensal",
+    plan7_tag:"Google Maps · Atualização", plan7_title:"Plano Atualização", plan7_price_note:"Para quem já tem o perfil otimizado · via Pix",
+    plan7_desc:"Já otimizamos seu perfil (ou você mesmo otimizou) e agora só precisa de ajustes? Atualizamos categoria, horários, fotos, descrição, serviços e palavras-chave para refletir as mudanças do seu negócio e manter — ou recuperar — sua posição no Google Maps. Entrega em até 48h após a confirmação do pagamento.",
+    plan7_note:"Nota: o valor final depende do volume de alterações necessárias — a partir de R$ 150 para ajustes pontuais. Enviamos o orçamento exato depois de avaliar seu perfil, sem compromisso.",
+    plan7_cta:"Solicitar atualização",
     plan6_tag:"Desconto progressivo", plan6_ribbon:"Economize até 10%", plan6_title:"Plano Combo", plan6_price_note:"Ao combinar mais de um plano PYNN",
     plan6_desc:"Contratou mais de um plano PYNN? Você ganha desconto progressivo: 5% ao combinar 2 planos e 10% ao combinar 3 ou mais — por exemplo, Essencial + Manutenção Mensal, ou Site + Google Maps. O desconto é calculado sobre o valor total e aplicado no fechamento.",
     plan6_note:"Nota: desconto calculado sobre a soma dos planos escolhidos; não cumulativo com outras promoções. Fale com a gente para simular o valor do seu combo.",
@@ -2179,6 +2373,7 @@ const translations = {
     plan3_wa_msg:"Olá! Encontrei a PYNN pelo site e preciso de ajuda com o Plano Recuperação para corrigir ou reativar meu perfil no Google Maps. Poderiam me passar mais detalhes? Meu nome: ",
     plan4_wa_msg:"Olá! Encontrei a PYNN pelo site e tenho interesse em criar um site. Poderiam me passar mais detalhes sobre o Plano Site? Meu nome: ",
     plan5_wa_msg:"Olá! Encontrei a PYNN pelo site e tenho interesse em assinar o Plano Mensal de manutenção do perfil no Google Maps. Poderiam me passar mais detalhes? Meu nome: ",
+    plan7_wa_msg:"Olá! Encontrei a PYNN pelo site e já tenho um perfil otimizado no Google Maps, mas preciso de uma atualização (fotos, horários, serviços etc.). Poderiam me passar mais detalhes sobre o Plano Atualização? Meu nome: ",
     plan6_wa_msg:"Olá! Encontrei a PYNN pelo site e tenho interesse em combinar mais de um plano para ganhar o desconto do Plano Combo. Poderiam me passar mais detalhes? Meu nome: ",
     support_wa_msg:"Olá! Encontrei a PYNN pelo site e gostaria de solicitar suporte técnico em TI. Poderiam me passar mais detalhes? Meu nome: ",
     contact_eyebrow:"Contato", contact_title:'Vamos colocar sua <em>empresa no topo</em>.',
@@ -2225,11 +2420,11 @@ const translations = {
   },
   es: {
     nav_cta:"Hablemos",
-    menu_about:"Sobre", menu_process:"Cómo funciona", menu_services:"Servicios", menu_contact:"Contacto",
+    menu_about:"Sobre", menu_process:"Cómo funciona", menu_services:"Servicios", menu_partners:"Alianzas", menu_contact:"Contacto",
     theme_dark:"Oscuro", theme_light:"Claro",
-    settings_language:"Idioma", settings_appearance:"Apariencia", settings_theme_color:"Color del tema", settings_bg_tint:"Color de fondo", bgtint_on:"Activado", bgtint_off:"Desactivado", settings_logo_tint:"Color del logo", logotint_on:"Activado", logotint_off:"Desactivado", settings_card_mode:"Tarjetas", cardmode_full:"Pantalla completa", cardmode_border:"Con borde", captcha_text:"No soy un robot", captcha_badge:"PYNN Verify",
+    settings_language:"Idioma", settings_appearance:"Apariencia", settings_theme_color:"Color del tema", settings_bg_tint:"Color de fondo", bgtint_on:"Activado", bgtint_off:"Desactivado", settings_logo_tint:"Color del logo", logotint_on:"Activado", logotint_off:"Desactivado", settings_card_mode:"Tarjetas", cardmode_full:"Pantalla completa", cardmode_border:"Con borde", settings_reader:"Lector de voz", reader_on:"Activado", reader_off:"Desactivado", captcha_text:"No soy un robot", captcha_badge:"PYNN Verify",
     hero_eyebrow:"Optimización Google Maps · Soporte Técnico",
-    hero_title:'Tu empresa, <em>encontrada</em> antes que la competencia.',
+    hero_title:'Tu empresa <em>encontrada</em> antes que la competencia',
     hero_lead:"Llevamos negocios de la página dos a la primera posición de Google Maps — en cualquier lugar del mapa. Método técnico, resultado medible.",
     hero_cta1:"Solicitar presupuesto", hero_cta2:"Ver planes",
     chip_rating_label:"promedio de clientes", chip_page_label:"De la pág. 2 a la pág. 1",
@@ -2240,6 +2435,13 @@ const translations = {
     about_p2:"Esa misma disciplina que me llevó a la cima de la clasificación nacional es la que aplico cada día para poner empresas en la cima de Google Maps. Autoridad técnica, seriedad y accesibilidad guían cada proyecto que firmo.",
     about_badge1:"IFMA · Redes de Computadoras", about_badge2:"1er lugar Sisu/Enem 2024",
     coverage_eyebrow:"Cobertura", coverage_title:'Presentes en <em>2 estados</em> de Brasil', coverage_desc:"Ya atendimos empresas y clientes en Maranhão y Piauí, con el mismo estándar técnico en cualquier lugar del mapa.", coverage_ma_tag:"Sede de PYNN", coverage_remote_tag:"Atención remota",
+    partners_eyebrow:"Alianzas", partners_title:'Socios <em>oficiales</em>',
+    partners_lead:"Quien se convierte en socio oficial de PYNN gana un espacio fijo aquí en el sitio: tu logotipo, el nombre de tu negocio y el enlace a tu sitio web o red social, directo en esta área — visible para todos los que visitan nuestra página.",
+    partners_b1_title:"Más visibilidad", partners_b1_desc:"Tu negocio aparece ante quien visita el sitio de PYNN buscando optimización en Google Maps o soporte técnico — un público que ya está interesado en mejorar su propia presencia online.",
+    partners_b2_title:"Autoridad y confianza", partners_b2_desc:"Aparecer como socio oficial refuerza la credibilidad de tu marca, asociando tu negocio a un trabajo técnico serio y con resultados comprobados.",
+    partners_b3_title:"Referencias directas", partners_b3_desc:"Siempre que tenga sentido, recomendamos socios oficiales a nuestros propios clientes — una vía de doble sentido que genera negocio para ambos lados.",
+    partners_slot_text:"Tu logo aquí", partners_cta:"Quiero ser socio oficial",
+    partners_wa_msg:"¡Hola! Encontré a PYNN en el sitio web y me interesa convertirme en socio oficial. ¿Podrían darme más detalles? Mi nombre: ",
     process_eyebrow:"Cómo funciona",
     process_title:'¿Qué es la optimización de <em>Google Maps</em> y por qué importa?',
     process_intro:"El perfil de tu empresa en Google Maps (el Perfil de Empresa en Google) es lo que aparece cuando alguien busca tu tipo de negocio o su nombre — en el mapa, en la búsqueda de Google y en Google Mi Negocio. Optimizar ese perfil significa ajustar categoría, descripción, palabras clave, fotos, horarios y demás información para que Google entienda mejor tu negocio y lo muestre a quien lo busca en tu región.",
@@ -2266,6 +2468,10 @@ const translations = {
     plan5_tag:"Google Maps · Mantenimiento", plan5_title:"Plan Mensual", plan5_price_note:"Por mes · vía Pix · cancela cuando quieras",
     plan5_desc:"Seguimiento continuo de tu perfil en Google Maps: revisión mensual de categoría, horarios, fotos, respuestas a reseñas y ajustes de palabras clave para mantener — y mejorar — tu posición en el ranking. Ideal para quien ya optimizó el perfil y quiere que siga en la cima.",
     plan5_cta:"Suscribirme al mantenimiento mensual",
+    plan7_tag:"Google Maps · Actualización", plan7_title:"Plan Actualización", plan7_price_note:"Para quienes ya tienen el perfil optimizado · vía Pix",
+    plan7_desc:"¿Ya optimizamos tu perfil (o lo optimizaste tú mismo) y ahora solo necesitas ajustes? Actualizamos categoría, horarios, fotos, descripción, servicios y palabras clave para reflejar los cambios en tu negocio y mantener — o recuperar — tu posición en Google Maps. Entrega en hasta 48h tras la confirmación del pago.",
+    plan7_note:"Nota: el valor final depende del volumen de cambios necesarios — desde R$ 150 para ajustes puntuales. Enviamos el presupuesto exacto después de evaluar tu perfil, sin compromiso.",
+    plan7_cta:"Solicitar actualización",
     plan6_tag:"Descuento progresivo", plan6_ribbon:"Ahorra hasta 10%", plan6_title:"Plan Combo", plan6_price_note:"Al combinar más de un plan PYNN",
     plan6_desc:"¿Contrataste más de un plan PYNN? Obtienes descuento progresivo: 5% al combinar 2 planes y 10% al combinar 3 o más — por ejemplo, Esencial + Mantenimiento Mensual, o Sitio Web + Google Maps. El descuento se calcula sobre el valor total y se aplica al cerrar el trato.",
     plan6_note:"Nota: descuento calculado sobre la suma de los planes elegidos; no acumulable con otras promociones. Habla con nosotros para simular el valor de tu combo.",
@@ -2279,6 +2485,7 @@ const translations = {
     plan3_wa_msg:"¡Hola! Encontré a PYNN en el sitio web y necesito ayuda con el Plan Recuperación para corregir o reactivar mi perfil en Google Maps. ¿Podrían darme más detalles? Mi nombre: ",
     plan4_wa_msg:"¡Hola! Encontré a PYNN en el sitio web y me interesa crear un sitio web. ¿Podrían darme más detalles sobre el Plan Sitio Web? Mi nombre: ",
     plan5_wa_msg:"¡Hola! Encontré a PYNN en el sitio web y me interesa suscribirme al Plan Mensual de mantenimiento del perfil en Google Maps. ¿Podrían darme más detalles? Mi nombre: ",
+    plan7_wa_msg:"¡Hola! Encontré a PYNN en el sitio web y ya tengo un perfil optimizado en Google Maps, pero necesito una actualización (fotos, horarios, servicios, etc.). ¿Podrían darme más detalles sobre el Plan Actualización? Mi nombre: ",
     plan6_wa_msg:"¡Hola! Encontré a PYNN en el sitio web y me interesa combinar más de un plan para obtener el descuento del Plan Combo. ¿Podrían darme más detalles? Mi nombre: ",
     support_wa_msg:"¡Hola! Encontré a PYNN en el sitio web y me gustaría solicitar soporte técnico en TI. ¿Podrían darme más detalles? Mi nombre: ",
     contact_eyebrow:"Contacto", contact_title:'Pongamos tu <em>empresa en la cima</em>.',
@@ -2325,11 +2532,11 @@ const translations = {
   },
   en: {
     nav_cta:"Get in touch",
-    menu_about:"About", menu_process:"How it works", menu_services:"Services", menu_contact:"Contact",
+    menu_about:"About", menu_process:"How it works", menu_services:"Services", menu_partners:"Partnerships", menu_contact:"Contact",
     theme_dark:"Dark", theme_light:"Light",
-    settings_language:"Language", settings_appearance:"Appearance", settings_theme_color:"Theme color", settings_bg_tint:"Background color", bgtint_on:"On", bgtint_off:"Off", settings_logo_tint:"Logo color", logotint_on:"On", logotint_off:"Off", settings_card_mode:"Cards", cardmode_full:"Full screen", cardmode_border:"With border", captcha_text:"I'm not a robot", captcha_badge:"PYNN Verify",
+    settings_language:"Language", settings_appearance:"Appearance", settings_theme_color:"Theme color", settings_bg_tint:"Background color", bgtint_on:"On", bgtint_off:"Off", settings_logo_tint:"Logo color", logotint_on:"On", logotint_off:"Off", settings_card_mode:"Cards", cardmode_full:"Full screen", cardmode_border:"With border", settings_reader:"Voice reader", reader_on:"On", reader_off:"Off", captcha_text:"I'm not a robot", captcha_badge:"PYNN Verify",
     hero_eyebrow:"Google Maps Optimization · IT Support",
-    hero_title:'Your business, <em>found</em> before your competitors.',
+    hero_title:'Your business <em>found</em> before your competitors',
     hero_lead:"We move businesses from page two to the #1 spot on Google Maps — anywhere on the map. Technical method, measurable results.",
     hero_cta1:"Request a quote", hero_cta2:"View plans",
     chip_rating_label:"average customer score", chip_page_label:"From page 2 to page 1",
@@ -2340,6 +2547,13 @@ const translations = {
     about_p2:"The same discipline that took me to the top of the national ranking is what I apply every day to put businesses at the top of Google Maps. Technical authority, seriousness, and accessibility guide every project I take on.",
     about_badge1:"IFMA · Computer Networking", about_badge2:"1st place Sisu/Enem 2024",
     coverage_eyebrow:"Coverage", coverage_title:'Present in <em>2 states</em> across Brazil', coverage_desc:"We've already served businesses and clients in Maranhão and Piauí, with the same technical standard anywhere on the map.", coverage_ma_tag:"PYNN headquarters", coverage_remote_tag:"Remote support",
+    partners_eyebrow:"Partnerships", partners_title:'Official <em>partners</em>',
+    partners_lead:"Businesses that become official PYNN partners get a permanent spot right here on the site: your logo, business name, and a link to your website or social media, visible to everyone who visits our page.",
+    partners_b1_title:"More visibility", partners_b1_desc:"Your business gets seen by everyone visiting the PYNN site looking for Google Maps optimization or IT support — an audience already focused on improving their own online presence.",
+    partners_b2_title:"Authority and trust", partners_b2_desc:"Being listed as an official partner strengthens your brand's credibility, linking your business to serious technical work with proven results.",
+    partners_b3_title:"Direct referrals", partners_b3_desc:"Whenever it makes sense, we recommend official partners to our own clients — a two-way street that generates business for both sides.",
+    partners_slot_text:"Your logo here", partners_cta:"I want to become an official partner",
+    partners_wa_msg:"Hello! I found PYNN through your website and I'm interested in becoming an official partner. Could you share more details? My name: ",
     process_eyebrow:"How it works",
     process_title:'What Google Maps optimization is, and why it matters',
     process_intro:"Your business's Google Maps profile (the Google Business Profile) is what shows up when someone searches for your type of business or its name — on the map, in Google Search, and on Google My Business. Optimizing that profile means adjusting category, description, keywords, photos, hours, and other information so Google understands your business better and shows it to people searching in your area.",
@@ -2366,6 +2580,10 @@ const translations = {
     plan5_tag:"Google Maps · Maintenance", plan5_title:"Monthly Plan", plan5_price_note:"Per month · via Pix · cancel anytime",
     plan5_desc:"Ongoing upkeep of your Google Maps profile: monthly review of category, hours, photos, review replies, and keyword tweaks to maintain — and improve — your ranking. Ideal for businesses that already optimized their profile and want to stay on top.",
     plan5_cta:"Subscribe to monthly maintenance",
+    plan7_tag:"Google Maps · Update", plan7_title:"Update Plan", plan7_price_note:"For businesses that already have an optimized profile · via Pix",
+    plan7_desc:"Already optimized your profile with us (or on your own) and just need a few tweaks? We update category, hours, photos, description, services, and keywords to reflect changes in your business and maintain — or recover — your Google Maps ranking. Delivered within 48h after payment confirmation.",
+    plan7_note:"Note: the final price depends on how many changes are needed — starting at R$ 150 for small updates. We send the exact quote after reviewing your profile, no commitment required.",
+    plan7_cta:"Request an update",
     plan6_tag:"Progressive discount", plan6_ribbon:"Save up to 10%", plan6_title:"Combo Plan", plan6_price_note:"When combining more than one PYNN plan",
     plan6_desc:"Hired more than one PYNN plan? You get a progressive discount: 5% off when combining 2 plans and 10% off when combining 3 or more — for example, Essential + Monthly Maintenance, or Website + Google Maps. The discount is calculated on the total value and applied when closing the deal.",
     plan6_note:"Note: discount calculated on the sum of the chosen plans; not stackable with other promotions. Talk to us to get a quote for your combo.",
@@ -2379,6 +2597,7 @@ const translations = {
     plan3_wa_msg:"Hello! I found PYNN through your website and I need help with the Recovery Plan to fix or reactivate my Google Maps listing. Could you share more details? My name: ",
     plan4_wa_msg:"Hello! I found PYNN through your website and I'm interested in getting a website built. Could you share more details about the Website Plan? My name: ",
     plan5_wa_msg:"Hello! I found PYNN through your website and I'm interested in subscribing to the Monthly Plan for Google Maps profile maintenance. Could you share more details? My name: ",
+    plan7_wa_msg:"Hello! I found PYNN through your website and I already have an optimized Google Maps profile, but I need an update (photos, hours, services, etc.). Could you share more details about the Update Plan? My name: ",
     plan6_wa_msg:"Hello! I found PYNN through your website and I'm interested in combining more than one plan to get the Combo Plan discount. Could you share more details? My name: ",
     support_wa_msg:"Hello! I found PYNN through your website and I'd like to request IT technical support. Could you share more details? My name: ",
     contact_eyebrow:"Contact", contact_title:"Let's get your <em>business to the top</em>.",
@@ -2449,6 +2668,7 @@ applyTheme(true);
 applyBgTint(bgTintOn, false);
 applyLogoTint(logoTintOn, false);
 applyCardMode(cardModeBorder, false);
+applyReader(readerOn, false);
 
 /* ---------- SETTINGS MENU (nav links + language + appearance) ---------- */
 const settingsBtn = document.getElementById('settingsBtn');
@@ -2781,12 +3001,18 @@ if('serviceWorker' in navigator){
     });
   }
 
+  // Enquanto isso for true, ainda faz sentido tocar o som (splash visível/recém-saído).
+  // Depois que virar false, não tenta mais — evita o som "atrasado", tocando quando
+  // a animação já sumiu da tela (isso acontece pq navegadores bloqueiam áudio
+  // automático e o som só libera na primeira interação do usuário).
+  var chimeWindowOpen = true;
+
   function playIntroChime(){
-    if(soundPlayed) return;
+    if(soundPlayed || !chimeWindowOpen) return;
     var ctx = getCtx();
     if(!ctx) return;
     var start = function(){
-      if(soundPlayed) return;
+      if(soundPlayed || !chimeWindowOpen) return;
       soundPlayed = true;
       try{ scheduleChime(ctx); }catch(e){}
     };
@@ -2812,6 +3038,9 @@ if('serviceWorker' in navigator){
     window.setTimeout(function(){
       if(splash && splash.parentNode) splash.parentNode.removeChild(splash);
     }, OUT_MS + 60);
+    // Dá uma margenzinha (mesma duração da animação de saída) pra ainda tocar
+    // o som se o usuário interagir bem na hora do fade-out; depois disso, desiste.
+    window.setTimeout(function(){ chimeWindowOpen = false; }, OUT_MS + 60);
   }
 
   function triggerSplashIntro(){
@@ -2927,5 +3156,453 @@ if('serviceWorker' in navigator){
   });
 })();
 </script>
+
+<!-- ================= Leitor de voz (Text-to-Speech) ================= -->
+<style>
+  .tts-widget{ position:fixed; right:20px; bottom:20px; z-index:9998; font-family:inherit; }
+  .tts-fab{
+    width:56px; height:56px; border-radius:50%; border:none; cursor:pointer;
+    background:var(--coral); color:var(--coral-text);
+    display:flex; align-items:center; justify-content:center;
+    box-shadow:0 8px 24px rgba(0,0,0,.28);
+    transition:transform .18s var(--ease), box-shadow .18s var(--ease);
+  }
+  .tts-fab:hover{ transform:translateY(-2px) scale(1.03); }
+  .tts-fab.is-speaking{ animation:ttsPulse 1.6s ease-in-out infinite; }
+  @keyframes ttsPulse{
+    0%,100%{ box-shadow:0 8px 24px rgba(0,0,0,.28), 0 0 0 0 var(--coral-soft); }
+    50%{ box-shadow:0 8px 24px rgba(0,0,0,.28), 0 0 0 10px var(--coral-soft); }
+  }
+  .tts-panel{
+    display:none; flex-direction:column; gap:12px;
+    position:absolute; right:0; bottom:68px;
+    width:260px; padding:16px;
+    background:var(--bg-panel); border:1px solid var(--border);
+    border-radius:var(--radius); box-shadow:0 14px 40px rgba(0,0,0,.3);
+    color:var(--fg);
+  }
+  .tts-panel.is-open{ display:flex; }
+  .tts-panel-row{ display:flex; align-items:center; }
+  .tts-panel-title{ justify-content:space-between; font-weight:700; font-size:.95rem; }
+  .tts-close{
+    background:none; border:none; color:var(--fg-muted); cursor:pointer;
+    font-size:.95rem; line-height:1; padding:2px 4px;
+  }
+  .tts-close:hover{ color:var(--fg); }
+  .tts-speeds{ gap:6px; }
+  .tts-voices{ gap:6px; }
+  .tts-voice-btn{
+    flex:1; padding:8px 4px; font-size:.8rem; text-align:center;
+    background:transparent; color:var(--fg); border:1px solid var(--border);
+    border-radius:var(--radius-pill); cursor:pointer; transition:all .15s var(--ease);
+    white-space:nowrap;
+  }
+  .tts-voice-btn:hover{ border-color:var(--coral); }
+  .tts-voice-btn.is-active{ background:var(--coral); color:var(--coral-text); border-color:var(--coral); }
+  .tts-speed-btn{
+    flex:1; padding:8px 4px; font-size:.74rem; text-align:center;
+    background:transparent; color:var(--fg); border:1px solid var(--border);
+    border-radius:var(--radius-pill); cursor:pointer; transition:all .15s var(--ease);
+    white-space:nowrap;
+  }
+  .tts-speed-btn:hover{ border-color:var(--coral); }
+  .tts-speed-btn.is-active{ background:var(--coral); color:var(--coral-text); border-color:var(--coral); }
+  .tts-controls{ gap:10px; }
+  .tts-ctrl-btn{
+    display:flex; align-items:center; justify-content:center; gap:8px;
+    padding:10px 14px; border:none; border-radius:var(--radius-pill);
+    background:var(--coral); color:var(--coral-text); font-weight:600; font-size:.85rem;
+    cursor:pointer; flex:1;
+  }
+  .tts-stop-btn{
+    flex:0 0 auto; width:42px; height:42px; padding:0;
+    background:var(--bg-panel-2); color:var(--fg); border:1px solid var(--border);
+  }
+  .tts-status{ margin:0; font-size:.74rem; color:var(--fg-muted); line-height:1.4; }
+  @media (max-width:480px){
+    .tts-widget{ right:14px; bottom:14px; }
+    .tts-panel{ width:calc(100vw - 28px); right:-6px; }
+  }
+</style>
+
+<div class="tts-widget" id="ttsWidget">
+  <button type="button" class="tts-fab" id="ttsFab" aria-label="Ouvir esta página" title="Ouvir esta página">
+    <svg id="ttsFabIcon" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="M4 9v6h4l5 5V4L8 9H4z" fill="currentColor"/>
+      <path d="M16.4 8.6a5 5 0 0 1 0 6.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+      <path d="M18.7 6.3a8.4 8.4 0 0 1 0 11.4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" fill="none" opacity=".6"/>
+    </svg>
+  </button>
+
+  <div class="tts-panel" id="ttsPanel" role="dialog" aria-label="Controles de leitura em voz alta">
+    <div class="tts-panel-row tts-panel-title">
+      <span id="ttsTitle">Ouvir página</span>
+      <button type="button" class="tts-close" id="ttsClose" aria-label="Fechar">✕</button>
+    </div>
+
+    <div class="tts-panel-row tts-voices" id="ttsVoices">
+      <button type="button" class="tts-voice-btn" data-gender="male" id="ttsVoiceMale" aria-label="Voz masculina Jarvis">Jarvis</button>
+      <button type="button" class="tts-voice-btn is-active" data-gender="female" id="ttsVoiceFemale" aria-label="Voz feminina Alitta">Alitta</button>
+    </div>
+
+    <div class="tts-panel-row tts-speeds" id="ttsSpeeds">
+      <button type="button" class="tts-speed-btn" data-rate="0.8" id="ttsSlow">Lento</button>
+      <button type="button" class="tts-speed-btn is-active" data-rate="1" id="ttsNormal">Normal</button>
+      <button type="button" class="tts-speed-btn" data-rate="1.15" id="ttsFast">Médio-rápido</button>
+    </div>
+
+    <div class="tts-panel-row tts-controls">
+      <button type="button" class="tts-ctrl-btn" id="ttsPlayPause" aria-label="Reproduzir">
+        <svg id="ttsPlayIcon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>
+        <span id="ttsPlayLabel">Reproduzir</span>
+      </button>
+      <button type="button" class="tts-ctrl-btn tts-stop-btn" id="ttsStop" aria-label="Parar">
+        <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="6" width="12" height="12" fill="currentColor"/></svg>
+      </button>
+    </div>
+
+    <p class="tts-status" id="ttsStatus">Pronto para ler o conteúdo da página.</p>
+  </div>
+</div>
+
+<script>
+(function(){
+  if(!('speechSynthesis' in window) || typeof SpeechSynthesisUtterance === 'undefined'){
+    var w = document.getElementById('ttsWidget');
+    if(w) w.style.display = 'none';
+    return;
+  }
+
+  var synth = window.speechSynthesis;
+  var fab = document.getElementById('ttsFab');
+  var panel = document.getElementById('ttsPanel');
+  var closeBtn = document.getElementById('ttsClose');
+  var titleEl = document.getElementById('ttsTitle');
+  var playPauseBtn = document.getElementById('ttsPlayPause');
+  var playLabel = document.getElementById('ttsPlayLabel');
+  var playIconWrap = document.getElementById('ttsPlayIcon');
+  var stopBtn = document.getElementById('ttsStop');
+  var statusEl = document.getElementById('ttsStatus');
+  var speedBtns = Array.prototype.slice.call(document.querySelectorAll('.tts-speed-btn'));
+  var genderBtns = Array.prototype.slice.call(document.querySelectorAll('.tts-voice-btn'));
+
+  var ICON_PLAY = '<path d="M8 5v14l11-7z" fill="currentColor"/>';
+  var ICON_PAUSE = '<path d="M7 5h4v14H7zM13 5h4v14h-4z" fill="currentColor"/>';
+
+  var i18n = {
+    pt:{ title:'Ouvir página', slow:'Lento', normal:'Normal', fast:'Médio-rápido',
+         play:'Reproduzir', pause:'Pausar', resume:'Continuar', stopLbl:'Parar',
+         ready:'Pronto para ler o conteúdo da página.', reading:'Lendo a página em voz alta…',
+         paused:'Leitura pausada.', done:'Leitura concluída.', empty:'Não há texto para ler nesta página.' },
+    en:{ title:'Listen to page', slow:'Slow', normal:'Normal', fast:'Medium-fast',
+         play:'Play', pause:'Pause', resume:'Resume', stopLbl:'Stop',
+         ready:'Ready to read the page content.', reading:'Reading the page aloud…',
+         paused:'Reading paused.', done:'Reading finished.', empty:'There is no text to read on this page.' },
+    es:{ title:'Escuchar página', slow:'Lento', normal:'Normal', fast:'Medio-rápido',
+         play:'Reproducir', pause:'Pausar', resume:'Continuar', stopLbl:'Detener',
+         ready:'Listo para leer el contenido de la página.', reading:'Leyendo la página en voz alta…',
+         paused:'Lectura en pausa.', done:'Lectura finalizada.', empty:'No hay texto para leer en esta página.' }
+  };
+  var LANG_MAP = { pt:'pt-BR', en:'en-US', es:'es-ES' };
+
+  function shortLang(){
+    var l = (document.documentElement.lang || 'pt-BR').toLowerCase();
+    if(l.indexOf('en') === 0) return 'en';
+    if(l.indexOf('es') === 0) return 'es';
+    return 'pt';
+  }
+  function t(key){
+    var d = i18n[shortLang()] || i18n.pt;
+    return d[key] || i18n.pt[key];
+  }
+
+  var currentRate = 1;
+  try{
+    var saved = parseFloat(localStorage.getItem('pynnTtsRate'));
+    if(!isNaN(saved)) currentRate = saved;
+  }catch(err){}
+
+  var currentGender = 'female'; // padrão: Alitta
+  try{
+    var savedGender = localStorage.getItem('pynnTtsGender');
+    if(savedGender === 'male' || savedGender === 'female') currentGender = savedGender;
+  }catch(err){}
+
+  var queue = [];
+  var queueIndex = 0;
+  var isSpeaking = false;
+  var isPaused = false;
+
+  function setActiveSpeedBtn(){
+    speedBtns.forEach(function(b){
+      var r = parseFloat(b.getAttribute('data-rate'));
+      b.classList.toggle('is-active', Math.abs(r - currentRate) < 0.001);
+    });
+  }
+
+  function setActiveGenderBtn(){
+    genderBtns.forEach(function(b){
+      b.classList.toggle('is-active', b.getAttribute('data-gender') === currentGender);
+    });
+  }
+
+  function refreshLabels(){
+    titleEl.textContent = t('title');
+    document.getElementById('ttsSlow').textContent = t('slow');
+    document.getElementById('ttsNormal').textContent = t('normal');
+    document.getElementById('ttsFast').textContent = t('fast');
+    stopBtn.setAttribute('aria-label', t('stopLbl'));
+    if(!isSpeaking){
+      playLabel.textContent = t('play');
+      statusEl.textContent = t('ready');
+    } else if(isPaused){
+      playLabel.textContent = t('resume');
+      statusEl.textContent = t('paused');
+    } else {
+      playLabel.textContent = t('pause');
+      statusEl.textContent = t('reading');
+    }
+  }
+
+  // Tenta identificar o gênero de uma voz do navegador pelo nome, já que a
+  // Web Speech API não expõe essa informação diretamente.
+  var FEMALE_VOICE_HINTS = ['luciana','francisca','camila','catarina','joana','leticia','letícia','isabela','vitória','vitoria','valentina','zira','samantha','susan','karen','moira','tessa','salli','joanna','ivy','kendra','kimberly','amy','emma','monica','mónica','paulina','laura','elvira','conchita','lucia','lupe','paloma','marisol','maria','helena','fernanda','ines','inês'];
+  var MALE_VOICE_HINTS = ['daniel','ricardo','antonio','antônio','felipe','diego','jorge','miguel','carlos','thiago','fred','alex','david','mark','matthew','guy','ravi','justin','eric','george','pablo','enrique','tomas','tomás','jacinto','rodrigo','bruno','marco'];
+
+  function voiceGender(v){
+    var n = (v.name || '').toLowerCase();
+    if(/\bfemale\b/.test(n) || /feminin/.test(n)) return 'female';
+    if(/\bmale\b/.test(n) || /masculin/.test(n)) return 'male';
+    for(var i=0;i<FEMALE_VOICE_HINTS.length;i++){ if(n.indexOf(FEMALE_VOICE_HINTS[i]) > -1) return 'female'; }
+    for(var i=0;i<MALE_VOICE_HINTS.length;i++){ if(n.indexOf(MALE_VOICE_HINTS[i]) > -1) return 'male'; }
+    if(/google/.test(n)) return 'female';
+    return null;
+  }
+
+  function chooseVoice(langCode, gender){
+    var voices = synth.getVoices() || [];
+    if(!voices.length) return null;
+    var lc = langCode.toLowerCase();
+    var short = lc.slice(0,2);
+    var matches = voices.filter(function(v){ return v.lang && v.lang.toLowerCase().indexOf(lc) === 0; });
+    if(!matches.length){
+      matches = voices.filter(function(v){ return v.lang && v.lang.toLowerCase().indexOf(short) === 0; });
+    }
+    if(!matches.length) return null;
+    var quality = /natural|neural|online|wavenet|google/i;
+    matches.sort(function(a,b){
+      var as = (quality.test(a.name) ? 2 : 0) + (gender && voiceGender(a) === gender ? 5 : 0);
+      var bs = (quality.test(b.name) ? 2 : 0) + (gender && voiceGender(b) === gender ? 5 : 0);
+      return bs - as;
+    });
+    return matches[0];
+  }
+
+  // Divide o texto em pedaços curtos (frases). Textos longos numa única
+  // fala fazem alguns navegadores travar/atrasar o áudio; frases curtas
+  // eliminam esse atraso e deixam a fala mais fluida.
+  function splitIntoChunks(text){
+    var lines = text.replace(/\r/g,'').split('\n').map(function(l){ return l.trim(); }).filter(Boolean);
+    var sentences = [];
+    lines.forEach(function(line){
+      var parts = line.match(/[^.!?]+[.!?]*/g) || [line];
+      parts.forEach(function(p){
+        var trimmed = p.trim();
+        if(trimmed) sentences.push(trimmed);
+      });
+    });
+    var merged = [];
+    var buffer = '';
+    sentences.forEach(function(s){
+      buffer = buffer ? (buffer + ' ' + s) : s;
+      if(buffer.length >= 50 || /[.!?]$/.test(s)){
+        merged.push(buffer);
+        buffer = '';
+      }
+    });
+    if(buffer) merged.push(buffer);
+    return merged;
+  }
+
+  // Elementos que não devem ser lidos: script/estilo/svg, o próprio widget de
+  // voz, qualquer coisa marcada com data-tts-skip (ex.: seção de Termos), e
+  // qualquer coisa oculta (display:none, visibility:hidden, aria-hidden).
+  var SKIP_TAGS = { SCRIPT:1, STYLE:1, SVG:1, NOSCRIPT:1 };
+  var BLOCK_TAGS = { P:1, DIV:1, SECTION:1, ARTICLE:1, HEADER:1, FOOTER:1, H1:1, H2:1, H3:1, H4:1, H5:1, H6:1, LI:1, UL:1, OL:1, TABLE:1, TR:1, BR:1, BLOCKQUOTE:1 };
+
+  function isSkippable(el){
+    if(el.id === 'ttsWidget' || (el.closest && el.closest('#ttsWidget'))) return true;
+    if(SKIP_TAGS[el.tagName]) return true;
+    if(el.hasAttribute('data-tts-skip')) return true;
+    if(el.getAttribute('aria-hidden') === 'true') return true;
+    var cs = window.getComputedStyle(el);
+    if(cs.display === 'none' || cs.visibility === 'hidden') return true;
+    return false;
+  }
+
+  function extractText(node, out){
+    if(node.nodeType === 3){
+      var txt = node.nodeValue;
+      if(txt && txt.trim()) out.push(txt.trim());
+      return;
+    }
+    if(node.nodeType !== 1) return;
+    if(isSkippable(node)) return;
+    var children = node.childNodes;
+    for(var i=0;i<children.length;i++){
+      extractText(children[i], out);
+    }
+    if(BLOCK_TAGS[node.tagName]) out.push('\n');
+  }
+
+  function collectText(){
+    var main = document.getElementById('main');
+    if(!main) return '';
+    var out = [];
+    extractText(main, out);
+    return out.join(' ').replace(/\s*\n\s*/g, '\n').replace(/[ \t]+/g, ' ').trim();
+  }
+
+  function buildQueue(){
+    queue = splitIntoChunks(collectText());
+    queueIndex = 0;
+  }
+
+  function speakNext(){
+    if(queueIndex >= queue.length){
+      isSpeaking = false;
+      isPaused = false;
+      fab.classList.remove('is-speaking');
+      playIconWrap.innerHTML = ICON_PLAY;
+      playLabel.textContent = t('play');
+      statusEl.textContent = t('done');
+      return;
+    }
+    var chunk = queue[queueIndex];
+    var utter = new SpeechSynthesisUtterance(chunk);
+    var lang = LANG_MAP[shortLang()] || 'pt-BR';
+    utter.lang = lang;
+    var voice = chooseVoice(lang, currentGender);
+    if(voice) utter.voice = voice;
+    utter.rate = currentRate;
+    utter.pitch = 1;
+    utter.onend = function(){
+      queueIndex++;
+      speakNext();
+    };
+    utter.onerror = function(){
+      queueIndex++;
+      speakNext();
+    };
+    synth.speak(utter);
+  }
+
+  function startReading(){
+    synth.cancel();
+    buildQueue();
+    if(!queue.length){
+      statusEl.textContent = t('empty');
+      return;
+    }
+    isSpeaking = true;
+    isPaused = false;
+    fab.classList.add('is-speaking');
+    playIconWrap.innerHTML = ICON_PAUSE;
+    playLabel.textContent = t('pause');
+    statusEl.textContent = t('reading');
+    speakNext();
+  }
+
+  function stopReading(){
+    synth.cancel();
+    isSpeaking = false;
+    isPaused = false;
+    fab.classList.remove('is-speaking');
+    playIconWrap.innerHTML = ICON_PLAY;
+    playLabel.textContent = t('play');
+    statusEl.textContent = t('ready');
+  }
+
+  function togglePlayPause(){
+    if(!isSpeaking){
+      startReading();
+      return;
+    }
+    if(isPaused){
+      synth.resume();
+      isPaused = false;
+      fab.classList.add('is-speaking');
+      playIconWrap.innerHTML = ICON_PAUSE;
+      playLabel.textContent = t('pause');
+      statusEl.textContent = t('reading');
+    } else {
+      synth.pause();
+      isPaused = true;
+      fab.classList.remove('is-speaking');
+      playIconWrap.innerHTML = ICON_PLAY;
+      playLabel.textContent = t('resume');
+      statusEl.textContent = t('paused');
+    }
+  }
+
+  fab.addEventListener('click', function(){
+    var opening = !panel.classList.contains('is-open');
+    panel.classList.toggle('is-open');
+    fab.setAttribute('aria-expanded', opening ? 'true' : 'false');
+    if(opening) refreshLabels();
+  });
+  closeBtn.addEventListener('click', function(){
+    panel.classList.remove('is-open');
+  });
+  document.addEventListener('click', function(e){
+    if(panel.classList.contains('is-open') && !panel.contains(e.target) && e.target !== fab && !fab.contains(e.target)){
+      panel.classList.remove('is-open');
+    }
+  });
+  playPauseBtn.addEventListener('click', togglePlayPause);
+  stopBtn.addEventListener('click', stopReading);
+  speedBtns.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      currentRate = parseFloat(btn.getAttribute('data-rate'));
+      setActiveSpeedBtn();
+      try{ localStorage.setItem('pynnTtsRate', String(currentRate)); }catch(err){}
+    });
+  });
+
+  genderBtns.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      currentGender = btn.getAttribute('data-gender');
+      setActiveGenderBtn();
+      try{ localStorage.setItem('pynnTtsGender', currentGender); }catch(err){}
+      // speakNext() sempre escolhe a voz na hora, então o próximo trecho
+      // já sai com a nova voz — sem precisar interromper a fala atual.
+    });
+  });
+
+  document.querySelectorAll('#langSegmented button').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      stopReading();
+      setTimeout(refreshLabels, 50);
+    });
+  });
+
+  window.addEventListener('beforeunload', function(){ synth.cancel(); });
+  document.addEventListener('visibilitychange', function(){
+    if(document.hidden) synth.cancel();
+  });
+
+  // "Aquece" a lista de vozes (em muitos navegadores ela só fica
+  // disponível de forma assíncrona).
+  synth.getVoices();
+  if(typeof synth.onvoiceschanged !== 'undefined'){
+    synth.onvoiceschanged = function(){ synth.getVoices(); };
+  }
+
+  setActiveSpeedBtn();
+  setActiveGenderBtn();
+  refreshLabels();
+})();
+</script>
+
 </body>
 </html>
