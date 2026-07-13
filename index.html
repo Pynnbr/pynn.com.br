@@ -2297,7 +2297,10 @@ function applyReader(on, persist){
   setLang(currentLang);
   if(!on){
     // Se estava lendo, para na hora de desativar.
-    try{ if('speechSynthesis' in window) window.speechSynthesis.cancel(); }catch(e){}
+    try{
+      if(window.__pynnStopReading) window.__pynnStopReading();
+      else if('speechSynthesis' in window) window.speechSynthesis.cancel();
+    }catch(e){}
   }
   if(persist){ try{ localStorage.setItem('pynn-reader-off', (!on).toString()); }catch(e){} }
 }
@@ -3333,6 +3336,29 @@ if('serviceWorker' in navigator){
   var isSpeaking = false;
   var isPaused = false;
 
+  // sessionId muda toda vez que o usuário troca de trecho, para, pausa,
+  // troca velocidade ou voz. Callbacks assíncronos antigos (onend/onerror)
+  // verificam esse número antes de agir — é isso que evita a leitura
+  // "sobrepor" ou continuar errada depois de qualquer troca rápida.
+  var sessionId = 0;
+
+  // Muitos navegadores (Chrome/Edge) têm um bug conhecido: a leitura trava
+  // sozinha depois de ~15s contínuos de fala. Esse "watchdog" dá um
+  // pause+resume periódico só pra manter o motor de voz acordado.
+  var watchdogTimer = null;
+  function startWatchdog(){
+    stopWatchdog();
+    watchdogTimer = setInterval(function(){
+      if(synth.speaking && !synth.paused){
+        synth.pause();
+        synth.resume();
+      }
+    }, 9000);
+  }
+  function stopWatchdog(){
+    if(watchdogTimer){ clearInterval(watchdogTimer); watchdogTimer = null; }
+  }
+
   function setActiveSpeedBtn(){
     speedBtns.forEach(function(b){
       var r = parseFloat(b.getAttribute('data-rate'));
@@ -3468,10 +3494,12 @@ if('serviceWorker' in navigator){
     queueIndex = 0;
   }
 
-  function speakNext(){
+  function speakNext(mySession){
+    if(mySession !== sessionId) return; // sessão antiga (usuário já trocou algo) — ignora
     if(queueIndex >= queue.length){
       isSpeaking = false;
       isPaused = false;
+      stopWatchdog();
       fab.classList.remove('is-speaking');
       playIconWrap.innerHTML = ICON_PLAY;
       playLabel.textContent = t('play');
@@ -3485,19 +3513,63 @@ if('serviceWorker' in navigator){
     var voice = chooseVoice(lang, currentGender);
     if(voice) utter.voice = voice;
     utter.rate = currentRate;
-    utter.pitch = 1;
+    // Se o sistema não tiver uma voz claramente do gênero escolhido (muito
+    // comum: em português, boa parte dos navegadores só tem UMA voz, sem
+    // opção masculina de fábrica), simulamos a diferença ajustando o tom —
+    // assim o Jarvis realmente soa diferente da Alitta, em vez de tocar
+    // exatamente a mesma voz e parecer que não fez nada.
+    var matchedGender = voice ? voiceGender(voice) : null;
+    if(currentGender === 'male'){
+      utter.pitch = (matchedGender === 'male') ? 1 : 0.72;
+    } else {
+      utter.pitch = (matchedGender === 'female') ? 1 : 1.12;
+    }
     utter.onend = function(){
+      clearTimeout(stuckTimer);
+      if(mySession !== sessionId) return;
       queueIndex++;
-      speakNext();
+      speakNext(mySession);
     };
     utter.onerror = function(){
+      clearTimeout(stuckTimer);
+      if(mySession !== sessionId) return;
       queueIndex++;
-      speakNext();
+      speakNext(mySession);
     };
+    // Salvaguarda: se por bug do navegador a fala nunca disparar onend/onerror
+    // (acontece, e é o que trava o leitor "no meio"), força avançar sozinho.
+    var stuckTimer = setTimeout(function(){
+      if(mySession !== sessionId) return;
+      synth.cancel();
+    }, Math.max(4000, chunk.length * 150));
     synth.speak(utter);
   }
 
+  // Garante que a lista de vozes do navegador já carregou antes de começar
+  // a falar. Em muitos navegadores (principalmente Chrome), getVoices()
+  // pode voltar vazio no primeiro clique, e a leitura sai com a voz padrão
+  // errada (é uma das causas de "falar errado" logo no início).
+  function ensureVoicesThenSpeak(mySession){
+    var voices = synth.getVoices();
+    if(voices && voices.length){
+      speakNext(mySession);
+      return;
+    }
+    var tries = 0;
+    var iv = setInterval(function(){
+      tries++;
+      if(mySession !== sessionId){ clearInterval(iv); return; }
+      var v = synth.getVoices();
+      if((v && v.length) || tries > 20){
+        clearInterval(iv);
+        speakNext(mySession);
+      }
+    }, 100);
+  }
+
   function startReading(){
+    sessionId++;
+    var mySession = sessionId;
     synth.cancel();
     buildQueue();
     if(!queue.length){
@@ -3510,10 +3582,13 @@ if('serviceWorker' in navigator){
     playIconWrap.innerHTML = ICON_PAUSE;
     playLabel.textContent = t('pause');
     statusEl.textContent = t('reading');
-    speakNext();
+    startWatchdog();
+    ensureVoicesThenSpeak(mySession);
   }
 
   function stopReading(){
+    sessionId++;
+    stopWatchdog();
     synth.cancel();
     isSpeaking = false;
     isPaused = false;
@@ -3529,14 +3604,22 @@ if('serviceWorker' in navigator){
       return;
     }
     if(isPaused){
-      synth.resume();
+      // Retoma recriando a fala a partir do mesmo trecho — mais confiável
+      // que synth.resume(), que em vários navegadores trava depois de
+      // alguns segundos pausado e nunca mais volta a falar sozinho.
+      sessionId++;
+      var mySession = sessionId;
       isPaused = false;
       fab.classList.add('is-speaking');
       playIconWrap.innerHTML = ICON_PAUSE;
       playLabel.textContent = t('pause');
       statusEl.textContent = t('reading');
+      startWatchdog();
+      ensureVoicesThenSpeak(mySession);
     } else {
-      synth.pause();
+      sessionId++; // invalida a fala atual sem avançar a fila
+      stopWatchdog();
+      synth.cancel();
       isPaused = true;
       fab.classList.remove('is-speaking');
       playIconWrap.innerHTML = ICON_PLAY;
@@ -3566,6 +3649,8 @@ if('serviceWorker' in navigator){
       currentRate = parseFloat(btn.getAttribute('data-rate'));
       setActiveSpeedBtn();
       try{ localStorage.setItem('pynnTtsRate', String(currentRate)); }catch(err){}
+      // Não interrompe a frase que já está tocando — ela termina normalmente
+      // e a próxima já sai na velocidade nova, sem repetir nem voltar do zero.
     });
   });
 
@@ -3574,8 +3659,7 @@ if('serviceWorker' in navigator){
       currentGender = btn.getAttribute('data-gender');
       setActiveGenderBtn();
       try{ localStorage.setItem('pynnTtsGender', currentGender); }catch(err){}
-      // speakNext() sempre escolhe a voz na hora, então o próximo trecho
-      // já sai com a nova voz — sem precisar interromper a fala atual.
+      // Idem: a frase atual termina normal, a próxima já sai com a voz nova.
     });
   });
 
@@ -3601,6 +3685,7 @@ if('serviceWorker' in navigator){
   setActiveSpeedBtn();
   setActiveGenderBtn();
   refreshLabels();
+  window.__pynnStopReading = stopReading;
 })();
 </script>
 
