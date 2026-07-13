@@ -1426,10 +1426,13 @@ var QRCode;
 <div class="consent-overlay" id="consentOverlay" role="dialog" aria-modal="true" aria-labelledby="consentTitle">
   <div class="consent-box">
     <h3 id="consentTitle" data-i18n="consent_modal_title">Privacidade em primeiro lugar</h3>
+    <p id="consentCurrentStatus" style="display:none; font-weight:600;"></p>
     <p data-i18n="consent_modal_text">Usamos os dados enviados por você apenas para responder ao seu pedido de orçamento ou suporte. Leia nossa <a href="#termos">Política de Privacidade e Termos de Uso</a> antes de continuar.</p>
     <div class="consent-actions">
+      <button class="btn btn-ghost" id="consentDecline" data-i18n="consent_modal_decline">Não aceito</button>
       <button class="btn btn-solid" id="consentAccept" data-i18n="consent_modal_accept">Li e aceito</button>
     </div>
+    <p style="margin:14px 0 0; font-size:.78rem; color:var(--fg-muted);" data-i18n="consent_modal_decline_note">Se você não aceitar, o formulário de contato fica desativado, mas o restante do site continua disponível. Você pode mudar de ideia a qualquer momento no menu de configurações.</p>
   </div>
 </div>
 
@@ -1487,6 +1490,7 @@ var QRCode;
             <a href="#servicos" data-i18n="menu_services">Serviços</a>
             <a href="#parceiros" data-i18n="menu_partners">Parcerias</a>
             <a href="#contato" data-i18n="menu_contact">Contato</a>
+            <a href="#termos" data-i18n="menu_terms">Privacidade</a>
           </div>
           <div class="settings-row">
             <span class="settings-label" data-i18n="settings_language">Idioma</span>
@@ -1545,6 +1549,13 @@ var QRCode;
               <span id="readerLabel" data-i18n="reader_on">Ativado</span>
             </button>
           </div>
+          <div class="settings-row">
+            <span class="settings-label" data-i18n="settings_privacy">Privacidade</span>
+            <button type="button" class="appearance-toggle" id="privacyPrefsBtn">
+              <span id="privacyPrefsLabel" data-i18n="settings_privacy_btn">Minha escolha</span>
+            </button>
+          </div>
+          <!-- privacyPrefsLabel text is set dynamically based on stored consent choice -->
         </div>
       </div>
     </div>
@@ -2012,6 +2023,7 @@ var QRCode;
   <section class="contact" id="contato">
     <div class="wrap">
       <div class="section-card tint-green">
+        <div id="contactAccepted">
         <div class="section-head">
           <p class="eyebrow" data-i18n="contact_eyebrow">Contato</p>
           <h2 data-i18n="contact_title">Vamos colocar sua <em>empresa no topo</em>.</h2>
@@ -2106,6 +2118,33 @@ var QRCode;
             </div>
           </div>
         </div>
+        </div>
+
+        <div id="contactDeclined" style="display:none">
+          <div class="section-head">
+            <p class="eyebrow" data-i18n="contact_declined_eyebrow">Privacidade</p>
+            <h2 data-i18n="contact_declined_title">Formulário de contato desativado</h2>
+          </div>
+
+          <div class="security-note" style="margin-bottom:24px;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 2 3 6v6c0 5 4 9 9 10 5-1 9-5 9-10V6l-9-4Z"/><path d="M9 12l2 2 4-4"/></svg>
+            <span data-i18n="contact_declined_text">Você optou por não aceitar a nossa Política de Privacidade e Termos de Uso, por isso este formulário está desativado e nenhum dado é coletado nesta seção. Você ainda pode falar com a gente diretamente pelos canais abaixo, ou revisar sua escolha quando quiser.</span>
+          </div>
+
+          <div class="consent-actions" style="margin-bottom:32px;">
+            <button type="button" class="btn btn-solid" id="reconsiderConsent" data-i18n="contact_declined_review_btn">Revisar minha escolha</button>
+          </div>
+
+          <div class="contact-side">
+            <h3 data-i18n="contact_side_title">Fale direto conosco</h3>
+            <div class="contact-links">
+              <a href="mailto:pynn.br@gmail.com">pynn.br@gmail.com</a>
+              <a href="tel:+5586988846870">Telefone — (86) 98884-6870</a>
+              <a href="https://wa.me/5586988846870" target="_blank" rel="noopener">WhatsApp — (86) 98884-6870</a>
+              <a href="https://www.instagram.com/pynn.br/" target="_blank" rel="noopener">Instagram — @pynn.br</a>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -2115,25 +2154,48 @@ var QRCode;
     <div class="wrap">
       <div class="section-plain" style="max-width:820px; margin:0 auto;">
         <p class="eyebrow" data-i18n="terms_eyebrow">Legal</p>
-        <h2 style="margin:12px 0 22px; font-size:1.8rem;" data-i18n="terms_title">Política de Privacidade e Termos de Uso</h2>
+        <h2 style="margin:12px 0 6px; font-size:1.8rem;" data-i18n="terms_title">Política de Privacidade e Termos de Uso</h2>
+        <p style="font-size:.82rem; color:var(--fg-muted); margin-bottom:22px;" data-i18n="terms_updated">Última atualização: 13 de julho de 2026.</p>
+        <p data-i18n="terms_intro">Esta política explica, de forma clara e objetiva, como a PYNN coleta, usa, armazena e protege as informações relacionadas a você ao utilizar este site, em conformidade com a Lei Geral de Proteção de Dados Pessoais (LGPD — Lei nº 13.709/2018).</p>
 
-        <h3 data-i18n="terms_h1">1. Dados coletados</h3>
-        <p data-i18n="terms_p1">Coletamos apenas os dados fornecidos voluntariamente no formulário de contato: nome, e-mail, assunto e mensagem. Não solicitamos senhas, dados bancários ou informações sensíveis por este canal.</p>
+        <h3 data-i18n="terms_h1">1. Quem somos</h3>
+        <p data-i18n="terms_p1">A PYNN é uma agência independente de otimização de perfis no Google Maps e suporte técnico em TI, responsável pelo tratamento dos dados descritos nesta política. Para qualquer dúvida ou solicitação relacionada aos seus dados, entre em contato pelo e-mail pynn.br@gmail.com.</p>
 
-        <h3 data-i18n="terms_h2">2. Finalidade do uso</h3>
-        <p data-i18n="terms_p2">As informações são utilizadas exclusivamente para responder à sua solicitação de orçamento ou suporte, e não são compartilhadas com terceiros.</p>
+        <h3 data-i18n="terms_h2">2. Dados que coletamos</h3>
+        <p data-i18n="terms_p2">Coletamos apenas os dados fornecidos voluntariamente por você no formulário de contato: nome, e-mail, assunto e mensagem. Não solicitamos senhas, dados bancários, documentos ou qualquer informação sensível por este canal. Também podem ser salvas localmente no seu navegador as suas preferências de exibição (idioma, tema, cor e formato dos cartões) e a sua decisão sobre esta política — essas preferências não são enviadas aos nossos servidores.</p>
 
-        <h3 data-i18n="terms_h3">3. Segurança</h3>
-        <p data-i18n="terms_p3">Todo contato oficial parte dos canais informados nesta página. Desconfie de mensagens que solicitem pagamentos ou dados fora desses canais.</p>
+        <h3 data-i18n="terms_h3">3. Finalidade do uso</h3>
+        <p data-i18n="terms_p3">As informações enviadas pelo formulário de contato são utilizadas exclusivamente para responder à sua solicitação de orçamento ou suporte técnico. Não usamos seus dados para envio de marketing não solicitado.</p>
 
-        <h3 data-i18n="terms_h4">4. Seus direitos</h3>
-        <p data-i18n="terms_p4">Você pode solicitar a exclusão dos seus dados a qualquer momento, entrando em contato pelo e-mail pynn.br@gmail.com.</p>
+        <h3 data-i18n="terms_h4">4. Base legal</h3>
+        <p data-i18n="terms_p4">O tratamento dos seus dados pessoais tem como base o seu consentimento livre, informado e inequívoco (art. 7º, I, da LGPD), manifestado ao aceitar esta política no aviso inicial e ao marcar a caixa de aceite no formulário de contato. Você pode retirar esse consentimento a qualquer momento, sem que isso afete a legalidade do tratamento já realizado.</p>
 
-        <h3 data-i18n="terms_h5">5. Aceite</h3>
-        <p data-i18n="terms_p5">Ao marcar a caixa de aceite no formulário de contato — ou ao clicar em "Li e aceito" no aviso inicial — você confirma estar de acordo com estes termos.</p>
+        <h3 data-i18n="terms_h5">5. Cookies e armazenamento local</h3>
+        <p data-i18n="terms_p5">Este site não utiliza cookies de rastreamento ou de publicidade de terceiros. Utilizamos apenas armazenamento local do navegador (localStorage) e cache de aplicativo (service worker), estritamente necessários para lembrar suas preferências de exibição e a sua decisão de aceite, e para permitir que o site funcione como aplicativo instalável (PWA), inclusive offline. Você pode apagar esses dados a qualquer momento limpando os dados de navegação do seu navegador.</p>
 
-        <h3 data-i18n="terms_h6">6. Pagamento e cancelamento</h3>
-        <p data-i18n="terms_p6">Aceitamos pagamento via Pix, boleto bancário, dinheiro em espécie e outras formas combinadas previamente — não trabalhamos apenas com Pix. Não exigimos pagamento antecipado: ao contratar um dos nossos serviços, o trabalho é iniciado e o pagamento é feito conforme combinado no ato da contratação. Se o cliente contratar um serviço e não efetuar o pagamento combinado, o serviço é automaticamente desativado. Se o cliente contratar um serviço, o trabalho for iniciado e, depois, o cliente optar por cancelar, será cobrado o equivalente a 50% do valor do plano escolhido — esse valor cobre o tempo e o trabalho técnico já empregados no diagnóstico e na otimização até o momento do cancelamento.</p>
+        <h3 data-i18n="terms_h6">6. Compartilhamento com terceiros</h3>
+        <p data-i18n="terms_p6">Os dados enviados pelo formulário de contato são processados pelo serviço FormSubmit apenas para encaminhamento por e-mail até a PYNN. Não vendemos, alugamos ou compartilhamos seus dados com terceiros para fins comerciais.</p>
+
+        <h3 data-i18n="terms_h7">7. Retenção e exclusão de dados</h3>
+        <p data-i18n="terms_p7">Mantemos os dados do formulário de contato apenas pelo tempo necessário para atender à sua solicitação e cumprir eventuais obrigações legais. Você pode solicitar a exclusão dos seus dados a qualquer momento pelo e-mail pynn.br@gmail.com.</p>
+
+        <h3 data-i18n="terms_h8">8. Segurança</h3>
+        <p data-i18n="terms_p8">Adotamos medidas técnicas e organizacionais razoáveis para proteger seus dados contra acessos não autorizados. Todo contato oficial da PYNN parte exclusivamente dos canais informados nesta página. Desconfie de mensagens que solicitem pagamentos antecipados ou dados fora desses canais.</p>
+
+        <h3 data-i18n="terms_h9">9. Seus direitos</h3>
+        <p data-i18n="terms_p9">Nos termos da LGPD, você tem direito a confirmar a existência de tratamento, acessar, corrigir, anonimizar, bloquear, eliminar ou solicitar a portabilidade dos seus dados, além de revogar o consentimento a qualquer momento, mediante solicitação pelo e-mail pynn.br@gmail.com.</p>
+
+        <h3 data-i18n="terms_h10">10. Aceite e revogação do consentimento</h3>
+        <p data-i18n="terms_p10">Ao clicar em "Li e aceito" no aviso inicial, ou ao marcar a caixa de aceite no formulário de contato, você confirma estar de acordo com estes termos. Se você clicar em "Não aceito", o formulário de contato deste site fica desativado e nenhum dado pessoal é coletado por meio dele; o restante do site continua disponível e você pode falar conosco pelos canais diretos (e-mail, telefone e WhatsApp). Você pode rever essa decisão a qualquer momento no menu de configurações (ícone de engrenagem), na opção "Privacidade".</p>
+
+        <h3 data-i18n="terms_h11">11. Pagamento e cancelamento</h3>
+        <p data-i18n="terms_p11">Aceitamos pagamento via Pix, boleto bancário, dinheiro em espécie e outras formas combinadas previamente — não trabalhamos apenas com Pix. Não exigimos pagamento antecipado: ao contratar um dos nossos serviços, o trabalho é iniciado e o pagamento é feito conforme combinado no ato da contratação. Se o cliente contratar um serviço e não efetuar o pagamento combinado, o serviço é automaticamente desativado. Se o cliente contratar um serviço, o trabalho for iniciado e, depois, o cliente optar por cancelar, será cobrado o equivalente a 50% do valor do plano escolhido — esse valor cobre o tempo e o trabalho técnico já empregados no diagnóstico e na otimização até o momento do cancelamento.</p>
+
+        <h3 data-i18n="terms_h12">12. Alterações desta política</h3>
+        <p data-i18n="terms_p12">Esta política pode ser atualizada periodicamente para refletir melhorias no site ou mudanças na legislação. A data da última atualização está indicada no topo desta página.</p>
+
+        <h3 data-i18n="terms_h13">13. Contato</h3>
+        <p data-i18n="terms_p13">Dúvidas sobre esta política ou sobre o tratamento dos seus dados podem ser enviadas para pynn.br@gmail.com.</p>
       </div>
     </div>
   </section>
@@ -2156,6 +2218,7 @@ var QRCode;
       <div class="footer-col">
         <h4 data-i18n="footer_legal">Legal</h4>
         <a href="#termos" data-i18n="footer_terms">Política de Privacidade e Termos de Uso</a>
+        <a href="#termos" id="footerManageConsent" data-i18n="footer_manage_consent">Gerenciar consentimento</a>
       </div>
     </div>
     <div class="footer-bottom">
@@ -2311,9 +2374,10 @@ readerToggle.addEventListener('click', ()=> applyReader(!readerOn, true));
 const translations = {
   pt: {
     nav_cta:"Fale conosco",
-    menu_about:"Sobre", menu_process:"Como funciona", menu_services:"Serviços", menu_partners:"Parcerias", menu_contact:"Contato",
+    menu_about:"Sobre", menu_process:"Como funciona", menu_services:"Serviços", menu_partners:"Parcerias", menu_contact:"Contato", menu_terms:"Privacidade",
     theme_dark:"Escuro", theme_light:"Claro",
     settings_language:"Idioma", settings_appearance:"Aparência", settings_theme_color:"Cor do tema", settings_bg_tint:"Cor no fundo", bgtint_on:"Ativado", bgtint_off:"Desativado", settings_logo_tint:"Cor no logotipo", logotint_on:"Ativado", logotint_off:"Desativado", settings_card_mode:"Cartões", cardmode_full:"Tela cheia", cardmode_border:"Com borda", settings_reader:"Leitor de voz", reader_on:"Ativado", reader_off:"Desativado", captcha_text:"Não sou um robô", captcha_badge:"PYNN Verify",
+    settings_privacy:"Privacidade", settings_privacy_btn:"Preferências", settings_privacy_accepted:"Você aceitou", settings_privacy_declined:"Você não aceitou",
     hero_eyebrow:"Otimização Google Maps · Suporte Técnico",
     hero_title:'Sua empresa <em>encontrada</em> antes da concorrência',
     hero_lead:"Conduzimos negócios da página dois até a primeira posição no Google Maps — em qualquer lugar do mapa. Método técnico, resultado mensurável.",
@@ -2380,6 +2444,9 @@ const translations = {
     plan6_wa_msg:"Olá! Encontrei a PYNN pelo site e tenho interesse em combinar mais de um plano para ganhar o desconto do Plano Combo. Poderiam me passar mais detalhes? Meu nome: ",
     support_wa_msg:"Olá! Encontrei a PYNN pelo site e gostaria de solicitar suporte técnico em TI. Poderiam me passar mais detalhes? Meu nome: ",
     contact_eyebrow:"Contato", contact_title:'Vamos colocar sua <em>empresa no topo</em>.',
+    contact_declined_eyebrow:"Privacidade", contact_declined_title:"Formulário de contato desativado",
+    contact_declined_text:'Você optou por não aceitar a nossa Política de Privacidade e Termos de Uso, por isso este formulário está desativado e nenhum dado é coletado nesta seção. Você ainda pode falar com a gente diretamente pelos canais abaixo, ou revisar sua escolha quando quiser.',
+    contact_declined_review_btn:"Revisar minha escolha",
     security_note:"Nunca envie senhas ou dados bancários por este formulário. Aguarde nosso contato oficial.",
     field_name:"Nome", field_email:"E-mail", field_subject:"Assunto", field_message:"Mensagem",
     consent_text:'Li e concordo com a <a href="#termos">Política de Privacidade e Termos de Uso</a> da agência.',
@@ -2392,20 +2459,31 @@ const translations = {
     hours_closed:"Fechado",
     qr_whats:"Escanear · WhatsApp", qr_insta:"Escanear · Instagram",
     terms_eyebrow:"Legal", terms_title:"Política de Privacidade e Termos de Uso",
-    terms_h1:"1. Dados coletados", terms_p1:"Coletamos apenas os dados fornecidos voluntariamente no formulário de contato: nome, e-mail, assunto e mensagem. Não solicitamos senhas, dados bancários ou informações sensíveis por este canal.",
-    terms_h2:"2. Finalidade do uso", terms_p2:"As informações são utilizadas exclusivamente para responder à sua solicitação de orçamento ou suporte, e não são compartilhadas com terceiros.",
-    terms_h3:"3. Segurança", terms_p3:"Todo contato oficial parte dos canais informados nesta página. Desconfie de mensagens que solicitem pagamentos ou dados fora desses canais.",
-    terms_h4:"4. Seus direitos", terms_p4:"Você pode solicitar a exclusão dos seus dados a qualquer momento, entrando em contato pelo e-mail pynn.br@gmail.com.",
-    terms_h5:"5. Aceite", terms_p5:'Ao marcar a caixa de aceite no formulário de contato — ou ao clicar em "Li e aceito" no aviso inicial — você confirma estar de acordo com estes termos.',
-    terms_h6:"6. Pagamento e cancelamento", terms_p6:"Aceitamos pagamento via Pix, boleto bancário, dinheiro em espécie e outras formas combinadas previamente — não trabalhamos apenas com Pix. Não exigimos pagamento antecipado: ao contratar um dos nossos serviços, o trabalho é iniciado e o pagamento é feito conforme combinado no ato da contratação. Se o cliente contratar um serviço e não efetuar o pagamento combinado, o serviço é automaticamente desativado. Se o cliente contratar um serviço, o trabalho for iniciado e, depois, o cliente optar por cancelar, será cobrado o equivalente a 50% do valor do plano escolhido — esse valor cobre o tempo e o trabalho técnico já empregados no diagnóstico e na otimização até o momento do cancelamento.",
-    footer_agency:"Agência", footer_contact:"Contato", footer_legal:"Legal", footer_terms:"Política de Privacidade e Termos de Uso",
+    terms_updated:"Última atualização: 13 de julho de 2026.",
+    terms_intro:"Esta política explica, de forma clara e objetiva, como a PYNN coleta, usa, armazena e protege as informações relacionadas a você ao utilizar este site, em conformidade com a Lei Geral de Proteção de Dados Pessoais (LGPD — Lei nº 13.709/2018).",
+    terms_h1:"1. Quem somos", terms_p1:"A PYNN é uma agência independente de otimização de perfis no Google Maps e suporte técnico em TI, responsável pelo tratamento dos dados descritos nesta política. Para qualquer dúvida ou solicitação relacionada aos seus dados, entre em contato pelo e-mail pynn.br@gmail.com.",
+    terms_h2:"2. Dados que coletamos", terms_p2:"Coletamos apenas os dados fornecidos voluntariamente por você no formulário de contato: nome, e-mail, assunto e mensagem. Não solicitamos senhas, dados bancários, documentos ou qualquer informação sensível por este canal. Também podem ser salvas localmente no seu navegador as suas preferências de exibição (idioma, tema, cor e formato dos cartões) e a sua decisão sobre esta política — essas preferências não são enviadas aos nossos servidores.",
+    terms_h3:"3. Finalidade do uso", terms_p3:"As informações enviadas pelo formulário de contato são utilizadas exclusivamente para responder à sua solicitação de orçamento ou suporte técnico. Não usamos seus dados para envio de marketing não solicitado.",
+    terms_h4:"4. Base legal", terms_p4:"O tratamento dos seus dados pessoais tem como base o seu consentimento livre, informado e inequívoco (art. 7º, I, da LGPD), manifestado ao aceitar esta política no aviso inicial e ao marcar a caixa de aceite no formulário de contato. Você pode retirar esse consentimento a qualquer momento, sem que isso afete a legalidade do tratamento já realizado.",
+    terms_h5:"5. Cookies e armazenamento local", terms_p5:"Este site não utiliza cookies de rastreamento ou de publicidade de terceiros. Utilizamos apenas armazenamento local do navegador (localStorage) e cache de aplicativo (service worker), estritamente necessários para lembrar suas preferências de exibição e a sua decisão de aceite, e para permitir que o site funcione como aplicativo instalável (PWA), inclusive offline. Você pode apagar esses dados a qualquer momento limpando os dados de navegação do seu navegador.",
+    terms_h6:"6. Compartilhamento com terceiros", terms_p6:"Os dados enviados pelo formulário de contato são processados pelo serviço FormSubmit apenas para encaminhamento por e-mail até a PYNN. Não vendemos, alugamos ou compartilhamos seus dados com terceiros para fins comerciais.",
+    terms_h7:"7. Retenção e exclusão de dados", terms_p7:"Mantemos os dados do formulário de contato apenas pelo tempo necessário para atender à sua solicitação e cumprir eventuais obrigações legais. Você pode solicitar a exclusão dos seus dados a qualquer momento pelo e-mail pynn.br@gmail.com.",
+    terms_h8:"8. Segurança", terms_p8:"Adotamos medidas técnicas e organizacionais razoáveis para proteger seus dados contra acessos não autorizados. Todo contato oficial da PYNN parte exclusivamente dos canais informados nesta página. Desconfie de mensagens que solicitem pagamentos antecipados ou dados fora desses canais.",
+    terms_h9:"9. Seus direitos", terms_p9:"Nos termos da LGPD, você tem direito a confirmar a existência de tratamento, acessar, corrigir, anonimizar, bloquear, eliminar ou solicitar a portabilidade dos seus dados, além de revogar o consentimento a qualquer momento, mediante solicitação pelo e-mail pynn.br@gmail.com.",
+    terms_h10:"10. Aceite e revogação do consentimento", terms_p10:'Ao clicar em "Li e aceito" no aviso inicial, ou ao marcar a caixa de aceite no formulário de contato, você confirma estar de acordo com estes termos. Se você clicar em "Não aceito", o formulário de contato deste site fica desativado e nenhum dado pessoal é coletado por meio dele; o restante do site continua disponível e você pode falar conosco pelos canais diretos (e-mail, telefone e WhatsApp). Você pode rever essa decisão a qualquer momento no menu de configurações (ícone de engrenagem), na opção "Privacidade".',
+    terms_h11:"11. Pagamento e cancelamento", terms_p11:"Aceitamos pagamento via Pix, boleto bancário, dinheiro em espécie e outras formas combinadas previamente — não trabalhamos apenas com Pix. Não exigimos pagamento antecipado: ao contratar um dos nossos serviços, o trabalho é iniciado e o pagamento é feito conforme combinado no ato da contratação. Se o cliente contratar um serviço e não efetuar o pagamento combinado, o serviço é automaticamente desativado. Se o cliente contratar um serviço, o trabalho for iniciado e, depois, o cliente optar por cancelar, será cobrado o equivalente a 50% do valor do plano escolhido — esse valor cobre o tempo e o trabalho técnico já empregados no diagnóstico e na otimização até o momento do cancelamento.",
+    terms_h12:"12. Alterações desta política", terms_p12:"Esta política pode ser atualizada periodicamente para refletir melhorias no site ou mudanças na legislação. A data da última atualização está indicada no topo desta página.",
+    terms_h13:"13. Contato", terms_p13:"Dúvidas sobre esta política ou sobre o tratamento dos seus dados podem ser enviadas para pynn.br@gmail.com.",
+    footer_agency:"Agência", footer_contact:"Contato", footer_legal:"Legal", footer_terms:"Política de Privacidade e Termos de Uso", footer_manage_consent:"Gerenciar consentimento",
     footer_note:"Feito com precisão técnica.",
     form_sent:"Enviando sua mensagem...",
     form_success:"Mensagem enviada com sucesso! Em breve entraremos em contato.",
     form_error:"Não foi possível enviar. Tente novamente ou fale conosco pelo WhatsApp.",
     consent_modal_title:"Privacidade em primeiro lugar",
     consent_modal_text:'Usamos os dados enviados por você apenas para responder ao seu pedido de orçamento ou suporte. Leia nossa <a href="#termos">Política de Privacidade e Termos de Uso</a> antes de continuar.',
-    consent_modal_accept:"Li e aceito",
+    consent_modal_accept:"Li e aceito", consent_modal_decline:"Não aceito",
+    consent_modal_decline_note:"Se você não aceitar, o formulário de contato fica desativado, mas o restante do site continua disponível. Você pode mudar de ideia a qualquer momento no menu de configurações.",
+    consent_status_accepted:"Sua escolha atual: aceito.", consent_status_declined:"Sua escolha atual: não aceito.",
     tour_title:"Como o site funciona",
     tour_progress:"Passo {n} de {total}",
     tour_step1_title:"Menu de configurações",
@@ -2423,9 +2501,10 @@ const translations = {
   },
   es: {
     nav_cta:"Hablemos",
-    menu_about:"Sobre", menu_process:"Cómo funciona", menu_services:"Servicios", menu_partners:"Alianzas", menu_contact:"Contacto",
+    menu_about:"Sobre", menu_process:"Cómo funciona", menu_services:"Servicios", menu_partners:"Alianzas", menu_contact:"Contacto", menu_terms:"Privacidad",
     theme_dark:"Oscuro", theme_light:"Claro",
     settings_language:"Idioma", settings_appearance:"Apariencia", settings_theme_color:"Color del tema", settings_bg_tint:"Color de fondo", bgtint_on:"Activado", bgtint_off:"Desactivado", settings_logo_tint:"Color del logo", logotint_on:"Activado", logotint_off:"Desactivado", settings_card_mode:"Tarjetas", cardmode_full:"Pantalla completa", cardmode_border:"Con borde", settings_reader:"Lector de voz", reader_on:"Activado", reader_off:"Desactivado", captcha_text:"No soy un robot", captcha_badge:"PYNN Verify",
+    settings_privacy:"Privacidad", settings_privacy_btn:"Preferencias", settings_privacy_accepted:"Aceptaste", settings_privacy_declined:"No aceptaste",
     hero_eyebrow:"Optimización Google Maps · Soporte Técnico",
     hero_title:'Tu empresa <em>encontrada</em> antes que la competencia',
     hero_lead:"Llevamos negocios de la página dos a la primera posición de Google Maps — en cualquier lugar del mapa. Método técnico, resultado medible.",
@@ -2492,6 +2571,9 @@ const translations = {
     plan6_wa_msg:"¡Hola! Encontré a PYNN en el sitio web y me interesa combinar más de un plan para obtener el descuento del Plan Combo. ¿Podrían darme más detalles? Mi nombre: ",
     support_wa_msg:"¡Hola! Encontré a PYNN en el sitio web y me gustaría solicitar soporte técnico en TI. ¿Podrían darme más detalles? Mi nombre: ",
     contact_eyebrow:"Contacto", contact_title:'Pongamos tu <em>empresa en la cima</em>.',
+    contact_declined_eyebrow:"Privacidad", contact_declined_title:"Formulario de contacto desactivado",
+    contact_declined_text:'Elegiste no aceptar nuestra Política de Privacidad y Términos de Uso, por eso este formulario está desactivado y no se recopila ningún dato en esta sección. Aun así puedes hablar con nosotros directamente por los canales de abajo, o revisar tu elección cuando quieras.',
+    contact_declined_review_btn:"Revisar mi elección",
     security_note:"Nunca envíes contraseñas o datos bancarios por este formulario. Espera nuestro contacto oficial.",
     field_name:"Nombre", field_email:"Correo", field_subject:"Asunto", field_message:"Mensaje",
     consent_text:'He leído y acepto la <a href="#termos">Política de Privacidad y Términos de Uso</a> de la agencia.',
@@ -2504,20 +2586,31 @@ const translations = {
     hours_closed:"Cerrado",
     qr_whats:"Escanear · WhatsApp", qr_insta:"Escanear · Instagram",
     terms_eyebrow:"Legal", terms_title:"Política de Privacidad y Términos de Uso",
-    terms_h1:"1. Datos recopilados", terms_p1:"Recopilamos solo los datos proporcionados voluntariamente en el formulario de contacto: nombre, correo, asunto y mensaje. No solicitamos contraseñas ni datos bancarios por este canal.",
-    terms_h2:"2. Finalidad del uso", terms_p2:"La información se utiliza exclusivamente para responder a tu solicitud de presupuesto o soporte, y no se comparte con terceros.",
-    terms_h3:"3. Seguridad", terms_p3:"Todo contacto oficial parte de los canales indicados en esta página. Desconfía de mensajes que soliciten pagos o datos fuera de estos canales.",
-    terms_h4:"4. Tus derechos", terms_p4:"Puedes solicitar la eliminación de tus datos en cualquier momento, escribiendo al correo pynn.br@gmail.com.",
-    terms_h5:"5. Aceptación", terms_p5:'Al marcar la casilla de aceptación en el formulario de contacto — o al hacer clic en "Leí y acepto" en el aviso inicial — confirmas estar de acuerdo con estos términos.',
-    terms_h6:"6. Pago y cancelación", terms_p6:"Aceptamos pago vía Pix, transferencia/boleto bancario, efectivo y otras formas acordadas previamente — no trabajamos solo con Pix. No exigimos pago por adelantado: al contratar uno de nuestros servicios, el trabajo se inicia y el pago se realiza según lo acordado en el momento de la contratación. Si el cliente contrata un servicio y no realiza el pago acordado, el servicio se desactiva automáticamente. Si el cliente contrata un servicio, el trabajo se inicia y luego el cliente decide cancelar, se cobrará el equivalente al 50% del valor del plan elegido — este monto cubre el tiempo y el trabajo técnico ya empleados en el diagnóstico y la optimización hasta el momento de la cancelación.",
-    footer_agency:"Agencia", footer_contact:"Contacto", footer_legal:"Legal", footer_terms:"Política de Privacidad y Términos de Uso",
+    terms_updated:"Última actualización: 13 de julio de 2026.",
+    terms_intro:"Esta política explica, de forma clara y objetiva, cómo PYNN recopila, usa, almacena y protege la información relacionada contigo al utilizar este sitio, de acuerdo con las leyes de protección de datos aplicables, incluida la LGPD brasileña (Ley nº 13.709/2018).",
+    terms_h1:"1. Quiénes somos", terms_p1:"PYNN es una agencia independiente de optimización de perfiles en Google Maps y soporte técnico en TI, responsable del tratamiento de los datos descritos en esta política. Para cualquier duda o solicitud relacionada con tus datos, escribe a pynn.br@gmail.com.",
+    terms_h2:"2. Datos que recopilamos", terms_p2:"Recopilamos solo los datos proporcionados voluntariamente por ti en el formulario de contacto: nombre, correo, asunto y mensaje. No solicitamos contraseñas, datos bancarios, documentos ni ninguna información sensible por este canal. También pueden guardarse localmente en tu navegador tus preferencias de visualización (idioma, tema, color y formato de las tarjetas) y tu decisión sobre esta política — estas preferencias no se envían a nuestros servidores.",
+    terms_h3:"3. Finalidad del uso", terms_p3:"La información enviada por el formulario de contacto se utiliza exclusivamente para responder a tu solicitud de presupuesto o soporte técnico. No usamos tus datos para marketing no solicitado.",
+    terms_h4:"4. Base legal", terms_p4:"El tratamiento de tus datos personales se basa en tu consentimiento libre, informado e inequívoco, manifestado al aceptar esta política en el aviso inicial y al marcar la casilla de aceptación en el formulario de contacto. Puedes retirar ese consentimiento en cualquier momento, sin afectar la legalidad del tratamiento ya realizado.",
+    terms_h5:"5. Cookies y almacenamiento local", terms_p5:"Este sitio no utiliza cookies de rastreo ni de publicidad de terceros. Usamos solo almacenamiento local del navegador (localStorage) y caché de aplicación (service worker), estrictamente necesarios para recordar tus preferencias de visualización y tu decisión de aceptación, y para permitir que el sitio funcione como aplicación instalable (PWA), incluso sin conexión. Puedes borrar estos datos en cualquier momento limpiando los datos de navegación de tu navegador.",
+    terms_h6:"6. Compartir con terceros", terms_p6:"Los datos enviados por el formulario de contacto son procesados por el servicio FormSubmit solo para reenviarlos por correo a PYNN. No vendemos, alquilamos ni compartimos tus datos con terceros con fines comerciales.",
+    terms_h7:"7. Retención y eliminación de datos", terms_p7:"Conservamos los datos del formulario de contacto solo el tiempo necesario para atender tu solicitud y cumplir obligaciones legales. Puedes solicitar la eliminación de tus datos en cualquier momento escribiendo a pynn.br@gmail.com.",
+    terms_h8:"8. Seguridad", terms_p8:"Adoptamos medidas técnicas y organizativas razonables para proteger tus datos contra accesos no autorizados. Todo contacto oficial de PYNN parte exclusivamente de los canales indicados en esta página. Desconfía de mensajes que soliciten pagos anticipados o datos fuera de estos canales.",
+    terms_h9:"9. Tus derechos", terms_p9:"Tienes derecho a confirmar la existencia de tratamiento, acceder, corregir, anonimizar, bloquear, eliminar o solicitar la portabilidad de tus datos, además de revocar el consentimiento en cualquier momento, mediante solicitud al correo pynn.br@gmail.com.",
+    terms_h10:"10. Aceptación y revocación del consentimiento", terms_p10:'Al hacer clic en "Leí y acepto" en el aviso inicial, o al marcar la casilla de aceptación en el formulario de contacto, confirmas estar de acuerdo con estos términos. Si haces clic en "No acepto", el formulario de contacto de este sitio queda desactivado y no se recopila ningún dato personal a través de él; el resto del sitio sigue disponible y puedes hablar con nosotros por los canales directos (correo, teléfono y WhatsApp). Puedes revisar esta decisión cuando quieras en el menú de configuración (ícono de engranaje), en la opción "Privacidad".',
+    terms_h11:"11. Pago y cancelación", terms_p11:"Aceptamos pago vía Pix, transferencia/boleto bancario, efectivo y otras formas acordadas previamente — no trabajamos solo con Pix. No exigimos pago por adelantado: al contratar uno de nuestros servicios, el trabajo se inicia y el pago se realiza según lo acordado en el momento de la contratación. Si el cliente contrata un servicio y no realiza el pago acordado, el servicio se desactiva automáticamente. Si el cliente contrata un servicio, el trabajo se inicia y luego el cliente decide cancelar, se cobrará el equivalente al 50% del valor del plan elegido — este monto cubre el tiempo y el trabajo técnico ya empleados en el diagnóstico y la optimización hasta el momento de la cancelación.",
+    terms_h12:"12. Cambios a esta política", terms_p12:"Esta política puede actualizarse periódicamente para reflejar mejoras en el sitio o cambios legales. La fecha de la última actualización aparece en la parte superior de esta página.",
+    terms_h13:"13. Contacto", terms_p13:"Las dudas sobre esta política o sobre el tratamiento de tus datos pueden enviarse a pynn.br@gmail.com.",
+    footer_agency:"Agencia", footer_contact:"Contacto", footer_legal:"Legal", footer_terms:"Política de Privacidad y Términos de Uso", footer_manage_consent:"Gestionar consentimiento",
     footer_note:"Hecho con precisión técnica.",
     form_sent:"Enviando tu mensaje...",
     form_success:"¡Mensaje enviado con éxito! Pronto nos pondremos en contacto.",
     form_error:"No se pudo enviar. Inténtalo de nuevo o contáctanos por WhatsApp.",
     consent_modal_title:"La privacidad primero",
     consent_modal_text:'Usamos los datos que envías solo para responder a tu solicitud de presupuesto o soporte. Lee nuestra <a href="#termos">Política de Privacidad y Términos de Uso</a> antes de continuar.',
-    consent_modal_accept:"Leí y acepto",
+    consent_modal_accept:"Leí y acepto", consent_modal_decline:"No acepto",
+    consent_modal_decline_note:"Si no aceptas, el formulario de contacto queda desactivado, pero el resto del sitio sigue disponible. Puedes cambiar de opinión cuando quieras en el menú de configuración.",
+    consent_status_accepted:"Tu elección actual: aceptaste.", consent_status_declined:"Tu elección actual: no aceptaste.",
     tour_title:"Cómo funciona el sitio",
     tour_progress:"Paso {n} de {total}",
     tour_step1_title:"Menú de configuración",
@@ -2535,9 +2628,10 @@ const translations = {
   },
   en: {
     nav_cta:"Get in touch",
-    menu_about:"About", menu_process:"How it works", menu_services:"Services", menu_partners:"Partnerships", menu_contact:"Contact",
+    menu_about:"About", menu_process:"How it works", menu_services:"Services", menu_partners:"Partnerships", menu_contact:"Contact", menu_terms:"Privacy",
     theme_dark:"Dark", theme_light:"Light",
     settings_language:"Language", settings_appearance:"Appearance", settings_theme_color:"Theme color", settings_bg_tint:"Background color", bgtint_on:"On", bgtint_off:"Off", settings_logo_tint:"Logo color", logotint_on:"On", logotint_off:"Off", settings_card_mode:"Cards", cardmode_full:"Full screen", cardmode_border:"With border", settings_reader:"Voice reader", reader_on:"On", reader_off:"Off", captcha_text:"I'm not a robot", captcha_badge:"PYNN Verify",
+    settings_privacy:"Privacy", settings_privacy_btn:"Preferences", settings_privacy_accepted:"You accepted", settings_privacy_declined:"You declined",
     hero_eyebrow:"Google Maps Optimization · IT Support",
     hero_title:'Your business <em>found</em> before your competitors',
     hero_lead:"We move businesses from page two to the #1 spot on Google Maps — anywhere on the map. Technical method, measurable results.",
@@ -2604,6 +2698,9 @@ const translations = {
     plan6_wa_msg:"Hello! I found PYNN through your website and I'm interested in combining more than one plan to get the Combo Plan discount. Could you share more details? My name: ",
     support_wa_msg:"Hello! I found PYNN through your website and I'd like to request IT technical support. Could you share more details? My name: ",
     contact_eyebrow:"Contact", contact_title:"Let's get your <em>business to the top</em>.",
+    contact_declined_eyebrow:"Privacy", contact_declined_title:"Contact form disabled",
+    contact_declined_text:'You chose not to accept our Privacy Policy and Terms of Use, so this form is disabled and no data is collected in this section. You can still reach us directly through the channels below, or review your choice whenever you like.',
+    contact_declined_review_btn:"Review my choice",
     security_note:"Never send passwords or banking details through this form. Wait for our official contact.",
     field_name:"Name", field_email:"Email", field_subject:"Subject", field_message:"Message",
     consent_text:'I have read and agree to the agency\'s <a href="#termos">Privacy Policy and Terms of Use</a>.',
@@ -2616,20 +2713,31 @@ const translations = {
     hours_closed:"Closed",
     qr_whats:"Scan · WhatsApp", qr_insta:"Scan · Instagram",
     terms_eyebrow:"Legal", terms_title:"Privacy Policy and Terms of Use",
-    terms_h1:"1. Data collected", terms_p1:"We only collect data voluntarily provided in the contact form: name, email, subject, and message. We never request passwords or banking details through this channel.",
-    terms_h2:"2. Purpose of use", terms_p2:"Information is used exclusively to respond to your quote or support request, and is never shared with third parties.",
-    terms_h3:"3. Security", terms_p3:"All official contact comes from the channels listed on this page. Be wary of messages requesting payments or data outside these channels.",
-    terms_h4:"4. Your rights", terms_p4:"You may request deletion of your data at any time by contacting pynn.br@gmail.com.",
-    terms_h5:"5. Acceptance", terms_p5:'By checking the consent box on the contact form — or clicking "I agree" on the initial notice — you confirm agreement with these terms.',
-    terms_h6:"6. Payment and cancellation", terms_p6:"We accept payment via Pix, bank slip (boleto), cash, and other methods agreed in advance — we don't work with Pix only. We do not require payment upfront: once a service is contracted, work begins and payment is made as agreed at the time of hiring. If a client contracts a service and does not make the agreed payment, the service is automatically deactivated. If a client contracts a service, work has begun, and the client then decides to cancel, a fee equivalent to 50% of the chosen plan's value will be charged — this covers the time and technical work already invested in the diagnosis and optimization up to the point of cancellation.",
-    footer_agency:"Agency", footer_contact:"Contact", footer_legal:"Legal", footer_terms:"Privacy Policy and Terms of Use",
+    terms_updated:"Last updated: July 13, 2026.",
+    terms_intro:"This policy explains, clearly and objectively, how PYNN collects, uses, stores, and protects information related to you when you use this site, in line with applicable data protection laws, including Brazil's LGPD (Law No. 13,709/2018).",
+    terms_h1:"1. Who we are", terms_p1:"PYNN is an independent agency for Google Maps profile optimization and IT technical support, responsible for the data processing described in this policy. For any question or request about your data, contact pynn.br@gmail.com.",
+    terms_h2:"2. Data we collect", terms_p2:"We only collect data voluntarily provided by you in the contact form: name, email, subject, and message. We never request passwords, banking details, documents, or any sensitive information through this channel. Your display preferences (language, theme, color, and card style) and your decision on this policy may also be stored locally in your browser — none of these preferences are sent to our servers.",
+    terms_h3:"3. Purpose of use", terms_p3:"Information submitted through the contact form is used exclusively to respond to your quote or support request. We do not use your data for unsolicited marketing.",
+    terms_h4:"4. Legal basis", terms_p4:"The processing of your personal data is based on your free, informed, and unambiguous consent, given when you accept this policy on the initial notice and when you check the consent box on the contact form. You may withdraw that consent at any time, without affecting the lawfulness of processing already carried out.",
+    terms_h5:"5. Cookies and local storage", terms_p5:"This site does not use tracking cookies or third-party advertising cookies. We only use browser local storage (localStorage) and app cache (service worker), strictly necessary to remember your display preferences and your acceptance decision, and to let the site work as an installable app (PWA), including offline. You can clear this data at any time by clearing your browser's browsing data.",
+    terms_h6:"6. Sharing with third parties", terms_p6:"Data submitted through the contact form is processed by the FormSubmit service only to forward it by email to PYNN. We do not sell, rent, or share your data with third parties for commercial purposes.",
+    terms_h7:"7. Data retention and deletion", terms_p7:"We keep contact form data only for as long as necessary to handle your request and meet legal obligations. You may request deletion of your data at any time by contacting pynn.br@gmail.com.",
+    terms_h8:"8. Security", terms_p8:"We adopt reasonable technical and organizational measures to protect your data against unauthorized access. All official PYNN contact comes exclusively from the channels listed on this page. Be wary of messages requesting upfront payments or data outside these channels.",
+    terms_h9:"9. Your rights", terms_p9:"You have the right to confirm whether processing exists, access, correct, anonymize, block, delete, or request portability of your data, as well as to withdraw consent at any time, by request to pynn.br@gmail.com.",
+    terms_h10:"10. Acceptance and withdrawal of consent", terms_p10:'By clicking "I agree" on the initial notice, or by checking the consent box on the contact form, you confirm agreement with these terms. If you click "I don\'t accept", this site\'s contact form is disabled and no personal data is collected through it; the rest of the site remains available and you can reach us through direct channels (email, phone, and WhatsApp). You can revisit this decision at any time from the settings menu (gear icon), under "Privacy".',
+    terms_h11:"11. Payment and cancellation", terms_p11:"We accept payment via Pix, bank slip (boleto), cash, and other methods agreed in advance — we don't work with Pix only. We do not require payment upfront: once a service is contracted, work begins and payment is made as agreed at the time of hiring. If a client contracts a service and does not make the agreed payment, the service is automatically deactivated. If a client contracts a service, work has begun, and the client then decides to cancel, a fee equivalent to 50% of the chosen plan's value will be charged — this covers the time and technical work already invested in the diagnosis and optimization up to the point of cancellation.",
+    terms_h12:"12. Changes to this policy", terms_p12:"This policy may be updated periodically to reflect improvements to the site or legal changes. The date of the last update is shown at the top of this page.",
+    terms_h13:"13. Contact", terms_p13:"Questions about this policy or about how your data is processed can be sent to pynn.br@gmail.com.",
+    footer_agency:"Agency", footer_contact:"Contact", footer_legal:"Legal", footer_terms:"Privacy Policy and Terms of Use", footer_manage_consent:"Manage consent",
     footer_note:"Built with technical precision.",
     form_sent:"Sending your message...",
     form_success:"Message sent successfully! We'll be in touch soon.",
     form_error:"Couldn't send it. Please try again or reach us on WhatsApp.",
     consent_modal_title:"Privacy first",
     consent_modal_text:'We only use the data you send to respond to your quote or support request. Read our <a href="#termos">Privacy Policy and Terms of Use</a> before continuing.',
-    consent_modal_accept:"I agree",
+    consent_modal_accept:"I agree", consent_modal_decline:"I don't accept",
+    consent_modal_decline_note:"If you don't accept, the contact form is disabled, but the rest of the site stays available. You can change your mind anytime from the settings menu.",
+    consent_status_accepted:"Your current choice: accepted.", consent_status_declined:"Your current choice: declined.",
     tour_title:"How the site works",
     tour_progress:"Step {n} of {total}",
     tour_step1_title:"Settings menu",
@@ -2658,6 +2766,10 @@ function setLang(lang){
     if(val.includes('<')) el.innerHTML = val;
     else el.textContent = val;
   });
+  if(typeof applyConsentState === 'function'){
+    const stored = (function(){ try{ return localStorage.getItem('pynn-consent'); }catch(e){ return null; } })();
+    if(stored) applyConsentState(stored);
+  }
 }
 document.querySelectorAll('#langSegmented button').forEach(btn=>{
   btn.addEventListener('click', ()=>{
@@ -2764,25 +2876,103 @@ window.addEventListener('load', ()=>{
   }
 });
 
-/* ---------- CONSENT MODAL ---------- */
+/* ---------- CONSENT MODAL (aceitar / não aceitar + revisão posterior) ---------- */
 const consentOverlay = document.getElementById('consentOverlay');
 const consentAccept = document.getElementById('consentAccept');
-window.addEventListener('load', ()=>{
-  setTimeout(()=>{
-    consentOverlay.classList.add('show');
-    consentAccept.focus();
-  }, 500);
-});
-consentAccept.addEventListener('click', ()=>{
+const consentDecline = document.getElementById('consentDecline');
+const consentCurrentStatus = document.getElementById('consentCurrentStatus');
+const contactAcceptedEl = document.getElementById('contactAccepted');
+const contactDeclinedEl = document.getElementById('contactDeclined');
+const reconsiderConsentBtn = document.getElementById('reconsiderConsent');
+const privacyPrefsBtn = document.getElementById('privacyPrefsBtn');
+const privacyPrefsLabel = document.getElementById('privacyPrefsLabel');
+const footerManageConsent = document.getElementById('footerManageConsent');
+
+let consentModalMode = 'initial'; // 'initial' = escolha obrigatória | 'review' = revisão opcional
+
+function getConsentChoice(){
+  try{ return localStorage.getItem('pynn-consent'); }catch(e){ return null; }
+}
+function setConsentChoice(choice){
+  try{ localStorage.setItem('pynn-consent', choice); }catch(e){}
+}
+
+function applyConsentState(choice){
+  const declined = choice === 'declined';
+  if(contactAcceptedEl) contactAcceptedEl.style.display = declined ? 'none' : '';
+  if(contactDeclinedEl) contactDeclinedEl.style.display = declined ? '' : 'none';
+  if(privacyPrefsLabel){
+    const t = translations[currentLang] || {};
+    privacyPrefsLabel.textContent = declined
+      ? (t.settings_privacy_declined || 'Você não aceitou')
+      : (t.settings_privacy_accepted || 'Você aceitou');
+  }
+}
+
+function openConsentModal(mode){
+  consentModalMode = mode;
+  const stored = getConsentChoice();
+  if(mode === 'review' && stored && consentCurrentStatus){
+    const t = translations[currentLang] || {};
+    consentCurrentStatus.textContent = stored === 'declined'
+      ? (t.consent_status_declined || 'Sua escolha atual: não aceito.')
+      : (t.consent_status_accepted || 'Sua escolha atual: aceito.');
+    consentCurrentStatus.style.display = 'block';
+  } else if(consentCurrentStatus){
+    consentCurrentStatus.style.display = 'none';
+  }
+  consentOverlay.classList.add('show');
+  consentAccept.focus();
+}
+function closeConsentModal(){
   consentOverlay.classList.remove('show');
-  maybeShowTour();
-});
-document.addEventListener('keydown', (e)=>{
-  if(e.key === 'Escape' && consentOverlay.classList.contains('show')){
-    consentOverlay.classList.remove('show');
-    maybeShowTour();
+}
+
+window.addEventListener('load', ()=>{
+  const stored = getConsentChoice();
+  if(stored){
+    applyConsentState(stored);
+  } else {
+    setTimeout(()=>{ openConsentModal('initial'); }, 500);
   }
 });
+
+consentAccept.addEventListener('click', ()=>{
+  setConsentChoice('accepted');
+  applyConsentState('accepted');
+  const wasInitial = consentModalMode === 'initial';
+  closeConsentModal();
+  if(wasInitial) maybeShowTour();
+});
+consentDecline.addEventListener('click', ()=>{
+  setConsentChoice('declined');
+  applyConsentState('declined');
+  const wasInitial = consentModalMode === 'initial';
+  closeConsentModal();
+  if(wasInitial) maybeShowTour();
+});
+document.addEventListener('keydown', (e)=>{
+  // Na escolha inicial obrigatória, Esc não fecha o aviso sem uma decisão.
+  if(e.key === 'Escape' && consentOverlay.classList.contains('show') && consentModalMode === 'review'){
+    closeConsentModal();
+  }
+});
+if(reconsiderConsentBtn){
+  reconsiderConsentBtn.addEventListener('click', ()=> openConsentModal('review'));
+}
+if(privacyPrefsBtn){
+  privacyPrefsBtn.addEventListener('click', ()=>{
+    settingsPanel.classList.remove('open');
+    settingsBtn.setAttribute('aria-expanded','false');
+    openConsentModal('review');
+  });
+}
+if(footerManageConsent){
+  footerManageConsent.addEventListener('click', (e)=>{
+    e.preventDefault();
+    openConsentModal('review');
+  });
+}
 
 /* ---------- ONBOARDING TOUR (só na primeira visita) ---------- */
 const tourOverlay = document.getElementById('tourOverlay');
