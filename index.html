@@ -3835,6 +3835,7 @@ if('serviceWorker' in navigator){
 
   var queue = [];
   var queueIndex = 0;
+  var lastCharIndex = 0; // posição (caractere) onde a leitura está dentro do trecho atual
   var isSpeaking = false;
   var isPaused = false;
 
@@ -3895,7 +3896,7 @@ if('serviceWorker' in navigator){
   // Tenta identificar o gênero de uma voz do navegador pelo nome, já que a
   // Web Speech API não expõe essa informação diretamente.
   var FEMALE_VOICE_HINTS = ['luciana','francisca','camila','catarina','joana','leticia','letícia','isabela','vitória','vitoria','valentina','zira','samantha','susan','karen','moira','tessa','salli','joanna','ivy','kendra','kimberly','amy','emma','monica','mónica','paulina','laura','elvira','conchita','lucia','lupe','paloma','marisol','maria','helena','fernanda','ines','inês'];
-  var MALE_VOICE_HINTS = ['daniel','ricardo','antonio','antônio','felipe','diego','jorge','miguel','carlos','thiago','fred','alex','david','mark','matthew','guy','ravi','justin','eric','george','pablo','enrique','tomas','tomás','jacinto','rodrigo','bruno','marco'];
+  var MALE_VOICE_HINTS = ['daniel','ricardo','antonio','antônio','felipe','diego','jorge','miguel','carlos','thiago','fred','alex','david','mark','matthew','guy','ravi','justin','eric','george','pablo','enrique','tomas','tomás','jacinto','rodrigo','bruno','marco','otavio','otávio','valerio','valério','junior','júnior','andre','andré'];
 
   function voiceGender(v){
     var n = (v.name || '').toLowerCase();
@@ -4009,6 +4010,7 @@ if('serviceWorker' in navigator){
       return;
     }
     var chunk = queue[queueIndex];
+    lastCharIndex = 0; // reinicia o "ponteiro" de posição pra este trecho
     var utter = new SpeechSynthesisUtterance(chunk);
     var lang = LANG_MAP[shortLang()] || 'pt-BR';
     utter.lang = lang;
@@ -4022,10 +4024,16 @@ if('serviceWorker' in navigator){
     // exatamente a mesma voz e parecer que não fez nada.
     var matchedGender = voice ? voiceGender(voice) : null;
     if(currentGender === 'male'){
-      utter.pitch = (matchedGender === 'male') ? 1 : 0.72;
+      utter.pitch = (matchedGender === 'male') ? 1 : 0.65;
     } else {
-      utter.pitch = (matchedGender === 'female') ? 1 : 1.12;
+      utter.pitch = (matchedGender === 'female') ? 1 : 1.15;
     }
+    // Guarda em qual palavra a leitura está (usado se o usuário trocar de
+    // voz no meio da frase, pra continuar dali em vez de voltar ao início).
+    utter.onboundary = function(e){
+      if(mySession !== sessionId) return;
+      if(typeof e.charIndex === 'number') lastCharIndex = e.charIndex;
+    };
     utter.onend = function(){
       clearTimeout(stuckTimer);
       if(mySession !== sessionId) return;
@@ -4158,10 +4166,43 @@ if('serviceWorker' in navigator){
 
   genderBtns.forEach(function(btn){
     btn.addEventListener('click', function(){
-      currentGender = btn.getAttribute('data-gender');
+      var newGender = btn.getAttribute('data-gender');
+      if(newGender === currentGender) return;
+      currentGender = newGender;
       setActiveGenderBtn();
       try{ localStorage.setItem('pynnTtsGender', currentGender); }catch(err){}
-      // Idem: a frase atual termina normal, a próxima já sai com a voz nova.
+
+      if(isSpeaking && !isPaused){
+        // Continua exatamente de onde a leitura estava (pela última palavra
+        // marcada em onboundary), em vez de voltar ao início do trecho.
+        var currentChunk = queue[queueIndex] || '';
+        var remaining = currentChunk.slice(lastCharIndex).trim();
+        if(remaining) queue[queueIndex] = remaining;
+        sessionId++;
+        var mySession = sessionId;
+        synth.cancel();
+        ensureVoicesThenSpeak(mySession);
+      } else if(!isSpeaking){
+        // Leitor parado: toca uma prévia curtinha com o nome da voz, só
+        // pra confirmar na hora que a troca funcionou.
+        try{
+          synth.cancel();
+          var previewText = newGender === 'male' ? 'Jarvis' : 'Alitta';
+          var previewUtter = new SpeechSynthesisUtterance(previewText);
+          var previewLang = LANG_MAP[shortLang()] || 'pt-BR';
+          previewUtter.lang = previewLang;
+          var previewVoice = chooseVoice(previewLang, newGender);
+          if(previewVoice) previewUtter.voice = previewVoice;
+          var previewMatched = previewVoice ? voiceGender(previewVoice) : null;
+          previewUtter.pitch = newGender === 'male'
+            ? (previewMatched === 'male' ? 1 : 0.72)
+            : (previewMatched === 'female' ? 1 : 1.12);
+          previewUtter.rate = currentRate;
+          synth.speak(previewUtter);
+        }catch(err){}
+      }
+      // Se estava pausado, não faz nada agora — a nova voz já entra
+      // sozinha quando o usuário der play de novo.
     });
   });
 
