@@ -32,6 +32,33 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,500&family=Space+Grotesk:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<!-- Fontes selecionáveis pelo visitante (menu de configurações > Fonte) -->
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800&family=Rajdhani:wght@400;500;600;700&family=Roboto:wght@400;500;700&family=Montserrat:wght@400;500;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* OpenDyslexic — fonte para leitores com dislexia (via Fontsource CDN) */
+  @font-face{
+    font-family:'OpenDyslexic';
+    font-style:normal; font-weight:400; font-display:swap;
+    src:url('https://cdn.jsdelivr.net/fontsource/fonts/opendyslexic@latest/latin-400-normal.woff2') format('woff2'),
+        url('https://cdn.jsdelivr.net/fontsource/fonts/opendyslexic@latest/latin-400-normal.woff') format('woff');
+  }
+  @font-face{
+    font-family:'OpenDyslexic';
+    font-style:normal; font-weight:700; font-display:swap;
+    src:url('https://cdn.jsdelivr.net/fontsource/fonts/opendyslexic@latest/latin-700-normal.woff2') format('woff2'),
+        url('https://cdn.jsdelivr.net/fontsource/fonts/opendyslexic@latest/latin-700-normal.woff') format('woff');
+  }
+  /* Aplica a fonte escolhida pelo visitante a todo o site, sobrepondo as
+     fontes padrão (Inter/Fraunces/Archivo Black), exceto ícones/QR codes. */
+  body[data-font-choice]:not([data-font-choice="default"]) :not(svg):not(svg *):not(#fontCombo):not(#fontCombo *){
+    font-family: var(--user-font), sans-serif !important;
+  }
+  /* Espessura da fonte (Fino/Grosso) e Negrito — o negrito, se ativado, tem
+     prioridade sobre a espessura escolhida (regra declarada por último). */
+  body[data-weight="thin"] :not(svg):not(svg *){ font-weight:300 !important; }
+  body[data-weight="thick"] :not(svg):not(svg *){ font-weight:700 !important; }
+  body[data-bold="true"] :not(svg):not(svg *){ font-weight:700 !important; }
+</style>
 <script>
 /* qrcodejs (davidshimjs) embutido localmente — sem depender de CDN externo */
 /**
@@ -906,32 +933,104 @@ var QRCode;
   .install-btn svg{ width:17px; height:17px; flex:none; }
   .install-btn.is-installed{ opacity:.45; cursor:default; pointer-events:none; box-shadow:none; }
   @media(max-width:640px){ .install-btn{ width:34px; height:34px; } .install-btn svg{ width:15px; height:15px; } }
+  /* Painel é movido para o final do <body> via JS (fora da nav, que tem
+     backdrop-filter e por isso quebrava o position:fixed). Ocupa 95% da
+     tela, centralizado, com scroll interno próprio. */
   .settings-panel{
-    position:absolute; top:calc(100% + 12px); right:0; z-index:10;
-    width:230px;
-    max-height:min(520px, calc(100vh - 90px));
+    position:fixed; z-index:1000;
+    top:50%; left:50%;
+    width:95vw; height:95vh; max-height:95vh; max-width:none;
     overflow-y:auto; -webkit-overflow-scrolling:touch;
-    background:var(--bg-panel); border:1px solid var(--border); border-radius:var(--radius);
-    padding:8px;
-    box-shadow:0 24px 48px -20px rgba(0,0,0,.6);
-    opacity:0; transform:translateY(-8px) scale(.98); pointer-events:none;
-    transition:opacity .2s var(--ease), transform .2s var(--ease);
+    background:var(--bg-panel); border:1px solid var(--border); border-radius:var(--radius-lg);
+    padding:16px;
+    box-shadow:0 24px 60px -20px rgba(0,0,0,.65);
+    opacity:0; transform:translate(-50%,-50%) scale(.96); pointer-events:none;
+    transition:opacity .25s var(--ease), transform .25s var(--ease);
+    display:flex; flex-direction:column;
   }
-  .settings-panel.open{ opacity:1; transform:translateY(0) scale(1); pointer-events:auto; }
+  .settings-panel.open{ opacity:1; transform:translate(-50%,-50%) scale(1); pointer-events:auto; }
+  .settings-backdrop{
+    position:fixed; inset:0; z-index:999;
+    background:rgba(0,0,0,.55);
+    opacity:0; pointer-events:none;
+    transition:opacity .25s var(--ease);
+    backdrop-filter:blur(2px);
+  }
+  .settings-backdrop.open{ opacity:1; pointer-events:auto; }
+  html.settings-locked, html.settings-locked body{ overflow:hidden; height:100%; }
+  .settings-back{
+    display:flex; align-items:center; gap:8px;
+    font-family:'Inter',sans-serif; font-size:1rem; font-weight:600; color:var(--fg);
+    background:none; border:none; padding:8px 6px 14px; margin:0 0 8px; cursor:pointer;
+    border-bottom:1px solid var(--border);
+    width:100%;
+  }
+  .settings-back svg{ flex:none; opacity:.8; }
+  .settings-back:hover{ color:var(--coral-fg); }
+  .settings-back:hover svg{ opacity:1; }
   .settings-row{ display:flex; align-items:center; justify-content:space-between; gap:12px; padding:12px 10px; }
   .settings-row + .settings-row{ border-top:1px solid var(--border); }
-  .settings-label{ font-family:'Inter',sans-serif; font-size:.76rem; color:var(--fg-muted); font-weight:600; }
+  .settings-label{ font-family:'Inter',sans-serif; font-size:1.05rem; color:var(--fg-muted); font-weight:600; }
   .settings-row--menu{ flex-direction:column; align-items:stretch; gap:2px; padding:6px; }
-  .settings-row--menu a{ padding:11px 8px; border-radius:12px; font-size:.88rem; font-weight:500; color:var(--fg); }
+  .settings-row--menu a{ padding:12px 8px; border-radius:12px; font-size:1rem; font-weight:500; color:var(--fg); }
   .settings-row--menu a:hover{ background:var(--bg-panel-2); }
   @media(min-width:700px){ .settings-row--menu{ display:none; } }
   .segmented{ display:flex; background:var(--bg-panel-2); border:1px solid var(--border); border-radius:var(--radius-sm); padding:2px; }
   .segmented button{
     border:none; background:none; color:var(--fg-muted); font-family:'Inter',sans-serif;
-    font-size:.68rem; font-weight:700; letter-spacing:.02em; padding:6px 10px; border-radius:6px; cursor:pointer;
+    font-size:.92rem; font-weight:700; letter-spacing:.02em; padding:8px 13px; border-radius:6px; cursor:pointer;
     transition:background .2s, color .2s;
   }
   .segmented button.active{ background:var(--coral); color:var(--coral-text); }
+  .settings-row--font{ flex-direction:column; align-items:stretch; gap:8px; }
+  .font-combo{ position:relative; }
+  .font-combo-btn{
+    display:flex; align-items:center; justify-content:space-between; gap:8px; width:100%;
+    background:var(--bg-panel-2); border:1px solid var(--border); border-radius:var(--radius-sm);
+    color:var(--fg); font-size:1.05rem; font-weight:600; padding:10px 10px; cursor:pointer;
+  }
+  .font-combo-btn svg{ width:14px; height:14px; flex:none; opacity:.65; transition:transform .18s var(--ease); }
+  .font-combo.open .font-combo-btn svg{ transform:rotate(180deg); }
+  .font-combo-btn:focus-visible, .font-combo-list li:focus-visible{ outline:2px solid var(--coral); outline-offset:1px; }
+  .font-combo-list{
+    list-style:none; margin:0; padding:8px;
+    position:fixed; left:0; right:0; bottom:0; z-index:1001;
+    max-height:min(50vh, 380px); overflow-y:auto; -webkit-overflow-scrolling:touch;
+    background:var(--bg-panel); border:1px solid var(--border); border-bottom:none;
+    border-radius:18px 18px 0 0;
+    box-shadow:0 -12px 40px -12px rgba(0,0,0,.5);
+    transform:translateY(100%); visibility:hidden; pointer-events:none;
+    transition:transform .22s var(--ease), visibility 0s linear .22s;
+  }
+  .font-combo.open .font-combo-list{
+    transform:translateY(0); visibility:visible; pointer-events:auto;
+    transition:transform .22s var(--ease), visibility 0s linear 0s;
+  }
+  .font-combo-backdrop{
+    position:fixed; inset:0; z-index:1000; background:rgba(0,0,0,.4);
+    opacity:0; pointer-events:none; transition:opacity .2s var(--ease);
+  }
+  .font-combo-backdrop.show{ opacity:1; pointer-events:auto; }
+  .font-combo-list li{
+    padding:12px 12px; border-radius:10px; cursor:pointer; font-size:.95rem; color:var(--fg);
+    display:flex; align-items:center; justify-content:space-between; gap:8px; line-height:1.2;
+  }
+  .font-combo-list li:hover{ background:var(--bg-panel-2); }
+  .font-combo-list li[aria-selected="true"]{ color:var(--blue); font-weight:700; }
+  .font-combo-list li[aria-selected="true"]::after{ content:'✓'; font-size:.85rem; flex:none; }
+  @media(min-width:560px){
+    .font-combo-list{
+      left:auto; right:16px; bottom:auto; top:50%;
+      transform:translate(0,-45%) scale(.96); opacity:0;
+      width:240px; border-radius:var(--radius); border-bottom:1px solid var(--border);
+      box-shadow:0 24px 48px -16px rgba(0,0,0,.5);
+      transition:transform .2s var(--ease), opacity .2s var(--ease), visibility 0s linear .2s;
+    }
+    .font-combo.open .font-combo-list{
+      transform:translate(0,-50%) scale(1); opacity:1;
+      transition:transform .2s var(--ease), opacity .2s var(--ease), visibility 0s linear 0s;
+    }
+  }
   .theme-swatches{ display:flex; flex-wrap:wrap; gap:8px; justify-content:flex-end; max-width:170px; }
   .theme-swatch{
     width:22px; height:22px; border-radius:50%; border:2px solid transparent;
@@ -969,9 +1068,9 @@ var QRCode;
   .captcha-badge span{ font-size:.55rem; letter-spacing:.02em; }
   .appearance-toggle{
     display:flex; align-items:center; gap:6px;
-    font-family:'Inter',sans-serif; font-size:.72rem; font-weight:600; color:var(--fg);
+    font-family:'Inter',sans-serif; font-size:1rem; font-weight:600; color:var(--fg);
     background:var(--bg-panel-2); border:1px solid var(--border); border-radius:var(--radius-sm);
-    padding:8px 12px; cursor:pointer; transition:border-color .2s;
+    padding:10px 14px; cursor:pointer; transition:border-color .2s;
   }
   .appearance-toggle:hover{ border-color:var(--coral); }
   #readerIcon{ display:inline-flex; }
@@ -1483,7 +1582,15 @@ var QRCode;
             <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.6a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z"></path>
           </svg>
         </button>
+        <div class="settings-backdrop" id="settingsBackdrop"></div>
         <div class="settings-panel" id="settingsPanel" role="menu">
+          <button type="button" class="settings-back" id="settingsBack" aria-label="Voltar">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M19 12H5"></path>
+              <path d="M12 19l-7-7 7-7"></path>
+            </svg>
+            <span data-i18n="settings_back">Voltar</span>
+          </button>
           <div class="settings-row settings-row--menu">
             <a href="#sobre" data-i18n="menu_about">Sobre</a>
             <a href="#processo" data-i18n="menu_process">Como funciona</a>
@@ -1505,6 +1612,43 @@ var QRCode;
             <button type="button" class="appearance-toggle" id="themeToggle" aria-label="Alternar tema claro/escuro">
               <span id="themeIcon">●</span> <span id="themeLabel" data-i18n="theme_dark">Escuro</span>
             </button>
+          </div>
+          <div class="settings-row settings-row--font">
+            <span class="settings-label" data-i18n="settings_font">Fonte</span>
+            <div class="font-combo" id="fontCombo">
+              <button type="button" class="font-combo-btn" id="fontComboBtn" aria-haspopup="listbox" aria-expanded="false">
+                <span id="fontComboLabel" style="font-family:'Inter',sans-serif;" data-i18n="font_default">Padrão</span>
+                <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 8l5 5 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+              <ul class="font-combo-list" id="fontComboList" role="listbox" aria-label="Escolher fonte do site">
+                <li role="option" tabindex="0" data-value="default" data-i18n="font_default" style="font-family:'Inter',sans-serif;" aria-selected="true">Padrão</li>
+                <li role="option" tabindex="0" data-value="Orbitron" style="font-family:'Orbitron',sans-serif;" aria-selected="false">Orbitron</li>
+                <li role="option" tabindex="0" data-value="Rajdhani" style="font-family:'Rajdhani',sans-serif;" aria-selected="false">Rajdhani</li>
+                <li role="option" tabindex="0" data-value="Arial" style="font-family:Arial,sans-serif;" aria-selected="false">Arial</li>
+                <li role="option" tabindex="0" data-value="Inter" style="font-family:'Inter',sans-serif;" aria-selected="false">Inter</li>
+                <li role="option" tabindex="0" data-value="Roboto" style="font-family:'Roboto',sans-serif;" aria-selected="false">Roboto</li>
+                <li role="option" tabindex="0" data-value="Montserrat" style="font-family:'Montserrat',sans-serif;" aria-selected="false">Montserrat</li>
+                <li role="option" tabindex="0" data-value="Georgia" style="font-family:Georgia,serif;" aria-selected="false">Georgia</li>
+                <li role="option" tabindex="0" data-value="Times New Roman" style="font-family:'Times New Roman',serif;" aria-selected="false">Times New Roman</li>
+                <li role="option" tabindex="0" data-value="Quicksand" style="font-family:'Quicksand',sans-serif;" aria-selected="false">Quicksand</li>
+                <li role="option" tabindex="0" data-value="OpenDyslexic" style="font-family:'OpenDyslexic',sans-serif;" aria-selected="false">OpenDyslexic</li>
+              </ul>
+            </div>
+          </div>
+          <div class="font-combo-backdrop" id="fontComboBackdrop"></div>
+          <div class="settings-row">
+            <span class="settings-label" data-i18n="settings_bold">Negrito</span>
+            <button type="button" class="appearance-toggle" id="boldToggle" aria-pressed="true" aria-label="Ativar ou desativar negrito em todo o texto">
+              <span id="boldIcon">●</span> <span id="boldLabel" data-i18n="bold_on">Ativado</span>
+            </button>
+          </div>
+          <div class="settings-row">
+            <span class="settings-label" data-i18n="settings_weight">Espessura</span>
+            <div class="segmented" id="weightSegmented">
+              <button type="button" data-weight="thin" data-i18n="weight_thin">Fino</button>
+              <button type="button" data-weight="normal" class="active" data-i18n="weight_normal">Padrão</button>
+              <button type="button" data-weight="thick" data-i18n="weight_thick">Grosso</button>
+            </div>
           </div>
           <div class="settings-row">
             <span class="settings-label" data-i18n="settings_theme_color">Cor do tema</span>
@@ -2095,6 +2239,10 @@ var QRCode;
                 <div class="qr-box" id="qrInsta"></div>
                 <span data-i18n="qr_insta">Escanear · Instagram</span>
               </div>
+              <div class="qr-card">
+                <div class="qr-box" id="qrSite"></div>
+                <span data-i18n="qr_site">Escanear · Site</span>
+              </div>
             </div>
 
             <div class="hours-table">
@@ -2231,6 +2379,23 @@ var QRCode;
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
 
+/* Referências do modal de consentimento — usamos "var" (em vez de "const")
+   de propósito: "var" é içada com valor inicial undefined, então mesmo que
+   algum código rode antes desta linha (por exemplo devido a cache de uma
+   versão antiga do arquivo, ou uma futura reordenação do script), o acesso
+   nunca lança "Cannot access before initialization" — na pior hipótese o
+   valor fica undefined e os checks (if(elemento)) já existentes protegem o resto. */
+var consentOverlay = document.getElementById('consentOverlay');
+var consentAccept = document.getElementById('consentAccept');
+var consentDecline = document.getElementById('consentDecline');
+var consentCurrentStatus = document.getElementById('consentCurrentStatus');
+var contactAcceptedEl = document.getElementById('contactAccepted');
+var contactDeclinedEl = document.getElementById('contactDeclined');
+var reconsiderConsentBtn = document.getElementById('reconsiderConsent');
+var privacyPrefsBtn = document.getElementById('privacyPrefsBtn');
+var privacyPrefsLabel = document.getElementById('privacyPrefsLabel');
+var footerManageConsent = document.getElementById('footerManageConsent');
+
 /* ---------- THEME ---------- */
 const themeToggle = document.getElementById('themeToggle');
 const themeLabel = document.getElementById('themeLabel');
@@ -2291,6 +2456,124 @@ themeSwatches.querySelectorAll('.theme-swatch').forEach(btn=>{
 let savedAccent = 'blue';
 try{ savedAccent = localStorage.getItem('pynn-accent') || 'blue'; }catch(e){}
 applyAccent(savedAccent, false);
+
+/* ---------- SELEÇÃO DE FONTE (combo customizado, com prévia de estilo) ---------- */
+const fontCombo = document.getElementById('fontCombo');
+const fontComboBtn = document.getElementById('fontComboBtn');
+const fontComboLabel = document.getElementById('fontComboLabel');
+const fontComboList = document.getElementById('fontComboList');
+const fontFamilyMap = {
+  'default':"'Inter',sans-serif", 'Orbitron':"'Orbitron',sans-serif", 'Rajdhani':"'Rajdhani',sans-serif",
+  'Arial':"Arial,sans-serif", 'Inter':"'Inter',sans-serif", 'Roboto':"'Roboto',sans-serif",
+  'Montserrat':"'Montserrat',sans-serif", 'Georgia':"Georgia,serif", 'Times New Roman':"'Times New Roman',serif",
+  'Quicksand':"'Quicksand',sans-serif", 'OpenDyslexic':"'OpenDyslexic',sans-serif"
+};
+const fontComboBackdrop = document.getElementById('fontComboBackdrop');
+function closeFontCombo(){
+  if(!fontCombo) return;
+  fontCombo.classList.remove('open');
+  if(fontComboBackdrop) fontComboBackdrop.classList.remove('show');
+  if(fontComboBtn) fontComboBtn.setAttribute('aria-expanded','false');
+}
+function openFontCombo(){
+  if(!fontCombo) return;
+  fontCombo.classList.add('open');
+  if(fontComboBackdrop) fontComboBackdrop.classList.add('show');
+  if(fontComboBtn) fontComboBtn.setAttribute('aria-expanded','true');
+}
+function applyFont(name, persist){
+  const value = name || 'default';
+  if(value === 'default'){
+    document.body.removeAttribute('data-font-choice');
+    document.documentElement.style.removeProperty('--user-font');
+  } else {
+    document.body.setAttribute('data-font-choice', value);
+    document.documentElement.style.setProperty('--user-font', "'"+value+"'");
+  }
+  if(fontComboLabel){
+    fontComboLabel.style.fontFamily = fontFamilyMap[value] || "'Inter',sans-serif";
+    if(value === 'default'){
+      fontComboLabel.setAttribute('data-i18n','font_default');
+    } else {
+      fontComboLabel.removeAttribute('data-i18n');
+      fontComboLabel.textContent = value;
+    }
+  }
+  if(fontComboList){
+    fontComboList.querySelectorAll('li').forEach(li=>{
+      li.setAttribute('aria-selected', li.dataset.value === value ? 'true' : 'false');
+    });
+  }
+  if(typeof setLang === 'function' && typeof currentLang !== 'undefined' && currentLang){ setLang(currentLang); }
+  if(persist){ try{ localStorage.setItem('pynn-font', value); }catch(e){} }
+}
+if(fontComboBtn){
+  fontComboBtn.addEventListener('click', ()=>{
+    if(fontCombo.classList.contains('open')) closeFontCombo(); else openFontCombo();
+  });
+}
+if(fontComboList){
+  fontComboList.querySelectorAll('li').forEach(li=>{
+    li.addEventListener('click', ()=>{
+      applyFont(li.dataset.value, true);
+      closeFontCombo();
+      fontComboBtn.focus();
+    });
+    li.addEventListener('keydown', (e)=>{
+      if(e.key === 'Enter' || e.key === ' '){
+        e.preventDefault();
+        applyFont(li.dataset.value, true);
+        closeFontCombo();
+        fontComboBtn.focus();
+      } else if(e.key === 'ArrowDown'){
+        e.preventDefault();
+        const next = li.nextElementSibling;
+        if(next) next.focus();
+      } else if(e.key === 'ArrowUp'){
+        e.preventDefault();
+        const prev = li.previousElementSibling;
+        if(prev) prev.focus();
+      } else if(e.key === 'Escape'){
+        closeFontCombo();
+        fontComboBtn.focus();
+      }
+    });
+  });
+}
+document.addEventListener('click', (e)=>{
+  if(fontCombo && !fontCombo.contains(e.target)) closeFontCombo();
+});
+document.addEventListener('keydown', (e)=>{
+  if(e.key === 'Escape' && fontCombo && fontCombo.classList.contains('open')){
+    closeFontCombo();
+    fontComboBtn.focus();
+  }
+});
+let savedFont = 'default';
+try{ savedFont = localStorage.getItem('pynn-font') || 'default'; }catch(e){}
+applyFont(savedFont, false);
+
+/* ---------- ESPESSURA DA FONTE (Fino / Padrão / Grosso) ---------- */
+const weightSegmented = document.getElementById('weightSegmented');
+let currentWeight = 'normal';
+try{ currentWeight = localStorage.getItem('pynn-weight') || 'normal'; }catch(e){}
+function applyWeight(name, persist){
+  currentWeight = name;
+  if(name === 'normal'){ document.body.removeAttribute('data-weight'); }
+  else { document.body.setAttribute('data-weight', name); }
+  if(weightSegmented){
+    weightSegmented.querySelectorAll('button').forEach(btn=>{
+      btn.classList.toggle('active', btn.dataset.weight === name);
+    });
+  }
+  if(persist){ try{ localStorage.setItem('pynn-weight', name); }catch(e){} }
+}
+if(weightSegmented){
+  weightSegmented.querySelectorAll('button').forEach(btn=>{
+    btn.addEventListener('click', ()=> applyWeight(btn.dataset.weight, true));
+  });
+}
+applyWeight(currentWeight, false);
 
 /* ---------- ATIVAR/DESATIVAR COR DO TEMA NO FUNDO ---------- */
 const bgTintToggle = document.getElementById('bgTintToggle');
@@ -2371,12 +2654,12 @@ readerToggle.addEventListener('click', ()=> applyReader(!readerOn, true));
 
 
 /* ---------- I18N ---------- */
-const translations = {
+var translations = {
   pt: {
     nav_cta:"Fale conosco",
     menu_about:"Sobre", menu_process:"Como funciona", menu_services:"Serviços", menu_partners:"Parcerias", menu_contact:"Contato", menu_terms:"Privacidade",
     theme_dark:"Escuro", theme_light:"Claro",
-    settings_language:"Idioma", settings_appearance:"Aparência", settings_theme_color:"Cor do tema", settings_bg_tint:"Cor no fundo", bgtint_on:"Ativado", bgtint_off:"Desativado", settings_logo_tint:"Cor no logotipo", logotint_on:"Ativado", logotint_off:"Desativado", settings_card_mode:"Cartões", cardmode_full:"Tela cheia", cardmode_border:"Com borda", settings_reader:"Leitor de voz", reader_on:"Ativado", reader_off:"Desativado", captcha_text:"Não sou um robô", captcha_badge:"PYNN Verify",
+    settings_back:"Voltar", settings_language:"Idioma", settings_font:"Fonte", font_default:"Padrão", settings_appearance:"Aparência", settings_theme_color:"Cor do tema", settings_bg_tint:"Cor no fundo", bgtint_on:"Ativado", bgtint_off:"Desativado", settings_logo_tint:"Cor no logotipo", logotint_on:"Ativado", logotint_off:"Desativado", settings_card_mode:"Cartões", cardmode_full:"Tela cheia", cardmode_border:"Com borda", settings_reader:"Leitor de voz", reader_on:"Ativado", reader_off:"Desativado", settings_bold:"Negrito", bold_on:"Ativado", bold_off:"Desativado", settings_weight:"Espessura", weight_thin:"Fino", weight_normal:"Padrão", weight_thick:"Grosso", captcha_text:"Não sou um robô", captcha_badge:"PYNN Verify",
     settings_privacy:"Privacidade", settings_privacy_btn:"Preferências", settings_privacy_accepted:"Você aceitou", settings_privacy_declined:"Você não aceitou",
     hero_eyebrow:"Otimização Google Maps · Suporte Técnico",
     hero_title:'Sua empresa <em>encontrada</em> antes da concorrência',
@@ -2457,7 +2740,7 @@ const translations = {
     hours_saturday:"Sábado",
     hours_sunday:"Domingo",
     hours_closed:"Fechado",
-    qr_whats:"Escanear · WhatsApp", qr_insta:"Escanear · Instagram",
+    qr_whats:"Escanear · WhatsApp", qr_insta:"Escanear · Instagram", qr_site:"Escanear · Site",
     terms_eyebrow:"Legal", terms_title:"Política de Privacidade e Termos de Uso",
     terms_updated:"Última atualização: 13 de julho de 2026.",
     terms_intro:"Esta política explica, de forma clara e objetiva, como a PYNN coleta, usa, armazena e protege as informações relacionadas a você ao utilizar este site, em conformidade com a Lei Geral de Proteção de Dados Pessoais (LGPD — Lei nº 13.709/2018).",
@@ -2503,7 +2786,7 @@ const translations = {
     nav_cta:"Hablemos",
     menu_about:"Sobre", menu_process:"Cómo funciona", menu_services:"Servicios", menu_partners:"Alianzas", menu_contact:"Contacto", menu_terms:"Privacidad",
     theme_dark:"Oscuro", theme_light:"Claro",
-    settings_language:"Idioma", settings_appearance:"Apariencia", settings_theme_color:"Color del tema", settings_bg_tint:"Color de fondo", bgtint_on:"Activado", bgtint_off:"Desactivado", settings_logo_tint:"Color del logo", logotint_on:"Activado", logotint_off:"Desactivado", settings_card_mode:"Tarjetas", cardmode_full:"Pantalla completa", cardmode_border:"Con borde", settings_reader:"Lector de voz", reader_on:"Activado", reader_off:"Desactivado", captcha_text:"No soy un robot", captcha_badge:"PYNN Verify",
+    settings_back:"Volver", settings_language:"Idioma", settings_font:"Fuente", font_default:"Predeterminada", settings_appearance:"Apariencia", settings_theme_color:"Color del tema", settings_bg_tint:"Color de fondo", bgtint_on:"Activado", bgtint_off:"Desactivado", settings_logo_tint:"Color del logo", logotint_on:"Activado", logotint_off:"Desactivado", settings_card_mode:"Tarjetas", cardmode_full:"Pantalla completa", cardmode_border:"Con borde", settings_reader:"Lector de voz", reader_on:"Activado", reader_off:"Desactivado", settings_bold:"Negrita", bold_on:"Activado", bold_off:"Desactivado", settings_weight:"Grosor", weight_thin:"Fina", weight_normal:"Normal", weight_thick:"Gruesa", captcha_text:"No soy un robot", captcha_badge:"PYNN Verify",
     settings_privacy:"Privacidad", settings_privacy_btn:"Preferencias", settings_privacy_accepted:"Aceptaste", settings_privacy_declined:"No aceptaste",
     hero_eyebrow:"Optimización Google Maps · Soporte Técnico",
     hero_title:'Tu empresa <em>encontrada</em> antes que la competencia',
@@ -2584,7 +2867,7 @@ const translations = {
     hours_saturday:"Sábado",
     hours_sunday:"Domingo",
     hours_closed:"Cerrado",
-    qr_whats:"Escanear · WhatsApp", qr_insta:"Escanear · Instagram",
+    qr_whats:"Escanear · WhatsApp", qr_insta:"Escanear · Instagram", qr_site:"Escanear · Site",
     terms_eyebrow:"Legal", terms_title:"Política de Privacidad y Términos de Uso",
     terms_updated:"Última actualización: 13 de julio de 2026.",
     terms_intro:"Esta política explica, de forma clara y objetiva, cómo PYNN recopila, usa, almacena y protege la información relacionada contigo al utilizar este sitio, de acuerdo con las leyes de protección de datos aplicables, incluida la LGPD brasileña (Ley nº 13.709/2018).",
@@ -2630,7 +2913,7 @@ const translations = {
     nav_cta:"Get in touch",
     menu_about:"About", menu_process:"How it works", menu_services:"Services", menu_partners:"Partnerships", menu_contact:"Contact", menu_terms:"Privacy",
     theme_dark:"Dark", theme_light:"Light",
-    settings_language:"Language", settings_appearance:"Appearance", settings_theme_color:"Theme color", settings_bg_tint:"Background color", bgtint_on:"On", bgtint_off:"Off", settings_logo_tint:"Logo color", logotint_on:"On", logotint_off:"Off", settings_card_mode:"Cards", cardmode_full:"Full screen", cardmode_border:"With border", settings_reader:"Voice reader", reader_on:"On", reader_off:"Off", captcha_text:"I'm not a robot", captcha_badge:"PYNN Verify",
+    settings_back:"Back", settings_language:"Language", settings_font:"Font", font_default:"Default", settings_appearance:"Appearance", settings_theme_color:"Theme color", settings_bg_tint:"Background color", bgtint_on:"On", bgtint_off:"Off", settings_logo_tint:"Logo color", logotint_on:"On", logotint_off:"Off", settings_card_mode:"Cards", cardmode_full:"Full screen", cardmode_border:"With border", settings_reader:"Voice reader", reader_on:"On", reader_off:"Off", settings_bold:"Bold", bold_on:"On", bold_off:"Off", settings_weight:"Weight", weight_thin:"Thin", weight_normal:"Normal", weight_thick:"Thick", captcha_text:"I'm not a robot", captcha_badge:"PYNN Verify",
     settings_privacy:"Privacy", settings_privacy_btn:"Preferences", settings_privacy_accepted:"You accepted", settings_privacy_declined:"You declined",
     hero_eyebrow:"Google Maps Optimization · IT Support",
     hero_title:'Your business <em>found</em> before your competitors',
@@ -2711,7 +2994,7 @@ const translations = {
     hours_saturday:"Saturday",
     hours_sunday:"Sunday",
     hours_closed:"Closed",
-    qr_whats:"Scan · WhatsApp", qr_insta:"Scan · Instagram",
+    qr_whats:"Scan · WhatsApp", qr_insta:"Scan · Instagram", qr_site:"Scan · Site",
     terms_eyebrow:"Legal", terms_title:"Privacy Policy and Terms of Use",
     terms_updated:"Last updated: July 13, 2026.",
     terms_intro:"This policy explains, clearly and objectively, how PYNN collects, uses, stores, and protects information related to you when you use this site, in line with applicable data protection laws, including Brazil's LGPD (Law No. 13,709/2018).",
@@ -2755,7 +3038,7 @@ const translations = {
   }
 };
 
-let currentLang = 'pt';
+var currentLang = 'pt';
 function setLang(lang){
   currentLang = lang;
   document.documentElement.lang = lang === 'pt' ? 'pt-BR' : lang;
@@ -2785,31 +3068,67 @@ applyLogoTint(logoTintOn, false);
 applyCardMode(cardModeBorder, false);
 applyReader(readerOn, false);
 
+/* ---------- NEGRITO (liga/desliga negrito em todo o texto) ---------- */
+const boldToggle = document.getElementById('boldToggle');
+const boldIcon = document.getElementById('boldIcon');
+const boldLabel = document.getElementById('boldLabel');
+let boldOn = true;
+try{
+  const savedBold = localStorage.getItem('pynn-bold');
+  boldOn = savedBold === null ? true : savedBold === 'true';
+}catch(e){}
+function applyBold(on, persist){
+  boldOn = on;
+  if(on) document.body.setAttribute('data-bold','true'); else document.body.removeAttribute('data-bold');
+  if(boldToggle) boldToggle.setAttribute('aria-pressed', on ? 'true' : 'false');
+  if(boldIcon) boldIcon.textContent = on ? '●' : '○';
+  if(boldLabel) boldLabel.setAttribute('data-i18n', on ? 'bold_on' : 'bold_off');
+  setLang(currentLang);
+  if(persist){ try{ localStorage.setItem('pynn-bold', on); }catch(e){} }
+}
+if(boldToggle){ boldToggle.addEventListener('click', ()=> applyBold(!boldOn, true)); }
+applyBold(boldOn, false);
+
 /* ---------- SETTINGS MENU (nav links + language + appearance) ---------- */
 const settingsBtn = document.getElementById('settingsBtn');
 const settingsPanel = document.getElementById('settingsPanel');
+const settingsBackdrop = document.getElementById('settingsBackdrop');
+/* A nav tem backdrop-filter, o que cria um "containing block" novo para
+   elementos position:fixed dentro dela — por isso o painel não preenchia
+   a tela inteira. Movendo para o body, o fixed passa a ser relativo à
+   janela de verdade. */
+document.body.appendChild(settingsBackdrop);
+document.body.appendChild(settingsPanel);
+const settingsBack = document.getElementById('settingsBack');
+if(settingsBack){ settingsBack.addEventListener('click', ()=> closeSettingsPanel()); }
+function closeSettingsPanel(){
+  settingsPanel.classList.remove('open');
+  settingsBackdrop.classList.remove('open');
+  settingsBtn.setAttribute('aria-expanded','false');
+  document.documentElement.classList.remove('settings-locked');
+}
+function openSettingsPanel(){
+  settingsPanel.classList.add('open');
+  settingsBackdrop.classList.add('open');
+  settingsBtn.setAttribute('aria-expanded','true');
+  document.documentElement.classList.add('settings-locked');
+}
 settingsBtn.addEventListener('click', (e)=>{
   e.stopPropagation();
-  const open = settingsPanel.classList.toggle('open');
-  settingsBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  if(settingsPanel.classList.contains('open')){ closeSettingsPanel(); }
+  else{ openSettingsPanel(); }
 });
+settingsBackdrop.addEventListener('click', closeSettingsPanel);
 settingsPanel.querySelectorAll('.settings-row--menu a').forEach(a=>{
-  a.addEventListener('click', ()=>{
-    settingsPanel.classList.remove('open');
-    settingsBtn.setAttribute('aria-expanded','false');
-  });
+  a.addEventListener('click', closeSettingsPanel);
 });
 document.addEventListener('click', (e)=>{
   if(settingsPanel.classList.contains('open') && !settingsPanel.contains(e.target) && e.target !== settingsBtn){
-    settingsPanel.classList.remove('open');
-    settingsBtn.setAttribute('aria-expanded','false');
+    closeSettingsPanel();
   }
 });
 document.addEventListener('keydown', (e)=>{
-  if(e.key === 'Escape'){
-    settingsPanel.classList.remove('open');
-    settingsBtn.setAttribute('aria-expanded','false');
-  }
+  if(e.key === 'Escape'){ closeSettingsPanel(); }
 });
 
 /* ---------- FORM ---------- */
@@ -2873,21 +3192,14 @@ window.addEventListener('load', ()=>{
       text:'https://www.instagram.com/pynn.br/', width:150, height:150,
       colorDark:'#0e0f16', colorLight:'#ffffff', correctLevel: QRCode.CorrectLevel.M
     });
+    new QRCode(document.getElementById('qrSite'), {
+      text:'https://pynnbr.github.io/pynn.com.br/', width:150, height:150,
+      colorDark:'#0e0f16', colorLight:'#ffffff', correctLevel: QRCode.CorrectLevel.M
+    });
   }
 });
 
 /* ---------- CONSENT MODAL (aceitar / não aceitar + revisão posterior) ---------- */
-const consentOverlay = document.getElementById('consentOverlay');
-const consentAccept = document.getElementById('consentAccept');
-const consentDecline = document.getElementById('consentDecline');
-const consentCurrentStatus = document.getElementById('consentCurrentStatus');
-const contactAcceptedEl = document.getElementById('contactAccepted');
-const contactDeclinedEl = document.getElementById('contactDeclined');
-const reconsiderConsentBtn = document.getElementById('reconsiderConsent');
-const privacyPrefsBtn = document.getElementById('privacyPrefsBtn');
-const privacyPrefsLabel = document.getElementById('privacyPrefsLabel');
-const footerManageConsent = document.getElementById('footerManageConsent');
-
 let consentModalMode = 'initial'; // 'initial' = escolha obrigatória | 'review' = revisão opcional
 
 function getConsentChoice(){
