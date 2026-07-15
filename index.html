@@ -1765,8 +1765,7 @@ var QRCode;
         <div class="about-grid">
           <div class="about-copy">
             <p class="eyebrow" data-i18n="about_eyebrow">Sobre mim</p>
-            <p class="about-name" style="font-family:'Fraunces',serif; font-size:1.4rem; font-weight:600; margin:2px 0 2px;">Arthur Richard</p>
-            <p class="about-role" style="font-size:.82rem; letter-spacing:.04em; color:var(--fg-muted); margin:0 0 18px;" data-i18n="about_role">FUNDADOR · PYNN</p>
+            <p class="about-role" style="font-size:.82rem; letter-spacing:.04em; color:var(--fg-muted); margin:2px 0 18px;" data-i18n="about_role">FUNDADOR · PYNN</p>
             <h2 data-i18n="about_title" style="margin:12px 0 22px; font-size:clamp(1.7rem,3vw,2.2rem);">Disciplina que <em>vira resultado</em>.</h2>
             <p data-i18n="about_p1">Sou estudante de <strong>Redes de Computadores (Superior)</strong> no Instituto Federal do Maranhão (IFMA). Sou uma pessoa com deficiência múltipla, e minha trajetória é marcada pela superação — conquistei o <strong>1º lugar no Sisu/Enem 2024</strong>.</p>
             <p data-i18n="about_p2">Essa mesma disciplina que me levou ao topo da classificação nacional é a que aplico todos os dias para colocar empresas no topo do Google Maps. Autoridade técnica, seriedade e acessibilidade guiam cada projeto que assino.</p>
@@ -2210,6 +2209,7 @@ var QRCode;
           <form id="contactForm" action="https://formsubmit.co/ajax/pynn.br@gmail.com" method="POST">
             <input type="hidden" name="_subject" value="Novo contato via site PYNN">
             <input type="hidden" name="_template" value="table">
+            <input type="hidden" name="_captcha" value="false">
             <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
             <div class="security-note">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 2 3 6v6c0 5 4 9 9 10 5-1 9-5 9-10V6l-9-4Z"/><path d="M9 12l2 2 4-4"/></svg>
@@ -2341,7 +2341,6 @@ var QRCode;
         <p data-i18n="terms_intro">Esta política explica, de forma clara e objetiva, como a PYNN coleta, usa, armazena e protege as informações relacionadas a você ao utilizar este site, em conformidade com a Lei Geral de Proteção de Dados Pessoais (LGPD — Lei nº 13.709/2018).</p>
 
         <div class="terms-summary">
-          <h4 data-i18n="terms_summary_title">Resumo em linguagem simples</h4>
           <p data-i18n="terms_summary_text">Só coletamos os dados que você mesmo digita no formulário de contato (nome, e-mail, assunto e mensagem), usados apenas para responder seu pedido. Não vendemos nem compartilhamos seus dados com terceiros para fins comerciais, não usamos cookies de rastreamento e você pode pedir a exclusão dos seus dados quando quiser. Isso segue a LGPD (Lei nº 13.709/2018), a lei brasileira que garante seu direito de saber, corrigir e apagar os dados pessoais que empresas têm sobre você. Este resumo é só um guia rápido — o texto completo abaixo é o que vale oficialmente.</p>
         </div>
 
@@ -2383,6 +2382,9 @@ var QRCode;
 
         <h3 data-i18n="terms_h13">13. Contato</h3>
         <p data-i18n="terms_p13">Dúvidas sobre esta política ou sobre o tratamento dos seus dados podem ser enviadas para pynn.br@gmail.com.</p>
+
+        <h3 data-i18n="terms_h14">14. Legislação aplicável</h3>
+        <p data-i18n="terms_p14">Esta política e os serviços da PYNN são regidos pelas leis da República Federativa do Brasil, com destaque para: Lei Geral de Proteção de Dados Pessoais (LGPD — Lei nº 13.709/2018), que disciplina o tratamento de dados pessoais; Marco Civil da Internet (Lei nº 12.965/2014), que estabelece princípios, garantias, direitos e deveres para o uso da internet no país; Código de Defesa do Consumidor (CDC — Lei nº 8.078/1990), aplicável às relações de consumo entre a PYNN e seus clientes; e Código Civil (Lei nº 10.406/2002), que rege os aspectos contratuais dos serviços descritos na cláusula 11. Eventuais conflitos relacionados a este site ou aos serviços da PYNN serão resolvidos com base nessa legislação, no foro do domicílio da PYNN.</p>
       </div>
   </section>
   </div>
@@ -2781,9 +2783,8 @@ var translations = {
     hours_closed:"Fechado",
     qr_whats:"Escanear · WhatsApp", qr_insta:"Escanear · Instagram", qr_site:"Escanear · Site",
     terms_eyebrow:"Legal", terms_title:"Política de Privacidade e Termos de Uso",
-    terms_updated:"Última atualização: 13 de julho de 2026.",
+    terms_updated:"Última atualização: 15 de julho de 2026.",
     terms_intro:"Esta política explica, de forma clara e objetiva, como a PYNN coleta, usa, armazena e protege as informações relacionadas a você ao utilizar este site, em conformidade com a Lei Geral de Proteção de Dados Pessoais (LGPD — Lei nº 13.709/2018).",
-    terms_summary_title:"Resumo em linguagem simples",
     terms_summary_text:"Só coletamos os dados que você mesmo digita no formulário de contato (nome, e-mail, assunto e mensagem), usados apenas para responder seu pedido. Não vendemos nem compartilhamos seus dados com terceiros para fins comerciais, não usamos cookies de rastreamento e você pode pedir a exclusão dos seus dados quando quiser. Isso segue a LGPD (Lei nº 13.709/2018), a lei brasileira que garante seu direito de saber, corrigir e apagar os dados pessoais que empresas têm sobre você. Este resumo é só um guia rápido — o texto completo abaixo é o que vale oficialmente.",
     terms_close_aria:"Fechar",
     terms_h1:"1. Quem somos", terms_p1:"A PYNN é uma agência independente de otimização de perfis no Google Maps e suporte técnico em TI, responsável pelo tratamento dos dados descritos nesta política. Para qualquer dúvida ou solicitação relacionada aos seus dados, entre em contato pelo e-mail pynn.br@gmail.com.",
@@ -2799,6 +2800,7 @@ var translations = {
     terms_h11:"11. Pagamento e cancelamento", terms_p11:"Aceitamos pagamento via Pix, boleto bancário, dinheiro em espécie e outras formas combinadas previamente — não trabalhamos apenas com Pix. Não exigimos pagamento antecipado: ao contratar um dos nossos serviços, o trabalho é iniciado e o pagamento é feito conforme combinado no ato da contratação. Se o cliente contratar um serviço e não efetuar o pagamento combinado, o serviço é automaticamente desativado. Se o cliente contratar um serviço, o trabalho for iniciado e, depois, o cliente optar por cancelar, será cobrado o equivalente a 50% do valor do plano escolhido — esse valor cobre o tempo e o trabalho técnico já empregados no diagnóstico e na otimização até o momento do cancelamento.",
     terms_h12:"12. Alterações desta política", terms_p12:"Esta política pode ser atualizada periodicamente para refletir melhorias no site ou mudanças na legislação. A data da última atualização está indicada no topo desta página.",
     terms_h13:"13. Contato", terms_p13:"Dúvidas sobre esta política ou sobre o tratamento dos seus dados podem ser enviadas para pynn.br@gmail.com.",
+    terms_h14:"14. Legislação aplicável", terms_p14:"Esta política e os serviços da PYNN são regidos pelas leis da República Federativa do Brasil, com destaque para: Lei Geral de Proteção de Dados Pessoais (LGPD — Lei nº 13.709/2018), que disciplina o tratamento de dados pessoais; Marco Civil da Internet (Lei nº 12.965/2014), que estabelece princípios, garantias, direitos e deveres para o uso da internet no país; Código de Defesa do Consumidor (CDC — Lei nº 8.078/1990), aplicável às relações de consumo entre a PYNN e seus clientes; e Código Civil (Lei nº 10.406/2002), que rege os aspectos contratuais dos serviços descritos na cláusula 11. Eventuais conflitos relacionados a este site ou aos serviços da PYNN serão resolvidos com base nessa legislação, no foro do domicílio da PYNN.",
     footer_agency:"Agência", footer_contact:"Contato", footer_legal:"Legal", footer_terms:"Política de Privacidade e Termos de Uso", footer_manage_consent:"Gerenciar consentimento",
     footer_note:"Feito com precisão técnica.",
     form_sent:"Enviando sua mensagem...",
@@ -2911,9 +2913,8 @@ var translations = {
     hours_closed:"Cerrado",
     qr_whats:"Escanear · WhatsApp", qr_insta:"Escanear · Instagram", qr_site:"Escanear · Site",
     terms_eyebrow:"Legal", terms_title:"Política de Privacidad y Términos de Uso",
-    terms_updated:"Última actualización: 13 de julio de 2026.",
+    terms_updated:"Última actualización: 15 de julio de 2026.",
     terms_intro:"Esta política explica, de forma clara y objetiva, cómo PYNN recopila, usa, almacena y protege la información relacionada contigo al utilizar este sitio, de acuerdo con las leyes de protección de datos aplicables, incluida la LGPD brasileña (Ley nº 13.709/2018).",
-    terms_summary_title:"Resumen en lenguaje simple",
     terms_summary_text:"Solo recopilamos los datos que tú mismo escribes en el formulario de contacto (nombre, correo, asunto y mensaje), usados únicamente para responder tu solicitud. No vendemos ni compartimos tus datos con terceros con fines comerciales, no usamos cookies de rastreo y puedes pedir la eliminación de tus datos cuando quieras. Esto sigue la LGPD brasileña (Ley nº 13.709/2018), que garantiza tu derecho a saber, corregir y borrar los datos personales que las empresas tienen sobre ti. Este resumen es solo una guía rápida — el texto completo abajo es el que tiene valor oficial.",
     terms_close_aria:"Cerrar",
     terms_h1:"1. Quiénes somos", terms_p1:"PYNN es una agencia independiente de optimización de perfiles en Google Maps y soporte técnico en TI, responsable del tratamiento de los datos descritos en esta política. Para cualquier duda o solicitud relacionada con tus datos, escribe a pynn.br@gmail.com.",
@@ -2929,6 +2930,7 @@ var translations = {
     terms_h11:"11. Pago y cancelación", terms_p11:"Aceptamos pago vía Pix, transferencia/boleto bancario, efectivo y otras formas acordadas previamente — no trabajamos solo con Pix. No exigimos pago por adelantado: al contratar uno de nuestros servicios, el trabajo se inicia y el pago se realiza según lo acordado en el momento de la contratación. Si el cliente contrata un servicio y no realiza el pago acordado, el servicio se desactiva automáticamente. Si el cliente contrata un servicio, el trabajo se inicia y luego el cliente decide cancelar, se cobrará el equivalente al 50% del valor del plan elegido — este monto cubre el tiempo y el trabajo técnico ya empleados en el diagnóstico y la optimización hasta el momento de la cancelación.",
     terms_h12:"12. Cambios a esta política", terms_p12:"Esta política puede actualizarse periódicamente para reflejar mejoras en el sitio o cambios legales. La fecha de la última actualización aparece en la parte superior de esta página.",
     terms_h13:"13. Contacto", terms_p13:"Las dudas sobre esta política o sobre el tratamiento de tus datos pueden enviarse a pynn.br@gmail.com.",
+    terms_h14:"14. Legislación aplicable", terms_p14:"Esta política y los servicios de PYNN se rigen por las leyes de la República Federativa de Brasil, en especial: la Ley General de Protección de Datos Personales (LGPD — Ley nº 13.709/2018), que regula el tratamiento de datos personales; el Marco Civil de Internet (Ley nº 12.965/2014), que establece principios, garantías, derechos y deberes para el uso de internet en el país; el Código de Defensa del Consumidor (CDC — Ley nº 8.078/1990), aplicable a las relaciones de consumo entre PYNN y sus clientes; y el Código Civil (Ley nº 10.406/2002), que rige los aspectos contractuales de los servicios descritos en la cláusula 11. Cualquier conflicto relacionado con este sitio o con los servicios de PYNN se resolverá con base en esta legislación, en el fuero del domicilio de PYNN.",
     footer_agency:"Agencia", footer_contact:"Contacto", footer_legal:"Legal", footer_terms:"Política de Privacidad y Términos de Uso", footer_manage_consent:"Gestionar consentimiento",
     footer_note:"Hecho con precisión técnica.",
     form_sent:"Enviando tu mensaje...",
@@ -3041,9 +3043,8 @@ var translations = {
     hours_closed:"Closed",
     qr_whats:"Scan · WhatsApp", qr_insta:"Scan · Instagram", qr_site:"Scan · Site",
     terms_eyebrow:"Legal", terms_title:"Privacy Policy and Terms of Use",
-    terms_updated:"Last updated: July 13, 2026.",
+    terms_updated:"Last updated: July 15, 2026.",
     terms_intro:"This policy explains, clearly and objectively, how PYNN collects, uses, stores, and protects information related to you when you use this site, in line with applicable data protection laws, including Brazil's LGPD (Law No. 13,709/2018).",
-    terms_summary_title:"Plain-language summary",
     terms_summary_text:"We only collect the data you type into the contact form (name, email, subject and message), used solely to reply to your request. We do not sell or share your data with third parties for commercial purposes, we do not use tracking cookies, and you can ask us to delete your data at any time. This follows Brazil's LGPD (Law No. 13,709/2018), the data protection law that guarantees your right to know, correct, and erase the personal data companies hold about you. This summary is just a quick guide — the full text below is what legally applies.",
     terms_close_aria:"Close",
     terms_h1:"1. Who we are", terms_p1:"PYNN is an independent agency for Google Maps profile optimization and IT technical support, responsible for the data processing described in this policy. For any question or request about your data, contact pynn.br@gmail.com.",
@@ -3059,6 +3060,7 @@ var translations = {
     terms_h11:"11. Payment and cancellation", terms_p11:"We accept payment via Pix, bank slip (boleto), cash, and other methods agreed in advance — we don't work with Pix only. We do not require payment upfront: once a service is contracted, work begins and payment is made as agreed at the time of hiring. If a client contracts a service and does not make the agreed payment, the service is automatically deactivated. If a client contracts a service, work has begun, and the client then decides to cancel, a fee equivalent to 50% of the chosen plan's value will be charged — this covers the time and technical work already invested in the diagnosis and optimization up to the point of cancellation.",
     terms_h12:"12. Changes to this policy", terms_p12:"This policy may be updated periodically to reflect improvements to the site or legal changes. The date of the last update is shown at the top of this page.",
     terms_h13:"13. Contact", terms_p13:"Questions about this policy or about how your data is processed can be sent to pynn.br@gmail.com.",
+    terms_h14:"14. Applicable law", terms_p14:"This policy and PYNN's services are governed by the laws of Brazil, in particular: the General Personal Data Protection Law (LGPD — Law No. 13,709/2018), which regulates the processing of personal data; the Brazilian Civil Rights Framework for the Internet / Marco Civil da Internet (Law No. 12,965/2014), which sets out principles, guarantees, rights, and duties for internet use in the country; the Consumer Defense Code (CDC — Law No. 8,078/1990), applicable to the consumer relationship between PYNN and its clients; and the Civil Code (Law No. 10,406/2002), which governs the contractual aspects of the services described in clause 11. Any dispute related to this site or to PYNN's services will be resolved based on this legislation, in the jurisdiction of PYNN's domicile.",
     footer_agency:"Agency", footer_contact:"Contact", footer_legal:"Legal", footer_terms:"Privacy Policy and Terms of Use", footer_manage_consent:"Manage consent",
     footer_note:"Built with technical precision.",
     form_sent:"Sending your message...",
@@ -3207,7 +3209,14 @@ contactForm.addEventListener('submit', (e)=>{
     headers:{ 'Accept':'application/json' },
     body:formData
   })
-  .then((res)=>{ if(!res.ok) throw new Error('bad status'); return res.json().catch(()=>({})); })
+  .then(async (res)=>{
+    let data = {};
+    try{ data = await res.json(); }catch(e){ /* FormSubmit sometimes returns non-JSON on error pages */ }
+    if(!res.ok || data.success === false || data.success === 'false'){
+      throw new Error((data && data.message) || ('HTTP ' + res.status));
+    }
+    return data;
+  })
   .then(()=>{
     formMsgEl.textContent = translations[currentLang].form_success;
     formMsgEl.classList.add('is-success');
@@ -3215,7 +3224,8 @@ contactForm.addEventListener('submit', (e)=>{
     captchaCheckbox.checked = false;
     submitBtn.disabled = true;
   })
-  .catch(()=>{
+  .catch((err)=>{
+    console.error('PYNN contact form error:', err);
     formMsgEl.textContent = translations[currentLang].form_error;
     formMsgEl.classList.add('is-error');
     submitBtn.disabled = false;
