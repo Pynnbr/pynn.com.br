@@ -1437,6 +1437,39 @@ var QRCode;
   .terms p, .terms li{ color:var(--fg-muted); font-size:.92rem; margin-bottom:10px; }
   .terms ul{ padding-left:20px; }
 
+  /* ---------- TERMS MODAL ---------- */
+  .terms-overlay{
+    position:fixed; inset:0; z-index:1200;
+    background:color-mix(in srgb, var(--bg) 78%, transparent);
+    display:flex; align-items:flex-start; justify-content:center;
+    padding:20px; overflow-y:auto;
+    opacity:0; pointer-events:none;
+    transition:opacity .35s var(--ease);
+  }
+  .terms-overlay.show{ opacity:1; pointer-events:auto; }
+  .terms-box{
+    background:var(--bg-panel); border:1px solid var(--border); border-radius:var(--radius-lg);
+    max-width:820px; width:100%; margin:32px auto; padding:36px 36px 28px;
+    position:relative; transform:translateY(16px);
+    transition:transform .4s var(--ease);
+  }
+  .terms-overlay.show .terms-box{ transform:translateY(0); }
+  .terms-close{
+    position:absolute; top:18px; right:18px; width:36px; height:36px; border-radius:50%;
+    border:1px solid var(--border); background:var(--bg); color:var(--fg);
+    display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:1.1rem;
+    line-height:1;
+  }
+  .terms-close:hover{ background:var(--coral); color:var(--coral-text); border-color:var(--coral); }
+  .terms-summary{
+    background:color-mix(in srgb, var(--coral) 8%, var(--bg-panel));
+    border:1px solid var(--border); border-radius:var(--radius-md, 14px);
+    padding:18px 20px; margin:18px 0 26px;
+  }
+  .terms-summary h4{ font-family:'Inter',sans-serif; font-size:.78rem; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--fg); margin-bottom:8px; }
+  .terms-summary p{ color:var(--fg-muted); font-size:.9rem; margin-bottom:0; }
+  @media (prefers-reduced-motion: reduce){ .terms-overlay, .terms-box{ transition:none; } }
+
   /* ---------- FOOTER ---------- */
   footer{ padding:24px 18px 40px; }
   .footer-card{
@@ -2297,14 +2330,20 @@ var QRCode;
     </div>
   </section>
 
-  <!-- TERMS -->
-  <section class="terms" id="termos" data-tts-skip="true">
-    <div class="wrap">
+  <!-- TERMS MODAL -->
+  <div class="terms-overlay" id="termsOverlay" role="dialog" aria-modal="true" aria-labelledby="termsTitle" data-tts-skip="true">
+  <section class="terms terms-box" id="termos">
+    <button type="button" class="terms-close" id="termsCloseBtn" aria-label="Fechar" data-i18n-aria="terms_close_aria">&times;</button>
       <div class="section-plain" style="max-width:820px; margin:0 auto;">
         <p class="eyebrow" data-i18n="terms_eyebrow">Legal</p>
-        <h2 style="margin:12px 0 6px; font-size:1.8rem;" data-i18n="terms_title">Política de Privacidade e Termos de Uso</h2>
+        <h2 id="termsTitle" style="margin:12px 0 6px; font-size:1.8rem;" data-i18n="terms_title">Política de Privacidade e Termos de Uso</h2>
         <p style="font-size:.82rem; color:var(--fg-muted); margin-bottom:22px;" data-i18n="terms_updated">Última atualização: 13 de julho de 2026.</p>
         <p data-i18n="terms_intro">Esta política explica, de forma clara e objetiva, como a PYNN coleta, usa, armazena e protege as informações relacionadas a você ao utilizar este site, em conformidade com a Lei Geral de Proteção de Dados Pessoais (LGPD — Lei nº 13.709/2018).</p>
+
+        <div class="terms-summary">
+          <h4 data-i18n="terms_summary_title">Resumo em linguagem simples</h4>
+          <p data-i18n="terms_summary_text">Só coletamos os dados que você mesmo digita no formulário de contato (nome, e-mail, assunto e mensagem), usados apenas para responder seu pedido. Não vendemos nem compartilhamos seus dados com terceiros para fins comerciais, não usamos cookies de rastreamento e você pode pedir a exclusão dos seus dados quando quiser. Isso segue a LGPD (Lei nº 13.709/2018), a lei brasileira que garante seu direito de saber, corrigir e apagar os dados pessoais que empresas têm sobre você. Este resumo é só um guia rápido — o texto completo abaixo é o que vale oficialmente.</p>
+        </div>
 
         <h3 data-i18n="terms_h1">1. Quem somos</h3>
         <p data-i18n="terms_p1">A PYNN é uma agência independente de otimização de perfis no Google Maps e suporte técnico em TI, responsável pelo tratamento dos dados descritos nesta política. Para qualquer dúvida ou solicitação relacionada aos seus dados, entre em contato pelo e-mail pynn.br@gmail.com.</p>
@@ -2345,8 +2384,8 @@ var QRCode;
         <h3 data-i18n="terms_h13">13. Contato</h3>
         <p data-i18n="terms_p13">Dúvidas sobre esta política ou sobre o tratamento dos seus dados podem ser enviadas para pynn.br@gmail.com.</p>
       </div>
-    </div>
   </section>
+  </div>
 
 </main>
 
@@ -2744,6 +2783,9 @@ var translations = {
     terms_eyebrow:"Legal", terms_title:"Política de Privacidade e Termos de Uso",
     terms_updated:"Última atualização: 13 de julho de 2026.",
     terms_intro:"Esta política explica, de forma clara e objetiva, como a PYNN coleta, usa, armazena e protege as informações relacionadas a você ao utilizar este site, em conformidade com a Lei Geral de Proteção de Dados Pessoais (LGPD — Lei nº 13.709/2018).",
+    terms_summary_title:"Resumo em linguagem simples",
+    terms_summary_text:"Só coletamos os dados que você mesmo digita no formulário de contato (nome, e-mail, assunto e mensagem), usados apenas para responder seu pedido. Não vendemos nem compartilhamos seus dados com terceiros para fins comerciais, não usamos cookies de rastreamento e você pode pedir a exclusão dos seus dados quando quiser. Isso segue a LGPD (Lei nº 13.709/2018), a lei brasileira que garante seu direito de saber, corrigir e apagar os dados pessoais que empresas têm sobre você. Este resumo é só um guia rápido — o texto completo abaixo é o que vale oficialmente.",
+    terms_close_aria:"Fechar",
     terms_h1:"1. Quem somos", terms_p1:"A PYNN é uma agência independente de otimização de perfis no Google Maps e suporte técnico em TI, responsável pelo tratamento dos dados descritos nesta política. Para qualquer dúvida ou solicitação relacionada aos seus dados, entre em contato pelo e-mail pynn.br@gmail.com.",
     terms_h2:"2. Dados que coletamos", terms_p2:"Coletamos apenas os dados fornecidos voluntariamente por você no formulário de contato: nome, e-mail, assunto e mensagem. Não solicitamos senhas, dados bancários, documentos ou qualquer informação sensível por este canal. Também podem ser salvas localmente no seu navegador as suas preferências de exibição (idioma, tema, cor e formato dos cartões) e a sua decisão sobre esta política — essas preferências não são enviadas aos nossos servidores.",
     terms_h3:"3. Finalidade do uso", terms_p3:"As informações enviadas pelo formulário de contato são utilizadas exclusivamente para responder à sua solicitação de orçamento ou suporte técnico. Não usamos seus dados para envio de marketing não solicitado.",
@@ -2871,6 +2913,9 @@ var translations = {
     terms_eyebrow:"Legal", terms_title:"Política de Privacidad y Términos de Uso",
     terms_updated:"Última actualización: 13 de julio de 2026.",
     terms_intro:"Esta política explica, de forma clara y objetiva, cómo PYNN recopila, usa, almacena y protege la información relacionada contigo al utilizar este sitio, de acuerdo con las leyes de protección de datos aplicables, incluida la LGPD brasileña (Ley nº 13.709/2018).",
+    terms_summary_title:"Resumen en lenguaje simple",
+    terms_summary_text:"Solo recopilamos los datos que tú mismo escribes en el formulario de contacto (nombre, correo, asunto y mensaje), usados únicamente para responder tu solicitud. No vendemos ni compartimos tus datos con terceros con fines comerciales, no usamos cookies de rastreo y puedes pedir la eliminación de tus datos cuando quieras. Esto sigue la LGPD brasileña (Ley nº 13.709/2018), que garantiza tu derecho a saber, corregir y borrar los datos personales que las empresas tienen sobre ti. Este resumen es solo una guía rápida — el texto completo abajo es el que tiene valor oficial.",
+    terms_close_aria:"Cerrar",
     terms_h1:"1. Quiénes somos", terms_p1:"PYNN es una agencia independiente de optimización de perfiles en Google Maps y soporte técnico en TI, responsable del tratamiento de los datos descritos en esta política. Para cualquier duda o solicitud relacionada con tus datos, escribe a pynn.br@gmail.com.",
     terms_h2:"2. Datos que recopilamos", terms_p2:"Recopilamos solo los datos proporcionados voluntariamente por ti en el formulario de contacto: nombre, correo, asunto y mensaje. No solicitamos contraseñas, datos bancarios, documentos ni ninguna información sensible por este canal. También pueden guardarse localmente en tu navegador tus preferencias de visualización (idioma, tema, color y formato de las tarjetas) y tu decisión sobre esta política — estas preferencias no se envían a nuestros servidores.",
     terms_h3:"3. Finalidad del uso", terms_p3:"La información enviada por el formulario de contacto se utiliza exclusivamente para responder a tu solicitud de presupuesto o soporte técnico. No usamos tus datos para marketing no solicitado.",
@@ -2998,6 +3043,9 @@ var translations = {
     terms_eyebrow:"Legal", terms_title:"Privacy Policy and Terms of Use",
     terms_updated:"Last updated: July 13, 2026.",
     terms_intro:"This policy explains, clearly and objectively, how PYNN collects, uses, stores, and protects information related to you when you use this site, in line with applicable data protection laws, including Brazil's LGPD (Law No. 13,709/2018).",
+    terms_summary_title:"Plain-language summary",
+    terms_summary_text:"We only collect the data you type into the contact form (name, email, subject and message), used solely to reply to your request. We do not sell or share your data with third parties for commercial purposes, we do not use tracking cookies, and you can ask us to delete your data at any time. This follows Brazil's LGPD (Law No. 13,709/2018), the data protection law that guarantees your right to know, correct, and erase the personal data companies hold about you. This summary is just a quick guide — the full text below is what legally applies.",
+    terms_close_aria:"Close",
     terms_h1:"1. Who we are", terms_p1:"PYNN is an independent agency for Google Maps profile optimization and IT technical support, responsible for the data processing described in this policy. For any question or request about your data, contact pynn.br@gmail.com.",
     terms_h2:"2. Data we collect", terms_p2:"We only collect data voluntarily provided by you in the contact form: name, email, subject, and message. We never request passwords, banking details, documents, or any sensitive information through this channel. Your display preferences (language, theme, color, and card style) and your decision on this policy may also be stored locally in your browser — none of these preferences are sent to our servers.",
     terms_h3:"3. Purpose of use", terms_p3:"Information submitted through the contact form is used exclusively to respond to your quote or support request. We do not use your data for unsolicited marketing.",
@@ -3048,6 +3096,11 @@ function setLang(lang){
     if(val === undefined) return;
     if(val.includes('<')) el.innerHTML = val;
     else el.textContent = val;
+  });
+  document.querySelectorAll('[data-i18n-aria]').forEach(el=>{
+    const key = el.getAttribute('data-i18n-aria');
+    const val = translations[lang][key];
+    if(val !== undefined) el.setAttribute('aria-label', val);
   });
   if(typeof applyConsentState === 'function'){
     const stored = (function(){ try{ return localStorage.getItem('pynn-consent'); }catch(e){ return null; } })();
@@ -3220,6 +3273,48 @@ function applyConsentState(choice){
       : (t.settings_privacy_accepted || 'Você aceitou');
   }
 }
+
+var termsOverlay = document.getElementById('termsOverlay');
+var termsCloseBtn = document.getElementById('termsCloseBtn');
+var termsLastFocus = null;
+
+function openTermsModal(){
+  if(!termsOverlay) return;
+  termsLastFocus = document.activeElement;
+  termsOverlay.classList.add('show');
+  document.documentElement.style.overflow = 'hidden';
+  if(termsCloseBtn) termsCloseBtn.focus();
+}
+function closeTermsModal(){
+  if(!termsOverlay) return;
+  termsOverlay.classList.remove('show');
+  document.documentElement.style.overflow = '';
+  if(termsLastFocus && typeof termsLastFocus.focus === 'function') termsLastFocus.focus();
+}
+
+// Qualquer link "#termos" (menu, rodapé, caixas de aceite, formulário) abre o modal em vez de rolar a página.
+document.addEventListener('click', function(e){
+  var link = e.target.closest('a[href="#termos"]');
+  if(link){
+    e.preventDefault();
+    openTermsModal();
+  }
+});
+if(termsCloseBtn){ termsCloseBtn.addEventListener('click', closeTermsModal); }
+if(termsOverlay){
+  termsOverlay.addEventListener('click', function(e){
+    if(e.target === termsOverlay) closeTermsModal();
+  });
+}
+document.addEventListener('keydown', function(e){
+  if(e.key === 'Escape' && termsOverlay && termsOverlay.classList.contains('show')){
+    closeTermsModal();
+  }
+});
+// Abre automaticamente se a página for carregada/compartilhada com o link direto #termos.
+window.addEventListener('load', function(){
+  if(window.location.hash === '#termos'){ openTermsModal(); }
+});
 
 function openConsentModal(mode){
   consentModalMode = mode;
