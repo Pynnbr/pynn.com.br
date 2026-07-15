@@ -3210,10 +3210,13 @@ contactForm.addEventListener('submit', (e)=>{
     body:formData
   })
   .then(async (res)=>{
-    let data = {};
-    try{ data = await res.json(); }catch(e){ /* FormSubmit sometimes returns non-JSON on error pages */ }
-    if(!res.ok || data.success === false || data.success === 'false'){
-      throw new Error((data && data.message) || ('HTTP ' + res.status));
+    let data = null, parseFailed = false;
+    try{ data = await res.json(); }catch(e){ parseFailed = true; }
+    if(!res.ok || parseFailed || !data || data.success === false || data.success === 'false'){
+      const reason = parseFailed
+        ? 'FormSubmit did not return JSON (likely unconfirmed/unactivated email, or blocked request)'
+        : ((data && data.message) || ('HTTP ' + res.status));
+      throw new Error(reason);
     }
     return data;
   })
@@ -4339,3 +4342,4 @@ if('serviceWorker' in navigator){
 
 </body>
 </html>
+
