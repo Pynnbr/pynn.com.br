@@ -1765,6 +1765,7 @@ var QRCode;
         <div class="about-grid">
           <div class="about-copy">
             <p class="eyebrow" data-i18n="about_eyebrow">Sobre mim</p>
+            <p class="about-name">Arthur Richard</p>
             <p class="about-role" style="font-size:.82rem; letter-spacing:.04em; color:var(--fg-muted); margin:2px 0 18px;" data-i18n="about_role">FUNDADOR · PYNN</p>
             <h2 data-i18n="about_title" style="margin:12px 0 22px; font-size:clamp(1.7rem,3vw,2.2rem);">Disciplina que <em>vira resultado</em>.</h2>
             <p data-i18n="about_p1">Sou estudante de <strong>Redes de Computadores (Superior)</strong> no Instituto Federal do Maranhão (IFMA). Sou uma pessoa com deficiência múltipla, e minha trajetória é marcada pela superação — conquistei o <strong>1º lugar no Sisu/Enem 2024</strong>.</p>
@@ -2441,14 +2442,17 @@ var footerManageConsent = document.getElementById('footerManageConsent');
 const themeToggle = document.getElementById('themeToggle');
 const themeLabel = document.getElementById('themeLabel');
 const themeIcon = document.getElementById('themeIcon');
-let isLight = true;
-function applyTheme(light){
+let isLight = false;
+try{ isLight = localStorage.getItem('pynn-theme') === 'light'; }catch(e){}
+function applyTheme(light, persist){
   document.documentElement.classList.toggle('light', light);
   themeIcon.textContent = light ? '○' : '●';
   themeLabel.setAttribute('data-i18n', light ? 'theme_light' : 'theme_dark');
-  setLang(currentLang);
+  if(typeof setLang === 'function' && typeof currentLang !== 'undefined' && currentLang){ setLang(currentLang); }
+  if(persist){ try{ localStorage.setItem('pynn-theme', light ? 'light' : 'dark'); }catch(e){} }
 }
-themeToggle.addEventListener('click', ()=>{ isLight = !isLight; applyTheme(isLight); });
+applyTheme(isLight, false);
+themeToggle.addEventListener('click', ()=>{ isLight = !isLight; applyTheme(isLight, true); });
 
 /* ---------- COR DO TEMA (baseada nas variações da logo PYNN) ---------- */
 const accentThemes = {
@@ -4342,4 +4346,3 @@ if('serviceWorker' in navigator){
 
 </body>
 </html>
-
