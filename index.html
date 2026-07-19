@@ -2443,7 +2443,18 @@ const themeToggle = document.getElementById('themeToggle');
 const themeLabel = document.getElementById('themeLabel');
 const themeIcon = document.getElementById('themeIcon');
 let isLight = false;
-try{ isLight = localStorage.getItem('pynn-theme') === 'light'; }catch(e){}
+let themeSavedManually = false;
+try{
+  const savedTheme = localStorage.getItem('pynn-theme');
+  if(savedTheme === 'light' || savedTheme === 'dark'){
+    // A pessoa já escolheu manualmente antes: essa escolha manda, sempre.
+    isLight = savedTheme === 'light';
+    themeSavedManually = true;
+  } else if(window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches){
+    // Primeira visita, sem escolha manual: segue o tema do sistema (celular/PC).
+    isLight = true;
+  }
+}catch(e){}
 function applyTheme(light, persist){
   document.documentElement.classList.toggle('light', light);
   themeIcon.textContent = light ? '○' : '●';
@@ -2452,7 +2463,16 @@ function applyTheme(light, persist){
   if(persist){ try{ localStorage.setItem('pynn-theme', light ? 'light' : 'dark'); }catch(e){} }
 }
 applyTheme(isLight, false);
-themeToggle.addEventListener('click', ()=>{ isLight = !isLight; applyTheme(isLight, true); });
+themeToggle.addEventListener('click', ()=>{ isLight = !isLight; themeSavedManually = true; applyTheme(isLight, true); });
+// Se o sistema mudar de tema (ex: celular troca sozinho à noite) e a pessoa
+// NUNCA escolheu manualmente no site, acompanha a mudança em tempo real.
+try{
+  window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', (e)=>{
+    if(themeSavedManually) return;
+    isLight = e.matches;
+    applyTheme(isLight, false);
+  });
+}catch(e){}
 
 /* ---------- COR DO TEMA (baseada nas variações da logo PYNN) ---------- */
 const accentThemes = {
