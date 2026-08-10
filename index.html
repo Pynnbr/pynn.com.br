@@ -1020,10 +1020,30 @@ var QRCode;
     .appearance-toggle{ font-size:.85rem; padding:8px 10px; }
     .segmented button{ padding:7px 9px; font-size:.84rem; }
   }
-  .settings-row--menu{ flex-direction:column; align-items:stretch; gap:2px; padding:6px; }
-  .settings-row--menu a{ padding:12px 8px; border-radius:12px; font-size:1rem; font-weight:500; color:var(--fg); }
-  .settings-row--menu a:hover{ background:var(--bg-panel-2); }
-  @media(min-width:700px){ .settings-row--menu{ display:none; } }
+  /* ---------- Hambúrguer (☰) para navegação — separado do ícone de engrenagem (configurações) ---------- */
+  .hamburger-btn{
+    display:flex; align-items:center; justify-content:center;
+    width:38px; height:38px; border-radius:50%; border:1px solid var(--border);
+    background:var(--bg-panel-2); color:var(--fg); cursor:pointer;
+  }
+  @media(min-width:700px){ .hamburger-btn{ display:none; } }
+  .mobile-nav-backdrop{
+    position:fixed; inset:0; background:rgba(0,0,0,.4); z-index:1000;
+    opacity:0; pointer-events:none; transition:opacity .2s var(--ease);
+  }
+  .mobile-nav-backdrop.open{ opacity:1; pointer-events:auto; }
+  .mobile-nav-dropdown{
+    position:fixed; top:70px; left:14px; right:14px; z-index:1001;
+    background:var(--bg-panel); border:1px solid var(--border); border-radius:var(--radius);
+    padding:8px; display:flex; flex-direction:column; gap:2px;
+    box-shadow:0 20px 40px -12px rgba(0,0,0,.4);
+    opacity:0; transform:translateY(-8px); pointer-events:none;
+    transition:opacity .2s var(--ease), transform .2s var(--ease);
+  }
+  .mobile-nav-dropdown.open{ opacity:1; transform:translateY(0); pointer-events:auto; }
+  .mobile-nav-dropdown a{ padding:12px 10px; border-radius:12px; font-size:1rem; font-weight:500; color:var(--fg); }
+  .mobile-nav-dropdown a:hover{ background:var(--bg-panel-2); }
+  @media(min-width:700px){ .mobile-nav-dropdown, .mobile-nav-backdrop{ display:none; } }
   .segmented{ display:flex; background:var(--bg-panel-2); border:1px solid var(--border); border-radius:var(--radius-sm); padding:2px; }
   .segmented button{
     border:none; background:none; color:var(--fg-muted); font-family:'Inter',sans-serif;
@@ -1622,6 +1642,12 @@ var QRCode;
   }
   .combo-total strong{ font-family:'Manrope',sans-serif; font-size:1.3rem; color:var(--blue); margin-left:4px; }
   .combo-total small{ display:block; margin-top:4px; color:var(--fg-muted); font-size:.72rem; font-weight:400; }
+  .combo-estimate-warning{
+    display:flex; gap:10px; align-items:flex-start; margin-top:10px; padding:12px 14px;
+    background:var(--yellow-soft); border:1px solid var(--yellow); border-radius:var(--radius-sm);
+    color:var(--fg); font-family:'Inter',sans-serif; font-size:.78rem; line-height:1.5;
+  }
+  .combo-estimate-warning svg{ flex-shrink:0; color:var(--yellow); margin-top:1px; }
   .combo-confirm-btn{
     width:100%; justify-content:center; text-align:center; margin-top:14px; font-weight:600;
     background:#ff6fa5; color:#04060c; border:none; cursor:pointer;
@@ -1983,6 +2009,24 @@ var QRCode;
     </div>
 
     <div class="nav-controls">
+      <button type="button" class="hamburger-btn" id="hamburgerBtn" aria-haspopup="true" aria-expanded="false" aria-label="Abrir menu de navegação">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+          <path d="M3 6h18M3 12h18M3 18h18"/>
+        </svg>
+      </button>
+      <div class="mobile-nav-backdrop" id="mobileNavBackdrop"></div>
+      <div class="mobile-nav-dropdown" id="mobileNavDropdown" role="menu">
+        <a href="#sobre" data-i18n="menu_about">Sobre</a>
+        <a href="#processo" data-i18n="menu_process">Como funciona</a>
+        <a href="#servicos" data-i18n="menu_services">Serviços</a>
+        <a href="#dicas" data-i18n="menu_tips">Dicas</a>
+        <a href="#faq" data-i18n="menu_faq">Dúvidas</a>
+        <a href="#antes-depois" data-i18n="menu_portfolio">Antes e depois</a>
+        <a href="#parceiros" data-i18n="menu_partners">Parcerias</a>
+        <a href="#contato" data-i18n="menu_contact">Contato</a>
+        <a href="#privacidade" data-i18n="menu_terms">Privacidade</a>
+        <a href="#termos-uso" data-i18n="footer_terms_use">Termos de Uso</a>
+      </div>
       <a href="#contato" class="nav-cta" data-i18n="nav_cta">Fale conosco</a>
       <button type="button" class="install-btn" id="installAppBtn" aria-label="Instalar o app PYNN" title="Instalar app">
         <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -2005,18 +2049,6 @@ var QRCode;
             </svg>
             <span data-i18n="settings_back">Fechar</span>
           </button>
-          <div class="settings-row settings-row--menu">
-            <a href="#sobre" data-i18n="menu_about">Sobre</a>
-            <a href="#processo" data-i18n="menu_process">Como funciona</a>
-            <a href="#servicos" data-i18n="menu_services">Serviços</a>
-            <a href="#antes-depois" data-i18n="menu_portfolio">Antes e depois</a>
-            <a href="#dicas" data-i18n="menu_tips">Dicas</a>
-            <a href="#faq" data-i18n="menu_faq">Dúvidas</a>
-            <a href="#parceiros" data-i18n="menu_partners">Parcerias</a>
-            <a href="#contato" data-i18n="menu_contact">Contato</a>
-            <a href="#privacidade" data-i18n="menu_terms">Privacidade</a>
-            <a href="#termos-uso" data-i18n="footer_terms_use">Termos de Uso</a>
-          </div>
           <div class="settings-row">
             <span class="settings-label" data-i18n="settings_language">Idioma</span>
             <div class="segmented" id="langSegmented">
@@ -2415,11 +2447,11 @@ var QRCode;
             </div>
             <span class="tag" data-i18n="plan4_tag">Criação de Sites</span>
             <h3 data-i18n="plan4_title">Plano Site</h3>
-            <div class="price">A partir de R$ 1.000<small data-i18n="plan4_price_note">Valor varia conforme o projeto</small></div>
+            <div class="price">A partir de R$ 3.000<small data-i18n="plan4_price_note">Valor varia conforme o projeto</small></div>
             <p class="desc" data-i18n="plan4_desc">Sou dev e crio sites profissionais, responsivos e otimizados para aparecer no Google: currículo online, portfólio, landing page ou site institucional da sua empresa. Estrutura, textos e design pensados para converter visitas em contato.</p>
             <p class="note" data-i18n="plan4_note">Nota: não desenvolvemos sites que envolvam banco de dados (ex: login de usuários, e-commerce com carrinho, sistemas dinâmicos). Trabalhamos com sites institucionais, portfólio, landing page e currículo online.</p>
             <label class="combo-toggle">
-              <input type="checkbox" class="combo-check" data-combo-plan="plan4_wa_msg" data-combo-price="1000">
+              <input type="checkbox" class="combo-check" data-combo-plan="plan4_wa_msg" data-combo-price="3000">
               <span data-i18n="combo_add">+ Adicionar ao combo</span>
             </label>
             <a href="#contato" class="btn btn-plan btn-plan-wa" data-msg-key="plan4_wa_msg" data-i18n="plan4_cta">Solicitar orçamento</a>
@@ -2515,6 +2547,10 @@ var QRCode;
               <ul class="combo-history" id="comboHistory" aria-live="polite"></ul>
               <div class="combo-discount" id="comboDiscount" style="display:none;"></div>
               <div class="combo-total" id="comboTotal" style="display:none;"></div>
+              <div class="combo-estimate-warning" id="comboEstimateWarning" style="display:none;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 9v4M12 17h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/></svg>
+                <span data-i18n="combo_estimate_warning">Este combo inclui um plano "a partir de R$ X" — esse valor pode mudar conforme o tamanho do seu projeto. O total exibido é uma estimativa mínima, não o preço fechado. O valor final é sempre confirmado com você antes de começar o trabalho.</span>
+              </div>
               <button type="button" class="btn btn-plan combo-confirm-btn" id="comboConfirmBtn" disabled data-i18n="combo_confirm">Confirmar combo pelo WhatsApp</button>
             </div>
           </div>
@@ -3489,7 +3525,7 @@ var translations = {
     combo_confirm:"Confirmar combo pelo WhatsApp", combo_sent:"Enviado! Confira seu WhatsApp \u2713",
     combo_discount_5:"5% de desconto aplicado!", combo_discount_10:"10% de desconto aplicado!",
     combo_wa_intro:"Olá! Quero montar um combo PYNN com os planos:",
-    combo_total_prefix:"Valor total: ", combo_total_estimate_prefix:"Valor estimado: ", combo_total_estimate_note:"inclui plano com valor variável — confirmado no WhatsApp",
+    combo_total_prefix:"Valor total: ", combo_total_estimate_prefix:"Valor estimado: ", combo_total_estimate_note:"inclui plano com valor variável — confirmado no WhatsApp", combo_estimate_warning:'Este combo inclui um plano "a partir de R$ X" — esse valor pode mudar conforme o tamanho do seu projeto. O total exibido é uma estimativa mínima, não o preço fechado. O valor final é sempre confirmado com você antes de começar o trabalho.',
     support_tag:"Suporte Técnico", support_title:"Manutenção de sistemas em TI",
     support_desc:"Formatação, configuração de sistemas e aceleração de desempenho para notebooks, computadores, celulares e tablets.",
     support_note:"Nota: atendimento especializado em software. Não realizamos manutenção de hardware ou troca de peças físicas.",
@@ -3562,7 +3598,7 @@ var translations = {
     tour_step3_title:"Fale com a gente",
     tour_step3_text:"Os botões verdes de WhatsApp espalhados pelo site já abrem uma conversa pronta, direto com a nossa equipe.",
     tour_step4_title:"Menu de navegação",
-    tour_step4_text:"No topo (ou no ícone de engrenagem ⚙ no celular) você pula direto para Sobre, Como funciona, Serviços ou Contato.",
+    tour_step4_text:"No topo (ou no ícone ☰ no celular) você pula direto para Sobre, Como funciona, Serviços ou Contato.",
     tour_skip:"Pular",
     tour_back:"Voltar",
     tour_next:"Próximo",
@@ -3678,7 +3714,7 @@ var translations = {
     combo_confirm:"Confirmar combo por WhatsApp", combo_sent:"¡Enviado! Revisa tu WhatsApp \u2713",
     combo_discount_5:"¡5% de descuento aplicado!", combo_discount_10:"¡10% de descuento aplicado!",
     combo_wa_intro:"¡Hola! Quiero armar un combo PYNN con los planes:",
-    combo_total_prefix:"Valor total: ", combo_total_estimate_prefix:"Valor estimado: ", combo_total_estimate_note:"incluye un plan de valor variable — se confirma por WhatsApp",
+    combo_total_prefix:"Valor total: ", combo_total_estimate_prefix:"Valor estimado: ", combo_total_estimate_note:"incluye un plan de valor variable — se confirma por WhatsApp", combo_estimate_warning:'Este combo incluye un plan "desde R$ X" — ese valor puede cambiar según el tamaño de tu proyecto. El total mostrado es una estimación mínima, no el precio final. El valor definitivo siempre se confirma contigo antes de empezar el trabajo.',
     support_tag:"Soporte Técnico", support_title:"Mantenimiento de sistemas en TI",
     support_desc:"Formateo, configuración de sistemas y aceleración de rendimiento para portátiles, computadoras, celulares y tablets.",
     support_note:"Nota: atención especializada en software. No realizamos mantenimiento de hardware ni cambio de piezas físicas.",
@@ -3751,7 +3787,7 @@ var translations = {
     tour_step3_title:"Habla con nosotros",
     tour_step3_text:"Los botones verdes de WhatsApp repartidos por el sitio abren una conversación lista, directo con nuestro equipo.",
     tour_step4_title:"Menú de navegación",
-    tour_step4_text:"Arriba (o en el ícono de engranaje ⚙ en el celular) puedes saltar directo a Sobre, Cómo funciona, Servicios o Contacto.",
+    tour_step4_text:"Arriba (o en el ícono ☰ en el celular) puedes saltar directo a Sobre, Cómo funciona, Servicios o Contacto.",
     tour_skip:"Saltar",
     tour_back:"Atrás",
     tour_next:"Siguiente",
@@ -3867,7 +3903,7 @@ var translations = {
     combo_confirm:"Confirm combo via WhatsApp", combo_sent:"Sent! Check your WhatsApp \u2713",
     combo_discount_5:"5% discount applied!", combo_discount_10:"10% discount applied!",
     combo_wa_intro:"Hi! I'd like to build a PYNN combo with the plans:",
-    combo_total_prefix:"Total: ", combo_total_estimate_prefix:"Estimated total: ", combo_total_estimate_note:"includes a variable-price plan — confirmed via WhatsApp",
+    combo_total_prefix:"Total: ", combo_total_estimate_prefix:"Estimated total: ", combo_total_estimate_note:"includes a variable-price plan — confirmed via WhatsApp", combo_estimate_warning:'This combo includes a "starting from R$ X" plan — that value can change depending on your project\'s size. The total shown is a minimum estimate, not the final price. The final amount is always confirmed with you before work begins.',
     support_tag:"IT Support", support_title:"System maintenance",
     support_desc:"Formatting, system setup, and performance boosts for laptops, computers, phones, and tablets.",
     support_note:"Note: software support only. We do not perform hardware repairs or physical part replacement.",
@@ -3940,7 +3976,7 @@ var translations = {
     tour_step3_title:"Talk to us",
     tour_step3_text:"The green WhatsApp buttons around the site open a ready-made chat straight to our team.",
     tour_step4_title:"Navigation menu",
-    tour_step4_text:"At the top (or the gear ⚙ icon on mobile) you can jump straight to About, How it works, Services, or Contact.",
+    tour_step4_text:"At the top (or the ☰ icon on mobile) you can jump straight to About, How it works, Services, or Contact.",
     tour_skip:"Skip",
     tour_back:"Back",
     tour_next:"Next",
@@ -4079,6 +4115,35 @@ applyCardMode(cardModeBorder, false);
 
 
 /* ---------- SETTINGS MENU (nav links + language + appearance) ---------- */
+/* ---------- Menu hambúrguer (☰): navegação, separado das configurações ---------- */
+(function(){
+  var hamburgerBtn = document.getElementById('hamburgerBtn');
+  var dropdown = document.getElementById('mobileNavDropdown');
+  var backdrop = document.getElementById('mobileNavBackdrop');
+  if(!hamburgerBtn || !dropdown || !backdrop) return;
+
+  function closeNav(){
+    dropdown.classList.remove('open');
+    backdrop.classList.remove('open');
+    hamburgerBtn.setAttribute('aria-expanded', 'false');
+  }
+  function openNav(){
+    dropdown.classList.add('open');
+    backdrop.classList.add('open');
+    hamburgerBtn.setAttribute('aria-expanded', 'true');
+  }
+  hamburgerBtn.addEventListener('click', function(){
+    if(dropdown.classList.contains('open')) closeNav(); else openNav();
+  });
+  backdrop.addEventListener('click', closeNav);
+  dropdown.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', closeNav);
+  });
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape') closeNav();
+  });
+})();
+
 const settingsBtn = document.getElementById('settingsBtn');
 const settingsPanel = document.getElementById('settingsPanel');
 const settingsBackdrop = document.getElementById('settingsBackdrop');
@@ -4138,6 +4203,7 @@ const comboHistoryEl = document.getElementById('comboHistory');
 const comboHintEl = document.getElementById('comboHint');
 const comboDiscountEl = document.getElementById('comboDiscount');
 const comboTotalEl = document.getElementById('comboTotal');
+const comboEstimateWarningEl = document.getElementById('comboEstimateWarning');
 const comboConfirmBtn = document.getElementById('comboConfirmBtn');
 const COMBO_ESTIMATE_KEYS = ['plan4_wa_msg','plan7_wa_msg']; // planos "a partir de" (valor variável)
 
@@ -4193,9 +4259,11 @@ function renderCombo(){
     comboTotalEl.style.display = 'block';
     const prefix = hasEstimate ? (t.combo_total_estimate_prefix || 'Valor estimado: ') : (t.combo_total_prefix || 'Valor total: ');
     comboTotalEl.innerHTML = prefix + '<strong>' + formatBRL(total) + '</strong>' + (hasEstimate ? ' <small>('+(t.combo_total_estimate_note || 'inclui plano com valor variável — confirmado no WhatsApp')+')</small>' : '');
+    if(comboEstimateWarningEl) comboEstimateWarningEl.style.display = hasEstimate ? 'flex' : 'none';
   } else {
     comboDiscountEl.style.display = 'none';
     comboTotalEl.style.display = 'none';
+    if(comboEstimateWarningEl) comboEstimateWarningEl.style.display = 'none';
   }
   comboConfirmBtn.disabled = count < 2;
 }
