@@ -2,7 +2,7 @@
 // Necessário para o site atender aos critérios de "instalável" (PWA) em
 // Chrome/Edge/Android e para permitir abertura básica offline.
 
-const CACHE_NAME = 'pynn-cache-v3';
+const CACHE_NAME = 'pynn-cache-v5';
 const APP_SHELL = [
   './',
   './manifest.json'
@@ -17,7 +17,16 @@ self.addEventListener('install', (event) => {
       });
     })
   );
-  self.skipWaiting();
+  // Não chama skipWaiting() automaticamente: a nova versão fica "esperando"
+  // até o usuário confirmar no aviso de atualização mostrado na página.
+});
+
+// Permite que a página (ao clicar em "Atualizar agora") mande esta versão
+// nova assumir o controle imediatamente, sem precisar fechar todas as abas.
+self.addEventListener('message', (event) => {
+  if (event.data && event.data.type === 'SKIP_WAITING') {
+    self.skipWaiting();
+  }
 });
 
 // Remove caches antigos quando uma nova versão do SW assume o controle.
