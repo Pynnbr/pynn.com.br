@@ -898,15 +898,25 @@ var QRCode;
   @media(max-width:480px){ .badge3d-wrap{ width:96px; height:96px; } }
   .wrap{ max-width:1180px; margin:0 auto; padding:0 24px; }
 
-  /* ---------- Telas grandes (notebook/PC/TV): aproveita melhor o espaço, sem afetar celular/tablet ---------- */
+  /* ---------- Telas grandes (notebook/PC/TV): zoom real, escala TUDO — ícones, botões, texto, layout ---------- */
   @media(min-width:1440px){
-    html{ font-size:18px; }
+    html{ zoom:1.3; }
     .wrap{ max-width:1500px; }
     .hero-center .lead{ max-width:760px; }
   }
   @media(min-width:1920px){
-    html{ font-size:20px; }
+    html{ zoom:1.6; }
     .wrap{ max-width:1760px; }
+  }
+  @media(min-width:2560px){
+    html{ zoom:2.1; }
+    .wrap{ max-width:2000px; }
+  }
+  @supports not (zoom: 1){
+    /* navegador sem suporte a zoom (ex: Firefox mais antigo): usa font-size como alternativa */
+    @media(min-width:1440px){ html{ font-size:21px; } header{ padding:22px 30px; } .logo{ height:42px; } .settings-btn, .install-btn, .hamburger-btn{ width:52px; height:52px; } .settings-btn svg, .install-btn svg, .hamburger-btn svg{ width:24px; height:24px; } }
+    @media(min-width:1920px){ html{ font-size:26px; } header{ padding:28px 40px; } .logo{ height:52px; } .settings-btn, .install-btn, .hamburger-btn{ width:64px; height:64px; } .settings-btn svg, .install-btn svg, .hamburger-btn svg{ width:28px; height:28px; } }
+    @media(min-width:2560px){ html{ font-size:32px; } header{ padding:36px 52px; } .logo{ height:64px; } .settings-btn, .install-btn, .hamburger-btn{ width:78px; height:78px; } .settings-btn svg, .install-btn svg, .hamburger-btn svg{ width:34px; height:34px; } }
   }
   section{padding:64px 0;}
   @media(max-width:768px){ section{padding:36px 0;} }
@@ -997,7 +1007,7 @@ var QRCode;
      backdrop-filter e por isso quebrava o position:fixed). Ocupa 95% da
      tela, centralizado, com scroll interno próprio. */
   .settings-panel{
-    position:fixed; z-index:1000;
+    position:fixed; z-index:1060;
     top:50%; left:50%;
     width:95vw; height:95vh; height:95dvh; max-height:95vh; max-height:95dvh; max-width:none;
     overflow-y:auto; -webkit-overflow-scrolling:touch;
@@ -1008,9 +1018,15 @@ var QRCode;
     transition:opacity .25s var(--ease), transform .25s var(--ease);
     display:flex; flex-direction:column;
   }
+  .settings-close-x{
+    position:absolute; top:14px; right:14px; z-index:2; width:36px; height:36px; border-radius:50%;
+    border:1px solid var(--border); background:var(--bg); color:var(--fg);
+    display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:1.3rem; line-height:1;
+  }
+  .settings-close-x:hover{ background:var(--coral); color:var(--coral-text); border-color:var(--coral); }
   .settings-panel.open{ opacity:1; transform:translate(-50%,-50%) scale(1); pointer-events:auto; }
   .settings-backdrop{
-    position:fixed; inset:0; z-index:999;
+    position:fixed; inset:0; z-index:1059;
     background:rgba(0,0,0,.55);
     opacity:0; pointer-events:none;
     transition:opacity .25s var(--ease);
@@ -1923,7 +1939,7 @@ var QRCode;
 
   /* ---------- CONSENT MODAL ---------- */
   .consent-overlay{
-    position:fixed; inset:0; z-index:400;
+    position:fixed; inset:0; z-index:1061;
     background:color-mix(in srgb, var(--bg) 82%, transparent);
     display:flex; align-items:flex-end; justify-content:center;
     padding:20px;
@@ -2107,11 +2123,8 @@ var QRCode;
         </button>
         <div class="settings-backdrop" id="settingsBackdrop"></div>
         <div class="settings-panel" id="settingsPanel" role="menu">
+          <button type="button" class="settings-close-x" id="settingsCloseX" aria-label="Fechar configurações">&times;</button>
           <button type="button" class="settings-back" id="settingsBack" aria-label="Fechar">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M18 6 6 18"></path>
-              <path d="M6 6l12 12"></path>
-            </svg>
             <span data-i18n="settings_back">Fechar</span>
           </button>
           <div class="settings-row settings-row--lang-desktop-only">
@@ -4236,6 +4249,8 @@ document.body.appendChild(settingsBackdrop);
 document.body.appendChild(settingsPanel);
 const settingsBack = document.getElementById('settingsBack');
 if(settingsBack){ settingsBack.addEventListener('click', ()=> closeSettingsPanel()); }
+const settingsCloseX = document.getElementById('settingsCloseX');
+if(settingsCloseX){ settingsCloseX.addEventListener('click', ()=> closeSettingsPanel()); }
 function closeSettingsPanel(){
   settingsPanel.classList.remove('open');
   settingsBackdrop.classList.remove('open');
