@@ -859,43 +859,60 @@ var QRCode;
   }
   .badge3d-ring{
     position:absolute; inset:-14px; border-radius:50%; border:2px dashed var(--border);
-    animation:badge3dRingSpin 12s linear infinite;
+    animation:badge3dRingSpin 14s linear infinite;
+  }
+  .badge3d-ring--2{
+    inset:-28px; border-color:var(--blue-soft); border-style:solid; border-width:1px;
+    animation:badge3dRingSpin 20s linear infinite reverse;
   }
   .badge3d{
     position:relative; width:100%; height:100%; transform-style:preserve-3d;
-    animation:badge3dSpin 5s cubic-bezier(.65,.05,.35,1) infinite;
+    animation:badge3dSpin 4.5s cubic-bezier(.45,0,.4,1) infinite, badge3dBob 3s ease-in-out infinite;
   }
+  .badge3d::after{
+    content:''; position:absolute; left:8%; right:8%; bottom:-14px; height:14px; border-radius:50%;
+    background:radial-gradient(ellipse, rgba(0,0,0,.35), transparent 70%);
+    animation:badge3dShadow 3s ease-in-out infinite;
+  }
+  @keyframes badge3dShadow{ 0%,100%{ opacity:.55; transform:scale(1); } 50%{ opacity:.3; transform:scale(.82); } }
   @keyframes badge3dSpin{
-    0%, 40%{ transform:rotateY(0deg); }
-    60%, 100%{ transform:rotateY(180deg); }
+    0%, 38%{ transform:rotateY(0deg); }
+    58%, 100%{ transform:rotateY(180deg); }
   }
+  @keyframes badge3dBob{ 0%,100%{ translate:0 0; } 50%{ translate:0 -10px; } }
   @keyframes badge3dRingSpin{ from{ transform:rotate(0deg); } to{ transform:rotate(360deg); } }
   .badge3d-face{
     position:absolute; inset:0; border-radius:50%; display:flex; align-items:center; justify-content:center;
     backface-visibility:hidden; -webkit-backface-visibility:hidden;
-    box-shadow:0 14px 30px -10px rgba(47,140,255,.4);
   }
   .badge3d-front{ background:linear-gradient(140deg,#1652C4,#2F8CFF); }
-  .badge3d-back{ background:linear-gradient(140deg,#1fae63,#34d17f); transform:rotateY(180deg); }
-  .badge3d-right, .badge3d-left{
-    width:14px; height:100%; left:50%; margin-left:-7px; border-radius:0;
-    background:linear-gradient(90deg, rgba(0,0,0,.25), rgba(0,0,0,.05));
-    transform:rotateY(90deg) translateZ(53px);
-  }
-  .badge3d-left{ transform:rotateY(-90deg) translateZ(53px); }
+  .badge3d-back{ background:linear-gradient(140deg,#1fae63,#34d17f); transform:rotateY(180deg) translateZ(0.1px); }
   @media (prefers-reduced-motion: reduce){
     .badge3d{ animation:none; }
-    .badge3d-ring{ animation:none; }
+    .badge3d::after{ animation:none; }
+    .badge3d-ring, .badge3d-ring--2{ animation:none; }
   }
   html.no-animations .badge3d{ animation:none !important; }
-  html.no-animations .badge3d-ring{ animation:none !important; }
+  html.no-animations .badge3d::after{ animation:none !important; }
+  html.no-animations .badge3d-ring, html.no-animations .badge3d-ring--2{ animation:none !important; }
   @media(max-width:480px){ .badge3d-wrap{ width:96px; height:96px; } }
   .wrap{ max-width:1180px; margin:0 auto; padding:0 24px; }
+
+  /* ---------- Telas grandes (notebook/PC/TV): aproveita melhor o espaço, sem afetar celular/tablet ---------- */
+  @media(min-width:1440px){
+    html{ font-size:18px; }
+    .wrap{ max-width:1500px; }
+    .hero-center .lead{ max-width:760px; }
+  }
+  @media(min-width:1920px){
+    html{ font-size:20px; }
+    .wrap{ max-width:1760px; }
+  }
   section{padding:64px 0;}
   @media(max-width:768px){ section{padding:36px 0;} }
 
   /* ---------- NAV ---------- */
-  header{ position:fixed; top:0; left:0; right:0; z-index:100; padding:14px 18px; }
+  header{ position:fixed; top:0; left:0; right:0; z-index:1050; padding:14px 18px; }
   nav.wrap{
     position:relative;
     display:flex; align-items:center; justify-content:space-between;
@@ -1033,17 +1050,33 @@ var QRCode;
   }
   .mobile-nav-backdrop.open{ opacity:1; pointer-events:auto; }
   .mobile-nav-dropdown{
-    position:fixed; top:70px; left:14px; right:14px; z-index:1001;
-    background:var(--bg-panel); border:1px solid var(--border); border-radius:var(--radius);
+    position:fixed; top:0; left:0; right:0; z-index:1001;
+    background:var(--bg-panel); border:1px solid var(--border); border-top:none;
+    border-radius:0 0 var(--radius) var(--radius);
     padding:8px; display:flex; flex-direction:column; gap:2px;
     box-shadow:0 20px 40px -12px rgba(0,0,0,.4);
     opacity:0; transform:translateY(-8px); pointer-events:none;
     transition:opacity .2s var(--ease), transform .2s var(--ease);
   }
   .mobile-nav-dropdown.open{ opacity:1; transform:translateY(0); pointer-events:auto; }
+  .mobile-nav-header{
+    display:flex; align-items:center; justify-content:space-between; padding:8px 10px 10px;
+    margin-bottom:4px; border-bottom:1px solid var(--border);
+    font-family:'Manrope',sans-serif; font-weight:700; font-size:.85rem; color:var(--fg-muted);
+    text-transform:uppercase; letter-spacing:.06em;
+  }
+  .mobile-nav-close{
+    width:30px; height:30px; border-radius:50%; border:none; background:var(--bg-panel-2);
+    color:var(--fg); font-size:1.3rem; line-height:1; cursor:pointer; display:flex; align-items:center; justify-content:center;
+  }
   .mobile-nav-dropdown a{ padding:12px 10px; border-radius:12px; font-size:1rem; font-weight:500; color:var(--fg); }
+  .mobile-nav-lang{
+    display:flex; align-items:center; justify-content:space-between; gap:10px;
+    padding:12px 10px 6px; margin-top:6px; border-top:1px solid var(--border);
+  }
   .mobile-nav-dropdown a:hover{ background:var(--bg-panel-2); }
   @media(min-width:700px){ .mobile-nav-dropdown, .mobile-nav-backdrop{ display:none; } }
+  @media(max-width:699px){ .settings-row--lang-desktop-only{ display:none; } }
   .segmented{ display:flex; background:var(--bg-panel-2); border:1px solid var(--border); border-radius:var(--radius-sm); padding:2px; }
   .segmented button{
     border:none; background:none; color:var(--fg-muted); font-family:'Inter',sans-serif;
@@ -1947,6 +1980,26 @@ var QRCode;
     transition-duration:.001ms !important;
     scroll-behavior:auto !important;
   }
+
+  /* ---------- Aviso de nova versão do site (PWA) ---------- */
+  .pynn-update-toast{
+    position:fixed; left:16px; right:16px; bottom:16px; z-index:9999; max-width:460px; margin:0 auto;
+    background:var(--bg-panel); border:1px solid var(--blue-soft); border-radius:var(--radius);
+    box-shadow:0 20px 40px -12px rgba(0,0,0,.5);
+    padding:14px 16px; display:flex; align-items:center; gap:12px; flex-wrap:wrap;
+    font-family:'Inter',sans-serif; font-size:.86rem; color:var(--fg);
+    opacity:0; transform:translateY(20px); transition:opacity .3s var(--ease), transform .3s var(--ease);
+  }
+  .pynn-update-toast.show{ opacity:1; transform:translateY(0); }
+  .pynn-update-toast span{ flex:1; min-width:160px; }
+  .pynn-update-toast button{ font-family:'Inter',sans-serif; cursor:pointer; border:none; border-radius:var(--radius-pill); }
+  .pynn-update-toast #pynnUpdateBtn{
+    background:var(--blue); color:#fff; font-weight:700; font-size:.8rem; padding:8px 16px;
+  }
+  .pynn-update-toast #pynnUpdateDismiss{
+    background:none; color:var(--fg-muted); font-size:1.2rem; line-height:1; padding:4px 8px;
+  }
+  html.no-animations .pynn-update-toast{ transition:none !important; }
 </style>
 </head>
 <body>
@@ -2016,6 +2069,18 @@ var QRCode;
       </button>
       <div class="mobile-nav-backdrop" id="mobileNavBackdrop"></div>
       <div class="mobile-nav-dropdown" id="mobileNavDropdown" role="menu">
+        <div class="mobile-nav-header">
+          <span data-i18n="menu_nav_title">Menu</span>
+          <button type="button" class="mobile-nav-close" id="mobileNavClose" aria-label="Fechar menu">&times;</button>
+        </div>
+        <div class="mobile-nav-lang">
+          <span class="settings-label" data-i18n="settings_language">Idioma</span>
+          <div class="segmented" id="langSegmentedMobile">
+            <button type="button" data-lang="pt" class="active">PT</button>
+            <button type="button" data-lang="es">ES</button>
+            <button type="button" data-lang="en">EN</button>
+          </div>
+        </div>
         <a href="#sobre" data-i18n="menu_about">Sobre</a>
         <a href="#processo" data-i18n="menu_process">Como funciona</a>
         <a href="#servicos" data-i18n="menu_services">Serviços</a>
@@ -2049,7 +2114,7 @@ var QRCode;
             </svg>
             <span data-i18n="settings_back">Fechar</span>
           </button>
-          <div class="settings-row">
+          <div class="settings-row settings-row--lang-desktop-only">
             <span class="settings-label" data-i18n="settings_language">Idioma</span>
             <div class="segmented" id="langSegmented">
               <button type="button" data-lang="pt" class="active">PT</button>
@@ -2198,10 +2263,9 @@ var QRCode;
       <div class="badge3d-face badge3d-back">
         <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg>
       </div>
-      <div class="badge3d-face badge3d-right"></div>
-      <div class="badge3d-face badge3d-left"></div>
     </div>
     <div class="badge3d-ring"></div>
+    <div class="badge3d-ring badge3d-ring--2"></div>
   </div>
 
   <!-- ABOUT -->
@@ -3602,7 +3666,8 @@ var translations = {
     tour_skip:"Pular",
     tour_back:"Voltar",
     tour_next:"Próximo",
-    tour_finish:"Entendi, começar"
+    tour_finish:"Entendi, começar",
+    update_available:"Uma nova versão do site está disponível.", update_button:"Atualizar agora", menu_nav_title:"Menu"
   },
   es: {
     nav_cta:"Hablemos",
@@ -3791,7 +3856,8 @@ var translations = {
     tour_skip:"Saltar",
     tour_back:"Atrás",
     tour_next:"Siguiente",
-    tour_finish:"Entendido, empezar"
+    tour_finish:"Entendido, empezar",
+    update_available:"Hay una nueva versión del sitio disponible.", update_button:"Actualizar ahora", menu_nav_title:"Menú"
   },
   en: {
     nav_cta:"Get in touch",
@@ -3980,7 +4046,8 @@ var translations = {
     tour_skip:"Skip",
     tour_back:"Back",
     tour_next:"Next",
-    tour_finish:"Got it, let's start"
+    tour_finish:"Got it, let's start",
+    update_available:"A new version of the site is available.", update_button:"Update now", menu_nav_title:"Menu"
   }
 };
 
@@ -4065,11 +4132,13 @@ function setLang(lang){
   }
   if(typeof brandifyGoogleMentions === 'function') brandifyGoogleMentions();
 }
-document.querySelectorAll('#langSegmented button').forEach(btn=>{
+document.querySelectorAll('#langSegmented button, #langSegmentedMobile button').forEach(btn=>{
   btn.addEventListener('click', ()=>{
-    document.querySelectorAll('#langSegmented button').forEach(b=>b.classList.remove('active'));
-    btn.classList.add('active');
-    setLang(btn.getAttribute('data-lang'));
+    var lang = btn.getAttribute('data-lang');
+    document.querySelectorAll('#langSegmented button, #langSegmentedMobile button').forEach(b=>{
+      b.classList.toggle('active', b.getAttribute('data-lang') === lang);
+    });
+    setLang(lang);
   });
 });
 setLang('pt');
@@ -4120,7 +4189,14 @@ applyCardMode(cardModeBorder, false);
   var hamburgerBtn = document.getElementById('hamburgerBtn');
   var dropdown = document.getElementById('mobileNavDropdown');
   var backdrop = document.getElementById('mobileNavBackdrop');
+  var headerEl = document.querySelector('header');
   if(!hamburgerBtn || !dropdown || !backdrop) return;
+
+  function positionDropdown(){
+    var h = headerEl ? headerEl.getBoundingClientRect().height : 70;
+    dropdown.style.top = h + 'px';
+    backdrop.style.top = h + 'px';
+  }
 
   function closeNav(){
     dropdown.classList.remove('open');
@@ -4128,14 +4204,19 @@ applyCardMode(cardModeBorder, false);
     hamburgerBtn.setAttribute('aria-expanded', 'false');
   }
   function openNav(){
+    positionDropdown();
     dropdown.classList.add('open');
     backdrop.classList.add('open');
     hamburgerBtn.setAttribute('aria-expanded', 'true');
   }
+  window.addEventListener('resize', positionDropdown);
+  positionDropdown();
   hamburgerBtn.addEventListener('click', function(){
     if(dropdown.classList.contains('open')) closeNav(); else openNav();
   });
   backdrop.addEventListener('click', closeNav);
+  var mobileNavClose = document.getElementById('mobileNavClose');
+  if(mobileNavClose){ mobileNavClose.addEventListener('click', closeNav); }
   dropdown.querySelectorAll('a').forEach(function(a){
     a.addEventListener('click', closeNav);
   });
@@ -4549,22 +4630,61 @@ document.addEventListener('keydown', (e)=>{
   if(e.key === 'Escape' && tourOverlay.classList.contains('show')) closeTour();
 });
 
-/* ---------- PWA: registra o service worker (precisa ser arquivo externo por segurança do navegador) ---------- */
+/* ---------- PWA: registra o service worker e avisa quando tem atualização nova ---------- */
 if('serviceWorker' in navigator){
   var pynnSWReg = null;
+  var pynnUpdateToastShown = false;
+
+  function showUpdateToast(worker){
+    if(pynnUpdateToastShown) return;
+    pynnUpdateToastShown = true;
+    var toast = document.createElement('div');
+    toast.className = 'pynn-update-toast';
+    var t = (typeof translations !== 'undefined' && typeof currentLang !== 'undefined') ? translations[currentLang] : null;
+    toast.innerHTML =
+      '<span>' + ((t && t.update_available) || 'Uma nova versão do site está disponível.') + '</span>' +
+      '<button type="button" id="pynnUpdateBtn">' + ((t && t.update_button) || 'Atualizar agora') + '</button>' +
+      '<button type="button" id="pynnUpdateDismiss" aria-label="Fechar">&times;</button>';
+    document.body.appendChild(toast);
+    requestAnimationFrame(function(){ toast.classList.add('show'); });
+
+    document.getElementById('pynnUpdateBtn').addEventListener('click', function(){
+      if(worker) worker.postMessage({ type:'SKIP_WAITING' });
+    });
+    document.getElementById('pynnUpdateDismiss').addEventListener('click', function(){
+      toast.classList.remove('show');
+      setTimeout(function(){ toast.remove(); pynnUpdateToastShown = false; }, 300);
+    });
+  }
+
   window.addEventListener('load', ()=>{
     navigator.serviceWorker.register('sw.js').then((reg)=>{
       pynnSWReg = reg;
+
+      // Já existe uma atualização instalada, só esperando pra assumir?
+      if(reg.waiting){ showUpdateToast(reg.waiting); }
+
+      // Detecta quando uma nova versão termina de instalar em segundo plano.
+      reg.addEventListener('updatefound', function(){
+        var newWorker = reg.installing;
+        if(!newWorker) return;
+        newWorker.addEventListener('statechange', function(){
+          if(newWorker.state === 'installed' && navigator.serviceWorker.controller){
+            showUpdateToast(newWorker);
+          }
+        });
+      });
     }).catch(()=>{});
   });
-  // Quando uma nova versão do app assume o controle (após atualização),
-  // recarrega a página uma vez para exibir o conteúdo mais recente.
+
+  // Quando o usuário confirma a atualização (botão do aviso), a nova versão assume e recarrega.
   var pynnSWRefreshed = false;
   navigator.serviceWorker.addEventListener('controllerchange', ()=>{
     if(pynnSWRefreshed) return;
     pynnSWRefreshed = true;
     window.location.reload();
   });
+
   // O navegador só confere se existe uma versão nova do sw.js quando a
   // página navega. Como o app instalado costuma ficar aberto em segundo
   // plano no celular sem "navegar" de novo, forçamos essa checagem sempre
@@ -5396,7 +5516,7 @@ if('serviceWorker' in navigator){
     });
   });
 
-  document.querySelectorAll('#langSegmented button').forEach(function(btn){
+  document.querySelectorAll('#langSegmented button, #langSegmentedMobile button').forEach(function(btn){
     btn.addEventListener('click', function(){
       stopReading();
       setTimeout(refreshLabels, 50);
