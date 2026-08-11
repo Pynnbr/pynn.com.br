@@ -1007,14 +1007,13 @@ var QRCode;
      backdrop-filter e por isso quebrava o position:fixed). Ocupa 95% da
      tela, centralizado, com scroll interno próprio. */
   .settings-panel{
-    position:fixed; z-index:1060;
-    top:50%; left:50%;
+    position:relative; z-index:1060;
     width:95vw; height:95vh; height:95dvh; max-height:95vh; max-height:95dvh; max-width:none;
     overflow-y:auto; -webkit-overflow-scrolling:touch;
     background:var(--bg-panel); border:1px solid var(--border); border-radius:var(--radius-lg);
     padding:16px;
     box-shadow:0 24px 60px -20px rgba(0,0,0,.65);
-    opacity:0; transform:translate(-50%,-50%) scale(.96); pointer-events:none;
+    opacity:0; transform:scale(.96); pointer-events:none;
     transition:opacity .25s var(--ease), transform .25s var(--ease);
     display:flex; flex-direction:column;
   }
@@ -1024,13 +1023,14 @@ var QRCode;
     display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:1.3rem; line-height:1;
   }
   .settings-close-x:hover{ background:var(--coral); color:var(--coral-text); border-color:var(--coral); }
-  .settings-panel.open{ opacity:1; transform:translate(-50%,-50%) scale(1); pointer-events:auto; }
+  .settings-panel.open{ opacity:1; transform:scale(1); pointer-events:auto; }
   .settings-backdrop{
     position:fixed; inset:0; z-index:1059;
     background:rgba(0,0,0,.55);
     opacity:0; pointer-events:none;
     transition:opacity .25s var(--ease);
     backdrop-filter:blur(2px);
+    display:flex; align-items:center; justify-content:center;
   }
   .settings-backdrop.open{ opacity:1; pointer-events:auto; }
   html.settings-locked, html.settings-locked body{ overflow:hidden; height:100%; }
@@ -4246,7 +4246,8 @@ const settingsBackdrop = document.getElementById('settingsBackdrop');
    a tela inteira. Movendo para o body, o fixed passa a ser relativo à
    janela de verdade. */
 document.body.appendChild(settingsBackdrop);
-document.body.appendChild(settingsPanel);
+settingsBackdrop.appendChild(settingsPanel);
+settingsPanel.addEventListener('click', (e)=> e.stopPropagation());
 const settingsBack = document.getElementById('settingsBack');
 if(settingsBack){ settingsBack.addEventListener('click', ()=> closeSettingsPanel()); }
 const settingsCloseX = document.getElementById('settingsCloseX');
