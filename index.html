@@ -684,8 +684,10 @@ var QRCode;
     --bg:var(--bg-base);
     --bg-panel:var(--bg-panel-base);
     --bg-panel-2:var(--bg-panel-2-base);
-    --fg:#f5f5f4;
-    --fg-muted:#96968f;
+    --fg-base:#f5f5f4;
+    --fg-muted-base:#96968f;
+    --fg:var(--fg-base);
+    --fg-muted:var(--fg-muted-base);
     --border:#2a2a2c;
 
     --coral:#1652C4;
@@ -709,8 +711,10 @@ var QRCode;
     --bg-base:#fafafa;
     --bg-panel-base:#ffffff;
     --bg-panel-2-base:#f0f0ef;
-    --fg:#121212;
-    --fg-muted:#6b6b68;
+    --fg-base:#121212;
+    --fg-muted-base:#6b6b68;
+    --fg:var(--fg-base);
+    --fg-muted:var(--fg-muted-base);
     --border:#e2e2df;
   }
   /* Mistura a cor do tema no fundo, quando ativado */
@@ -719,6 +723,8 @@ var QRCode;
     --bg-panel: color-mix(in srgb, var(--coral) 24%, var(--bg-panel-base));
     --bg-panel-2: color-mix(in srgb, var(--coral) 28%, var(--bg-panel-2-base));
     --border: color-mix(in srgb, var(--coral) 40%, var(--border));
+    --fg: color-mix(in srgb, var(--coral) 16%, var(--fg-base));
+    --fg-muted: color-mix(in srgb, var(--coral) 20%, var(--fg-muted-base));
   }
   /* Proporção menor no escuro — o mesmo mix fica mais forte em fundo escuro */
   html.bg-tint:not(.light){
@@ -726,7 +732,12 @@ var QRCode;
     --bg-panel: color-mix(in srgb, var(--coral) 11%, var(--bg-panel-base));
     --bg-panel-2: color-mix(in srgb, var(--coral) 13%, var(--bg-panel-2-base));
     --border: color-mix(in srgb, var(--coral) 22%, var(--border));
+    --fg: color-mix(in srgb, var(--coral) 10%, var(--fg-base));
+    --fg-muted: color-mix(in srgb, var(--coral) 14%, var(--fg-muted-base));
   }
+  /* Fotos e imagens ganham mais saturação e contraste com o fundo colorido,
+     pra não ficarem "lavadas" perto do tom de fundo */
+  html.bg-tint img{ filter:saturate(1.22) contrast(1.06); }
   *{box-sizing:border-box; margin:0; padding:0; -webkit-tap-highlight-color:transparent; }
   html{ -webkit-tap-highlight-color:transparent; }
   a, button, .settings-btn, .nav-cta, .btn, .segmented button, .appearance-toggle{
@@ -1243,7 +1254,7 @@ var QRCode;
     transition:background-color .15s var(--ease), border-color .15s var(--ease), transform .15s var(--ease), box-shadow .15s var(--ease);
   }
   .btn-solid{
-    background:linear-gradient(135deg, var(--coral) 0%, var(--blue) 100%);
+    background:linear-gradient(135deg, color-mix(in srgb, var(--coral) 82%, white 18%) 0%, var(--coral) 100%);
     color:var(--coral-text);
     box-shadow:0 8px 18px -8px color-mix(in srgb, var(--coral) 55%, transparent);
   }
@@ -3285,8 +3296,8 @@ function getContrastTextColor(hex){
 }
 
 function applyAccent(name, persist){
-  const t = accentThemes[name];
-  if(!t) return;
+  const t = accentThemes[name] || accentThemes.blue;
+  name = accentThemes[name] ? name : 'blue';
   currentAccent = name;
   document.documentElement.style.setProperty('--coral', t.coral);
   document.documentElement.style.setProperty('--coral-soft', '#'+t.soft);
