@@ -1008,14 +1008,22 @@ var QRCode;
      tela, centralizado, com scroll interno próprio. */
   .settings-panel{
     position:relative; z-index:1060;
-    width:95vw; height:95vh; height:95dvh; max-height:95vh; max-height:95dvh; max-width:none;
-    overflow-y:auto; -webkit-overflow-scrolling:touch;
+    width:95%; height:95%; max-height:95%; max-width:none;
+    overflow:hidden;
     background:var(--bg-panel); border:1px solid var(--border); border-radius:var(--radius-lg);
     padding:16px;
     box-shadow:0 24px 60px -20px rgba(0,0,0,.65);
     opacity:0; transform:scale(.96); pointer-events:none;
     transition:opacity .25s var(--ease), transform .25s var(--ease);
     display:flex; flex-direction:column;
+  }
+  /* Corpo rolável do painel: fica ABAIXO do cabeçalho (Fechar/X), que
+     permanece sempre fixo e visível — antes o painel inteiro rolava e o
+     botão de fechar saía da tela junto com o conteúdo, deixando sem como fechar. */
+  .settings-body{
+    flex:1; min-height:0;
+    overflow-y:auto; -webkit-overflow-scrolling:touch;
+    margin:0 -16px; padding:0 16px;
   }
   .settings-close-x{
     position:absolute; top:14px; right:14px; z-index:2; width:36px; height:36px; border-radius:50%;
@@ -2127,6 +2135,7 @@ var QRCode;
           <button type="button" class="settings-back" id="settingsBack" aria-label="Fechar">
             <span data-i18n="settings_back">Fechar</span>
           </button>
+          <div class="settings-body" id="settingsBody">
           <div class="settings-row settings-row--lang-desktop-only">
             <span class="settings-label" data-i18n="settings_language">Idioma</span>
             <div class="segmented" id="langSegmented">
@@ -2238,6 +2247,7 @@ var QRCode;
             </button>
           </div>
           <!-- privacyPrefsLabel text is set dynamically based on stored consent choice -->
+          </div>
         </div>
       </div>
     </div>
@@ -5557,6 +5567,7 @@ if('serviceWorker' in navigator){
   window.__pynnStopReading = stopReading;
 })();
 </script>
+
 
 </body>
 </html>
