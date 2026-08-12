@@ -2,7 +2,7 @@
 // Necessário para o site atender aos critérios de "instalável" (PWA) em
 // Chrome/Edge/Android e para permitir abertura básica offline.
 
-const CACHE_NAME = 'pynn-cache-v5';
+const CACHE_NAME = 'pynn-cache-v6';
 const APP_SHELL = [
   './',
   './manifest.json'
