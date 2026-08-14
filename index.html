@@ -16,7 +16,13 @@
 <meta property="og:description" content="Agência de otimização Google Maps e suporte técnico em TI.">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="pt_BR">
-<meta name="twitter:card" content="summary">
+<meta property="og:url" content="https://pynnbr.github.io/pynn.com.br/">
+<meta property="og:image" content="https://pynnbr.github.io/pynn.com.br/og-image.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta property="og:image:alt" content="PYNN — Otimização Google Maps e Suporte Técnico">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://pynnbr.github.io/pynn.com.br/og-image.png">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -907,6 +913,7 @@ var QRCode;
   html.no-animations .badge3d::after{ animation:none !important; }
   html.no-animations .badge3d-ring, html.no-animations .badge3d-ring--2{ animation:none !important; }
   @media(max-width:480px){ .badge3d-wrap{ width:96px; height:96px; } }
+
   .wrap{ max-width:1180px; margin:0 auto; padding:0 24px; }
 
   /* ---------- Telas grandes (notebook/PC/TV): zoom real, escala TUDO — ícones, botões, texto, layout ---------- */
@@ -925,9 +932,9 @@ var QRCode;
   }
   @supports not (zoom: 1){
     /* navegador sem suporte a zoom (ex: Firefox mais antigo): usa font-size como alternativa */
-    @media(min-width:1440px){ html{ font-size:21px; } header{ padding:22px 30px; } .logo{ height:42px; } .settings-btn, .install-btn, .hamburger-btn{ width:52px; height:52px; } .settings-btn svg, .install-btn svg, .hamburger-btn svg{ width:24px; height:24px; } }
-    @media(min-width:1920px){ html{ font-size:26px; } header{ padding:28px 40px; } .logo{ height:52px; } .settings-btn, .install-btn, .hamburger-btn{ width:64px; height:64px; } .settings-btn svg, .install-btn svg, .hamburger-btn svg{ width:28px; height:28px; } }
-    @media(min-width:2560px){ html{ font-size:32px; } header{ padding:36px 52px; } .logo{ height:64px; } .settings-btn, .install-btn, .hamburger-btn{ width:78px; height:78px; } .settings-btn svg, .install-btn svg, .hamburger-btn svg{ width:34px; height:34px; } }
+    @media(min-width:1440px){ html{ font-size:21px; } header{ padding:22px 30px; } .logo{ height:42px; } .settings-btn, .install-btn, .share-btn, .hamburger-btn{ width:52px; height:52px; } .settings-btn svg, .install-btn svg, .share-btn svg, .hamburger-btn svg{ width:24px; height:24px; } }
+    @media(min-width:1920px){ html{ font-size:26px; } header{ padding:28px 40px; } .logo{ height:52px; } .settings-btn, .install-btn, .share-btn, .hamburger-btn{ width:64px; height:64px; } .settings-btn svg, .install-btn svg, .share-btn svg, .hamburger-btn svg{ width:28px; height:28px; } }
+    @media(min-width:2560px){ html{ font-size:32px; } header{ padding:36px 52px; } .logo{ height:64px; } .settings-btn, .install-btn, .share-btn, .hamburger-btn{ width:78px; height:78px; } .settings-btn svg, .install-btn svg, .share-btn svg, .hamburger-btn svg{ width:34px; height:34px; } }
   }
   section{padding:64px 0;}
   @media(max-width:768px){ section{padding:36px 0;} }
@@ -1014,6 +1021,21 @@ var QRCode;
   .install-btn svg{ width:17px; height:17px; flex:none; }
   .install-btn.is-installed{ opacity:.45; cursor:default; pointer-events:none; box-shadow:none; }
   @media(max-width:640px){ .install-btn{ width:34px; height:34px; } .install-btn svg{ width:15px; height:15px; } }
+
+  /* ---------- BOTÃO CIRCULAR "COMPARTILHAR" (ao lado do botão de instalar) ---------- */
+  .share-btn{
+    display:flex; width:38px; height:38px; flex-shrink:0;
+    align-items:center; justify-content:center;
+    background:var(--coral); border:none; border-radius:50%;
+    color:var(--coral-text); cursor:pointer;
+    box-shadow:0 6px 16px -6px var(--coral);
+    transition:transform .2s, box-shadow .2s, opacity .2s;
+  }
+  .share-btn:hover{ transform:translateY(-1px); box-shadow:0 10px 22px -6px var(--coral); }
+  .share-btn:active{ transform:translateY(0); }
+  .share-btn svg{ width:16px; height:16px; flex:none; }
+  .share-btn.is-copied{ background:var(--green); box-shadow:0 6px 16px -6px var(--green); }
+  @media(max-width:640px){ .share-btn{ width:34px; height:34px; } .share-btn svg{ width:14px; height:14px; } }
   /* Painel é movido para o final do <body> via JS (fora da nav, que tem
      backdrop-filter e por isso quebrava o position:fixed). Ocupa 95% da
      tela, centralizado, com scroll interno próprio. */
@@ -1214,7 +1236,7 @@ var QRCode;
   html.reader-off .tts-widget{ display:none !important; }
 
   /* ---------- HERO ---------- */
-  .hero{ padding-top:108px; padding-bottom:56px; position:relative; overflow:hidden; }
+  .hero{ padding-top:140px; padding-bottom:64px; position:relative; overflow:hidden; }
   .hero-photo{
     background-image:
       radial-gradient(circle at 18% 22%, color-mix(in srgb, var(--blue) 22%, transparent) 0, transparent 42%),
@@ -1303,7 +1325,7 @@ var QRCode;
     html.card-mode-border .section-card{ border:1px solid var(--border); border-radius:var(--radius-lg); margin:0; width:auto; padding:20px 12px; }
     .plan{ padding:22px 16px; }
     .plan .btn-plan{ font-size:.76rem; padding-left:14px; padding-right:14px; }
-    .hero{ padding-top:84px; }
+    .hero{ padding-top:104px; }
     .hero-chips{ gap:10px; }
     header{ padding:10px 12px; }
     nav.wrap{
@@ -1316,10 +1338,6 @@ var QRCode;
     .settings-btn{ width:34px; height:34px; }
   }
 
-  /* Um pouco menos de vazio entre o hero e a próxima seção, só no desktop */
-  @media(min-width:769px){
-    .hero{ padding-bottom:36px; }
-  }
 
   .section-head{ max-width:640px; margin-bottom:48px; }
   .section-head h2{ font-size:clamp(1.8rem,3.2vw,2.4rem); margin-top:10px; }
@@ -2133,6 +2151,14 @@ var QRCode;
           <path d="M12 3v12m0 0l-4-4m4 4l4-4M5 19h14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </button>
+      <button type="button" class="share-btn" id="shareAppBtn" aria-label="Compartilhar a PYNN" title="Compartilhar">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <circle cx="18" cy="5" r="3" stroke="currentColor" stroke-width="2"/>
+          <circle cx="6" cy="12" r="3" stroke="currentColor" stroke-width="2"/>
+          <circle cx="18" cy="19" r="3" stroke="currentColor" stroke-width="2"/>
+          <path d="M8.6 10.5l6.8-3.9M8.6 13.5l6.8 3.9" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </button>
       <div class="settings-wrap">
         <button class="settings-btn" id="settingsBtn" aria-haspopup="true" aria-expanded="false" aria-label="Menu e configurações">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -2311,7 +2337,7 @@ var QRCode;
             <p class="eyebrow" data-i18n="about_eyebrow">Sobre mim</p>
             <p class="about-name">Arthur Richard</p>
             <p class="about-role" style="font-size:.82rem; letter-spacing:.04em; color:var(--fg-muted); margin:2px 0 18px;" data-i18n="about_role">FUNDADOR · PYNN</p>
-            <h2 data-i18n="about_title" style="margin:12px 0 22px; font-size:clamp(1.7rem,3vw,2.2rem);">Disciplina que <em>vira resultado</em>.</h2>
+            <h2 style="margin:12px 0 22px; font-size:clamp(1.7rem,3vw,2.2rem);" data-i18n="about_title">Disciplina que <em>vira resultado</em>.</h2>
             <p data-i18n="about_p1">Sou estudante de <strong>Redes de Computadores (Superior)</strong> no Instituto Federal do Maranhão (IFMA). Sou uma pessoa com deficiência múltipla, e minha trajetória é marcada pela superação — conquistei o <strong>1º lugar no Sisu/Enem 2024</strong>.</p>
             <p data-i18n="about_p2">Essa mesma disciplina que me levou ao topo da classificação nacional é a que aplico todos os dias para colocar empresas no topo do Google Maps. Autoridade técnica, seriedade e acessibilidade guiam cada projeto que assino.</p>
             <div class="badge-row">
@@ -4957,19 +4983,34 @@ if('serviceWorker' in navigator){
     try{ localStorage.setItem('pynnAppInstalled', '1'); }catch(err){}
   }
 
-  // O botão fica visível por padrão (CSS). Só o escondemos se o site já
-  // estiver rodando como app instalado — aí não faz sentido mostrá-lo.
-  var wasInstalled = false;
-  try{ wasInstalled = localStorage.getItem('pynnAppInstalled') === '1'; }catch(err){}
-  if(isStandalone() || wasInstalled){
+  function markUninstalled(){
+    // O navegador só oferece instalar de novo (beforeinstallprompt) quando o
+    // app NÃO está instalado — então isso é a prova real de que foi
+    // desinstalado. Reaparece o botão e limpa a "lembrança" antiga.
+    btn.classList.remove('is-installed');
+    btn.classList.remove('is-hidden');
+    btn.removeAttribute('disabled');
+    btn.setAttribute('title', 'Instalar app');
+    btn.setAttribute('aria-label', 'Instalar app');
+    try{ localStorage.removeItem('pynnAppInstalled'); }catch(err){}
+  }
+
+  // O botão fica visível por padrão (CSS). Só o escondemos se o site
+  // estiver rodando AGORA como app instalado — isso é o único sinal
+  // confiável, já que uma "lembrança" salva no navegador não sabe se o
+  // usuário desinstalou o app depois.
+  if(isStandalone()){
     btn.classList.add('is-hidden');
   }
 
   // Chrome/Edge/Android/desktop: quando o navegador sinalizar que a
-  // instalação nativa está disponível, guardamos o evento para usar no clique.
+  // instalação nativa está disponível, guardamos o evento para usar no clique
+  // — e isso também prova que o app não está instalado, então reexibimos o
+  // botão mesmo que uma instalação antiga tenha ficado marcada.
   window.addEventListener('beforeinstallprompt', function(e){
     e.preventDefault();
     deferredPrompt = e;
+    if(!isStandalone()) markUninstalled();
   });
 
   window.addEventListener('appinstalled', function(){
@@ -5006,6 +5047,49 @@ if('serviceWorker' in navigator){
     // instalação do Chrome ainda não foram atendidos, ou já está instalado).
     alert('Para instalar o app:\n\n• No Chrome/Edge (computador): clique no ícone de instalação (⊕) na barra de endereço, ou no menu ⋮ → "Instalar app".\n• No Android: menu ⋮ → "Instalar app" ou "Adicionar à tela inicial".\n\nSe a opção não aparecer, o app já pode estar instalado ou o navegador precisa carregar o site pelo menos mais uma vez.');
   });
+})();
+</script>
+
+<script>
+// ---------- BOTÃO "COMPARTILHAR" ----------
+(function(){
+  var btn = document.getElementById('shareAppBtn');
+  if(!btn) return;
+
+  var shareData = {
+    title: 'PYNN — Otimização Google Maps & Suporte Técnico',
+    text: 'Dá uma olhada na PYNN: otimização de Google Maps e suporte técnico em TI.',
+    url: 'https://pynnbr.github.io/pynn.com.br/'
+  };
+
+  btn.addEventListener('click', async function(){
+    // Caminho 1: API nativa de compartilhar (celular — WhatsApp, Instagram etc.)
+    if(navigator.share){
+      try{
+        await navigator.share(shareData);
+      }catch(err){
+        // usuário cancelou o compartilhamento — não faz nada
+      }
+      return;
+    }
+
+    // Caminho 2: sem API nativa (a maioria dos navegadores de computador) —
+    // copia o link para a área de transferência.
+    try{
+      await navigator.clipboard.writeText(shareData.url);
+      btn.classList.add('is-copied');
+      btn.setAttribute('title', 'Link copiado!');
+      setTimeout(function(){
+        btn.classList.remove('is-copied');
+        btn.setAttribute('title', 'Compartilhar');
+      }, 2000);
+    }catch(err){
+      window.prompt('Copie o link da PYNN:', shareData.url);
+    }
+  });
+})();
+</script>
+
 })();
 </script>
 
