@@ -1879,8 +1879,7 @@ var QRCode;
   .faq-item p{ color:var(--fg-muted); font-size:.9rem; line-height:1.6; padding-bottom:18px; margin:0; }
   .faq-item p a{ color:var(--blue); }
 
-  .contact-grid{ display:grid; grid-template-columns:1fr 1fr; gap:52px; }
-  @media(max-width:900px){ .contact-grid{ grid-template-columns:1fr; } }
+  .contact-grid{ display:grid; grid-template-columns:1fr; gap:40px; max-width:820px; margin:0 auto; }
   .contact-grid--simple{ align-items:start; }
   .contact-primary{ display:flex; flex-direction:column; gap:18px; }
   .btn-wa-cta{
@@ -1919,6 +1918,30 @@ var QRCode;
   .form-msg.is-error::before{ content:"!"; display:inline-flex; align-items:center; justify-content:center; width:16px; height:16px; border-radius:50%; background:#e5484d; color:#fff; font-size:.7rem; flex-shrink:0; }
 
   .contact-side h3{ font-family:'Manrope',sans-serif; font-size:1.15rem; margin-bottom:16px; }
+  .contact-side--full{
+    background:var(--bg-panel); border:1px solid var(--border); border-radius:var(--radius-lg);
+    padding:32px 30px;
+  }
+  @media(max-width:640px){ .contact-side--full{ padding:24px 18px; } }
+  .contact-method-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-bottom:26px; }
+  @media(max-width:680px){ .contact-method-grid{ grid-template-columns:1fr; } }
+  .contact-method{
+    display:flex; align-items:center; gap:12px;
+    background:var(--bg); border:1px solid var(--border); border-radius:var(--radius);
+    padding:16px;
+  }
+  .contact-method:hover{ border-color:var(--coral); }
+  .contact-method-icon{
+    width:40px; height:40px; border-radius:50%; flex-shrink:0;
+    background:var(--coral-soft); color:var(--coral-fg);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .contact-method-icon svg{ width:19px; height:19px; }
+  .contact-method-text{ display:flex; flex-direction:column; gap:2px; min-width:0; }
+  .contact-method-text strong{ font-size:.82rem; color:var(--fg); }
+  .contact-method-text span{ font-size:.78rem; color:var(--fg-muted); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .contact-social{ margin-top:30px; padding-top:30px; border-top:1px solid var(--border); }
+  .contact-social h4{ font-family:'Manrope',sans-serif; font-size:1.05rem; margin-bottom:18px; }
   .qr-row{ display:flex; gap:18px; flex-wrap:wrap; margin-top:22px; }
   /* QR codes só fazem sentido pra quem está lendo em uma tela grande (PC/TV) e pode escanear com o celular do lado.
      Em celular/tablet, quem tá vendo o site JÁ ESTÁ no celular — então escondemos pra não poluir a tela. */
@@ -1937,6 +1960,15 @@ var QRCode;
     transition:border-color .2s, color .2s;
   }
   .contact-links a:hover{ color:var(--coral-fg); border-color:var(--coral); }
+  .ig-flag{ font-size:.78rem; margin-left:2px; }
+  .contact-links-soon{
+    font-size:.92rem; color:var(--fg-muted); opacity:.65;
+    display:flex; align-items:center; gap:5px; width:fit-content;
+  }
+  .soon-tag{
+    font-family:'Inter',sans-serif; font-size:.62rem; font-weight:600; letter-spacing:.03em; text-transform:uppercase;
+    background:var(--border); color:var(--fg-muted); padding:2px 7px; border-radius:99px; margin-left:2px;
+  }
 
   .hours-table{
     margin-top:28px; background:var(--bg-panel-2); border:1px solid var(--border);
@@ -2004,6 +2036,44 @@ var QRCode;
   h3[data-i18n="terms_h1"], h3[data-i18n="terms_h11"]{ margin-top:6px; }
   @media (prefers-reduced-motion: reduce){ .terms-overlay, .terms-box{ transition:none; } }
 
+  /* ---------- Página de Redes Sociais ---------- */
+  .social-platform{ margin-bottom:30px; }
+  .social-platform-head{ display:flex; align-items:center; gap:12px; margin-bottom:14px; }
+  .social-platform-badge{
+    width:34px; height:34px; border-radius:10px; flex-shrink:0;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .social-platform-badge svg{ width:19px; height:19px; }
+  .social-platform-badge--instagram{ background:radial-gradient(circle at 30% 110%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%); }
+  .social-platform-badge--tiktok{ background:#000; }
+  .social-platform-badge--youtube{ background:#FF0000; }
+  .social-platform-badge--discord{ background:#5865F2; }
+  .social-platform-badge--telegram{ background:#26A5E4; }
+  .social-platform-head h3{ font-family:'Manrope',sans-serif; font-size:1.05rem; margin:0; }
+  .social-platform--expand{ cursor:pointer; }
+  .social-platform--expand summary{ list-style:none; cursor:pointer; }
+  .social-platform--expand summary::-webkit-details-marker{ display:none; }
+  .social-platform-caret{
+    margin-left:auto; font-size:1.1rem; color:var(--fg-muted); width:20px; text-align:center; flex-shrink:0;
+  }
+  .social-platform--expand[open] .social-platform-caret::before{ content:'−'; }
+  .social-platform--expand:not([open]) .social-platform-caret::before{ content:'+'; }
+  .social-platform--expand .social-rows{ margin-top:14px; }
+  .social-row{ border-color:var(--border); }
+  .social-rows{ display:flex; flex-direction:column; gap:8px; }
+  .social-row{
+    display:flex; align-items:center; justify-content:space-between; gap:12px;
+    background:var(--bg); border:1px solid var(--border); border-radius:var(--radius-sm);
+    padding:12px 16px;
+  }
+  .social-row-id{ display:flex; align-items:center; gap:8px; font-size:.9rem; color:var(--fg); }
+  .social-row-flag{ font-size:.9rem; }
+  .social-row a.social-row-link{ color:var(--blue); font-weight:600; font-size:.86rem; }
+  .social-soon-tag{
+    font-family:'Inter',sans-serif; font-size:.62rem; font-weight:600; letter-spacing:.03em; text-transform:uppercase;
+    background:var(--border); color:var(--fg-muted); padding:3px 9px; border-radius:99px;
+  }
+
   /* ---------- FOOTER ---------- */
   footer{ padding:24px 18px 40px; }
   .footer-card{
@@ -2012,6 +2082,43 @@ var QRCode;
     padding:48px 52px 28px;
   }
   @media(max-width:768px){ .footer-card{ padding:36px 24px 24px; } }
+
+  /* ---------- Selos de confiança (rodapé) ---------- */
+  .trust-badges{
+    display:grid; grid-template-columns:repeat(3, 1fr);
+    gap:22px;
+    margin-bottom:40px; padding-bottom:40px; border-bottom:1px solid var(--border);
+  }
+  .trust-badge{
+    display:flex; flex-direction:column; align-items:center; text-align:center; gap:14px;
+    background:var(--bg); border:1px solid var(--border); border-radius:var(--radius);
+    padding:30px 18px;
+  }
+  .trust-badge-icon{
+    width:68px; height:68px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+  }
+  .trust-badge-icon svg{ width:32px; height:32px; flex-shrink:0; }
+  .trust-badge-label{
+    font-family:'Manrope',sans-serif; font-weight:700; font-size:.9rem; color:var(--fg); line-height:1.35;
+  }
+  .trust-badge--blue .trust-badge-icon{ background:#2F8CFF1f; }
+  .trust-badge--blue .trust-badge-icon svg{ color:#2F8CFF; }
+  .trust-badge--green .trust-badge-icon{ background:#1fae631f; }
+  .trust-badge--green .trust-badge-icon svg{ color:#1fae63; }
+  .trust-badge--purple .trust-badge-icon{ background:#7c5cff1f; }
+  .trust-badge--purple .trust-badge-icon svg{ color:#7c5cff; }
+  .trust-badge--pink .trust-badge-icon{ background:#ff6f911f; }
+  .trust-badge--pink .trust-badge-icon svg{ color:#ff6f91; }
+  .trust-badge--gold .trust-badge-icon{ background:#FFB0201f; }
+  .trust-badge--gold .trust-badge-icon svg{ color:#FFB020; }
+  .trust-badge--teal .trust-badge-icon{ background:#14b8a61f; }
+  .trust-badge--teal .trust-badge-icon svg{ color:#14b8a6; }
+  @media(max-width:640px){
+    .trust-badges{ grid-template-columns:repeat(2,1fr); gap:16px; }
+    .trust-badge{ padding:24px 12px; }
+  }
   .footer-grid{ display:flex; justify-content:space-between; flex-wrap:wrap; gap:32px; margin-bottom:32px; }
   .footer-col h4{
     font-family:'Inter',sans-serif; font-size:.68rem; letter-spacing:.08em; text-transform:uppercase;
@@ -3323,12 +3430,22 @@ var QRCode;
             <p class="contact-primary-note" data-i18n="contact_wa_note">Resposta rápida, geralmente no mesmo dia útil.</p>
           </div>
 
-          <div class="contact-side">
+          <div class="contact-side contact-side--full">
             <h3 data-i18n="contact_side_title">Fale direto conosco</h3>
-            <div class="contact-links">
-              <a href="tel:+5586988846870">Telefone: (86) 98884-6870</a>
-              <a href="https://wa.me/5586988846870" target="_blank" rel="noopener">WhatsApp: (86) 98884-6870</a>
-              <a href="https://www.instagram.com/pynn.br/" target="_blank" rel="noopener">Instagram: @pynn.br</a>
+
+            <div class="contact-method-grid">
+              <a class="contact-method" href="tel:+5586988846870">
+                <span class="contact-method-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.1-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.7a2 2 0 0 1-.5 2.1L8 9.7a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.5 2.7.6a2 2 0 0 1 1.7 2Z"/></svg></span>
+                <span class="contact-method-text"><strong data-i18n="contact_method_phone">Telefone</strong><span>(86) 98884-6870</span></span>
+              </a>
+              <a class="contact-method" href="https://wa.me/5586988846870" target="_blank" rel="noopener">
+                <span class="contact-method-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.7-.8-1.9-.9-.3-.1-.5-.1-.6.1-.2.3-.7.9-.9 1-.2.2-.3.2-.6.1-.3-.1-1.2-.4-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.1.2-.3.2-.4.1-.2 0-.3 0-.5-.1-.1-.6-1.4-.8-1.9-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3 4.8 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 1.9-1.4.2-.6.2-1.2.2-1.3-.1-.2-.2-.2-.5-.3z"/><path d="M12 2C6.5 2 2 6.5 2 12c0 1.9.5 3.6 1.4 5.1L2 22l5-1.3c1.4.8 3.1 1.3 5 1.3 5.5 0 10-4.5 10-10S17.5 2 12 2Zm0 18c-1.6 0-3.1-.4-4.4-1.2l-.3-.2-3 .8.8-2.9-.2-.3C3.8 15 3.3 13.5 3.3 12c0-4.8 3.9-8.7 8.7-8.7s8.7 3.9 8.7 8.7-3.9 8.7-8.7 8.7Z"/></svg></span>
+                <span class="contact-method-text"><strong>WhatsApp</strong><span>(86) 98884-6870</span></span>
+              </a>
+              <a class="contact-method" href="mailto:pynn.br@gmail.com">
+                <span class="contact-method-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></span>
+                <span class="contact-method-text"><strong data-i18n="contact_method_email">E-mail</strong><span>pynn.br@gmail.com</span></span>
+              </a>
             </div>
 
             <div class="qr-row qr-desktop-only">
@@ -3364,6 +3481,93 @@ var QRCode;
                   </tr>
                 </tbody>
               </table>
+            </div>
+
+            <div class="contact-social">
+              <h4 data-i18n="social_title_inline">Redes sociais</h4>
+
+              <details class="social-platform social-platform--expand">
+                <summary class="social-platform-head">
+                  <span class="social-platform-badge social-platform-badge--instagram"><svg viewBox="0 0 24 24" fill="#fff"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.43.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.43.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41-.56-.22-.96-.48-1.38-.9-.42-.42-.68-.82-.9-1.38-.16-.43-.36-1.06-.41-2.23-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.43-.16 1.06-.36 2.23-.41 1.27-.06 1.65-.07 4.85-.07M12 0C8.74 0 8.33.01 7.05.07 5.78.13 4.9.33 4.14.63c-.79.31-1.46.72-2.13 1.38C1.35 2.68.94 3.35.63 4.14c-.3.76-.5 1.64-.56 2.91C.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.26 2.15.56 2.91.31.79.72 1.46 1.38 2.13.67.66 1.34 1.07 2.13 1.38.76.3 1.64.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.27-.06 2.15-.26 2.91-.56.79-.31 1.46-.72 2.13-1.38.66-.67 1.07-1.34 1.38-2.13.3-.76.5-1.64.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.26-2.15-.56-2.91-.31-.79-.72-1.46-1.38-2.13C21.32 1.35 20.65.94 19.86.63c-.76-.3-1.64-.5-2.91-.56C15.67.01 15.26 0 12 0Zm0 5.84A6.16 6.16 0 1 0 18.16 12 6.16 6.16 0 0 0 12 5.84Zm0 10.16A4 4 0 1 1 16 12a4 4 0 0 1-4 4Zm6.41-10.4a1.44 1.44 0 1 1-1.44-1.44 1.44 1.44 0 0 1 1.44 1.44Z"/></svg></span>
+                  <h3>Instagram</h3>
+                  <span class="social-platform-caret" aria-hidden="true"></span>
+                </summary>
+                <div class="social-rows">
+                  <div class="social-row">
+                    <span class="social-row-id"><span class="social-row-flag">🇧🇷</span> @pynn.br</span>
+                    <a class="social-row-link" href="https://www.instagram.com/pynn.br/" target="_blank" rel="noopener">Seguir →</a>
+                  </div>
+                  <div class="social-row">
+                    <span class="social-row-id"><span class="social-row-flag">🇺🇸</span> @pynn.eua</span>
+                    <span class="social-soon-tag" data-i18n="soon_tag">Em breve</span>
+                  </div>
+                  <div class="social-row">
+                    <span class="social-row-id"><span class="social-row-flag">🇪🇸</span> @pynn.es</span>
+                    <span class="social-soon-tag" data-i18n="soon_tag">Em breve</span>
+                  </div>
+                </div>
+              </details>
+
+              <details class="social-platform social-platform--expand">
+                <summary class="social-platform-head">
+                  <span class="social-platform-badge social-platform-badge--tiktok"><svg viewBox="0 0 24 24" fill="#fff"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-.88-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/></svg></span>
+                  <h3>TikTok</h3>
+                  <span class="social-platform-caret" aria-hidden="true"></span>
+                </summary>
+                <div class="social-rows">
+                  <div class="social-row">
+                    <span class="social-row-id"><span class="social-row-flag">🇧🇷</span> @pynn.br</span>
+                    <span class="social-soon-tag" data-i18n="soon_tag">Em breve</span>
+                  </div>
+                  <div class="social-row">
+                    <span class="social-row-id"><span class="social-row-flag">🇺🇸</span> @pynn.eua</span>
+                    <span class="social-soon-tag" data-i18n="soon_tag">Em breve</span>
+                  </div>
+                  <div class="social-row">
+                    <span class="social-row-id"><span class="social-row-flag">🇪🇸</span> @pynn.es</span>
+                    <span class="social-soon-tag" data-i18n="soon_tag">Em breve</span>
+                  </div>
+                </div>
+              </details>
+
+              <div class="social-platform">
+                <div class="social-platform-head">
+                  <span class="social-platform-badge social-platform-badge--youtube"><svg viewBox="0 0 24 24" fill="#fff"><path d="M23.498 6.186a2.994 2.994 0 0 0-2.107-2.117C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.391.524A2.994 2.994 0 0 0 .502 6.186 31.26 31.26 0 0 0 0 12a31.26 31.26 0 0 0 .502 5.814 2.994 2.994 0 0 0 2.107 2.117c1.886.524 9.391.524 9.391.524s7.505 0 9.391-.524a2.994 2.994 0 0 0 2.107-2.117A31.26 31.26 0 0 0 24 12a31.26 31.26 0 0 0-.502-5.814ZM9.545 15.568V8.432L15.818 12l-6.273 3.568Z"/></svg></span>
+                  <h3>YouTube</h3>
+                </div>
+                <div class="social-rows">
+                  <div class="social-row">
+                    <span class="social-row-id">@pynn-br</span>
+                    <a class="social-row-link" href="https://youtube.com/@pynn-br?si=-i4bAd9KWfDp5sso" target="_blank" rel="noopener">Seguir →</a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="social-platform">
+                <div class="social-platform-head">
+                  <span class="social-platform-badge social-platform-badge--discord"><svg viewBox="0 0 24 24" fill="#fff"><path d="M20.317 4.37a19.79 19.79 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128c.126-.094.252-.192.372-.292a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.076.076 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03ZM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418Zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418Z"/></svg></span>
+                  <h3>Discord</h3>
+                </div>
+                <div class="social-rows">
+                  <div class="social-row">
+                    <span class="social-row-id">PYNN</span>
+                    <span class="social-soon-tag" data-i18n="soon_tag">Em breve</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="social-platform" style="margin-bottom:0;">
+                <div class="social-platform-head">
+                  <span class="social-platform-badge social-platform-badge--telegram"><svg viewBox="0 0 24 24" fill="#fff"><path d="M12 0a12 12 0 1 0 0 24 12 12 0 0 0 0-24Zm5.4 8.24c-.18 1.9-.96 6.5-1.36 8.63-.17.9-.5 1.2-.82 1.23-.7.06-1.22-.46-1.9-.9-1.06-.7-1.65-1.13-2.68-1.8-1.18-.78-.42-1.21.26-1.91.18-.18 3.25-2.98 3.31-3.23a.24.24 0 0 0-.06-.21c-.06-.06-.17-.04-.25-.02-.1.02-1.79 1.14-5.06 3.34-.48.33-.91.49-1.3.48-.43-.01-1.25-.24-1.86-.44-.75-.24-1.35-.37-1.3-.79.03-.22.33-.44.89-.66 3.5-1.53 5.83-2.53 7-3.02 3.33-1.38 4.02-1.63 4.47-1.63.1 0 .32.02.46.14a.51.51 0 0 1 .17.33c.02.1.04.31.02.48Z"/></svg></span>
+                  <h3>Telegram</h3>
+                </div>
+                <div class="social-rows">
+                  <div class="social-row">
+                    <span class="social-row-id">PYNN</span>
+                    <span class="social-soon-tag" data-i18n="soon_tag">Em breve</span>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -3444,10 +3648,37 @@ var QRCode;
   </section>
   </div>
 
+
 </main>
 
 <footer>
   <div class="footer-card">
+    <div class="trust-badges" aria-hidden="true">
+      <div class="trust-badge trust-badge--blue">
+        <span class="trust-badge-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></span>
+        <span class="trust-badge-label">Site seguro<br>(HTTPS)</span>
+      </div>
+      <div class="trust-badge trust-badge--green">
+        <span class="trust-badge-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 3 6v6c0 5 4 9 9 10 5-1 9-5 9-10V6l-9-4Z"/><path d="M9 12l2 2 4-4"/></svg></span>
+        <span class="trust-badge-label">LGPD<br>sem coleta de dados</span>
+      </div>
+      <div class="trust-badge trust-badge--purple">
+        <span class="trust-badge-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 19h14"/></svg></span>
+        <span class="trust-badge-label">App instalável<br>(PWA)</span>
+      </div>
+      <div class="trust-badge trust-badge--pink">
+        <span class="trust-badge-icon"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><circle cx="12" cy="12" r="11" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="7.2" r="1.6"/><path d="M12 9.3c-2.6 0-5.4.9-5.7 1-.5.15-.75.65-.6 1.1.15.45.65.7 1.1.55.05 0 1.1-.35 2.35-.6l-.9 2.2-2.55 2.9c-.35.4-.3 1 .1 1.35.4.3 1 .25 1.35-.15l2.35-2.65.6.2v3.35c0 .5.4.9.9.9s.9-.4.9-.9v-3.35c.55-.15.6-.2.6-.2l2.35 2.65c.35.4.95.45 1.35.15.4-.35.45-.95.1-1.35l-2.55-2.9-.9-2.2c1.25.25 2.3.6 2.35.6.45.15.95-.1 1.1-.55.15-.45-.1-.95-.6-1.1-.3-.1-3.1-1-5.7-1Z"/></svg></span>
+        <span class="trust-badge-label">Acessibilidade<br>leitor de voz</span>
+      </div>
+      <div class="trust-badge trust-badge--gold">
+        <span class="trust-badge-icon"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 6.9L12 17.3 5.8 20.8l1.6-6.9L2 9.2l7.1-.6L12 2Z"/></svg></span>
+        <span class="trust-badge-label">5.0<br>avaliação dos clientes</span>
+      </div>
+      <div class="trust-badge trust-badge--teal">
+        <span class="trust-badge-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21c1-4 3-6 6-6h6c3 0 5 2 6 6M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z"/></svg></span>
+        <span class="trust-badge-label">Atendimento direto<br>sem formulário</span>
+      </div>
+    </div>
     <div class="footer-grid">
       <div class="footer-col">
         <h4 data-i18n="footer_agency">Agência</h4>
@@ -3457,6 +3688,7 @@ var QRCode;
         <h4 data-i18n="footer_contact">Contato</h4>
         <a href="https://wa.me/5586988846870" target="_blank" rel="noopener">WhatsApp</a>
         <a href="https://www.instagram.com/pynn.br/" target="_blank" rel="noopener">Instagram</a>
+        <a href="#contato" data-i18n="footer_social">Redes sociais</a>
       </div>
       <div class="footer-col">
         <h4 data-i18n="footer_legal">Legal</h4>
@@ -3940,7 +4172,7 @@ var translations = {
     terms_h14:"14. Legislação aplicável", terms_p14:"Esta política e os serviços da PYNN são regidos pelas leis da República Federativa do Brasil, com destaque para: Lei Geral de Proteção de Dados Pessoais (LGPD. Lei nº 13.709/2018), que disciplina o tratamento de dados pessoais; Marco Civil da Internet (Lei nº 12.965/2014), que estabelece princípios, garantias, direitos e deveres para o uso da internet no país; Código de Defesa do Consumidor (CDC. Lei nº 8.078/1990), aplicável às relações de consumo entre a PYNN e seus clientes; e Código Civil (Lei nº 10.406/2002), que rege os aspectos contratuais dos serviços descritos na cláusula 11. Eventuais conflitos relacionados a este site ou aos serviços da PYNN serão resolvidos com base nessa legislação, no foro do domicílio da PYNN.",
     terms_h15:"15. Propriedade intelectual", terms_p15:"O layout, o código-fonte, as marcas, os textos e as ilustrações deste site pertencem à PYNN e não podem ser copiados, redistribuídos ou usados comercialmente sem autorização prévia. Nos serviços de criação de sites (Plano Site), a propriedade do código e do conteúdo final entregue é transferida ao cliente somente após a confirmação do pagamento combinado; logotipos e imagens enviados pelo próprio cliente para uso no seu projeto continuam sendo de propriedade do cliente.",
     terms_h16:"16. Garantias e limitação de responsabilidade", terms_p16:"A PYNN realiza otimização técnica de perfis no Google Maps e sites, seguindo as boas práticas recomendadas pelo próprio Google, porém posições no ranking, número de avaliações e volume de cliques dependem também de fatores fora do nosso controle (algoritmo do Google, concorrência local, comportamento dos usuários). Por isso, não garantimos posição específica no ranking nem prazo exato de aprovação por parte do Google em casos de recuperação de perfil. Em caso de indisponibilidade temporária do site por manutenção ou problemas técnicos de terceiros (hospedagem, GitHub Pages), a PYNN não se responsabiliza por eventuais perdas indiretas decorrentes dessa indisponibilidade.",
-    footer_agency:"Agência", footer_contact:"Contato", footer_legal:"Legal", footer_terms:"Política de Privacidade", footer_terms_use:"Termos de Uso", footer_manage_consent:"Gerenciar consentimento",
+    footer_agency:"Agência", footer_contact:"Contato", footer_legal:"Legal", footer_terms:"Política de Privacidade", footer_terms_use:"Termos de Uso", footer_manage_consent:"Gerenciar consentimento", soon_tag:"Em breve", footer_social:"Redes sociais", social_eyebrow:"Redes sociais", social_title:"Onde encontrar a PYNN", social_title_inline:"Redes sociais", contact_method_phone:"Telefone", contact_method_email:"E-mail",
     terms_jump_privacy:"↓ Política de Privacidade", terms_jump_use:"↓ Termos de Uso", terms_part1_title:"Política de Privacidade", terms_part2_title:"Termos de Uso",
     footer_note:"Feito com precisão técnica.",
     form_sent:"Enviando sua mensagem...",
@@ -4144,7 +4376,7 @@ var translations = {
     terms_h14:"14. Legislación aplicable", terms_p14:"Esta política y los servicios de PYNN se rigen por las leyes de la República Federativa de Brasil, en especial: la Ley General de Protección de Datos Personales (LGPD. Ley nº 13.709/2018), que regula el tratamiento de datos personales; el Marco Civil de Internet (Ley nº 12.965/2014), que establece principios, garantías, derechos y deberes para el uso de internet en el país; el Código de Defensa del Consumidor (CDC. Ley nº 8.078/1990), aplicable a las relaciones de consumo entre PYNN y sus clientes; y el Código Civil (Ley nº 10.406/2002), que rige los aspectos contractuales de los servicios descritos en la cláusula 11. Cualquier conflicto relacionado con este sitio o con los servicios de PYNN se resolverá con base en esta legislación, en el fuero del domicilio de PYNN.",
     terms_h15:"15. Propiedad intelectual", terms_p15:"El diseño, el código fuente, las marcas, los textos y las ilustraciones de este sitio pertenecen a PYNN y no pueden copiarse, redistribuirse ni usarse comercialmente sin autorización previa. En los servicios de creación de sitios (Plan Sitio), la propiedad del código y del contenido final entregado se transfiere al cliente solo después de confirmado el pago acordado; los logotipos e imágenes enviados por el propio cliente para su proyecto siguen siendo de su propiedad.",
     terms_h16:"16. Garantías y limitación de responsabilidad", terms_p16:"PYNN realiza optimización técnica de perfiles en Google Maps y sitios web, siguiendo las buenas prácticas recomendadas por Google, pero la posición en el ranking, el número de reseñas y el volumen de clics también dependen de factores fuera de nuestro control (algoritmo de Google, competencia local, comportamiento de los usuarios). Por eso no garantizamos una posición específica en el ranking ni un plazo exacto de aprobación por parte de Google en casos de recuperación de perfil. En caso de indisponibilidad temporal del sitio por mantenimiento o problemas técnicos de terceros (hosting, GitHub Pages), PYNN no se responsabiliza por eventuales pérdidas indirectas derivadas de esa indisponibilidad.",
-    footer_agency:"Agencia", footer_contact:"Contacto", footer_legal:"Legal", footer_terms:"Política de Privacidad", footer_terms_use:"Términos de Uso", footer_manage_consent:"Gestionar consentimiento",
+    footer_agency:"Agencia", footer_contact:"Contacto", footer_legal:"Legal", footer_terms:"Política de Privacidad", footer_terms_use:"Términos de Uso", footer_manage_consent:"Gestionar consentimiento", soon_tag:"Próximamente", footer_social:"Redes sociales", social_eyebrow:"Redes sociales", social_title:"Dónde encontrar a PYNN", social_title_inline:"Redes sociales", contact_method_phone:"Teléfono", contact_method_email:"Correo",
     terms_jump_privacy:"↓ Política de Privacidad", terms_jump_use:"↓ Términos de Uso", terms_part1_title:"Política de Privacidad", terms_part2_title:"Términos de Uso",
     footer_note:"Hecho con precisión técnica.",
     form_sent:"Enviando tu mensaje...",
@@ -4348,7 +4580,7 @@ var translations = {
     terms_h14:"14. Applicable law", terms_p14:"This policy and PYNN's services are governed by the laws of Brazil, in particular: the General Personal Data Protection Law (LGPD. Law No. 13,709/2018), which regulates the processing of personal data; the Brazilian Civil Rights Framework for the Internet / Marco Civil da Internet (Law No. 12,965/2014), which sets out principles, guarantees, rights, and duties for internet use in the country; the Consumer Defense Code (CDC. Law No. 8,078/1990), applicable to the consumer relationship between PYNN and its clients; and the Civil Code (Law No. 10,406/2002), which governs the contractual aspects of the services described in clause 11. Any dispute related to this site or to PYNN's services will be resolved based on this legislation, in the jurisdiction of PYNN's domicile.",
     terms_h15:"15. Intellectual property", terms_p15:"The layout, source code, trademarks, texts, and illustrations on this site belong to PYNN and may not be copied, redistributed, or used commercially without prior authorization. For website creation services (Site Plan), ownership of the final delivered code and content transfers to the client only after the agreed payment is confirmed; logos and images the client provides for their own project remain the client's property.",
     terms_h16:"16. Warranties and limitation of liability", terms_p16:"PYNN performs technical optimization of Google Maps profiles and websites, following best practices recommended by Google itself, but ranking position, number of reviews, and click volume also depend on factors outside our control (Google's algorithm, local competition, user behavior). We therefore do not guarantee a specific ranking position or an exact approval timeline from Google in profile recovery cases. In the event of temporary site unavailability due to maintenance or third-party technical issues (hosting, GitHub Pages), PYNN is not liable for any indirect losses resulting from that unavailability.",
-    footer_agency:"Agency", footer_contact:"Contact", footer_legal:"Legal", footer_terms:"Privacy Policy", footer_terms_use:"Terms of Use", footer_manage_consent:"Manage consent",
+    footer_agency:"Agency", footer_contact:"Contact", footer_legal:"Legal", footer_terms:"Privacy Policy", footer_terms_use:"Terms of Use", footer_manage_consent:"Manage consent", soon_tag:"Coming soon", footer_social:"Social media", social_eyebrow:"Social media", social_title:"Where to find PYNN", social_title_inline:"Social media", contact_method_phone:"Phone", contact_method_email:"Email",
     terms_jump_privacy:"↓ Privacy Policy", terms_jump_use:"↓ Terms of Use", terms_part1_title:"Privacy Policy", terms_part2_title:"Terms of Use",
     footer_note:"Built with technical precision.",
     form_sent:"Sending your message...",
