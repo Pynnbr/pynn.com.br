@@ -870,50 +870,6 @@ var QRCode;
   .brand-google-letter{ font-weight:700; }
   .brand-maps-word{ font-weight:700; color:#4285F4; }
 
-  /* ---------- Selo 3D giratório entre o hero e a próxima seção ---------- */
-  .badge3d-wrap{
-    position:relative; width:120px; height:120px; margin:0 auto; perspective:900px;
-  }
-  .badge3d-ring{
-    position:absolute; inset:-14px; border-radius:50%; border:2px dashed var(--border);
-    animation:badge3dRingSpin 14s linear infinite;
-  }
-  .badge3d-ring--2{
-    inset:-28px; border-color:var(--blue-soft); border-style:solid; border-width:1px;
-    animation:badge3dRingSpin 20s linear infinite reverse;
-  }
-  .badge3d{
-    position:relative; width:100%; height:100%; transform-style:preserve-3d;
-    animation:badge3dSpin 4.5s cubic-bezier(.45,0,.4,1) infinite, badge3dBob 3s ease-in-out infinite;
-  }
-  .badge3d::after{
-    content:''; position:absolute; left:8%; right:8%; bottom:-14px; height:14px; border-radius:50%;
-    background:radial-gradient(ellipse, rgba(0,0,0,.35), transparent 70%);
-    animation:badge3dShadow 3s ease-in-out infinite;
-  }
-  @keyframes badge3dShadow{ 0%,100%{ opacity:.55; transform:scale(1); } 50%{ opacity:.3; transform:scale(.82); } }
-  @keyframes badge3dSpin{
-    0%, 38%{ transform:rotateY(0deg); }
-    58%, 100%{ transform:rotateY(180deg); }
-  }
-  @keyframes badge3dBob{ 0%,100%{ translate:0 0; } 50%{ translate:0 -10px; } }
-  @keyframes badge3dRingSpin{ from{ transform:rotate(0deg); } to{ transform:rotate(360deg); } }
-  .badge3d-face{
-    position:absolute; inset:0; border-radius:50%; display:flex; align-items:center; justify-content:center;
-    backface-visibility:hidden; -webkit-backface-visibility:hidden;
-  }
-  .badge3d-front{ background:linear-gradient(140deg,#1652C4,#2F8CFF); }
-  .badge3d-back{ background:linear-gradient(140deg,#1fae63,#34d17f); transform:rotateY(180deg) translateZ(0.1px); }
-  @media (prefers-reduced-motion: reduce){
-    .badge3d{ animation:none; }
-    .badge3d::after{ animation:none; }
-    .badge3d-ring, .badge3d-ring--2{ animation:none; }
-  }
-  html.no-animations .badge3d{ animation:none !important; }
-  html.no-animations .badge3d::after{ animation:none !important; }
-  html.no-animations .badge3d-ring, html.no-animations .badge3d-ring--2{ animation:none !important; }
-  @media(max-width:480px){ .badge3d-wrap{ width:96px; height:96px; } }
-
   .wrap{ max-width:1180px; margin:0 auto; padding:0 24px; }
 
   /* ---------- Telas grandes (notebook/PC/TV): zoom real, escala TUDO — ícones, botões, texto, layout ---------- */
@@ -1303,6 +1259,32 @@ var QRCode;
     .plan .ribbon, html{ animation:none !important; transition:none !important; }
   }
   @media(max-width:640px){ .hero-chips{ flex-direction:column; align-items:center; } }
+
+  /* ---------- Carrossel de serviços (hero) ---------- */
+  .hero-carousel{
+    position:relative; max-width:420px; margin:44px auto 0;
+    background:var(--bg-panel); border:1px solid var(--border); border-radius:var(--radius-lg);
+    padding:32px 28px 22px; box-shadow:0 24px 50px -30px rgba(0,0,0,.35);
+  }
+  .hero-carousel-track{ position:relative; min-height:172px; }
+  .hero-carousel-slide{
+    position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; text-align:center;
+    opacity:0; pointer-events:none; transform:translateY(6px);
+    transition:opacity .45s var(--ease), transform .45s var(--ease);
+  }
+  .hero-carousel-slide.is-active{ opacity:1; pointer-events:auto; transform:translateY(0); position:relative; }
+  .hero-carousel-icon{ margin-bottom:14px; }
+  .hero-carousel-slide h3{ font-family:'Manrope',sans-serif; font-size:1.1rem; margin-bottom:8px; }
+  .hero-carousel-slide p{ font-size:.86rem; color:var(--fg-muted); line-height:1.55; max-width:300px; }
+  .hero-carousel-dots{ display:flex; justify-content:center; gap:8px; margin-top:18px; }
+  .hero-carousel-dot{
+    width:8px; height:8px; border-radius:50%; background:var(--border); border:none; padding:0; cursor:pointer;
+    transition:background .2s, transform .2s;
+  }
+  .hero-carousel-dot.is-active{ background:var(--coral); transform:scale(1.3); }
+  @media (prefers-reduced-motion: reduce){ .hero-carousel-slide{ transition:none; } }
+  html.no-animations .hero-carousel-slide{ transition:none !important; }
+  @media(max-width:480px){ .hero-carousel{ padding:26px 20px 18px; } .hero-carousel-track{ min-height:196px; } }
 
   /* ---------- SECTION CARD (replaces hard-edged sections) ---------- */
   .section-card{
@@ -1797,6 +1779,26 @@ var QRCode;
   .combo-confirm-btn:hover:not(:disabled){ background:color-mix(in srgb, #ff6fa5 88%, #000); transform:translateY(-2px); box-shadow:0 10px 20px -8px rgba(0,0,0,.4); }
   .combo-confirm-btn:disabled{ opacity:.45; cursor:not-allowed; box-shadow:none; }
 
+  /* ---------- Combo: múltiplas unidades + resumo organizado ---------- */
+  .combo-units{ margin:16px 0; padding:14px 16px; background:var(--bg); border:1px solid var(--border); border-radius:var(--radius-sm); }
+  .combo-units-toggle{ display:flex; align-items:center; gap:9px; cursor:pointer; font-size:.86rem; font-weight:600; color:var(--fg); }
+  .combo-units-toggle input{ width:16px; height:16px; accent-color:var(--blue); flex-shrink:0; }
+  .combo-units-fields{ display:flex; flex-direction:column; gap:12px; margin-top:14px; }
+  .combo-units-fields label{ display:flex; flex-direction:column; gap:6px; font-size:.78rem; color:var(--fg-muted); font-weight:600; }
+  .combo-units-fields input{
+    font-family:'Inter',sans-serif; font-size:.88rem; color:var(--fg); font-weight:400;
+    background:var(--bg-panel); border:1px solid var(--border); border-radius:10px; padding:10px 12px;
+  }
+  .combo-units-fields input:focus{ outline:none; border-color:var(--blue); }
+  .combo-summary-preview{
+    margin:16px 0; padding:16px 18px; background:var(--coral-soft); border:1px solid var(--coral); border-radius:var(--radius-sm);
+    font-size:.82rem; color:var(--fg); line-height:1.7;
+  }
+  .combo-summary-preview strong{ display:block; font-family:'Manrope',sans-serif; font-size:.86rem; margin-bottom:6px; }
+  .combo-check:disabled{ accent-color:var(--fg-muted); }
+  .combo-toggle:has(input:disabled){ opacity:.45; cursor:not-allowed; }
+  .combo-toggle:has(input:disabled) span{ text-decoration:line-through; }
+
   .support-block .btn-plan-wa{
     margin-top:18px; background:var(--yellow); color:#04060c; font-weight:600;
     box-shadow:0 6px 14px -8px rgba(0,0,0,.35);
@@ -2034,6 +2036,28 @@ var QRCode;
     border-top:2px solid var(--border); scroll-margin-top:16px;
   }
   h3[data-i18n="terms_h1"], h3[data-i18n="terms_h11"]{ margin-top:6px; }
+
+  /* ---------- Legal: abas de região (BR / EUA / ES) ---------- */
+  .legal-region-switch{
+    display:flex; flex-wrap:wrap; gap:8px; margin-bottom:14px;
+  }
+  .legal-region-btn{
+    display:inline-flex; align-items:center; gap:7px;
+    font-family:'Inter',sans-serif; font-size:.82rem; font-weight:600; color:var(--fg-muted);
+    background:var(--bg); border:1px solid var(--border); border-radius:var(--radius-pill);
+    padding:8px 14px 8px 12px; cursor:pointer;
+  }
+  .legal-region-btn span:first-child{ font-size:1rem; }
+  .legal-region-law{
+    font-family:'Inter',sans-serif; font-size:.62rem; font-weight:700; letter-spacing:.03em;
+    background:var(--border); color:var(--fg-muted); padding:2px 7px; border-radius:99px;
+  }
+  .legal-region-btn.is-active{ border-color:var(--blue); color:var(--fg); background:var(--blue-soft); }
+  .legal-region-btn.is-active .legal-region-law{ background:var(--blue); color:#fff; }
+  .legal-disclaimer{
+    font-size:.76rem; color:var(--fg-muted); font-style:italic; opacity:.85;
+    margin-bottom:24px; line-height:1.5;
+  }
   @media (prefers-reduced-motion: reduce){ .terms-overlay, .terms-box{ transition:none; } }
 
   /* ---------- Página de Redes Sociais ---------- */
@@ -2473,22 +2497,68 @@ var QRCode;
       <div class="hero-chips">
         <span class="chip"><span class="chip-star">★</span> 5.0 <em data-i18n="chip_rating_label">média dos clientes</em></span>
       </div>
+
+      <div class="hero-carousel" id="heroCarousel" aria-roledescription="carrossel" aria-label="Nossos serviços">
+        <div class="hero-carousel-track">
+          <div class="hero-carousel-slide is-active" data-slide="0">
+            <div class="hero-carousel-icon">
+              <svg viewBox="0 0 64 64" width="56" height="56" aria-hidden="true">
+                <defs><linearGradient id="hcG0" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7fb0ff"/><stop offset="1" stop-color="#0066ff"/></linearGradient></defs>
+                <path d="M32 6C21.5 6 13 14.5 13 25c0 15 19 33 19 33s19-18 19-33C51 14.5 42.5 6 32 6Z" fill="url(#hcG0)"/>
+                <circle cx="32" cy="25" r="9" fill="#fff"/>
+              </svg>
+            </div>
+            <h3 data-i18n="hero_carousel_t1">Otimização Google Maps</h3>
+            <p data-i18n="hero_carousel_p1">Seu perfil organizado, completo e no topo das buscas na sua região.</p>
+          </div>
+          <div class="hero-carousel-slide" data-slide="1">
+            <div class="hero-carousel-icon">
+              <svg viewBox="0 0 64 64" width="56" height="56" aria-hidden="true">
+                <defs><linearGradient id="hcG1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffe08a"/><stop offset="1" stop-color="#ffc247"/></linearGradient></defs>
+                <rect x="9" y="16" width="46" height="34" rx="6" fill="#0d1117" stroke="url(#hcG1)" stroke-width="2"/>
+                <rect x="9" y="16" width="46" height="9" rx="6" fill="url(#hcG1)"/>
+                <circle cx="15" cy="20.5" r="1.6" fill="#0d1117"/>
+                <circle cx="20" cy="20.5" r="1.6" fill="#0d1117"/>
+                <circle cx="25" cy="20.5" r="1.6" fill="#0d1117"/>
+                <rect x="16" y="32" width="32" height="4" rx="2" fill="url(#hcG1)" opacity=".85"/>
+                <rect x="16" y="40" width="20" height="4" rx="2" fill="url(#hcG1)" opacity=".55"/>
+              </svg>
+            </div>
+            <h3 data-i18n="hero_carousel_t2">Criação de Sites</h3>
+            <p data-i18n="hero_carousel_p2">Sites profissionais, responsivos e pensados para converter visitas em clientes.</p>
+          </div>
+          <div class="hero-carousel-slide" data-slide="2">
+            <div class="hero-carousel-icon">
+              <svg viewBox="0 0 64 64" width="56" height="56" aria-hidden="true">
+                <defs><linearGradient id="hcG2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8ce8b8"/><stop offset="1" stop-color="#1fae63"/></linearGradient></defs>
+                <circle cx="32" cy="32" r="21" fill="none" stroke="url(#hcG2)" stroke-width="4"/>
+                <path d="M32 20v12l9 6" fill="none" stroke="url(#hcG2)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <h3 data-i18n="hero_carousel_t3">Suporte Técnico</h3>
+            <p data-i18n="hero_carousel_p3">Formatação, manutenção e aceleração de desempenho para computadores e celulares.</p>
+          </div>
+          <div class="hero-carousel-slide" data-slide="3">
+            <div class="hero-carousel-icon">
+              <svg viewBox="0 0 64 64" width="56" height="56" aria-hidden="true">
+                <defs><linearGradient id="hcG3" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#c9baff"/><stop offset="1" stop-color="#7c5cff"/></linearGradient></defs>
+                <path d="M32 10a22 22 0 1 0 15.6 6.4" fill="none" stroke="url(#hcG3)" stroke-width="4" stroke-linecap="round"/>
+                <path d="M46 8v10h-10" fill="none" stroke="url(#hcG3)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <h3 data-i18n="hero_carousel_t4">Recuperação de Perfil</h3>
+            <p data-i18n="hero_carousel_p4">Corrigimos perfis duplicados, suspensos ou incorretos no Google Maps.</p>
+          </div>
+        </div>
+        <div class="hero-carousel-dots" role="tablist" aria-label="Selecionar serviço">
+          <button type="button" class="hero-carousel-dot is-active" data-goto="0" aria-label="Slide 1"></button>
+          <button type="button" class="hero-carousel-dot" data-goto="1" aria-label="Slide 2"></button>
+          <button type="button" class="hero-carousel-dot" data-goto="2" aria-label="Slide 3"></button>
+          <button type="button" class="hero-carousel-dot" data-goto="3" aria-label="Slide 4"></button>
+        </div>
+      </div>
     </div>
   </section>
-
-  <!-- Selo 3D giratório entre o hero e a próxima seção -->
-  <div class="badge3d-wrap" aria-hidden="true">
-    <div class="badge3d">
-      <div class="badge3d-face badge3d-front">
-        <svg width="46" height="46" viewBox="0 0 24 24"><path d="M12 2C7.6 2 4 5.6 4 10c0 6 8 12 8 12s8-6 8-12c0-4.4-3.6-8-8-8Z" fill="#2F8CFF"/><circle cx="12" cy="10" r="3.4" fill="#fff"/></svg>
-      </div>
-      <div class="badge3d-face badge3d-back">
-        <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg>
-      </div>
-    </div>
-    <div class="badge3d-ring"></div>
-    <div class="badge3d-ring badge3d-ring--2"></div>
-  </div>
 
   <!-- ABOUT -->
   <section class="about" id="sobre">
@@ -2630,7 +2700,8 @@ var QRCode;
         </div>
 
         <div class="plans">
-          <div class="plan c-coral">
+          <div class="plan c-coral plan-featured">
+            <span class="ribbon" data-i18n="plan1_ribbon">Mais escolhido</span>
             <div class="icon-3d">
               <svg viewBox="0 0 64 64" width="52" height="52" aria-hidden="true">
                 <defs>
@@ -2655,8 +2726,7 @@ var QRCode;
             <a href="#contato" class="btn btn-plan btn-plan-wa" data-msg-key="plan1_wa_msg" data-i18n="plan1_cta">Escolher este plano</a>
           </div>
 
-          <div class="plan c-blue plan-featured">
-            <span class="ribbon" data-i18n="plan2_ribbon">Mais escolhido</span>
+          <div class="plan c-blue">
             <div class="icon-3d">
               <svg viewBox="0 0 64 64" width="52" height="52" aria-hidden="true">
                 <defs>
@@ -2837,6 +2907,27 @@ var QRCode;
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 9v4M12 17h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/></svg>
                 <span data-i18n="combo_estimate_warning">Este combo inclui um plano "a partir de R$ X", esse valor pode mudar conforme o tamanho do seu projeto. O total exibido é uma estimativa mínima, não o preço fechado. O valor final é sempre confirmado com você antes de começar o trabalho.</span>
               </div>
+              <div class="combo-units" id="comboUnits">
+                <label class="combo-units-toggle">
+                  <input type="checkbox" id="comboMultiUnit">
+                  <span data-i18n="combo_multi_unit_label">É para mais de uma unidade?</span>
+                </label>
+                <div class="combo-units-fields" id="comboUnitsFields" style="display:none;">
+                  <label>
+                    <span data-i18n="combo_units_qty_label">Quantidade de unidades</span>
+                    <input type="number" id="comboUnitsQty" min="2" inputmode="numeric" placeholder="Ex: 3">
+                  </label>
+                  <label>
+                    <span data-i18n="combo_units_cities_label">Nomes das cidades</span>
+                    <input type="text" id="comboUnitsCities" placeholder="Ex: São João dos Patos, Paraibano...">
+                  </label>
+                  <label>
+                    <span data-i18n="combo_units_state_label">Estado</span>
+                    <input type="text" id="comboUnitsState" placeholder="Ex: MA">
+                  </label>
+                </div>
+              </div>
+              <div class="combo-summary-preview" id="comboSummaryPreview" style="display:none;"></div>
               <button type="button" class="btn btn-plan combo-confirm-btn" id="comboConfirmBtn" disabled data-i18n="combo_confirm">Confirmar combo pelo WhatsApp</button>
             </div>
           </div>
@@ -3583,6 +3674,15 @@ var QRCode;
         <p class="eyebrow" data-i18n="terms_eyebrow">Legal</p>
         <h2 id="termsTitle" style="margin:12px 0 6px; font-size:1.8rem;" data-i18n="terms_title">Política de Privacidade e Termos de Uso</h2>
         <p style="font-size:.82rem; color:var(--fg-muted); margin-bottom:22px;" data-i18n="terms_updated">Última atualização: 5 de agosto de 2026.</p>
+
+        <div class="legal-region-switch" role="tablist" aria-label="Selecionar região/legislação">
+          <button type="button" class="legal-region-btn is-active" data-region="br" role="tab" aria-selected="true"><span>🇧🇷</span> Brasil <span class="legal-region-law">LGPD</span></button>
+          <button type="button" class="legal-region-btn" data-region="eua" role="tab" aria-selected="false"><span>🇺🇸</span> EUA <span class="legal-region-law">CCPA</span></button>
+          <button type="button" class="legal-region-btn" data-region="es" role="tab" aria-selected="false"><span>🇪🇸</span> España <span class="legal-region-law">RGPD</span></button>
+        </div>
+        <p class="legal-disclaimer" data-i18n="legal_disclaimer">Este conteúdo foi redigido com apoio de tecnologia e não substitui o aconselhamento de um advogado. Para uso comercial oficial, recomendamos revisão jurídica profissional antes da publicação.</p>
+
+        <div class="legal-region-panel" data-region-panel="br">
         <div class="terms-jump">
           <a href="#privacidade" data-i18n="terms_jump_privacy">↓ Política de Privacidade</a>
           <a href="#termos-uso" data-i18n="terms_jump_use">↓ Termos de Uso</a>
@@ -3620,7 +3720,7 @@ var QRCode;
         <p data-i18n="terms_p8">Adotamos medidas técnicas e organizacionais razoáveis para proteger seus dados contra acessos não autorizados. Todo contato oficial da PYNN parte exclusivamente dos canais informados nesta página. Desconfie de mensagens que solicitem pagamentos antecipados ou dados fora desses canais.</p>
 
         <h3 data-i18n="terms_h9">9. Seus direitos</h3>
-        <p data-i18n="terms_p9">Nos termos da LGPD, você tem direito a confirmar a existência de tratamento, acessar, corrigir, anonimizar, bloquear, eliminar ou solicitar a portabilidade dos seus dados, além de revogar o consentimento a qualquer momento, mediante solicitação pelo nosso WhatsApp (86) 98884-6870.</p>
+        <p data-i18n="terms_p9">Nos termos da LGPD, você tem direito a confirmar a existência de tratamento, acessar, corrigir, anonimizar, bloquear, eliminar ou solicitar a portabilidade dos seus dados, além de revogar o consentimento a qualquer momento, mediante solicitação pelo nosso WhatsApp (86) 98884-6870. Você também pode apresentar reclamação à Autoridade Nacional de Proteção de Dados (ANPD).</p>
 
         <h3 data-i18n="terms_h10">10. Aceite e revogação do consentimento</h3>
         <p data-i18n="terms_p10">Ao clicar em "Li e aceito" no aviso inicial, você confirma estar ciente de como este site funciona: sem coleta de dados por formulário, com contato feito diretamente pelo WhatsApp. Se você clicar em "Não aceito", o site continua funcionando normalmente da mesma forma, a única diferença é que suas preferências de exibição (idioma, tema) deixam de ser salvas localmente. Você pode rever essa decisão a qualquer momento no menu de configurações (ícone de engrenagem), na opção "Privacidade".</p>
@@ -3644,6 +3744,123 @@ var QRCode;
 
         <h3 data-i18n="terms_h16">16. Garantias e limitação de responsabilidade</h3>
         <p data-i18n="terms_p16">A PYNN realiza otimização técnica de perfis no Google Maps e sites, seguindo as boas práticas recomendadas pelo próprio Google, porém posições no ranking, número de avaliações e volume de cliques dependem também de fatores fora do nosso controle (algoritmo do Google, concorrência local, comportamento dos usuários). Por isso, não garantimos posição específica no ranking nem prazo exato de aprovação por parte do Google em casos de recuperação de perfil. Em caso de indisponibilidade temporária do site por manutenção ou problemas técnicos de terceiros (hospedagem, GitHub Pages), a PYNN não se responsabiliza por eventuais perdas indiretas decorrentes dessa indisponibilidade.</p>
+        </div>
+
+        <div class="legal-region-panel" data-region-panel="eua" hidden>
+        <div class="terms-jump">
+          <a href="#privacy-eua" data-i18n="terms_jump_privacy">↓ Privacy Policy</a>
+          <a href="#terms-eua" data-i18n="terms_jump_use">↓ Terms of Use</a>
+        </div>
+        <p>This policy explains, clearly and objectively, how PYNN handles information related to you when you use this site, with reference to U.S. state privacy laws such as the California Consumer Privacy Act (CCPA/CPRA).</p>
+
+        <div class="terms-summary">
+          <p>This site does not collect any personal data. The contact button simply opens a direct conversation on your WhatsApp; from that point on, the conversation is governed by WhatsApp's own privacy policy. We only store your display preferences (language, theme) locally in your browser, never on our servers. We do not sell or share data with third parties. This summary is a quick guide only, the full text below governs officially.</p>
+        </div>
+
+        <h2 id="privacy-eua" class="terms-part-title">Privacy Policy</h2>
+
+        <h3>1. Who we are</h3>
+        <p>PYNN is an independent agency specializing in Google Maps profile optimization and IT technical support, responsible for the practices described in this policy. For any question or request about your data, contact us via WhatsApp at +55 (86) 98884-6870.</p>
+
+        <h3>2. Information we collect</h3>
+        <p>This site has no forms and collects no personal data. The contact button opens the WhatsApp app directly, starting a conversation with PYNN outside of this site, governed by WhatsApp's (Meta's) own privacy policy. The only thing this site stores is your display preferences (language, theme, colors, card layout) and your decision on this policy, saved locally in your browser and never sent to PYNN's servers.</p>
+
+        <h3>3. Purpose of use</h3>
+        <p>Messages you voluntarily start via WhatsApp are used solely to respond to your quote or support request. We do not use those conversations for unsolicited marketing, nor do we share them for other purposes.</p>
+
+        <h3>4. Legal basis</h3>
+        <p>Since this site does not collect personal data, any information exchanged happens only within WhatsApp, at your own initiative, based on your voluntary decision to reach out for a commercial response. Local display preferences are stored based on your consent, given when you accept this policy in the initial notice, which you may withdraw at any time without affecting the rest of your browsing.</p>
+
+        <h3>5. Cookies and local storage</h3>
+        <p>This site does not use third-party tracking or advertising cookies. We only use browser local storage (localStorage) and an app cache (service worker), strictly necessary to remember your display preferences and consent decision, and to allow the site to work as an installable app (PWA), including offline. You can delete this data at any time by clearing your browser's browsing data.</p>
+
+        <h3>6. Sharing with third parties</h3>
+        <p>We do not sell, rent, or share personal information with third parties for commercial purposes, as those terms are defined under the CCPA/CPRA. The only third party involved in communication is WhatsApp (Meta) itself, necessary for your message to reach us when you choose to contact us, governed by WhatsApp's own privacy policy.</p>
+
+        <h3>7. Your rights under U.S. state privacy laws</h3>
+        <p>Depending on your state of residence (for example, California under the CCPA/CPRA), you may have the right to know what personal information is collected, the right to delete personal information, the right to correct inaccurate information, the right to opt out of the sale or sharing of personal information, and the right to non-discrimination for exercising these rights. Because this site does not collect personal data through forms, most of these rights are not applicable in practice, since there is no data on file to know, delete, or correct. Requests can still be sent via WhatsApp at +55 (86) 98884-6870 and will be answered on a best-efforts basis. Other U.S. states may provide similar but not identical rights; this policy does not enumerate every state law individually.</p>
+
+        <h3>8. Data retention and security</h3>
+        <p>As this site collects no data through forms, there is no PYNN-held data to retain or delete. Conversations kept in WhatsApp follow that app's own retention practices, and you may delete them at any time directly on your device. We adopt reasonable technical and organizational measures to protect information; all official PYNN contact comes exclusively from the channels listed on this page, be cautious of messages requesting upfront payment or data through other channels.</p>
+
+        <h2 id="terms-eua" class="terms-part-title">Terms of Use</h2>
+
+        <h3>9. Payment and cancellation</h3>
+        <p>We accept payment via Pix (Brazilian instant payment), bank transfer, cash, or other methods agreed in advance; we do not work exclusively with Pix. We do not require upfront payment: once a service is hired, work begins and payment follows what was agreed at the time of hiring. If a client hires a service and does not complete the agreed payment, the service is automatically deactivated. If a client hires a service, work has started, and the client later chooses to cancel, a fee equal to 50% of the plan's price will apply, covering the time and technical work already invested in diagnostics and optimization up to that point.</p>
+
+        <h3>10. Changes to this policy</h3>
+        <p>This policy may be updated periodically to reflect improvements to the site or changes in applicable law. The last-updated date is shown at the top of this page.</p>
+
+        <h3>11. Contact</h3>
+        <p>Questions about this policy or about how your information is handled can be sent via our WhatsApp at +55 (86) 98884-6870.</p>
+
+        <h3>12. Governing law</h3>
+        <p>This policy and PYNN's services, when provided to clients located in the United States, are additionally referenced against applicable U.S. state consumer-protection and privacy laws (such as the CCPA/CPRA where applicable), alongside PYNN's home jurisdiction of Brazil, where the company is legally established. Any dispute will primarily be addressed informally via WhatsApp support before any other resolution process.</p>
+
+        <h3>13. Intellectual property</h3>
+        <p>The layout, source code, trademarks, text, and illustrations of this site belong to PYNN and may not be copied, redistributed, or used commercially without prior authorization. For website-creation services, ownership of the final code and content is transferred to the client only after confirmation of the agreed payment; logos and images supplied by the client for their own project remain the client's property.</p>
+
+        <h3>14. Warranties and limitation of liability</h3>
+        <p>PYNN performs technical optimization of Google Maps profiles and websites following Google's own recommended best practices; however, ranking position, review counts, and click volume also depend on factors outside our control (Google's algorithm, local competition, user behavior). We therefore do not guarantee any specific ranking position or exact approval time by Google in profile-recovery cases. In case of temporary site unavailability due to maintenance or third-party technical issues (hosting, GitHub Pages), PYNN is not liable for any resulting indirect losses.</p>
+        </div>
+
+        <div class="legal-region-panel" data-region-panel="es" hidden>
+        <div class="terms-jump">
+          <a href="#privacidad-es" data-i18n="terms_jump_privacy">↓ Política de Privacidad</a>
+          <a href="#terminos-es" data-i18n="terms_jump_use">↓ Términos de Uso</a>
+        </div>
+        <p>Esta política explica, de forma clara y objetiva, cómo PYNN trata la información relacionada contigo al utilizar este sitio, conforme al Reglamento General de Protección de Datos de la UE (RGPD) y a la Ley Orgánica 3/2018 de Protección de Datos Personales y garantía de los derechos digitales (LOPDGDD) de España.</p>
+
+        <div class="terms-summary">
+          <p>Este sitio no recopila ningún dato personal tuyo. El botón de contacto solo abre una conversación directa en tu WhatsApp; a partir de ahí, la conversación se rige por la política de privacidad del propio WhatsApp. Solo guardamos tus preferencias de visualización (idioma, tema) localmente en tu navegador, nunca en nuestros servidores. No vendemos ni compartimos datos con terceros. Este resumen es solo una guía rápida, el texto completo a continuación es el que aplica oficialmente.</p>
+        </div>
+
+        <h2 id="privacidad-es" class="terms-part-title">Política de Privacidad</h2>
+
+        <h3>1. Quiénes somos</h3>
+        <p>PYNN es una agencia independiente de optimización de perfiles en Google Maps y soporte técnico en TI, responsable del tratamiento de datos descrito en esta política. Para cualquier duda o solicitud relacionada con tus datos, contáctanos por WhatsApp al +55 (86) 98884-6870.</p>
+
+        <h3>2. Datos que recopilamos</h3>
+        <p>Este sitio no tiene formularios y no recopila ningún dato personal. El botón de contacto abre directamente la aplicación WhatsApp, iniciando una conversación con PYNN fuera de este sitio, que se rige por la política de privacidad de WhatsApp (Meta). Lo único que este sitio guarda son tus preferencias de visualización (idioma, tema, colores, formato de tarjetas) y tu decisión sobre esta política, guardadas localmente en tu navegador y nunca enviadas a los servidores de PYNN.</p>
+
+        <h3>3. Finalidad del tratamiento</h3>
+        <p>Los mensajes que inicias voluntariamente por WhatsApp se usan exclusivamente para responder a tu solicitud de presupuesto o soporte técnico. No usamos esas conversaciones para marketing no solicitado ni las compartimos con otros fines.</p>
+
+        <h3>4. Base jurídica</h3>
+        <p>Como este sitio no recopila datos personales, el tratamiento de cualquier información intercambiada ocurre únicamente dentro de WhatsApp, por tu propia iniciativa al contactarnos, con base en tu interés legítimo en obtener una respuesta comercial (art. 6.1.f RGPD). El uso de las preferencias locales de visualización se basa en tu consentimiento, manifestado al aceptar esta política en el aviso inicial, que puedes retirar en cualquier momento sin afectar el resto de la navegación.</p>
+
+        <h3>5. Cookies y almacenamiento local</h3>
+        <p>Este sitio no utiliza cookies de rastreo ni de publicidad de terceros. Solo utilizamos almacenamiento local del navegador (localStorage) y caché de aplicación (service worker), estrictamente necesarios para recordar tus preferencias de visualización y tu decisión de aceptación, y para permitir que el sitio funcione como aplicación instalable (PWA), incluso sin conexión. Puedes borrar estos datos en cualquier momento limpiando los datos de navegación de tu navegador.</p>
+
+        <h3>6. Cesión a terceros</h3>
+        <p>No vendemos, alquilamos ni compartimos datos con terceros con fines comerciales. El único tercero involucrado en la comunicación es el propio WhatsApp (Meta), necesario para que tu mensaje nos llegue cuando decides contactarnos, regido por la política de privacidad de WhatsApp.</p>
+
+        <h3>7. Tus derechos conforme al RGPD</h3>
+        <p>Conforme al RGPD y la LOPDGDD, tienes derecho a acceder, rectificar, suprimir (derecho al olvido), limitar el tratamiento, oponerte al tratamiento y solicitar la portabilidad de tus datos, además de retirar el consentimiento en cualquier momento, mediante solicitud por nuestro WhatsApp +55 (86) 98884-6870. También tienes derecho a presentar una reclamación ante la Agencia Española de Protección de Datos (AEPD) si consideras que el tratamiento de tus datos infringe la normativa aplicable.</p>
+
+        <h3>8. Conservación y seguridad de los datos</h3>
+        <p>Como este sitio no recopila datos mediante formularios, no existen datos nuestros que conservar o eliminar. Las conversaciones mantenidas en WhatsApp siguen la política de retención de esa aplicación, y puedes eliminarlas cuando quieras directamente en tu dispositivo. Adoptamos medidas técnicas y organizativas razonables para proteger la información; todo contacto oficial de PYNN proviene exclusivamente de los canales indicados en esta página.</p>
+
+        <h2 id="terminos-es" class="terms-part-title">Términos de Uso</h2>
+
+        <h3>9. Pago y cancelación</h3>
+        <p>Aceptamos pago mediante Pix (pago instantáneo brasileño), transferencia bancaria, efectivo u otras formas acordadas previamente; no trabajamos exclusivamente con Pix. No exigimos pago por adelantado: al contratar un servicio, el trabajo se inicia y el pago se realiza según lo acordado en el momento de la contratación. Si el cliente contrata un servicio y no realiza el pago acordado, el servicio se desactiva automáticamente. Si el cliente contrata un servicio, el trabajo se ha iniciado y luego decide cancelar, se cobrará el equivalente al 50% del valor del plan elegido, que cubre el tiempo y el trabajo técnico ya invertidos en el diagnóstico y la optimización hasta ese momento.</p>
+
+        <h3>10. Cambios en esta política</h3>
+        <p>Esta política puede actualizarse periódicamente para reflejar mejoras en el sitio o cambios en la legislación aplicable. La fecha de la última actualización se indica en la parte superior de esta página.</p>
+
+        <h3>11. Contacto</h3>
+        <p>Las dudas sobre esta política o sobre el tratamiento de tus datos pueden enviarse por nuestro WhatsApp +55 (86) 98884-6870.</p>
+
+        <h3>12. Legislación aplicable</h3>
+        <p>Esta política y los servicios de PYNN prestados a clientes ubicados en España o la Unión Europea se referencian adicionalmente frente al Reglamento General de Protección de Datos (RGPD, UE 2016/679) y la Ley Orgánica 3/2018 (LOPDGDD), sin perjuicio de que PYNN esté legalmente constituida en Brasil, cuya legislación rige de forma primaria las relaciones contractuales. Cualquier disputa se abordará en primer lugar de manera informal a través del soporte por WhatsApp.</p>
+
+        <h3>13. Propiedad intelectual</h3>
+        <p>El diseño, el código fuente, las marcas, los textos y las ilustraciones de este sitio pertenecen a PYNN y no pueden copiarse, redistribuirse ni usarse comercialmente sin autorización previa. En los servicios de creación de sitios web, la propiedad del código y del contenido final entregado se transfiere al cliente solo tras la confirmación del pago acordado; los logotipos e imágenes enviados por el propio cliente siguen siendo de su propiedad.</p>
+
+        <h3>14. Garantías y limitación de responsabilidad</h3>
+        <p>PYNN realiza optimización técnica de perfiles de Google Maps y sitios web siguiendo las buenas prácticas recomendadas por el propio Google; sin embargo, la posición en el ranking, el número de reseñas y el volumen de clics también dependen de factores fuera de nuestro control (algoritmo de Google, competencia local, comportamiento de los usuarios). Por ello, no garantizamos una posición específica en el ranking ni un plazo exacto de aprobación por parte de Google en casos de recuperación de perfil. En caso de indisponibilidad temporal del sitio por mantenimiento o problemas técnicos de terceros (alojamiento, GitHub Pages), PYNN no se responsabiliza de las pérdidas indirectas derivadas de dicha indisponibilidad.</p>
+        </div>
       </div>
   </section>
   </div>
@@ -4053,7 +4270,7 @@ var translations = {
     services_lead:"Escolha o plano de otimização de Google Maps que faz sentido para o seu momento, ou conte com nosso suporte técnico especializado.",
     plan1_tag:"Google Maps", plan1_title:"Plano Essencial", plan1_price_note:"Pagamento à vista via Pix",
     plan1_desc:"Otimização completa do perfil da sua empresa no Google Maps: categoria certa, descrição com palavras-chave, horários, fotos e demais informações, do zero até a primeira posição no seu setor. Entrega do nosso trabalho em até 48h após a confirmação do pagamento. Pagamento via Pix.",
-    plan2_tag:"Google Maps", plan2_ribbon:"Mais escolhido", plan2_title:"Plano Flexível", plan2_price_note:"2x via Pix · Total R$ 400,00",
+    plan1_ribbon:"Mais escolhido", plan2_tag:"Google Maps", plan2_title:"Plano Flexível", plan2_price_note:"2x via Pix · Total R$ 400,00",
     plan2_desc:"A mesma otimização completa do Plano Essencial, dividida em 2 pagamentos de R$ 200 via Pix. Entrega do nosso trabalho em até 48h após a confirmação da primeira parcela.",
     plan3_tag:"Google Maps · Recuperação", plan3_title:"Plano Recuperação", plan3_price_note:"Correção de cadastro · via Pix",
     plan3_desc:"Diagnóstico e correção de perfis duplicados, incorretos ou suspensos no mapa: mesclagem junto ao Google, verificação de propriedade e correção de todos os dados. Entrega do nosso trabalho técnico em até 48h, a reativação segue o prazo de análise do próprio Google, que pode ser imediata ou levar até 5 dias úteis. Pagamento via Pix.",
@@ -4116,7 +4333,7 @@ var translations = {
     faq_a14:"Sim, pequenos ajustes de texto, imagem ou informação podem ser combinados pelo WhatsApp depois da entrega. Mudanças maiores de estrutura são tratadas como um novo escopo, mas sempre combinado com você antes.",
 
     combo_add:"+ Adicionar ao combo", combo_hint:'Marque "+ Adicionar ao combo" em 2 ou mais planos acima para montar o seu.',
-    combo_confirm:"Confirmar combo pelo WhatsApp", combo_sent:"Enviado! Confira seu WhatsApp \u2713",
+    combo_confirm:"Confirmar combo pelo WhatsApp", combo_sent:"Enviado! Confira seu WhatsApp \u2713", combo_multi_unit_label:"É para mais de uma unidade?", combo_units_qty_label:"Quantidade de unidades", combo_units_cities_label:"Nomes das cidades", combo_units_state_label:"Estado", combo_summary_title:"Resumo do seu combo", combo_units_wa_label:"Unidades",
     combo_discount_5:"5% de desconto aplicado!", combo_discount_10:"10% de desconto aplicado!",
     combo_wa_intro:"Olá! Quero montar um combo PYNN com os planos:",
     combo_total_prefix:"Valor total: ", combo_total_estimate_prefix:"Valor estimado: ", combo_total_estimate_note:"inclui plano com valor variável, confirmado no WhatsApp", combo_estimate_warning:'Este combo inclui um plano "a partir de R$ X", esse valor pode mudar conforme o tamanho do seu projeto. O total exibido é uma estimativa mínima, não o preço fechado. O valor final é sempre confirmado com você antes de começar o trabalho.',
@@ -4150,7 +4367,7 @@ var translations = {
     hours_sunday:"Domingo",
     hours_closed:"Fechado",
     qr_whats:"Escanear · WhatsApp", qr_insta:"Escanear · Instagram", qr_site:"Escanear · Site",
-    terms_eyebrow:"Legal", terms_title:"Política de Privacidade e Termos de Uso",
+    terms_eyebrow:"Legal", terms_title:"Política de Privacidade e Termos de Uso", legal_disclaimer:"Este conteúdo foi redigido com apoio de tecnologia e não substitui o aconselhamento de um advogado. Para uso comercial oficial, recomendamos revisão jurídica profissional antes da publicação.",
     terms_updated:"Última atualização: 5 de agosto de 2026.",
     terms_intro:"Esta política explica, de forma clara e objetiva, como a PYNN coleta, usa, armazena e protege as informações relacionadas a você ao utilizar este site, em conformidade com a Lei Geral de Proteção de Dados Pessoais (LGPD. Lei nº 13.709/2018).",
     terms_summary_text:"Este site não coleta nenhum dado pessoal seu. O botão de contato só abre uma conversa direta no seu WhatsApp: a partir daí, a conversa segue a política de privacidade do próprio WhatsApp. Guardamos apenas suas preferências de exibição (idioma, tema) localmente no seu navegador, nunca em nossos servidores. Não vendemos nem compartilhamos dados com terceiros. Isso segue a LGPD (Lei nº 13.709/2018), a lei brasileira de proteção de dados. Este resumo é só um guia rápido, o texto completo abaixo é o que vale oficialmente.",
@@ -4257,7 +4474,7 @@ var translations = {
     services_lead:"Elige el plan de optimización de Google Maps que se ajuste a tu momento, o cuenta con nuestro soporte técnico especializado.",
     plan1_tag:"Google Maps", plan1_title:"Plan Esencial", plan1_price_note:"Pago al contado vía Pix",
     plan1_desc:"Optimización completa del perfil de tu empresa en Google Maps: categoría correcta, descripción con palabras clave, horarios, fotos y demás información, desde cero hasta la primera posición en tu sector. Entrega de nuestro trabajo en hasta 48h tras la confirmación del pago. Pago vía Pix.",
-    plan2_tag:"Google Maps", plan2_ribbon:"Más elegido", plan2_title:"Plan Flexible", plan2_price_note:"2x vía Pix · Total R$ 400,00",
+    plan1_ribbon:"Más elegido", plan2_tag:"Google Maps", plan2_title:"Plan Flexible", plan2_price_note:"2x vía Pix · Total R$ 400,00",
     plan2_desc:"La misma optimización completa del Plan Esencial, dividida en 2 pagos de R$ 200 vía Pix. Entrega de nuestro trabajo en hasta 48h tras la confirmación de la primera cuota.",
     plan3_tag:"Google Maps · Recuperación", plan3_title:"Plan Recuperación", plan3_price_note:"Corrección de registro · vía Pix",
     plan3_desc:"Diagnóstico y corrección de perfiles duplicados, incorrectos o suspendidos en el mapa: fusión ante Google, verificación de propiedad y corrección de todos los datos. Entrega de nuestro trabajo técnico en hasta 48h, la reactivación sigue el plazo de análisis del propio Google, que puede ser inmediata o tardar hasta 5 días hábiles. Pago vía Pix.",
@@ -4320,7 +4537,7 @@ var translations = {
     faq_a14:"Sí, pequeños ajustes de texto, imagen o información se pueden acordar por WhatsApp después de la entrega. Cambios mayores de estructura se tratan como un nuevo alcance, siempre acordado contigo antes.",
 
     combo_add:"+ Añadir al combo", combo_hint:'Marca "+ Añadir al combo" en 2 o más planes arriba para armar el tuyo.',
-    combo_confirm:"Confirmar combo por WhatsApp", combo_sent:"¡Enviado! Revisa tu WhatsApp \u2713",
+    combo_confirm:"Confirmar combo por WhatsApp", combo_sent:"¡Enviado! Revisa tu WhatsApp \u2713", combo_multi_unit_label:"¿Es para más de una sede?", combo_units_qty_label:"Cantidad de sedes", combo_units_cities_label:"Nombres de las ciudades", combo_units_state_label:"Estado", combo_summary_title:"Resumen de tu combo", combo_units_wa_label:"Sedes",
     combo_discount_5:"¡5% de descuento aplicado!", combo_discount_10:"¡10% de descuento aplicado!",
     combo_wa_intro:"¡Hola! Quiero armar un combo PYNN con los planes:",
     combo_total_prefix:"Valor total: ", combo_total_estimate_prefix:"Valor estimado: ", combo_total_estimate_note:"incluye un plan de valor variable, se confirma por WhatsApp", combo_estimate_warning:'Este combo incluye un plan "desde R$ X", ese valor puede cambiar según el tamaño de tu proyecto. El total mostrado es una estimación mínima, no el precio final. El valor definitivo siempre se confirma contigo antes de empezar el trabajo.',
@@ -4354,7 +4571,7 @@ var translations = {
     hours_sunday:"Domingo",
     hours_closed:"Cerrado",
     qr_whats:"Escanear · WhatsApp", qr_insta:"Escanear · Instagram", qr_site:"Escanear · Site",
-    terms_eyebrow:"Legal", terms_title:"Política de Privacidad y Términos de Uso",
+    terms_eyebrow:"Legal", terms_title:"Política de Privacidad y Términos de Uso", legal_disclaimer:"Este contenido fue redactado con apoyo de tecnología y no sustituye el asesoramiento de un abogado. Para uso comercial oficial, recomendamos una revisión jurídica profesional antes de su publicación.",
     terms_updated:"Última actualización: 5 de agosto de 2026.",
     terms_intro:"Esta política explica, de forma clara y objetiva, cómo PYNN recopila, usa, almacena y protege la información relacionada contigo al utilizar este sitio, de acuerdo con las leyes de protección de datos aplicables, incluida la LGPD brasileña (Ley nº 13.709/2018).",
     terms_summary_text:"Este sitio no recopila ningún dato personal tuyo. El botón de contacto solo abre una conversación directa en tu WhatsApp: desde ahí, la conversación sigue la política de privacidad del propio WhatsApp. Solo guardamos tus preferencias de visualización (idioma, tema) localmente en tu navegador, nunca en nuestros servidores. No vendemos ni compartimos datos con terceros. Esto sigue la LGPD brasileña (Ley nº 13.709/2018). Este resumen es solo una guía rápida, el texto completo abajo es el que tiene valor oficial.",
@@ -4461,7 +4678,7 @@ var translations = {
     services_lead:"Choose the Google Maps optimization plan that fits your business, or rely on our specialized IT support.",
     plan1_tag:"Google Maps", plan1_title:"Essential Plan", plan1_price_note:"One-time payment via Pix",
     plan1_desc:"Full optimization of your business profile on Google Maps: correct category, keyword-driven description, hours, photos and more, from zero to the top spot in your category. Our work is delivered within 48h after payment confirmation. Payment via Pix.",
-    plan2_tag:"Google Maps", plan2_ribbon:"Most chosen", plan2_title:"Flexible Plan", plan2_price_note:"2x via Pix · Total R$ 400.00",
+    plan1_ribbon:"Most chosen", plan2_tag:"Google Maps", plan2_title:"Flexible Plan", plan2_price_note:"2x via Pix · Total R$ 400.00",
     plan2_desc:"The same full optimization as the Essential Plan, split into 2 payments of R$ 200 via Pix. Our work is delivered within 48h after the first installment is confirmed.",
     plan3_tag:"Google Maps · Recovery", plan3_title:"Recovery Plan", plan3_price_note:"Listing correction · via Pix",
     plan3_desc:"Diagnosis and correction of duplicated, incorrect, or suspended map listings: merge request with Google, ownership verification, and correction of all data. Our technical work is delivered within 48h, reactivation follows Google's own review timeline, which can be immediate or take up to 5 business days. Payment via Pix.",
@@ -4524,7 +4741,7 @@ var translations = {
     faq_a14:"Yes, small tweaks to text, images, or information can be arranged over WhatsApp after delivery. Bigger structural changes are treated as a new scope, always agreed with you first.",
 
     combo_add:"+ Add to combo", combo_hint:'Check "+ Add to combo" on 2 or more plans above to build yours.',
-    combo_confirm:"Confirm combo via WhatsApp", combo_sent:"Sent! Check your WhatsApp \u2713",
+    combo_confirm:"Confirm combo via WhatsApp", combo_sent:"Sent! Check your WhatsApp \u2713", combo_multi_unit_label:"Is this for more than one location?", combo_units_qty_label:"Number of locations", combo_units_cities_label:"City names", combo_units_state_label:"State", combo_summary_title:"Your combo summary", combo_units_wa_label:"Locations",
     combo_discount_5:"5% discount applied!", combo_discount_10:"10% discount applied!",
     combo_wa_intro:"Hi! I'd like to build a PYNN combo with the plans:",
     combo_total_prefix:"Total: ", combo_total_estimate_prefix:"Estimated total: ", combo_total_estimate_note:"includes a variable-price plan, confirmed via WhatsApp", combo_estimate_warning:'This combo includes a "starting from R$ X" plan, that value can change depending on your project\'s size. The total shown is a minimum estimate, not the final price. The final amount is always confirmed with you before work begins.',
@@ -4558,7 +4775,7 @@ var translations = {
     hours_sunday:"Sunday",
     hours_closed:"Closed",
     qr_whats:"Scan · WhatsApp", qr_insta:"Scan · Instagram", qr_site:"Scan · Site",
-    terms_eyebrow:"Legal", terms_title:"Privacy Policy and Terms of Use",
+    terms_eyebrow:"Legal", terms_title:"Privacy Policy and Terms of Use", legal_disclaimer:"This content was drafted with the support of technology and does not replace advice from a lawyer. For official commercial use, we recommend professional legal review before publishing.",
     terms_updated:"Last updated: August 5, 2026.",
     terms_intro:"This policy explains, clearly and objectively, how PYNN collects, uses, stores, and protects information related to you when you use this site, in line with applicable data protection laws, including Brazil's LGPD (Law No. 13,709/2018).",
     terms_summary_text:"This site does not collect any personal data from you. The contact button only opens a direct conversation on your WhatsApp: from there, the conversation follows WhatsApp's own privacy policy. We only store your display preferences (language, theme) locally in your browser, never on our servers. We do not sell or share data with third parties. This follows Brazil's LGPD (Law No. 13,709/2018). This summary is just a quick guide, the full text below is what legally applies.",
@@ -4908,6 +5125,26 @@ function renderCombo(){
     if(comboEstimateWarningEl) comboEstimateWarningEl.style.display = 'none';
   }
   comboConfirmBtn.disabled = count < 2;
+
+  // Resumo organizado, visível antes de enviar pelo WhatsApp
+  const summaryEl = document.getElementById('comboSummaryPreview');
+  if(summaryEl){
+    if(count === 0){
+      summaryEl.style.display = 'none';
+    } else {
+      const units = (typeof getComboUnitsInfo === 'function') ? getComboUnitsInfo() : null;
+      let html = '<strong>' + (t.combo_summary_title || 'Resumo do seu combo') + '</strong>';
+      html += Array.from(comboSelections.values()).map(v=>'• ' + v.name).join('<br>');
+      if(units){
+        html += '<br><br><strong>' + (t.combo_units_wa_label || 'Unidades') + '</strong>';
+        if(units.qty) html += (t.combo_units_qty_label || 'Quantidade de unidades') + ': ' + units.qty + '<br>';
+        if(units.cities) html += (t.combo_units_cities_label || 'Nomes das cidades') + ': ' + units.cities + '<br>';
+        if(units.state) html += (t.combo_units_state_label || 'Estado') + ': ' + units.state;
+      }
+      summaryEl.innerHTML = html;
+      summaryEl.style.display = 'block';
+    }
+  }
 }
 
 document.querySelectorAll('.combo-check').forEach(checkbox=>{
@@ -4925,9 +5162,46 @@ document.querySelectorAll('.combo-check').forEach(checkbox=>{
     } else {
       comboSelections.delete(key);
     }
+    updateComboMutualExclusion();
     renderCombo();
   });
 });
+
+/* Plano Essencial (à vista) e Plano Flexível (parcelado) são a mesma
+   otimização com formas de pagamento diferentes — não fazem sentido juntos
+   no mesmo combo, então escolher um desativa o outro. */
+const comboCheckEssencial = document.querySelector('.combo-check[data-combo-plan="plan1_wa_msg"]');
+const comboCheckFlexivel = document.querySelector('.combo-check[data-combo-plan="plan2_wa_msg"]');
+function updateComboMutualExclusion(){
+  if(!comboCheckEssencial || !comboCheckFlexivel) return;
+  comboCheckEssencial.disabled = comboCheckFlexivel.checked;
+  comboCheckFlexivel.disabled = comboCheckEssencial.checked;
+}
+updateComboMutualExclusion();
+
+/* ---------- Combo: múltiplas unidades ---------- */
+const comboMultiUnit = document.getElementById('comboMultiUnit');
+const comboUnitsFields = document.getElementById('comboUnitsFields');
+const comboUnitsQty = document.getElementById('comboUnitsQty');
+const comboUnitsCities = document.getElementById('comboUnitsCities');
+const comboUnitsState = document.getElementById('comboUnitsState');
+if(comboMultiUnit){
+  comboMultiUnit.addEventListener('change', ()=>{
+    if(comboUnitsFields) comboUnitsFields.style.display = comboMultiUnit.checked ? 'flex' : 'none';
+    renderCombo();
+  });
+}
+[comboUnitsQty, comboUnitsCities, comboUnitsState].forEach(function(el){
+  if(el) el.addEventListener('input', renderCombo);
+});
+function getComboUnitsInfo(){
+  if(!comboMultiUnit || !comboMultiUnit.checked) return null;
+  const qty = comboUnitsQty ? comboUnitsQty.value.trim() : '';
+  const cities = comboUnitsCities ? comboUnitsCities.value.trim() : '';
+  const state = comboUnitsState ? comboUnitsState.value.trim() : '';
+  if(!qty && !cities && !state) return null;
+  return { qty: qty, cities: cities, state: state };
+}
 
 if(comboConfirmBtn){
   comboConfirmBtn.addEventListener('click', ()=>{
@@ -4941,7 +5215,16 @@ if(comboConfirmBtn){
     const discount = comboDiscountText(comboSelections.size);
     const intro = t.combo_wa_intro || 'Olá! Quero montar um combo PYNN com os planos:';
     const totalLabel = (hasEstimate ? (t.combo_total_estimate_prefix || 'Valor estimado: ') : (t.combo_total_prefix || 'Valor total: ')) + formatBRL(total);
-    const message = intro + '\n- ' + names.join('\n- ') + '\n\n' + discount + '\n' + totalLabel;
+    let message = intro + '\n- ' + names.join('\n- ') + '\n\n' + discount + '\n' + totalLabel;
+    const units = getComboUnitsInfo();
+    if(units){
+      const unitsLabel = t.combo_units_wa_label || 'Unidades';
+      let unitsLine = '\n\n' + unitsLabel + ':';
+      if(units.qty) unitsLine += '\n' + (t.combo_units_qty_label || 'Quantidade de unidades') + ': ' + units.qty;
+      if(units.cities) unitsLine += '\n' + (t.combo_units_cities_label || 'Nomes das cidades') + ': ' + units.cities;
+      if(units.state) unitsLine += '\n' + (t.combo_units_state_label || 'Estado') + ': ' + units.state;
+      message += unitsLine;
+    }
     window.open('https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(message), '_blank');
     comboConfirmBtn.textContent = t.combo_sent || 'Enviado! Confira seu WhatsApp ✓';
     setTimeout(()=>{
@@ -5029,6 +5312,24 @@ document.addEventListener('click', function(e){
   }
 });
 if(termsCloseBtn){ termsCloseBtn.addEventListener('click', closeTermsModal); }
+
+/* ---------- Legal: troca de aba de região (BR / EUA / ES) ---------- */
+document.querySelectorAll('.legal-region-btn').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    var region = btn.getAttribute('data-region');
+    document.querySelectorAll('.legal-region-btn').forEach(function(b){
+      var active = b === btn;
+      b.classList.toggle('is-active', active);
+      b.setAttribute('aria-selected', active ? 'true' : 'false');
+    });
+    document.querySelectorAll('.legal-region-panel').forEach(function(panel){
+      panel.hidden = panel.getAttribute('data-region-panel') !== region;
+    });
+    var box = document.getElementById('termos');
+    if(box) box.scrollTop = 0;
+  });
+});
+
 if(termsOverlay){
   termsOverlay.addEventListener('click', function(e){
     if(e.target === termsOverlay) closeTermsModal();
@@ -5585,9 +5886,6 @@ if('serviceWorker' in navigator){
       window.prompt('Copie o link da PYNN:', shareData.url);
     }
   });
-})();
-</script>
-
 })();
 </script>
 
@@ -6158,6 +6456,57 @@ if('serviceWorker' in navigator){
   setActiveGenderBtn();
   refreshLabels();
   window.__pynnStopReading = stopReading;
+})();
+</script>
+
+<script>
+/* ---------- Carrossel de serviços (hero) ---------- */
+(function(){
+  var carousel = document.getElementById('heroCarousel');
+  if(!carousel) return;
+  var slides = Array.prototype.slice.call(carousel.querySelectorAll('.hero-carousel-slide'));
+  var dots = Array.prototype.slice.call(carousel.querySelectorAll('.hero-carousel-dot'));
+  var current = 0;
+  var timer = null;
+  var INTERVAL = 4500;
+
+  function animationsOff(){
+    return (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) ||
+           document.documentElement.classList.contains('no-animations');
+  }
+
+  function goTo(index){
+    slides[current].classList.remove('is-active');
+    dots[current] && dots[current].classList.remove('is-active');
+    current = (index + slides.length) % slides.length;
+    slides[current].classList.add('is-active');
+    dots[current] && dots[current].classList.add('is-active');
+  }
+
+  function next(){ goTo(current + 1); }
+
+  function startAuto(){
+    stopAuto();
+    if(animationsOff()) return;
+    timer = setInterval(next, INTERVAL);
+  }
+  function stopAuto(){
+    if(timer){ clearInterval(timer); timer = null; }
+  }
+
+  dots.forEach(function(dot, i){
+    dot.addEventListener('click', function(){
+      goTo(i);
+      startAuto();
+    });
+  });
+
+  carousel.addEventListener('mouseenter', stopAuto);
+  carousel.addEventListener('mouseleave', startAuto);
+  carousel.addEventListener('touchstart', stopAuto, { passive: true });
+  carousel.addEventListener('touchend', startAuto, { passive: true });
+
+  startAuto();
 })();
 </script>
 
