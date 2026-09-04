@@ -905,7 +905,7 @@ var QRCode;
   nav.wrap{
     position:relative;
     display:flex; align-items:center; justify-content:space-between;
-    height:66px; width:100%; max-width:none; margin:0;
+    height:82px; width:100%; max-width:none; margin:0;
     background:var(--bg-panel);
     border:none;
     border-radius:0;
@@ -937,7 +937,7 @@ var QRCode;
   @media(min-width:700px){ .nav-menu{ display:flex; } }
   @media(min-width:700px) and (max-width:1080px){ .nav-menu{ gap:14px; } .nav-menu a{ font-size:.76rem; } }
 
-  .nav-controls{ display:flex; align-items:center; gap:10px; }
+  .nav-controls{ display:flex; align-items:center; gap:16px; }
   .nav-cta{ display:none; }
   @media(min-width:640px){
     .nav-cta{
@@ -970,10 +970,10 @@ var QRCode;
     align-items:center; justify-content:center;
     background:none; border:none;
     color:var(--blue); cursor:pointer;
-    transition:transform .2s, opacity .2s;
+    transition:opacity .2s, color .2s;
   }
   .install-btn.is-hidden{ display:none; }
-  .install-btn:hover{}
+  .install-btn:hover{ color:var(--coral); }
   .install-btn:active{}
   .install-btn svg{ width:19px; height:19px; flex:none; }
   .install-btn.is-installed{ opacity:.45; cursor:default; pointer-events:none; }
@@ -1055,7 +1055,9 @@ var QRCode;
     display:flex; align-items:center; justify-content:center;
     width:38px; height:38px; border:none;
     background:none; color:var(--fg); cursor:pointer;
+    transition:color .2s;
   }
+  .hamburger-btn:hover, .hamburger-btn[aria-expanded="true"]{ color:var(--coral); }
   @media(min-width:700px){ .hamburger-btn{ display:none; } }
   .mobile-nav-backdrop{
     position:fixed; inset:0; background:rgba(0,0,0,.4); z-index:1000;
@@ -1311,7 +1313,7 @@ var QRCode;
     .hero-chips{ gap:10px; }
     header{ padding:0; }
     nav.wrap{
-      height:54px;
+      height:66px;
       padding:0 6px 0 16px;
     }
     .logo{ height:24px; }
@@ -2214,7 +2216,7 @@ var QRCode;
   }
   .trust-badge{
     display:flex; flex:0 1 auto; flex-direction:row; align-items:center; text-align:left; gap:8px;
-    background:var(--bg); border:1px solid var(--border); border-radius:calc(var(--radius) - 4px);
+    background:none; border:none;
     padding:10px 12px;
   }
   .trust-badge-icon{
@@ -2240,8 +2242,16 @@ var QRCode;
   .trust-badge--teal .trust-badge-icon{ background:#14b8a61f; }
   .trust-badge--teal .trust-badge-icon svg{ color:#14b8a6; }
   @media(max-width:640px){
-    .trust-badges{ justify-content:center; gap:8px; }
-    .trust-badge{ padding:8px 10px; }
+    /* Grade organizada: 3 colunas iguais (3 selos por linha, 2 linhas), sem rolagem */
+    .trust-badges{
+      flex-wrap:wrap; justify-content:center;
+      gap:8px; margin-bottom:32px; padding-bottom:32px;
+    }
+    .trust-badge{
+      flex:0 0 calc(33.333% - 6px); flex-direction:column; text-align:center;
+      padding:10px 6px; gap:6px;
+    }
+    .trust-badge-label{ white-space:normal; line-height:1.25; }
   }
   .footer-grid{ display:flex; justify-content:space-between; flex-wrap:wrap; gap:32px; margin-bottom:32px; }
   .footer-col h4{
