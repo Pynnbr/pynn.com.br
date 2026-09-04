@@ -896,18 +896,20 @@ var QRCode;
   @media(max-width:768px){ section{padding:36px 0;} }
 
   /* ---------- NAV ---------- */
-  header{ position:fixed; top:0; left:0; right:0; z-index:1050; padding:14px 18px; }
+  /* O header cobre a largura toda com o mesmo blur/fundo da barra interna,
+     assim nada do conteúdo rolado fica visível "atrás" da barra ao rolar a página. */
+  header{
+    position:fixed; top:0; left:0; right:0; z-index:1050; padding:0;
+    background:var(--bg);
+  }
   nav.wrap{
     position:relative;
     display:flex; align-items:center; justify-content:space-between;
-    height:66px; max-width:1180px;
-    background:color-mix(in srgb, var(--bg-panel) 72%, transparent);
-    -webkit-backdrop-filter:blur(16px) saturate(160%);
-    backdrop-filter:blur(16px) saturate(160%);
-    border:1px solid color-mix(in srgb, var(--border) 70%, transparent);
-    border-radius:var(--radius);
-    padding:0 14px 0 22px;
-    box-shadow:0 12px 28px -22px rgba(0,0,0,.4);
+    height:66px; width:100%; max-width:none; margin:0;
+    background:var(--bg-panel);
+    border:none;
+    border-radius:0;
+    padding:0 24px;
   }
   .logo{ display:flex; align-items:center; height:30px; flex-shrink:0; }
   .logo-img{
@@ -954,43 +956,41 @@ var QRCode;
   .settings-btn{
     width:38px; height:38px; flex-shrink:0;
     display:flex; align-items:center; justify-content:center;
-    background:var(--bg-panel-2); border:1px solid var(--border); border-radius:var(--radius-sm);
+    background:none; border:none;
     color:var(--fg); cursor:pointer;
-    transition:border-color .2s, color .2s;
+    transition:color .2s;
   }
-  .settings-btn:hover{ border-color:var(--coral); }
-  .settings-btn[aria-expanded="true"]{ border-color:var(--coral); color:var(--coral-fg); }
+  .settings-btn:hover{ color:var(--coral-fg); }
+  .settings-btn[aria-expanded="true"]{ color:var(--coral-fg); }
 
   /* ---------- BOTÃO CIRCULAR "INSTALAR APP" (ao lado do menu de config.) ---------- */
   .install-btn{
     display:flex; /* visível por padrão; JS só o esconde se o app já estiver instalado */
     width:38px; height:38px; flex-shrink:0;
     align-items:center; justify-content:center;
-    background:var(--blue); border:none; border-radius:50%;
-    color:#fff; cursor:pointer;
-    box-shadow:0 6px 16px -6px var(--blue);
-    transition:transform .2s, box-shadow .2s, opacity .2s;
+    background:none; border:none;
+    color:var(--blue); cursor:pointer;
+    transition:transform .2s, opacity .2s;
   }
   .install-btn.is-hidden{ display:none; }
-  .install-btn:hover{ transform:translateY(-1px); box-shadow:0 10px 22px -6px var(--blue); }
-  .install-btn:active{ transform:translateY(0); }
-  .install-btn svg{ width:17px; height:17px; flex:none; }
-  .install-btn.is-installed{ opacity:.45; cursor:default; pointer-events:none; box-shadow:none; }
-  @media(max-width:640px){ .install-btn{ width:34px; height:34px; } .install-btn svg{ width:15px; height:15px; } }
+  .install-btn:hover{}
+  .install-btn:active{}
+  .install-btn svg{ width:19px; height:19px; flex:none; }
+  .install-btn.is-installed{ opacity:.45; cursor:default; pointer-events:none; }
+  @media(max-width:640px){ .install-btn{ width:34px; height:34px; } .install-btn svg{ width:17px; height:17px; } }
 
   /* ---------- BOTÃO CIRCULAR "COMPARTILHAR" (ao lado do botão de instalar) ---------- */
   .share-btn{
     display:flex; width:38px; height:38px; flex-shrink:0;
     align-items:center; justify-content:center;
-    background:var(--coral); border:none; border-radius:50%;
-    color:var(--coral-text); cursor:pointer;
-    box-shadow:0 6px 16px -6px var(--coral);
-    transition:transform .2s, box-shadow .2s, opacity .2s;
+    background:none; border:none;
+    color:var(--coral); cursor:pointer;
+    transition:transform .2s, opacity .2s;
   }
-  .share-btn:hover{ transform:translateY(-1px); box-shadow:0 10px 22px -6px var(--coral); }
-  .share-btn:active{ transform:translateY(0); }
+  .share-btn:hover{}
+  .share-btn:active{}
   .share-btn svg{ width:16px; height:16px; flex:none; }
-  .share-btn.is-copied{ background:var(--green); box-shadow:0 6px 16px -6px var(--green); }
+  .share-btn.is-copied{ color:var(--green); }
   @media(max-width:640px){ .share-btn{ width:34px; height:34px; } .share-btn svg{ width:14px; height:14px; } }
   /* Painel é movido para o final do <body> via JS (fora da nav, que tem
      backdrop-filter e por isso quebrava o position:fixed). Ocupa 95% da
@@ -1053,8 +1053,8 @@ var QRCode;
   /* ---------- Hambúrguer (☰) para navegação — separado do ícone de engrenagem (configurações) ---------- */
   .hamburger-btn{
     display:flex; align-items:center; justify-content:center;
-    width:38px; height:38px; border-radius:50%; border:1px solid var(--border);
-    background:var(--bg-panel-2); color:var(--fg); cursor:pointer;
+    width:38px; height:38px; border:none;
+    background:none; color:var(--fg); cursor:pointer;
   }
   @media(min-width:700px){ .hamburger-btn{ display:none; } }
   .mobile-nav-backdrop{
@@ -1309,12 +1309,10 @@ var QRCode;
     .plan .btn-plan{ font-size:.76rem; padding-left:14px; padding-right:14px; }
     .hero{ padding-top:104px; }
     .hero-chips{ gap:10px; }
-    header{ padding:10px 12px; }
+    header{ padding:0; }
     nav.wrap{
       height:54px;
       padding:0 6px 0 16px;
-      background:color-mix(in srgb, var(--bg-panel) 62%, transparent);
-      box-shadow:0 8px 20px -18px rgba(0,0,0,.35);
     }
     .logo{ height:24px; }
     .settings-btn{ width:34px; height:34px; }
@@ -1329,11 +1327,15 @@ var QRCode;
   .about-grid{ display:block; max-width:680px; margin:0 auto; }
 
   /* ---------- WHY PYNN ---------- */
+  /* Flexbox em vez de grid: quando a última linha fica com menos itens que
+     as anteriores, eles esticam pra preencher a linha toda, sem sobrar
+     espaço em branco (o que acontecia com grid + auto-fit em telas largas). */
   .why-grid{
-    display:grid; grid-template-columns:repeat(auto-fit, minmax(240px,1fr)); gap:16px; margin-top:32px;
+    display:flex; flex-wrap:wrap; gap:16px; margin-top:32px;
     perspective:1200px;
   }
   .why-card{
+    flex:1 1 240px;
     background:var(--bg-panel-2); border:1px solid var(--border); border-radius:var(--radius);
     padding:22px; transform:rotateX(2deg); animation:whyFloat 6s ease-in-out infinite;
     transition:transform .25s var(--ease), box-shadow .25s var(--ease), border-color .25s var(--ease);
@@ -1355,6 +1357,15 @@ var QRCode;
   }
   .why-card h3{ font-family:'Manrope',sans-serif; font-size:1.05rem; margin-bottom:8px; }
   .why-card p{ color:var(--fg-muted); font-size:.85rem; line-height:1.55; }
+  @media(max-width:640px){
+    /* Carrossel horizontal no celular, largo e espaçoso. */
+    .why-grid{
+      flex-wrap:nowrap; overflow-x:auto; overflow-y:hidden;
+      scroll-snap-type:x proximity; -webkit-overflow-scrolling:touch;
+      margin:32px -20px 0; padding:4px 20px 18px; gap:18px;
+    }
+    .why-grid .why-card{ flex:0 0 92%; max-width:440px; scroll-snap-align:start; }
+  }
   .about-name{ font-family:'Manrope',sans-serif; font-size:1.4rem; margin-top:18px; }
   .about-role{ color:var(--coral-fg); font-size:.82rem; margin-top:4px; font-family:'Inter',sans-serif; letter-spacing:.04em; text-transform:uppercase; }
   .about-copy p{ margin-bottom:16px; color:var(--fg-muted); }
@@ -1538,7 +1549,9 @@ var QRCode;
   .testi-summary-fill{ height:100%; border-radius:99px; background:#FFB020; }
 
   .testi-grid{
-    display:grid; grid-template-columns:repeat(auto-fill, minmax(300px,1fr)); gap:22px;
+    /* auto-fit (em vez de auto-fill): colunas sem conteúdo colapsam a 0,
+       evitando "buracos" em branco quando a última linha tem menos cards. */
+    display:grid; grid-template-columns:repeat(auto-fit, minmax(300px,1fr)); gap:22px;
     margin-top:8px;
   }
   .testi-card{
@@ -1571,7 +1584,18 @@ var QRCode;
   }
   @media(max-width:640px){
     .testi-summary{ flex-direction:column; text-align:center; padding:22px 20px; }
-    .testi-grid{ grid-template-columns:1fr; }
+    /* Carrossel horizontal no celular: em vez de empilhar os cards um
+       embaixo do outro, o usuário arrasta pra esquerda/direita.
+       Cards bem largos e espaçosos, não apertados. */
+    .testi-grid{
+      display:flex; flex-wrap:nowrap; grid-template-columns:none;
+      overflow-x:auto; overflow-y:hidden; scroll-snap-type:x proximity;
+      -webkit-overflow-scrolling:touch;
+      margin:8px -20px 0; padding:4px 20px 18px; gap:18px;
+    }
+    .testi-grid .testi-card{
+      flex:0 0 96%; max-width:520px; scroll-snap-align:start;
+    }
   }
 
   .partners-benefits{
@@ -1605,6 +1629,19 @@ var QRCode;
     display:flex; gap:16px; flex-wrap:wrap; justify-content:center;
     margin-top:44px;
   }
+  @media(max-width:640px){
+    /* Carrossel horizontal: os slots ficam lado a lado, arrastando
+       esquerda/direita, em vez de empilhar um debaixo do outro. */
+    .partners-showcase{
+      flex-wrap:nowrap; justify-content:flex-start;
+      overflow-x:auto; overflow-y:hidden; scroll-snap-type:x proximity;
+      -webkit-overflow-scrolling:touch;
+      margin:44px -20px 0; padding:4px 20px 18px;
+    }
+    .partners-showcase .partners-slot{
+      flex:0 0 auto; scroll-snap-align:start;
+    }
+  }
   .partners-slot{
     width:148px; height:96px;
     display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px;
@@ -1621,8 +1658,20 @@ var QRCode;
   .partners-cta{ text-align:center; margin-top:36px; }
 
   /* ---------- PROCESS ---------- */
-  .process-grid{ display:grid; grid-template-columns:1fr 1fr; gap:36px; margin-top:8px; perspective:1300px; }
+  .process-grid{ display:grid; grid-template-columns:1fr 1fr; gap:36px; margin-top:8px; perspective:1300px; align-items:start; }
   @media(max-width:760px){ .process-grid{ grid-template-columns:1fr; } }
+  @media(max-width:640px){
+    /* Carrossel horizontal no celular, arrastando esquerda/direita. */
+    .process-grid{
+      display:flex; flex-wrap:nowrap; grid-template-columns:none;
+      overflow-x:auto; overflow-y:hidden; scroll-snap-type:x proximity;
+      -webkit-overflow-scrolling:touch; align-items:flex-start;
+      margin:8px -20px 0; padding:4px 20px 18px;
+    }
+    .process-grid .process-col{
+      flex:0 0 92%; max-width:440px; scroll-snap-align:start;
+    }
+  }
   .process-col{
     background:var(--bg-panel-2); border:1px solid var(--border); border-radius:var(--radius);
     padding:26px 28px; transition:transform .3s var(--ease), box-shadow .3s var(--ease), border-color .3s var(--ease);
@@ -1650,8 +1699,13 @@ var QRCode;
   .process-note strong{ color:var(--fg); }
 
   /* ---------- SERVICES ---------- */
-  .plans{ display:grid; grid-template-columns:repeat(auto-fit, minmax(260px,1fr)); gap:18px; margin-bottom:18px; perspective:1300px; }
-  @media(max-width:900px){ .plans{ grid-template-columns:1fr; } }
+  /* Flexbox em vez de grid: a última linha estica pra preencher o espaço
+     todo em vez de deixar vazio. O Plano Combo (flex-basis:100% mais abaixo)
+     sempre ocupa a linha inteira sozinho, já que ele é maior e tem o
+     montador de combo dentro. */
+  .plans{ display:flex; flex-wrap:wrap; gap:18px; margin-bottom:18px; perspective:1300px; }
+  .plans .plan{ flex:1 1 260px; }
+  @media(max-width:900px){ .plans .plan{ flex-basis:100%; } }
   .plan{
     position:relative;
     background:var(--bg-panel-2); border:1px solid var(--border); border-radius:var(--radius);
@@ -1691,6 +1745,28 @@ var QRCode;
   .plan .price{ font-family:'Archivo Black',sans-serif; font-weight:700; font-size:1.5rem; margin:12px 0; letter-spacing:-0.01em; }
   .plan .price small{ font-size:.68rem; color:var(--fg-muted); display:block; margin-top:4px; font-family:'Inter',sans-serif; }
   .plan p.desc{ color:var(--fg-muted); font-size:.92rem; flex-grow:1; }
+  /* Benefícios curtos (sempre visíveis) + descrição completa escondida atrás do "Saber mais" */
+  .plan-benefits{ list-style:none; margin:2px 0 4px; padding:0; display:flex; flex-direction:column; gap:7px; }
+  .plan-benefits li{
+    position:relative; padding-left:20px; color:var(--fg-muted); font-size:.88rem; line-height:1.4;
+  }
+  .plan-benefits li::before{
+    content:'✓'; position:absolute; left:0; top:0; color:var(--blue); font-weight:700; font-size:.8rem;
+  }
+  .plan.c-coral .plan-benefits li::before{ color:var(--coral); }
+  .plan.c-green .plan-benefits li::before{ color:var(--green); }
+  .plan.c-yellow .plan-benefits li::before{ color:var(--yellow); }
+  .plan.c-purple .plan-benefits li::before{ color:#8b6cf5; }
+  .plan.c-teal .plan-benefits li::before{ color:#14b8a6; }
+  .plan-more{ margin-top:6px; }
+  .plan-more[hidden]{ display:none; }
+  .plan-more-toggle{
+    align-self:flex-start; margin-top:10px;
+    background:none; border:none; padding:0; cursor:pointer;
+    font-family:'Inter',sans-serif; font-weight:600; font-size:.8rem;
+    color:var(--fg); text-decoration:underline; text-underline-offset:3px;
+  }
+  .plan-more-toggle:hover{ color:var(--blue); }
   .plan .note{
     font-family:'Inter',sans-serif; font-size:.72rem; color:var(--fg-muted);
     background:var(--yellow-soft); border-radius:var(--radius-sm); padding:12px 14px; margin-top:14px;
@@ -1719,6 +1795,17 @@ var QRCode;
   .plan.c-pink .btn-plan{ background:#ff6fa5; color:#04060c; }
   .plan.c-pink .btn-plan:hover{ background:color-mix(in srgb, #ff6fa5 88%, #000); }
   .plan.c-pink .note{ background:rgba(255,111,165,.14); }
+  /* Plano Combo: sempre ocupa a linha inteira sozinho (nunca fica "sozinho
+     e apertado" ao lado de espaço em branco), e em telas largas usa
+     2 colunas internas (info à esquerda, montador do combo à direita)
+     pra aproveitar bem a largura extra. */
+  .plans .plan.c-pink{ flex-basis:100%; }
+  @media(min-width:860px){
+    .plan.c-pink{ flex-direction:row; flex-wrap:wrap; align-items:flex-start; gap:8px 36px; padding:36px 34px; }
+    .plan.c-pink > .ribbon{ order:-1; }
+    .plan.c-pink .combo-info{ flex:1 1 300px; display:flex; flex-direction:column; }
+    .plan.c-pink .combo-builder{ flex:1.15 1 340px; margin-top:0; align-self:stretch; }
+  }
   .plan.c-teal{ border-color:color-mix(in srgb, #14b8a6 45%, var(--border)); }
   .plan.c-teal .btn-plan{ background:#14b8a6; color:#04060c; }
   .plan.c-teal .btn-plan:hover{ background:color-mix(in srgb, #14b8a6 88%, #000); }
@@ -1833,11 +1920,14 @@ var QRCode;
   /* ---------- CONTACT ---------- */
   /* ---------- FAQ ---------- */
   /* ---------- DICAS ---------- */
+  /* Flexbox: se a última linha tiver menos cards, eles esticam pra
+     preencher o espaço em vez de deixar vazio. */
   .tips-grid{
-    display:grid; grid-template-columns:repeat(auto-fit, minmax(220px,1fr)); gap:16px; margin-top:32px;
+    display:flex; flex-wrap:wrap; gap:16px; margin-top:32px;
     perspective:1300px;
   }
   .tip-card{
+    flex:1 1 220px;
     background:var(--bg-panel-2); border:1px solid var(--border); border-radius:var(--radius);
     padding:22px 20px; transition:transform .3s var(--ease), box-shadow .3s var(--ease), border-color .3s var(--ease);
     animation:tipFloat 7s ease-in-out infinite;
@@ -1860,6 +1950,15 @@ var QRCode;
   .tips-grid .tip-card:nth-child(3n) .tip-icon{ background:var(--yellow-soft); color:var(--yellow); }
   .tip-card h3{ font-family:'Manrope',sans-serif; font-size:.98rem; margin-bottom:6px; }
   .tip-card p{ color:var(--fg-muted); font-size:.82rem; line-height:1.5; }
+  @media(max-width:640px){
+    /* Carrossel horizontal no celular, largo e espaçoso, sem apertar. */
+    .tips-grid{
+      flex-wrap:nowrap; overflow-x:auto; overflow-y:hidden;
+      scroll-snap-type:x proximity; -webkit-overflow-scrolling:touch;
+      margin:32px -20px 0; padding:4px 20px 18px; gap:18px;
+    }
+    .tips-grid .tip-card{ flex:0 0 92%; max-width:440px; scroll-snap-align:start; }
+  }
 
   .faq-list{ max-width:760px; margin:32px auto 0; display:flex; flex-direction:column; gap:12px; perspective:1200px; }
   .faq-item{
@@ -2109,23 +2208,24 @@ var QRCode;
 
   /* ---------- Selos de confiança (rodapé) ---------- */
   .trust-badges{
-    display:grid; grid-template-columns:repeat(3, 1fr);
-    gap:22px;
-    margin-bottom:40px; padding-bottom:40px; border-bottom:1px solid var(--border);
+    display:flex; flex-wrap:wrap; justify-content:center;
+    gap:10px;
+    margin-bottom:32px; padding-bottom:32px; border-bottom:1px solid var(--border);
   }
   .trust-badge{
-    display:flex; flex-direction:column; align-items:center; text-align:center; gap:14px;
-    background:var(--bg); border:1px solid var(--border); border-radius:var(--radius);
-    padding:30px 18px;
+    display:flex; flex:0 1 auto; flex-direction:row; align-items:center; text-align:left; gap:8px;
+    background:var(--bg); border:1px solid var(--border); border-radius:calc(var(--radius) - 4px);
+    padding:10px 12px;
   }
   .trust-badge-icon{
-    width:68px; height:68px; border-radius:50%;
+    width:30px; height:30px; border-radius:50%;
     display:flex; align-items:center; justify-content:center;
     flex-shrink:0;
   }
-  .trust-badge-icon svg{ width:32px; height:32px; flex-shrink:0; }
+  .trust-badge-icon svg{ width:15px; height:15px; flex-shrink:0; }
   .trust-badge-label{
-    font-family:'Manrope',sans-serif; font-weight:700; font-size:.9rem; color:var(--fg); line-height:1.35;
+    font-family:'Manrope',sans-serif; font-weight:700; font-size:.68rem; color:var(--fg); line-height:1.3;
+    white-space:nowrap;
   }
   .trust-badge--blue .trust-badge-icon{ background:#2F8CFF1f; }
   .trust-badge--blue .trust-badge-icon svg{ color:#2F8CFF; }
@@ -2140,8 +2240,8 @@ var QRCode;
   .trust-badge--teal .trust-badge-icon{ background:#14b8a61f; }
   .trust-badge--teal .trust-badge-icon svg{ color:#14b8a6; }
   @media(max-width:640px){
-    .trust-badges{ grid-template-columns:repeat(2,1fr); gap:16px; }
-    .trust-badge{ padding:24px 12px; }
+    .trust-badges{ justify-content:center; gap:8px; }
+    .trust-badge{ padding:8px 10px; }
   }
   .footer-grid{ display:flex; justify-content:space-between; flex-wrap:wrap; gap:32px; margin-bottom:32px; }
   .footer-col h4{
@@ -2333,8 +2433,10 @@ var QRCode;
       </div>
       <a href="#contato" class="nav-cta" data-i18n="nav_cta">Fale conosco</a>
       <button type="button" class="install-btn" id="installAppBtn" aria-label="Instalar o app PYNN" title="Instalar app">
-        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <path d="M12 3v12m0 0l-4-4m4 4l4-4M5 19h14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 3v11"/>
+          <path d="M7.5 10.5L12 15l4.5-4.5"/>
+          <path d="M4.5 17.5v1.5a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2v-1.5"/>
         </svg>
       </button>
       <button type="button" class="share-btn" id="shareAppBtn" aria-label="Compartilhar a PYNN" title="Compartilhar">
@@ -2347,7 +2449,7 @@ var QRCode;
       </button>
       <div class="settings-wrap">
         <button class="settings-btn" id="settingsBtn" aria-haspopup="true" aria-expanded="false" aria-label="Menu e configurações">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <circle cx="12" cy="12" r="3"></circle>
             <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.6a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z"></path>
           </svg>
@@ -2718,7 +2820,15 @@ var QRCode;
             <span class="tag" data-i18n="plan1_tag">Google Maps</span>
             <h3 data-i18n="plan1_title">Plano Essencial</h3>
             <div class="price">R$ 350<small data-i18n="plan1_price_note">Pagamento à vista via Pix</small></div>
-            <p class="desc" data-i18n="plan1_desc">Otimização completa do perfil da sua empresa no Google Maps: categoria certa, descrição com palavras-chave, horários, fotos e demais informações, do zero até a primeira posição no seu setor. Entrega do nosso trabalho em até 48h após a confirmação do pagamento. Pagamento via Pix.</p>
+            <ul class="plan-benefits">
+              <li data-i18n="plan1_b1">Perfil completo: categoria, descrição, horários e fotos</li>
+              <li data-i18n="plan1_b2">Do zero até a 1ª posição no seu setor</li>
+              <li data-i18n="plan1_b3">Entrega em até 48h após o pagamento</li>
+            </ul>
+            <div class="plan-more" hidden>
+              <p class="desc" data-i18n="plan1_desc">Otimização completa do perfil da sua empresa no Google Maps: categoria certa, descrição com palavras-chave, horários, fotos e demais informações, do zero até a primeira posição no seu setor. Entrega do nosso trabalho em até 48h após a confirmação do pagamento. Pagamento via Pix.</p>
+            </div>
+            <button type="button" class="plan-more-toggle" aria-expanded="false" data-i18n="plan_more_show">Saber mais</button>
             <label class="combo-toggle">
               <input type="checkbox" class="combo-check" data-combo-plan="plan1_wa_msg" data-combo-price="350">
               <span data-i18n="combo_add">+ Adicionar ao combo</span>
@@ -2745,7 +2855,15 @@ var QRCode;
             <span class="tag" data-i18n="plan2_tag">Google Maps</span>
             <h3 data-i18n="plan2_title">Plano Flexível</h3>
             <div class="price">2x R$ 200<small data-i18n="plan2_price_note">2x via Pix · Total R$ 400,00</small></div>
-            <p class="desc" data-i18n="plan2_desc">A mesma otimização completa do Plano Essencial, dividida em 2 pagamentos de R$ 200 via Pix. Entrega do nosso trabalho em até 48h após a confirmação da primeira parcela.</p>
+            <ul class="plan-benefits">
+              <li data-i18n="plan2_b1">Mesma otimização completa do Plano Essencial</li>
+              <li data-i18n="plan2_b2">Parcelado em 2x de R$ 200 via Pix</li>
+              <li data-i18n="plan2_b3">Entrega em até 48h após a 1ª parcela</li>
+            </ul>
+            <div class="plan-more" hidden>
+              <p class="desc" data-i18n="plan2_desc">A mesma otimização completa do Plano Essencial, dividida em 2 pagamentos de R$ 200 via Pix. Entrega do nosso trabalho em até 48h após a confirmação da primeira parcela.</p>
+            </div>
+            <button type="button" class="plan-more-toggle" aria-expanded="false" data-i18n="plan_more_show">Saber mais</button>
             <label class="combo-toggle">
               <input type="checkbox" class="combo-check" data-combo-plan="plan2_wa_msg" data-combo-price="400">
               <span data-i18n="combo_add">+ Adicionar ao combo</span>
@@ -2775,7 +2893,15 @@ var QRCode;
             <span class="tag" data-i18n="plan3_tag">Google Maps · Recuperação</span>
             <h3 data-i18n="plan3_title">Plano Recuperação</h3>
             <div class="price">R$ 600<small data-i18n="plan3_price_note">Correção de cadastro · via Pix</small></div>
-            <p class="desc" data-i18n="plan3_desc">Diagnóstico e correção de perfis duplicados, incorretos ou suspensos no mapa: mesclagem junto ao Google, verificação de propriedade e correção de todos os dados. Entrega do nosso trabalho técnico em até 48h, a reativação segue o prazo de análise do próprio Google, que pode ser imediata ou levar até 5 dias úteis. Pagamento via Pix.</p>
+            <ul class="plan-benefits">
+              <li data-i18n="plan3_b1">Correção de perfis duplicados, incorretos ou suspensos</li>
+              <li data-i18n="plan3_b2">Mesclagem e verificação de propriedade junto ao Google</li>
+              <li data-i18n="plan3_b3">Trabalho técnico em 48h (reativação segue prazo do Google)</li>
+            </ul>
+            <div class="plan-more" hidden>
+              <p class="desc" data-i18n="plan3_desc">Diagnóstico e correção de perfis duplicados, incorretos ou suspensos no mapa: mesclagem junto ao Google, verificação de propriedade e correção de todos os dados. Entrega do nosso trabalho técnico em até 48h, a reativação segue o prazo de análise do próprio Google, que pode ser imediata ou levar até 5 dias úteis. Pagamento via Pix.</p>
+            </div>
+            <button type="button" class="plan-more-toggle" aria-expanded="false" data-i18n="plan_more_show">Saber mais</button>
             <label class="combo-toggle">
               <input type="checkbox" class="combo-check" data-combo-plan="plan3_wa_msg" data-combo-price="600">
               <span data-i18n="combo_add">+ Adicionar ao combo</span>
@@ -2804,8 +2930,16 @@ var QRCode;
             <span class="tag" data-i18n="plan4_tag">Criação de Sites</span>
             <h3 data-i18n="plan4_title">Plano Site</h3>
             <div class="price">A partir de R$ 3.000<small data-i18n="plan4_price_note">Valor varia conforme o projeto</small></div>
-            <p class="desc" data-i18n="plan4_desc">Sou dev e crio sites profissionais, responsivos e otimizados para aparecer no Google: currículo online, portfólio, landing page ou site institucional da sua empresa. Estrutura, textos e design pensados para converter visitas em contato.</p>
-            <p class="note" data-i18n="plan4_note">Nota: não desenvolvemos sites que envolvam banco de dados (ex: login de usuários, e-commerce com carrinho, sistemas dinâmicos). Trabalhamos com sites institucionais, portfólio, landing page e currículo online.</p>
+            <ul class="plan-benefits">
+              <li data-i18n="plan4_b1">Site profissional, responsivo e otimizado para o Google</li>
+              <li data-i18n="plan4_b2">Currículo, portfólio, landing page ou institucional</li>
+              <li data-i18n="plan4_b3">Estrutura e textos pensados para gerar contato</li>
+            </ul>
+            <div class="plan-more" hidden>
+              <p class="desc" data-i18n="plan4_desc">Sou dev e crio sites profissionais, responsivos e otimizados para aparecer no Google: currículo online, portfólio, landing page ou site institucional da sua empresa. Estrutura, textos e design pensados para converter visitas em contato.</p>
+              <p class="note" data-i18n="plan4_note">Nota: não desenvolvemos sites que envolvam banco de dados (ex: login de usuários, e-commerce com carrinho, sistemas dinâmicos). Trabalhamos com sites institucionais, portfólio, landing page e currículo online.</p>
+            </div>
+            <button type="button" class="plan-more-toggle" aria-expanded="false" data-i18n="plan_more_show">Saber mais</button>
             <label class="combo-toggle">
               <input type="checkbox" class="combo-check" data-combo-plan="plan4_wa_msg" data-combo-price="3000">
               <span data-i18n="combo_add">+ Adicionar ao combo</span>
@@ -2835,7 +2969,15 @@ var QRCode;
             <span class="tag" data-i18n="plan5_tag">Google Maps · Manutenção</span>
             <h3 data-i18n="plan5_title">Plano Mensal</h3>
             <div class="price">R$ 90<small data-i18n="plan5_price_note">Por mês · via Pix · cancele quando quiser</small></div>
-            <p class="desc" data-i18n="plan5_desc">Acompanhamento contínuo do seu perfil no Google Maps: revisão mensal de categoria, horários, fotos, respostas a avaliações e ajustes de palavras-chave para manter, e melhorar, sua posição no ranking. Ideal para quem já otimizou o perfil e quer garantir que ele continue no topo.</p>
+            <ul class="plan-benefits">
+              <li data-i18n="plan5_b1">Revisão mensal completa do seu perfil</li>
+              <li data-i18n="plan5_b2">Respostas a avaliações e ajuste de palavras-chave</li>
+              <li data-i18n="plan5_b3">Ideal para manter (ou melhorar) sua posição no ranking</li>
+            </ul>
+            <div class="plan-more" hidden>
+              <p class="desc" data-i18n="plan5_desc">Acompanhamento contínuo do seu perfil no Google Maps: revisão mensal de categoria, horários, fotos, respostas a avaliações e ajustes de palavras-chave para manter, e melhorar, sua posição no ranking. Ideal para quem já otimizou o perfil e quer garantir que ele continue no topo.</p>
+            </div>
+            <button type="button" class="plan-more-toggle" aria-expanded="false" data-i18n="plan_more_show">Saber mais</button>
             <label class="combo-toggle">
               <input type="checkbox" class="combo-check" data-combo-plan="plan5_wa_msg" data-combo-price="90">
               <span data-i18n="combo_add">+ Adicionar ao combo</span>
@@ -2864,8 +3006,16 @@ var QRCode;
             <span class="tag" data-i18n="plan7_tag">Google Maps · Atualização</span>
             <h3 data-i18n="plan7_title">Plano Atualização</h3>
             <div class="price">A partir de R$ 150<small data-i18n="plan7_price_note">Para quem já tem o perfil otimizado · via Pix</small></div>
-            <p class="desc" data-i18n="plan7_desc">Já otimizamos seu perfil (ou você mesmo otimizou) e agora só precisa de ajustes? Atualizamos categoria, horários, fotos, descrição, serviços e palavras-chave para refletir as mudanças do seu negócio e manter, ou recuperar, sua posição no Google Maps. Entrega em até 48h após a confirmação do pagamento.</p>
-            <p class="note" data-i18n="plan7_note">Nota: o valor final depende do volume de alterações necessárias, a partir de R$ 150 para ajustes pontuais. Enviamos o orçamento exato depois de avaliar seu perfil, sem compromisso.</p>
+            <ul class="plan-benefits">
+              <li data-i18n="plan7_b1">Ajustes de categoria, horários, fotos e descrição</li>
+              <li data-i18n="plan7_b2">Atualização de palavras-chave e serviços</li>
+              <li data-i18n="plan7_b3">Entrega em até 48h após a confirmação</li>
+            </ul>
+            <div class="plan-more" hidden>
+              <p class="desc" data-i18n="plan7_desc">Já otimizamos seu perfil (ou você mesmo otimizou) e agora só precisa de ajustes? Atualizamos categoria, horários, fotos, descrição, serviços e palavras-chave para refletir as mudanças do seu negócio e manter, ou recuperar, sua posição no Google Maps. Entrega em até 48h após a confirmação do pagamento.</p>
+              <p class="note" data-i18n="plan7_note">Nota: o valor final depende do volume de alterações necessárias, a partir de R$ 150 para ajustes pontuais. Enviamos o orçamento exato depois de avaliar seu perfil, sem compromisso.</p>
+            </div>
+            <button type="button" class="plan-more-toggle" aria-expanded="false" data-i18n="plan_more_show">Saber mais</button>
             <label class="combo-toggle">
               <input type="checkbox" class="combo-check" data-combo-plan="plan7_wa_msg" data-combo-price="150">
               <span data-i18n="combo_add">+ Adicionar ao combo</span>
@@ -2892,11 +3042,13 @@ var QRCode;
                 </g>
               </svg>
             </div>
-            <span class="tag" data-i18n="plan6_tag">Desconto progressivo</span>
-            <h3 data-i18n="plan6_title">Plano Combo</h3>
-            <div class="price">Até 10% OFF<small data-i18n="plan6_price_note">Ao combinar mais de um plano PYNN</small></div>
-            <p class="desc" data-i18n="plan6_desc">Contratou mais de um plano PYNN? Você ganha desconto progressivo: 5% ao combinar 2 planos e 10% ao combinar 3 ou mais, por exemplo, Essencial + Manutenção Mensal, ou Site + Google Maps. O desconto é calculado sobre o valor total e aplicado no fechamento.</p>
-            <p class="note" data-i18n="plan6_note">Nota: desconto calculado sobre a soma dos planos escolhidos; não cumulativo com outras promoções. Fale com a gente para simular o valor do seu combo.</p>
+            <div class="combo-info">
+              <span class="tag" data-i18n="plan6_tag">Desconto progressivo</span>
+              <h3 data-i18n="plan6_title">Plano Combo</h3>
+              <div class="price">Até 10% OFF<small data-i18n="plan6_price_note">Ao combinar mais de um plano PYNN</small></div>
+              <p class="desc" data-i18n="plan6_desc">Contratou mais de um plano PYNN? Você ganha desconto progressivo: 5% ao combinar 2 planos e 10% ao combinar 3 ou mais, por exemplo, Essencial + Manutenção Mensal, ou Site + Google Maps. O desconto é calculado sobre o valor total e aplicado no fechamento.</p>
+              <p class="note" data-i18n="plan6_note">Nota: desconto calculado sobre a soma dos planos escolhidos; não cumulativo com outras promoções. Fale com a gente para simular o valor do seu combo.</p>
+            </div>
 
             <div class="combo-builder" id="comboBuilder">
               <p class="combo-builder-hint" id="comboHint" data-i18n="combo_hint">Marque "+ Adicionar ao combo" em 2 ou mais planos acima para montar o seu.</p>
@@ -4286,6 +4438,14 @@ var translations = {
     plan7_desc:"Já otimizamos seu perfil (ou você mesmo otimizou) e agora só precisa de ajustes? Atualizamos categoria, horários, fotos, descrição, serviços e palavras-chave para refletir as mudanças do seu negócio e manter, ou recuperar, sua posição no Google Maps. Entrega em até 48h após a confirmação do pagamento.",
     plan7_note:"Nota: o valor final depende do volume de alterações necessárias, a partir de R$ 150 para ajustes pontuais. Enviamos o orçamento exato depois de avaliar seu perfil, sem compromisso.",
     plan7_cta:"Solicitar atualização",
+    /* Benefícios curtos exibidos direto no card; a descrição completa (acima) só aparece no "Saber mais" */
+    plan_more_show:"Saber mais", plan_more_hide:"Ver menos",
+    plan1_b1:"Perfil completo: categoria, descrição, horários e fotos", plan1_b2:"Do zero até a 1ª posição no seu setor", plan1_b3:"Entrega em até 48h após o pagamento",
+    plan2_b1:"Mesma otimização completa do Plano Essencial", plan2_b2:"Parcelado em 2x de R$ 200 via Pix", plan2_b3:"Entrega em até 48h após a 1ª parcela",
+    plan3_b1:"Correção de perfis duplicados, incorretos ou suspensos", plan3_b2:"Mesclagem e verificação de propriedade junto ao Google", plan3_b3:"Trabalho técnico em 48h (reativação segue prazo do Google)",
+    plan4_b1:"Site profissional, responsivo e otimizado para o Google", plan4_b2:"Currículo, portfólio, landing page ou institucional", plan4_b3:"Estrutura e textos pensados para gerar contato",
+    plan5_b1:"Revisão mensal completa do seu perfil", plan5_b2:"Respostas a avaliações e ajuste de palavras-chave", plan5_b3:"Ideal para manter (ou melhorar) sua posição no ranking",
+    plan7_b1:"Ajustes de categoria, horários, fotos e descrição", plan7_b2:"Atualização de palavras-chave e serviços", plan7_b3:"Entrega em até 48h após a confirmação",
     plan6_tag:"Desconto progressivo", plan6_ribbon:"Economize até 10%", plan6_title:"Plano Combo", plan6_price_note:"Ao combinar mais de um plano PYNN",
     plan6_desc:"Contratou mais de um plano PYNN? Você ganha desconto progressivo: 5% ao combinar 2 planos e 10% ao combinar 3 ou mais, por exemplo, Essencial + Manutenção Mensal, ou Site + Google Maps. O desconto é calculado sobre o valor total e aplicado no fechamento.",
     plan6_note:"Nota: desconto calculado sobre a soma dos planos escolhidos; não cumulativo com outras promoções. Fale com a gente para simular o valor do seu combo.",
@@ -4490,6 +4650,13 @@ var translations = {
     plan7_desc:"¿Ya optimizamos tu perfil (o lo optimizaste tú mismo) y ahora solo necesitas ajustes? Actualizamos categoría, horarios, fotos, descripción, servicios y palabras clave para reflejar los cambios en tu negocio y mantener, o recuperar, tu posición en Google Maps. Entrega en hasta 48h tras la confirmación del pago.",
     plan7_note:"Nota: el valor final depende del volumen de cambios necesarios, desde R$ 150 para ajustes puntuales. Enviamos el presupuesto exacto después de evaluar tu perfil, sin compromiso.",
     plan7_cta:"Solicitar actualización",
+    plan_more_show:"Saber más", plan_more_hide:"Ver menos",
+    plan1_b1:"Perfil completo: categoría, descripción, horarios y fotos", plan1_b2:"Desde cero hasta el 1er lugar en tu sector", plan1_b3:"Entrega en hasta 48h tras el pago",
+    plan2_b1:"Misma optimización completa del Plan Esencial", plan2_b2:"Dividido en 2 pagos de R$ 200 vía Pix", plan2_b3:"Entrega en hasta 48h tras la 1ª cuota",
+    plan3_b1:"Corrección de perfiles duplicados, incorrectos o suspendidos", plan3_b2:"Fusión y verificación de propiedad ante Google", plan3_b3:"Trabajo técnico en 48h (reactivación según plazo de Google)",
+    plan4_b1:"Sitio profesional, responsivo y optimizado para Google", plan4_b2:"Currículum, portafolio, landing page o institucional", plan4_b3:"Estructura y textos pensados para generar contacto",
+    plan5_b1:"Revisión mensual completa de tu perfil", plan5_b2:"Respuestas a reseñas y ajuste de palabras clave", plan5_b3:"Ideal para mantener (o mejorar) tu posición en el ranking",
+    plan7_b1:"Ajustes de categoría, horarios, fotos y descripción", plan7_b2:"Actualización de palabras clave y servicios", plan7_b3:"Entrega en hasta 48h tras la confirmación",
     plan6_tag:"Descuento progresivo", plan6_ribbon:"Ahorra hasta 10%", plan6_title:"Plan Combo", plan6_price_note:"Al combinar más de un plan PYNN",
     plan6_desc:"¿Contrataste más de un plan PYNN? Obtienes descuento progresivo: 5% al combinar 2 planes y 10% al combinar 3 o más, por ejemplo, Esencial + Mantenimiento Mensual, o Sitio Web + Google Maps. El descuento se calcula sobre el valor total y se aplica al cerrar el trato.",
     plan6_note:"Nota: descuento calculado sobre la suma de los planes elegidos; no acumulable con otras promociones. Habla con nosotros para simular el valor de tu combo.",
@@ -4694,6 +4861,13 @@ var translations = {
     plan7_desc:"Already optimized your profile with us (or on your own) and just need a few tweaks? We update category, hours, photos, description, services, and keywords to reflect changes in your business and maintain, or recover, your Google Maps ranking. Delivered within 48h after payment confirmation.",
     plan7_note:"Note: the final price depends on how many changes are needed, starting at R$ 150 for small updates. We send the exact quote after reviewing your profile, no commitment required.",
     plan7_cta:"Request an update",
+    plan_more_show:"Learn more", plan_more_hide:"Show less",
+    plan1_b1:"Full profile: category, description, hours and photos", plan1_b2:"From zero to the top spot in your category", plan1_b3:"Delivered within 48h after payment",
+    plan2_b1:"Same full optimization as the Essential Plan", plan2_b2:"Split into 2 payments of R$ 200 via Pix", plan2_b3:"Delivered within 48h after the 1st installment",
+    plan3_b1:"Correction of duplicated, incorrect, or suspended listings", plan3_b2:"Merge and ownership verification with Google", plan3_b3:"Technical work in 48h (reactivation follows Google's timeline)",
+    plan4_b1:"Professional, responsive site optimized for Google", plan4_b2:"Resume, portfolio, landing page, or institutional site", plan4_b3:"Structure and copy built to generate contacts",
+    plan5_b1:"Full monthly review of your profile", plan5_b2:"Review replies and keyword tweaks", plan5_b3:"Ideal to maintain (or improve) your ranking",
+    plan7_b1:"Updates to category, hours, photos and description", plan7_b2:"Keyword and service updates", plan7_b3:"Delivered within 48h after confirmation",
     plan6_tag:"Progressive discount", plan6_ribbon:"Save up to 10%", plan6_title:"Combo Plan", plan6_price_note:"When combining more than one PYNN plan",
     plan6_desc:"Hired more than one PYNN plan? You get a progressive discount: 5% off when combining 2 plans and 10% off when combining 3 or more, for example, Essential + Monthly Maintenance, or Website + Google Maps. The discount is calculated on the total value and applied when closing the deal.",
     plan6_note:"Note: discount calculated on the sum of the chosen plans; not stackable with other promotions. Talk to us to get a quote for your combo.",
@@ -5850,10 +6024,48 @@ if('serviceWorker' in navigator){
 </script>
 
 <script>
+// ---------- BOTÃO "SABER MAIS" (planos) ----------
+// Mostra/esconde o texto completo do plano (que fica escondido por
+// padrão) e troca o texto do botão respeitando o idioma atual do site.
+(function(){
+  document.querySelectorAll('.plan-more-toggle').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var plan = btn.closest('.plan');
+      var more = plan ? plan.querySelector('.plan-more') : null;
+      if(!more) return;
+      var isOpen = !more.hasAttribute('hidden');
+      if(isOpen){
+        more.setAttribute('hidden', '');
+        btn.setAttribute('aria-expanded', 'false');
+        btn.setAttribute('data-i18n', 'plan_more_show');
+      } else {
+        more.removeAttribute('hidden');
+        btn.setAttribute('aria-expanded', 'true');
+        btn.setAttribute('data-i18n', 'plan_more_hide');
+      }
+      var lang = (typeof currentLang !== 'undefined') ? currentLang : 'pt';
+      var dict = (typeof translations !== 'undefined') ? translations[lang] : null;
+      var key = btn.getAttribute('data-i18n');
+      if(dict && dict[key] !== undefined) btn.textContent = dict[key];
+    });
+  });
+})();
+</script>
+
+<script>
 // ---------- BOTÃO "COMPARTILHAR" ----------
 (function(){
   var btn = document.getElementById('shareAppBtn');
   if(!btn) return;
+
+  // Em notebook/PC não existe a API nativa de compartilhar (navigator.share),
+  // e o site já tem outra forma de compartilhar por lá — então o botão some
+  // nesses casos, aparecendo só em celular/tablet, onde o compartilhamento
+  // nativo (WhatsApp, Instagram etc.) realmente funciona.
+  if(!navigator.share){
+    btn.style.display = 'none';
+    return;
+  }
 
   var shareData = {
     title: 'PYNN: Otimização Google Maps & Suporte Técnico',
@@ -5862,28 +6074,10 @@ if('serviceWorker' in navigator){
   };
 
   btn.addEventListener('click', async function(){
-    // Caminho 1: API nativa de compartilhar (celular. WhatsApp, Instagram etc.)
-    if(navigator.share){
-      try{
-        await navigator.share(shareData);
-      }catch(err){
-        // usuário cancelou o compartilhamento, não faz nada
-      }
-      return;
-    }
-
-    // Caminho 2: sem API nativa (a maioria dos navegadores de computador), 
-    // copia o link para a área de transferência.
     try{
-      await navigator.clipboard.writeText(shareData.url);
-      btn.classList.add('is-copied');
-      btn.setAttribute('title', 'Link copiado!');
-      setTimeout(function(){
-        btn.classList.remove('is-copied');
-        btn.setAttribute('title', 'Compartilhar');
-      }, 2000);
+      await navigator.share(shareData);
     }catch(err){
-      window.prompt('Copie o link da PYNN:', shareData.url);
+      // usuário cancelou o compartilhamento, não faz nada
     }
   });
 })();
