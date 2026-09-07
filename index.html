@@ -888,9 +888,9 @@ var QRCode;
   }
   @supports not (zoom: 1){
     /* navegador sem suporte a zoom (ex: Firefox mais antigo): usa font-size como alternativa */
-    @media(min-width:1440px){ html{ font-size:21px; } header{ padding:22px 30px; } .logo{ height:42px; } .settings-btn, .install-btn, .share-btn, .hamburger-btn{ width:52px; height:52px; } .settings-btn svg, .install-btn svg, .share-btn svg, .hamburger-btn svg{ width:24px; height:24px; } }
-    @media(min-width:1920px){ html{ font-size:26px; } header{ padding:28px 40px; } .logo{ height:52px; } .settings-btn, .install-btn, .share-btn, .hamburger-btn{ width:64px; height:64px; } .settings-btn svg, .install-btn svg, .share-btn svg, .hamburger-btn svg{ width:28px; height:28px; } }
-    @media(min-width:2560px){ html{ font-size:32px; } header{ padding:36px 52px; } .logo{ height:64px; } .settings-btn, .install-btn, .share-btn, .hamburger-btn{ width:78px; height:78px; } .settings-btn svg, .install-btn svg, .share-btn svg, .hamburger-btn svg{ width:34px; height:34px; } }
+    @media(min-width:1440px){ html{ font-size:21px; } header{ padding:22px 30px; } .logo{ height:42px; } .settings-btn, .install-btn, .share-btn, .theme-btn, .hamburger-btn{ width:52px; height:52px; } .settings-btn svg, .install-btn svg, .share-btn svg, .theme-btn svg, .hamburger-btn svg{ width:24px; height:24px; } }
+    @media(min-width:1920px){ html{ font-size:26px; } header{ padding:28px 40px; } .logo{ height:52px; } .settings-btn, .install-btn, .share-btn, .theme-btn, .hamburger-btn{ width:64px; height:64px; } .settings-btn svg, .install-btn svg, .share-btn svg, .theme-btn svg, .hamburger-btn svg{ width:28px; height:28px; } }
+    @media(min-width:2560px){ html{ font-size:32px; } header{ padding:36px 52px; } .logo{ height:64px; } .settings-btn, .install-btn, .share-btn, .theme-btn, .hamburger-btn{ width:78px; height:78px; } .settings-btn svg, .install-btn svg, .share-btn svg, .theme-btn svg, .hamburger-btn svg{ width:34px; height:34px; } }
   }
   section{padding:64px 0;}
   @media(max-width:768px){ section{padding:36px 0;} }
@@ -992,6 +992,23 @@ var QRCode;
   .share-btn svg{ width:16px; height:16px; flex:none; }
   .share-btn.is-copied{ color:var(--green); }
   @media(max-width:640px){ .share-btn{ width:34px; height:34px; } .share-btn svg{ width:14px; height:14px; } }
+
+  /* Botão de tema claro/escuro no lugar do compartilhar, só aparece no PC */
+  .theme-btn{
+    display:none; width:38px; height:38px; flex-shrink:0;
+    align-items:center; justify-content:center;
+    background:none; border:none;
+    color:var(--fg); cursor:pointer;
+    transition:color .2s;
+  }
+  .theme-btn:hover{ color:var(--coral); }
+  .theme-icon-moon{ display:none; }
+  html:not(.light) .theme-icon-sun{ display:none; }
+  html:not(.light) .theme-icon-moon{ display:block; }
+  @media(min-width:700px){
+    .theme-btn{ display:flex; }
+    .share-btn{ display:none !important; }
+  }
   /* Painel é movido para o final do <body> via JS (fora da nav, que tem
      backdrop-filter e por isso quebrava o position:fixed). Ocupa 95% da
      tela, centralizado, com scroll interno próprio. */
@@ -2447,6 +2464,15 @@ var QRCode;
           <path d="M12 3v11"/>
           <path d="M7.5 10.5L12 15l4.5-4.5"/>
           <path d="M4.5 17.5v1.5a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2v-1.5"/>
+        </svg>
+      </button>
+      <button type="button" class="theme-btn" id="navThemeToggle" aria-label="Alternar tema claro/escuro" title="Tema claro/escuro">
+        <svg class="theme-icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="4"/>
+          <path d="M12 2v2.2M12 19.8V22M4.93 4.93l1.55 1.55M17.52 17.52l1.55 1.55M2 12h2.2M19.8 12H22M4.93 19.07l1.55-1.55M17.52 6.48l1.55-1.55"/>
+        </svg>
+        <svg class="theme-icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
         </svg>
       </button>
       <button type="button" class="share-btn" id="shareAppBtn" aria-label="Compartilhar a PYNN" title="Compartilhar">
@@ -4127,6 +4153,10 @@ function applyTheme(light, persist){
 }
 applyTheme(isLight, false);
 themeToggle.addEventListener('click', ()=>{ isLight = !isLight; themeSavedManually = true; applyTheme(isLight, true); });
+var navThemeToggle = document.getElementById('navThemeToggle');
+if(navThemeToggle){
+  navThemeToggle.addEventListener('click', ()=>{ isLight = !isLight; themeSavedManually = true; applyTheme(isLight, true); });
+}
 
 /* ---------- COR DO TEMA (baseada nas variações da logo PYNN) ---------- */
 const accentThemes = {
@@ -4384,6 +4414,10 @@ var translations = {
     hero_title:'Sua empresa <em>encontrada</em> antes da concorrência',
     hero_lead:"Conduzimos negócios da página dois até a primeira posição no Google Maps, em qualquer lugar do mapa. Método técnico, resultado mensurável.",
     hero_cta1:"Solicitar orçamento", hero_cta2:"Ver planos",
+    hero_carousel_t1:"Otimização Google Maps", hero_carousel_p1:"Seu perfil organizado, completo e no topo das buscas na sua região.",
+    hero_carousel_t2:"Criação de Sites", hero_carousel_p2:"Sites profissionais, responsivos e pensados para converter visitas em clientes.",
+    hero_carousel_t3:"Suporte Técnico", hero_carousel_p3:"Formatação, manutenção e aceleração de desempenho para computadores e celulares.",
+    hero_carousel_t4:"Recuperação de Perfil", hero_carousel_p4:"Corrigimos perfis duplicados, suspensos ou incorretos no Google Maps.",
     chip_rating_label:"média dos clientes", chip_page_label:"Da pág. 2 à pág. 1", gps_start:"página 2", gps_end:"topo do mapa",
     about_eyebrow:"Sobre mim", about_role:"FUNDADOR · PYNN",
     mini_name:"Nome da Empresa", mini_city:"São Luís, MA", mini_rating:"5.0", mini_desc:"Assim é como sua empresa pode aparecer no Google Maps depois da otimização PYNN.",
@@ -4596,6 +4630,10 @@ var translations = {
     hero_title:'Tu empresa <em>encontrada</em> antes que la competencia',
     hero_lead:"Llevamos negocios de la página dos a la primera posición de Google Maps, en cualquier lugar del mapa. Método técnico, resultado medible.",
     hero_cta1:"Solicitar presupuesto", hero_cta2:"Ver planes",
+    hero_carousel_t1:"Optimización Google Maps", hero_carousel_p1:"Tu perfil organizado, completo y en el top de las búsquedas en tu región.",
+    hero_carousel_t2:"Creación de Sitios Web", hero_carousel_p2:"Sitios profesionales, responsivos y pensados para convertir visitas en clientes.",
+    hero_carousel_t3:"Soporte Técnico", hero_carousel_p3:"Formateo, mantenimiento y aceleración de rendimiento para ordenadores y celulares.",
+    hero_carousel_t4:"Recuperación de Perfil", hero_carousel_p4:"Corregimos perfiles duplicados, suspendidos o incorrectos en Google Maps.",
     chip_rating_label:"promedio de clientes", chip_page_label:"De la pág. 2 a la pág. 1", gps_start:"página 2", gps_end:"tope del mapa",
     about_eyebrow:"Sobre mí", about_role:"FUNDADOR · PYNN",
     mini_name:"Nombre de la Empresa", mini_city:"São Luís, MA", mini_rating:"5.0", mini_desc:"Así es como tu empresa puede aparecer en Google Maps después de la optimización PYNN.",
@@ -4807,6 +4845,10 @@ var translations = {
     hero_title:'Your business <em>found</em> before your competitors',
     hero_lead:"We move businesses from page two to the #1 spot on Google Maps, anywhere on the map. Technical method, measurable results.",
     hero_cta1:"Request a quote", hero_cta2:"View plans",
+    hero_carousel_t1:"Google Maps Optimization", hero_carousel_p1:"Your profile organized, complete, and at the top of searches in your area.",
+    hero_carousel_t2:"Website Creation", hero_carousel_p2:"Professional, responsive sites designed to convert visits into clients.",
+    hero_carousel_t3:"Technical Support", hero_carousel_p3:"Formatting, maintenance, and performance acceleration for computers and phones.",
+    hero_carousel_t4:"Profile Recovery", hero_carousel_p4:"We fix duplicate, suspended, or incorrect Google Maps profiles.",
     chip_rating_label:"average customer score", chip_page_label:"From page 2 to page 1", gps_start:"page 2", gps_end:"top of the map",
     about_eyebrow:"About me", about_role:"FOUNDER · PYNN",
     mini_name:"Business Name", mini_city:"São Luís, MA", mini_rating:"5.0", mini_desc:"This is how your business can appear on Google Maps after PYNN optimization.",
