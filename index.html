@@ -17,12 +17,12 @@
 <meta property="og:type" content="website">
 <meta property="og:locale" content="pt_BR">
 <meta property="og:url" content="https://pynnbr.github.io/pynn.com.br/">
-<meta property="og:image" content="https://pynnbr.github.io/pynn.com.br/og-image.png?v=2">
-<meta property="og:image:width" content="512">
-<meta property="og:image:height" content="512">
+<meta property="og:image" content="https://pynnbr.github.io/pynn.com.br/og-image.png?v=3">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="PYNN: Otimização Google Maps e Suporte Técnico">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://pynnbr.github.io/pynn.com.br/og-image.png?v=2">
+<meta name="twitter:image" content="https://pynnbr.github.io/pynn.com.br/og-image.png?v=3">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -1391,13 +1391,11 @@ var QRCode;
   .about-copy strong{ color:var(--fg); font-weight:600; }
   .badge-row{ display:flex; gap:10px; flex-wrap:wrap; margin-top:26px; }
   .badge{
-    border:1px solid var(--border); background:var(--bg-panel-2);
-    padding:10px 16px; border-radius:var(--radius-pill);
     font-family:'Inter',sans-serif; font-weight:600; font-size:.7rem; letter-spacing:.02em; color:var(--fg-muted);
   }
-  .badge.b-coral{ color:var(--coral-fg); border-color:var(--coral-soft); background:var(--coral-soft); }
-  .badge.b-blue{ color:#fff; border-color:var(--blue); background:var(--blue); font-weight:700; box-shadow:0 6px 16px -8px var(--blue); }
-  .badge.b-green{ color:#fff; border-color:var(--green); background:var(--green); font-weight:700; box-shadow:0 6px 16px -8px var(--green); }
+  .badge.b-coral{ color:var(--fg-muted); }
+  .badge.b-blue{ color:var(--fg-muted); }
+  .badge.b-green{ color:var(--fg-muted); }
 
   /* ---------- COVERAGE (Estados atendidos) ---------- */
   .coverage-grid{
@@ -1931,6 +1929,50 @@ var QRCode;
     background:var(--blue-soft); border-radius:var(--radius-sm); padding:14px 16px; margin-top:14px;
   }
 
+  /* ---------- DOMÍNIO (registro e renovação) ---------- */
+  .domain-block{
+    margin-top:22px;
+    background:var(--bg-panel-2); border:1px solid var(--border); border-radius:var(--radius);
+    padding:26px 28px;
+  }
+  .domain-block h3{ font-size:1.15rem; margin:10px 0 12px; }
+  .domain-block h4{ font-family:'Manrope',sans-serif; font-size:1rem; margin:20px 0 8px; }
+  .domain-block > p{ color:var(--fg-muted); font-size:.94rem; line-height:1.6; margin-bottom:6px; }
+  .domain-table-wrap{ overflow-x:auto; margin:18px 0; }
+  .domain-table{
+    width:100%; border-collapse:collapse; font-family:'Inter',sans-serif; font-size:.86rem;
+    min-width:280px;
+  }
+  .domain-table th{
+    text-align:left; font-weight:700; color:var(--fg); padding:10px 14px;
+    border-bottom:2px solid var(--border);
+  }
+  .domain-table td{
+    padding:10px 14px; border-bottom:1px solid var(--border); color:var(--fg-muted);
+  }
+  .domain-table td:last-child{ font-weight:700; color:var(--fg); text-align:right; }
+  .domain-table th:last-child{ text-align:right; }
+  .domain-table tbody tr:hover{ background:var(--bg-panel); }
+  .domain-table tbody tr:last-child td{ border-bottom:none; }
+  .domain-warn{
+    display:flex; gap:12px; align-items:flex-start; margin:18px 0;
+    padding:14px 16px; background:var(--yellow-soft); border:1px solid var(--yellow);
+    border-radius:var(--radius-sm);
+  }
+  .domain-warn svg{ flex-shrink:0; color:var(--yellow); margin-top:2px; }
+  .domain-warn strong{ display:block; font-family:'Manrope',sans-serif; font-size:.9rem; margin-bottom:4px; }
+  .domain-warn p{ font-size:.82rem; color:var(--fg-muted); margin:0; line-height:1.55; }
+  .domain-block .note{
+    font-family:'Inter',sans-serif; font-size:.82rem; color:var(--fg-muted);
+    background:var(--blue-soft); border-radius:var(--radius-sm); padding:12px 14px; margin:10px 0 0;
+  }
+  .domain-block .btn-plan-wa{
+    margin-top:18px; background:var(--yellow); color:#04060c; font-weight:600;
+    box-shadow:0 6px 14px -8px rgba(0,0,0,.35); display:inline-flex;
+    transition:background-color .15s var(--ease), transform .15s var(--ease), box-shadow .15s var(--ease);
+  }
+  .domain-block .btn-plan-wa:hover{ background:color-mix(in srgb, var(--yellow) 88%, #000); transform:translateY(-2px); box-shadow:0 10px 20px -8px rgba(0,0,0,.4); }
+
   /* ---------- STATS ---------- */
   .stats-inner{ text-align:center; }
   .counter{ font-family:'Archivo Black',sans-serif; font-weight:700; font-size:clamp(3rem,9vw,5.6rem); line-height:1; color:var(--coral-fg); letter-spacing:-0.02em; }
@@ -2317,6 +2359,13 @@ var QRCode;
     letter-spacing:.04em; text-transform:uppercase; padding:6px 8px;
   }
   .tour-skip:hover{ color:var(--coral-fg); }
+
+  /* Sem nenhuma animação nos botões do modal de consentimento e do tour de introdução */
+  #consentOverlay .btn, #tourOverlay .btn{ transition:none; }
+  #consentOverlay .btn:hover, #tourOverlay .btn:hover,
+  #consentOverlay .btn:active, #tourOverlay .btn:active{
+    transform:none; filter:none;
+  }
   .tour-icon{
     width:56px; height:56px; margin:0 auto 6px;
     display:flex; align-items:center; justify-content:center;
@@ -2625,7 +2674,6 @@ var QRCode;
     <svg class="hero-map-pin hero-map-pin--2" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C7.6 2 4 5.6 4 10c0 6 8 12 8 12s8-6 8-12c0-4.4-3.6-8-8-8Z" fill="#1fae63"/><circle cx="12" cy="10" r="3.2" fill="#fff"/></svg>
     <svg class="hero-map-pin hero-map-pin--3" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C7.6 2 4 5.6 4 10c0 6 8 12 8 12s8-6 8-12c0-4.4-3.6-8-8-8Z" fill="#ff6f91"/><circle cx="12" cy="10" r="3.2" fill="#fff"/></svg>
     <div class="wrap hero-center">
-      <p class="eyebrow" data-i18n="hero_eyebrow">Otimização Google Maps · Suporte Técnico</p>
       <h1 data-i18n="hero_title">Sua empresa <em>encontrada</em> antes da concorrência</h1>
       <p class="lead" data-i18n="hero_lead">Conduzimos negócios da página dois até a primeira posição no Google Maps, e mantemos seus equipamentos funcionando no ritmo certo. Método técnico, resultado mensurável.</p>
       <div class="hero-actions">
@@ -3209,11 +3257,57 @@ var QRCode;
             <a href="#contato" class="btn btn-plan btn-plan-wa" data-msg-key="support_wa_msg" data-i18n="support_cta">Solicitar suporte</a>
           </div>
         </div>
+
+        <div class="domain-block">
+          <span class="tag" data-i18n="domain_tag">Domínio próprio</span>
+          <h3 data-i18n="domain_title">Registro e renovação de domínio</h3>
+          <p data-i18n="domain_desc">Um domínio é o endereço da sua empresa na internet, por exemplo <strong>suaempresa.com.br</strong>. É ele que aparece na barra do navegador e pode ser usado no seu e-mail profissional, em vez de um link genérico. Ter domínio próprio passa mais confiança pro cliente e ajuda o Google a encontrar o seu site.</p>
+
+          <div class="domain-table-wrap">
+            <table class="domain-table">
+              <thead>
+                <tr><th data-i18n="domain_th_period">Período</th><th data-i18n="domain_th_price">Valor</th></tr>
+              </thead>
+              <tbody>
+                <tr><td data-i18n="domain_y1">1 ano</td><td>R$ 40</td></tr>
+                <tr><td data-i18n="domain_y2">2 anos</td><td>R$ 80</td></tr>
+                <tr><td data-i18n="domain_y3">3 anos</td><td>R$ 120</td></tr>
+                <tr><td data-i18n="domain_y4">4 anos</td><td>R$ 160</td></tr>
+                <tr><td data-i18n="domain_y5">5 anos</td><td>R$ 200</td></tr>
+                <tr><td data-i18n="domain_y6">6 anos</td><td>R$ 240</td></tr>
+                <tr><td data-i18n="domain_y7">7 anos</td><td>R$ 280</td></tr>
+                <tr><td data-i18n="domain_y8">8 anos</td><td>R$ 320</td></tr>
+                <tr><td data-i18n="domain_y9">9 anos</td><td>R$ 360</td></tr>
+                <tr><td data-i18n="domain_y10">10 anos</td><td>R$ 400</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="domain-warn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="20" height="20"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            <div>
+              <strong data-i18n="domain_warn_title">Aviso importante</strong>
+              <p data-i18n="domain_warn_text">O domínio é renovado com o registrador (não é um pagamento único pra sempre). O prazo escolhido começa a contar a partir do registro, e a renovação depende de acompanhar o vencimento e confirmar o pagamento a tempo.</p>
+            </div>
+          </div>
+
+          <h4 data-i18n="domain_expire_title">O que acontece quando o domínio vence?</h4>
+          <p data-i18n="domain_expire_text">Se não for renovado até a data de vencimento, o site e o e-mail que usam esse endereço saem do ar. Depois de vencido, normalmente existe um prazo de carência de alguns dias pra renovar sem custo extra. Passado esse prazo, o domínio pode ser registrado por outra pessoa, e você perde o direito sobre ele.</p>
+          <p class="note" data-i18n="domain_expire_action"><strong>O que fazer:</strong> renove antes do vencimento. Fale com a PYNN pelo WhatsApp com pelo menos 15 dias de antecedência pra garantir que a renovação seja feita a tempo.</p>
+
+          <h4 data-i18n="domain_terms_title">Termos e responsabilidades</h4>
+          <p data-i18n="domain_terms_1">Ao contratar o serviço de registro de domínio, o cliente declara estar ciente de que o valor pago na adesão cobre exclusivamente o período inicial contratado, seja ele de 1 ou 5 anos. Após o término desse prazo, a responsabilidade pelo pagamento das taxas anuais de renovação passa a ser integralmente do cliente, sendo este o único responsável por garantir a manutenção e a continuidade do seu endereço na web.</p>
+          <p data-i18n="domain_terms_2">Reforçamos que a titularidade do domínio pertence ao cliente ou à sua empresa. Por esse motivo, garantimos total autonomia para a realização de transferências de gestão ou de hospedagem para outros provedores a qualquer momento, bastando solicitar o código de autorização (Auth-Code / EPP key).</p>
+          <p data-i18n="domain_terms_3">Por fim, em respeito à privacidade e em conformidade com as diretrizes da Lei Geral de Proteção de Dados (LGPD), todos os dados fornecidos no momento do cadastro serão utilizados estritamente para o registro oficial junto aos órgãos competentes, garantindo o manuseio ético, seguro e transparente de suas informações.</p>
+
+          <a href="#contato" class="btn btn-plan btn-plan-wa" data-msg-key="domain_wa_msg" data-i18n="domain_cta">Quero registrar meu domínio</a>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- COVERAGE -->
+
   <section class="coverage" id="cobertura">
     <div class="wrap">
       <div class="section-plain">
@@ -3598,7 +3692,7 @@ var QRCode;
         </div>
 
         <div class="faq-list">
-          <details class="faq-item" open>
+          <details class="faq-item">
             <summary data-i18n="faq_q1">O que é otimização de Google Maps e por que meu negócio precisa disso?</summary>
             <p data-i18n="faq_a1">É o processo de deixar o perfil da sua empresa completo e correto no Google Maps, categoria certa, descrição com palavras-chave, horários, fotos e informações de contato, para aparecer nas primeiras posições quando alguém busca o seu tipo de negócio na região. A maioria dos clientes escolhe primeiro pelas 3 primeiras opções que aparecem no mapa; um perfil incompleto praticamente não é visto.</p>
           </details>
@@ -3932,6 +4026,11 @@ var QRCode;
 
         <h3 data-i18n="terms_h16">16. Garantias e limitação de responsabilidade</h3>
         <p data-i18n="terms_p16">A PYNN realiza otimização técnica de perfis no Google Maps e sites, seguindo as boas práticas recomendadas pelo próprio Google, porém posições no ranking, número de avaliações e volume de cliques dependem também de fatores fora do nosso controle (algoritmo do Google, concorrência local, comportamento dos usuários). Por isso, não garantimos posição específica no ranking nem prazo exato de aprovação por parte do Google em casos de recuperação de perfil. Em caso de indisponibilidade temporária do site por manutenção ou problemas técnicos de terceiros (hospedagem, GitHub Pages), a PYNN não se responsabiliza por eventuais perdas indiretas decorrentes dessa indisponibilidade.</p>
+
+        <h3 data-i18n="terms_h17">17. Registro e renovação de domínio</h3>
+        <p data-i18n="terms_p17_1">Ao contratar o serviço de registro de domínio, o cliente declara estar ciente de que o valor pago na adesão cobre exclusivamente o período inicial contratado, seja ele de 1 ou 5 anos. Após o término desse prazo, a responsabilidade pelo pagamento das taxas anuais de renovação passa a ser integralmente do cliente, sendo este o único responsável por garantir a manutenção e a continuidade do seu endereço na web.</p>
+        <p data-i18n="terms_p17_2">Reforçamos que a titularidade do domínio pertence ao cliente ou à sua empresa. Por esse motivo, garantimos total autonomia para a realização de transferências de gestão ou de hospedagem para outros provedores a qualquer momento, bastando solicitar o código de autorização (Auth-Code / EPP key).</p>
+        <p data-i18n="terms_p17_3">Por fim, em respeito à privacidade e em conformidade com as diretrizes da Lei Geral de Proteção de Dados (LGPD), todos os dados fornecidos no momento do cadastro serão utilizados estritamente para o registro oficial junto aos órgãos competentes, garantindo o manuseio ético, seguro e transparente de suas informações.</p>
         </div>
 
         <div class="legal-region-panel" data-region-panel="eua" hidden>
@@ -3990,6 +4089,11 @@ var QRCode;
 
         <h3>14. Warranties and limitation of liability</h3>
         <p>PYNN performs technical optimization of Google Maps profiles and websites following Google's own recommended best practices; however, ranking position, review counts, and click volume also depend on factors outside our control (Google's algorithm, local competition, user behavior). We therefore do not guarantee any specific ranking position or exact approval time by Google in profile-recovery cases. In case of temporary site unavailability due to maintenance or third-party technical issues (hosting, GitHub Pages), PYNN is not liable for any resulting indirect losses.</p>
+
+        <h3>15. Domain registration and renewal</h3>
+        <p>By hiring the domain registration service, the client acknowledges that the amount paid at signup covers exclusively the initial contracted period, whether 1 or 5 years. After that period ends, responsibility for paying the annual renewal fees becomes entirely the client's, who is solely responsible for maintaining and keeping their web address active.</p>
+        <p>We reaffirm that domain ownership belongs to the client or their company. For that reason, we guarantee full autonomy to transfer management or hosting to other providers at any time, simply by requesting the authorization code (Auth-Code / EPP key).</p>
+        <p>Finally, in respect of privacy and in line with GDPR and LGPD guidelines, all data provided at registration will be used strictly for official registration with the relevant authorities, ensuring ethical, secure, and transparent handling of your information.</p>
         </div>
 
         <div class="legal-region-panel" data-region-panel="es" hidden>
@@ -4048,6 +4152,11 @@ var QRCode;
 
         <h3>14. Garantías y limitación de responsabilidad</h3>
         <p>PYNN realiza optimización técnica de perfiles de Google Maps y sitios web siguiendo las buenas prácticas recomendadas por el propio Google; sin embargo, la posición en el ranking, el número de reseñas y el volumen de clics también dependen de factores fuera de nuestro control (algoritmo de Google, competencia local, comportamiento de los usuarios). Por ello, no garantizamos una posición específica en el ranking ni un plazo exacto de aprobación por parte de Google en casos de recuperación de perfil. En caso de indisponibilidad temporal del sitio por mantenimiento o problemas técnicos de terceros (alojamiento, GitHub Pages), PYNN no se responsabiliza de las pérdidas indirectas derivadas de dicha indisponibilidad.</p>
+
+        <h3>15. Registro y renovación de dominio</h3>
+        <p>Al contratar el servicio de registro de dominio, el cliente declara estar consciente de que el valor pagado en la adhesión cubre exclusivamente el período inicial contratado, sea de 1 o 5 años. Tras el fin de ese plazo, la responsabilidad por el pago de las tasas anuales de renovación pasa a ser íntegramente del cliente, siendo este el único responsable de garantizar el mantenimiento y la continuidad de su dirección en la web.</p>
+        <p>Reforzamos que la titularidad del dominio pertenece al cliente o a su empresa. Por ese motivo, garantizamos total autonomía para realizar transferencias de gestión o de hospedaje a otros proveedores en cualquier momento, bastando solicitar el código de autorización (Auth-Code / EPP key).</p>
+        <p>Por último, en respeto a la privacidad y conforme a las directrices del RGPD y la LGPD, todos los datos proporcionados en el momento del registro se utilizarán estrictamente para el registro oficial ante los órganos competentes, garantizando el manejo ético, seguro y transparente de tu información.</p>
         </div>
       </div>
   </section>
@@ -4553,6 +4662,22 @@ var translations = {
     plan7_wa_msg:"Olá! Encontrei a PYNN pelo site e já tenho um perfil otimizado no Google Maps, mas preciso de uma atualização (fotos, horários, serviços etc.). Poderiam me passar mais detalhes sobre o Plano Atualização? Meu nome: ",
     plan6_wa_msg:"Olá! Encontrei a PYNN pelo site e tenho interesse em combinar mais de um plano para ganhar o desconto do Plano Combo. Poderiam me passar mais detalhes? Meu nome: ",
     support_wa_msg:"Olá! Encontrei a PYNN pelo site e gostaria de solicitar suporte técnico em TI. Poderiam me passar mais detalhes? Meu nome: ",
+    domain_tag:"Domínio próprio", domain_title:"Registro e renovação de domínio",
+    domain_desc:"Um domínio é o endereço da sua empresa na internet, por exemplo <strong>suaempresa.com.br</strong>. É ele que aparece na barra do navegador e pode ser usado no seu e-mail profissional, em vez de um link genérico. Ter domínio próprio passa mais confiança pro cliente e ajuda o Google a encontrar o seu site.",
+    domain_th_period:"Período", domain_th_price:"Valor",
+    domain_y1:"1 ano", domain_y2:"2 anos", domain_y3:"3 anos", domain_y4:"4 anos", domain_y5:"5 anos",
+    domain_y6:"6 anos", domain_y7:"7 anos", domain_y8:"8 anos", domain_y9:"9 anos", domain_y10:"10 anos",
+    domain_warn_title:"Aviso importante",
+    domain_warn_text:"O domínio é renovado com o registrador (não é um pagamento único pra sempre). O prazo escolhido começa a contar a partir do registro, e a renovação depende de acompanhar o vencimento e confirmar o pagamento a tempo.",
+    domain_expire_title:"O que acontece quando o domínio vence?",
+    domain_expire_text:"Se não for renovado até a data de vencimento, o site e o e-mail que usam esse endereço saem do ar. Depois de vencido, normalmente existe um prazo de carência de alguns dias pra renovar sem custo extra. Passado esse prazo, o domínio pode ser registrado por outra pessoa, e você perde o direito sobre ele.",
+    domain_expire_action:"<strong>O que fazer:</strong> renove antes do vencimento. Fale com a PYNN pelo WhatsApp com pelo menos 15 dias de antecedência pra garantir que a renovação seja feita a tempo.",
+    domain_cta:"Quero registrar meu domínio",
+    domain_wa_msg:"Olá! Encontrei a PYNN pelo site e tenho interesse em registrar/renovar um domínio. Poderiam me passar mais detalhes? Meu nome: ",
+    domain_terms_title:"Termos e responsabilidades",
+    domain_terms_1:"Ao contratar o serviço de registro de domínio, o cliente declara estar ciente de que o valor pago na adesão cobre exclusivamente o período inicial contratado, seja ele de 1 ou 5 anos. Após o término desse prazo, a responsabilidade pelo pagamento das taxas anuais de renovação passa a ser integralmente do cliente, sendo este o único responsável por garantir a manutenção e a continuidade do seu endereço na web.",
+    domain_terms_2:"Reforçamos que a titularidade do domínio pertence ao cliente ou à sua empresa. Por esse motivo, garantimos total autonomia para a realização de transferências de gestão ou de hospedagem para outros provedores a qualquer momento, bastando solicitar o código de autorização (Auth-Code / EPP key).",
+    domain_terms_3:"Por fim, em respeito à privacidade e em conformidade com as diretrizes da Lei Geral de Proteção de Dados (LGPD), todos os dados fornecidos no momento do cadastro serão utilizados estritamente para o registro oficial junto aos órgãos competentes, garantindo o manuseio ético, seguro e transparente de suas informações.",
     contact_eyebrow:"Contato", contact_title:'Vamos colocar sua <em>empresa no topo</em>.',
     contact_declined_eyebrow:"Privacidade", contact_declined_title:"Formulário de contato desativado",
     contact_declined_text:'Você optou por não aceitar a nossa Política de Privacidade e Termos de Uso, por isso este formulário está desativado e nenhum dado é coletado nesta seção. Você ainda pode falar com a gente diretamente pelos canais abaixo, ou revisar sua escolha quando quiser.',
@@ -4593,6 +4718,10 @@ var translations = {
     terms_h14:"14. Legislação aplicável", terms_p14:"Esta política e os serviços da PYNN são regidos pelas leis da República Federativa do Brasil, com destaque para: Lei Geral de Proteção de Dados Pessoais (LGPD. Lei nº 13.709/2018), que disciplina o tratamento de dados pessoais; Marco Civil da Internet (Lei nº 12.965/2014), que estabelece princípios, garantias, direitos e deveres para o uso da internet no país; Código de Defesa do Consumidor (CDC. Lei nº 8.078/1990), aplicável às relações de consumo entre a PYNN e seus clientes; e Código Civil (Lei nº 10.406/2002), que rege os aspectos contratuais dos serviços descritos na cláusula 11. Eventuais conflitos relacionados a este site ou aos serviços da PYNN serão resolvidos com base nessa legislação, no foro do domicílio da PYNN.",
     terms_h15:"15. Propriedade intelectual", terms_p15:"O layout, o código-fonte, as marcas, os textos e as ilustrações deste site pertencem à PYNN e não podem ser copiados, redistribuídos ou usados comercialmente sem autorização prévia. Nos serviços de criação de sites (Plano Site), a propriedade do código e do conteúdo final entregue é transferida ao cliente somente após a confirmação do pagamento combinado; logotipos e imagens enviados pelo próprio cliente para uso no seu projeto continuam sendo de propriedade do cliente.",
     terms_h16:"16. Garantias e limitação de responsabilidade", terms_p16:"A PYNN realiza otimização técnica de perfis no Google Maps e sites, seguindo as boas práticas recomendadas pelo próprio Google, porém posições no ranking, número de avaliações e volume de cliques dependem também de fatores fora do nosso controle (algoritmo do Google, concorrência local, comportamento dos usuários). Por isso, não garantimos posição específica no ranking nem prazo exato de aprovação por parte do Google em casos de recuperação de perfil. Em caso de indisponibilidade temporária do site por manutenção ou problemas técnicos de terceiros (hospedagem, GitHub Pages), a PYNN não se responsabiliza por eventuais perdas indiretas decorrentes dessa indisponibilidade.",
+    terms_h17:"17. Registro e renovação de domínio",
+    terms_p17_1:"Ao contratar o serviço de registro de domínio, o cliente declara estar ciente de que o valor pago na adesão cobre exclusivamente o período inicial contratado, seja ele de 1 ou 5 anos. Após o término desse prazo, a responsabilidade pelo pagamento das taxas anuais de renovação passa a ser integralmente do cliente, sendo este o único responsável por garantir a manutenção e a continuidade do seu endereço na web.",
+    terms_p17_2:"Reforçamos que a titularidade do domínio pertence ao cliente ou à sua empresa. Por esse motivo, garantimos total autonomia para a realização de transferências de gestão ou de hospedagem para outros provedores a qualquer momento, bastando solicitar o código de autorização (Auth-Code / EPP key).",
+    terms_p17_3:"Por fim, em respeito à privacidade e em conformidade com as diretrizes da Lei Geral de Proteção de Dados (LGPD), todos os dados fornecidos no momento do cadastro serão utilizados estritamente para o registro oficial junto aos órgãos competentes, garantindo o manuseio ético, seguro e transparente de suas informações.",
     footer_agency:"Agência", footer_contact:"Contato", footer_legal:"Legal", footer_terms:"Política de Privacidade", footer_terms_use:"Termos de Uso", footer_manage_consent:"Gerenciar consentimento", soon_tag:"Em breve", footer_social:"Redes sociais", social_eyebrow:"Redes sociais", social_title:"Onde encontrar a PYNN", social_title_inline:"Redes sociais", contact_method_phone:"Telefone", contact_method_email:"E-mail",
     terms_jump_privacy:"↓ Política de Privacidade", terms_jump_use:"↓ Termos de Uso", terms_part1_title:"Política de Privacidade", terms_part2_title:"Termos de Uso",
     footer_note:"Feito com precisão técnica.",
@@ -4768,6 +4897,22 @@ var translations = {
     plan7_wa_msg:"¡Hola! Encontré a PYNN en el sitio web y ya tengo un perfil optimizado en Google Maps, pero necesito una actualización (fotos, horarios, servicios, etc.). ¿Podrían darme más detalles sobre el Plan Actualización? Mi nombre: ",
     plan6_wa_msg:"¡Hola! Encontré a PYNN en el sitio web y me interesa combinar más de un plan para obtener el descuento del Plan Combo. ¿Podrían darme más detalles? Mi nombre: ",
     support_wa_msg:"¡Hola! Encontré a PYNN en el sitio web y me gustaría solicitar soporte técnico en TI. ¿Podrían darme más detalles? Mi nombre: ",
+    domain_tag:"Dominio propio", domain_title:"Registro y renovación de dominio",
+    domain_desc:"Un dominio es la dirección de tu empresa en internet, por ejemplo <strong>tuempresa.com</strong>. Es lo que aparece en la barra del navegador y puede usarse en tu correo profesional, en lugar de un enlace genérico. Tener dominio propio genera más confianza y ayuda a que Google encuentre tu sitio.",
+    domain_th_period:"Período", domain_th_price:"Valor",
+    domain_y1:"1 año", domain_y2:"2 años", domain_y3:"3 años", domain_y4:"4 años", domain_y5:"5 años",
+    domain_y6:"6 años", domain_y7:"7 años", domain_y8:"8 años", domain_y9:"9 años", domain_y10:"10 años",
+    domain_warn_title:"Aviso importante",
+    domain_warn_text:"El dominio se renueva con el registrador (no es un pago único para siempre). El período elegido empieza a contar desde el registro, y la renovación depende de que estés atento al vencimiento y confirmes el pago a tiempo.",
+    domain_expire_title:"¿Qué pasa cuando vence el dominio?",
+    domain_expire_text:"Si no se renueva antes del vencimiento, el sitio y el correo que usan esa dirección dejan de funcionar. Después de vencido, normalmente hay un período de gracia de algunos días para renovar sin costo extra. Pasado ese plazo, el dominio puede ser registrado por otra persona y pierdes el derecho sobre él.",
+    domain_expire_action:"<strong>Qué hacer:</strong> renueva antes del vencimiento. Contacta a PYNN por WhatsApp con al menos 15 días de anticipación para asegurar que la renovación se haga a tiempo.",
+    domain_cta:"Quiero registrar mi dominio",
+    domain_wa_msg:"¡Hola! Encontré a PYNN en el sitio web y me interesa registrar/renovar un dominio. ¿Podrían darme más detalles? Mi nombre: ",
+    domain_terms_title:"Términos y responsabilidades",
+    domain_terms_1:"Al contratar el servicio de registro de dominio, el cliente declara estar consciente de que el valor pagado en la adhesión cubre exclusivamente el período inicial contratado, sea de 1 o 5 años. Tras el fin de ese plazo, la responsabilidad por el pago de las tasas anuales de renovación pasa a ser íntegramente del cliente, siendo este el único responsable de garantizar el mantenimiento y la continuidad de su dirección en la web.",
+    domain_terms_2:"Reforzamos que la titularidad del dominio pertenece al cliente o a su empresa. Por ese motivo, garantizamos total autonomía para realizar transferencias de gestión o de hospedaje a otros proveedores en cualquier momento, bastando solicitar el código de autorización (Auth-Code / EPP key).",
+    domain_terms_3:"Por último, en respeto a la privacidad y conforme a las directrices del RGPD y la LGPD, todos los datos proporcionados en el momento del registro se utilizarán estrictamente para el registro oficial ante los órganos competentes, garantizando el manejo ético, seguro y transparente de tu información.",
     contact_eyebrow:"Contacto", contact_title:'Pongamos tu <em>empresa en la cima</em>.',
     contact_declined_eyebrow:"Privacidad", contact_declined_title:"Formulario de contacto desactivado",
     contact_declined_text:'Elegiste no aceptar nuestra Política de Privacidad y Términos de Uso, por eso este formulario está desactivado y no se recopila ningún dato en esta sección. Aun así puedes hablar con nosotros directamente por los canales de abajo, o revisar tu elección cuando quieras.',
@@ -4808,6 +4953,10 @@ var translations = {
     terms_h14:"14. Legislación aplicable", terms_p14:"Esta política y los servicios de PYNN se rigen por las leyes de la República Federativa de Brasil, en especial: la Ley General de Protección de Datos Personales (LGPD. Ley nº 13.709/2018), que regula el tratamiento de datos personales; el Marco Civil de Internet (Ley nº 12.965/2014), que establece principios, garantías, derechos y deberes para el uso de internet en el país; el Código de Defensa del Consumidor (CDC. Ley nº 8.078/1990), aplicable a las relaciones de consumo entre PYNN y sus clientes; y el Código Civil (Ley nº 10.406/2002), que rige los aspectos contractuales de los servicios descritos en la cláusula 11. Cualquier conflicto relacionado con este sitio o con los servicios de PYNN se resolverá con base en esta legislación, en el fuero del domicilio de PYNN.",
     terms_h15:"15. Propiedad intelectual", terms_p15:"El diseño, el código fuente, las marcas, los textos y las ilustraciones de este sitio pertenecen a PYNN y no pueden copiarse, redistribuirse ni usarse comercialmente sin autorización previa. En los servicios de creación de sitios (Plan Sitio), la propiedad del código y del contenido final entregado se transfiere al cliente solo después de confirmado el pago acordado; los logotipos e imágenes enviados por el propio cliente para su proyecto siguen siendo de su propiedad.",
     terms_h16:"16. Garantías y limitación de responsabilidad", terms_p16:"PYNN realiza optimización técnica de perfiles en Google Maps y sitios web, siguiendo las buenas prácticas recomendadas por Google, pero la posición en el ranking, el número de reseñas y el volumen de clics también dependen de factores fuera de nuestro control (algoritmo de Google, competencia local, comportamiento de los usuarios). Por eso no garantizamos una posición específica en el ranking ni un plazo exacto de aprobación por parte de Google en casos de recuperación de perfil. En caso de indisponibilidad temporal del sitio por mantenimiento o problemas técnicos de terceros (hosting, GitHub Pages), PYNN no se responsabiliza por eventuales pérdidas indirectas derivadas de esa indisponibilidad.",
+    terms_h17:"17. Registro y renovación de dominio",
+    terms_p17_1:"Al contratar el servicio de registro de dominio, el cliente declara estar consciente de que el valor pagado en la adhesión cubre exclusivamente el período inicial contratado, sea de 1 o 5 años. Tras el fin de ese plazo, la responsabilidad por el pago de las tasas anuales de renovación pasa a ser íntegramente del cliente, siendo este el único responsable de garantizar el mantenimiento y la continuidad de su dirección en la web.",
+    terms_p17_2:"Reforzamos que la titularidad del dominio pertenece al cliente o a su empresa. Por ese motivo, garantizamos total autonomía para realizar transferencias de gestión o de hospedaje a otros proveedores en cualquier momento, bastando solicitar el código de autorización (Auth-Code / EPP key).",
+    terms_p17_3:"Por último, en respeto a la privacidad y conforme a las directrices del RGPD y la LGPD, todos los datos proporcionados en el momento del registro se utilizarán estrictamente para el registro oficial ante los órganos competentes, garantizando el manejo ético, seguro y transparente de tu información.",
     footer_agency:"Agencia", footer_contact:"Contacto", footer_legal:"Legal", footer_terms:"Política de Privacidad", footer_terms_use:"Términos de Uso", footer_manage_consent:"Gestionar consentimiento", soon_tag:"Próximamente", footer_social:"Redes sociales", social_eyebrow:"Redes sociales", social_title:"Dónde encontrar a PYNN", social_title_inline:"Redes sociales", contact_method_phone:"Teléfono", contact_method_email:"Correo",
     terms_jump_privacy:"↓ Política de Privacidad", terms_jump_use:"↓ Términos de Uso", terms_part1_title:"Política de Privacidad", terms_part2_title:"Términos de Uso",
     footer_note:"Hecho con precisión técnica.",
@@ -4983,6 +5132,22 @@ var translations = {
     plan7_wa_msg:"Hello! I found PYNN through your website and I already have an optimized Google Maps profile, but I need an update (photos, hours, services, etc.). Could you share more details about the Update Plan? My name: ",
     plan6_wa_msg:"Hello! I found PYNN through your website and I'm interested in combining more than one plan to get the Combo Plan discount. Could you share more details? My name: ",
     support_wa_msg:"Hello! I found PYNN through your website and I'd like to request IT technical support. Could you share more details? My name: ",
+    domain_tag:"Own domain", domain_title:"Domain registration and renewal",
+    domain_desc:"A domain is your company's address on the internet, for example <strong>yourcompany.com</strong>. It's what shows in the browser bar and can be used for your professional email, instead of a generic link. Having your own domain builds more trust and helps Google find your site.",
+    domain_th_period:"Period", domain_th_price:"Price",
+    domain_y1:"1 year", domain_y2:"2 years", domain_y3:"3 years", domain_y4:"4 years", domain_y5:"5 years",
+    domain_y6:"6 years", domain_y7:"7 years", domain_y8:"8 years", domain_y9:"9 years", domain_y10:"10 years",
+    domain_warn_title:"Important notice",
+    domain_warn_text:"The domain is renewed with the registrar (it's not a one-time payment forever). The chosen period starts counting from registration, and renewal depends on tracking the expiration date and confirming payment on time.",
+    domain_expire_title:"What happens when the domain expires?",
+    domain_expire_text:"If it isn't renewed by the due date, the site and email using that address go offline. After expiring, there's usually a grace period of a few days to renew at no extra cost. After that period, the domain may be registered by someone else, and you lose your right to it.",
+    domain_expire_action:"<strong>What to do:</strong> renew before the due date. Contact PYNN via WhatsApp at least 15 days in advance to make sure renewal happens on time.",
+    domain_cta:"I want to register my domain",
+    domain_wa_msg:"Hello! I found PYNN through your website and I'm interested in registering/renewing a domain. Could you share more details? My name: ",
+    domain_terms_title:"Terms and responsibilities",
+    domain_terms_1:"By hiring the domain registration service, the client acknowledges that the amount paid at signup covers exclusively the initial contracted period, whether 1 or 5 years. After that period ends, responsibility for paying the annual renewal fees becomes entirely the client's, who is solely responsible for maintaining and keeping their web address active.",
+    domain_terms_2:"We reaffirm that domain ownership belongs to the client or their company. For that reason, we guarantee full autonomy to transfer management or hosting to other providers at any time, simply by requesting the authorization code (Auth-Code / EPP key).",
+    domain_terms_3:"Finally, in respect of privacy and in line with GDPR and LGPD guidelines, all data provided at registration will be used strictly for official registration with the relevant authorities, ensuring ethical, secure, and transparent handling of your information.",
     contact_eyebrow:"Contact", contact_title:"Let's get your <em>business to the top</em>.",
     contact_declined_eyebrow:"Privacy", contact_declined_title:"Contact form disabled",
     contact_declined_text:'You chose not to accept our Privacy Policy and Terms of Use, so this form is disabled and no data is collected in this section. You can still reach us directly through the channels below, or review your choice whenever you like.',
@@ -5023,6 +5188,10 @@ var translations = {
     terms_h14:"14. Applicable law", terms_p14:"This policy and PYNN's services are governed by the laws of Brazil, in particular: the General Personal Data Protection Law (LGPD. Law No. 13,709/2018), which regulates the processing of personal data; the Brazilian Civil Rights Framework for the Internet / Marco Civil da Internet (Law No. 12,965/2014), which sets out principles, guarantees, rights, and duties for internet use in the country; the Consumer Defense Code (CDC. Law No. 8,078/1990), applicable to the consumer relationship between PYNN and its clients; and the Civil Code (Law No. 10,406/2002), which governs the contractual aspects of the services described in clause 11. Any dispute related to this site or to PYNN's services will be resolved based on this legislation, in the jurisdiction of PYNN's domicile.",
     terms_h15:"15. Intellectual property", terms_p15:"The layout, source code, trademarks, texts, and illustrations on this site belong to PYNN and may not be copied, redistributed, or used commercially without prior authorization. For website creation services (Site Plan), ownership of the final delivered code and content transfers to the client only after the agreed payment is confirmed; logos and images the client provides for their own project remain the client's property.",
     terms_h16:"16. Warranties and limitation of liability", terms_p16:"PYNN performs technical optimization of Google Maps profiles and websites, following best practices recommended by Google itself, but ranking position, number of reviews, and click volume also depend on factors outside our control (Google's algorithm, local competition, user behavior). We therefore do not guarantee a specific ranking position or an exact approval timeline from Google in profile recovery cases. In the event of temporary site unavailability due to maintenance or third-party technical issues (hosting, GitHub Pages), PYNN is not liable for any indirect losses resulting from that unavailability.",
+    terms_h17:"17. Domain registration and renewal",
+    terms_p17_1:"By hiring the domain registration service, the client acknowledges that the amount paid at signup covers exclusively the initial contracted period, whether 1 or 5 years. After that period ends, responsibility for paying the annual renewal fees becomes entirely the client's, who is solely responsible for maintaining and keeping their web address active.",
+    terms_p17_2:"We reaffirm that domain ownership belongs to the client or their company. For that reason, we guarantee full autonomy to transfer management or hosting to other providers at any time, simply by requesting the authorization code (Auth-Code / EPP key).",
+    terms_p17_3:"Finally, in respect of privacy and in line with GDPR and LGPD guidelines, all data provided at registration will be used strictly for official registration with the relevant authorities, ensuring ethical, secure, and transparent handling of your information.",
     footer_agency:"Agency", footer_contact:"Contact", footer_legal:"Legal", footer_terms:"Privacy Policy", footer_terms_use:"Terms of Use", footer_manage_consent:"Manage consent", soon_tag:"Coming soon", footer_social:"Social media", social_eyebrow:"Social media", social_title:"Where to find PYNN", social_title_inline:"Social media", contact_method_phone:"Phone", contact_method_email:"Email",
     terms_jump_privacy:"↓ Privacy Policy", terms_jump_use:"↓ Terms of Use", terms_part1_title:"Privacy Policy", terms_part2_title:"Terms of Use",
     footer_note:"Built with technical precision.",
