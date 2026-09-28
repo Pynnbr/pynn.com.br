@@ -1595,6 +1595,15 @@ var QRCode;
   .testi-links{ display:flex; flex-wrap:wrap; gap:10px; margin-top:2px; }
   .testi-links a{ font-size:.74rem; color:var(--blue); text-decoration:none; }
   .testi-links a:hover{ text-decoration:underline; }
+  .pynn-review{ text-align:center; margin:26px auto 0; max-width:560px; }
+  .pynn-review p{ font-size:.86rem; color:var(--fg-muted); margin:0 0 12px; }
+  .pynn-review-links{ display:flex; flex-wrap:wrap; gap:10px; justify-content:center; }
+  .pynn-review-btn{
+    display:inline-block; font-family:'Inter',sans-serif; font-weight:600; font-size:.78rem;
+    padding:9px 16px; border-radius:8px; text-decoration:none;
+    color:var(--fg); border:1px solid var(--border); background:transparent;
+  }
+  .pynn-review-btn--solid{ background:var(--blue); border-color:var(--blue); color:#fff; }
   .testi-photo-note{
     text-align:center; font-size:.68rem; color:var(--fg-muted); opacity:.75;
     max-width:560px; margin:22px auto 0; line-height:1.5;
@@ -2215,8 +2224,8 @@ var QRCode;
   .legal-region-btn.is-active{ border-color:var(--blue); color:var(--fg); background:var(--blue-soft); }
   .legal-region-btn.is-active .legal-region-law{ background:var(--blue); color:#fff; }
   .legal-disclaimer{
-    font-size:.76rem; color:var(--fg-muted); font-style:italic; opacity:.85;
-    margin-bottom:24px; line-height:1.5;
+    font-size:.6rem; color:var(--fg-muted); font-style:italic; opacity:.7;
+    margin-bottom:18px; line-height:1.4;
   }
   @media (prefers-reduced-motion: reduce){ .terms-overlay, .terms-box{ transition:none; } }
 
@@ -3543,6 +3552,14 @@ var QRCode;
         </div>
 
         <p class="testi-photo-note" data-i18n="testi_photo_note">Algumas fotos exibidas nos perfis do Google foram tiradas pelos próprios donos ou clientes das empresas, por isso a qualidade pode variar entre elas.</p>
+
+        <div class="pynn-review">
+          <p data-i18n="pynn_review_text">Já foi atendido pela PYNN? Conte como foi a sua experiência.</p>
+          <div class="pynn-review-links">
+            <a class="pynn-review-btn pynn-review-btn--solid" href="https://share.google/rnmGPozyiiscqtoZw" target="_blank" rel="noopener nofollow" data-i18n="pynn_review_cta1">Avalie a PYNN no Google</a>
+            <a class="pynn-review-btn" href="https://www.google.com/search?sca_esv=0187de462875193d&amp;rlz=1C1GCEA_enBR1228BR1228&amp;sxsrf=APpeQnu7FzfT81HPp1SNPfytXCWN0q_MpA:1790572327467&amp;kgmid=/g/11zz0jb67z&amp;q=pynn&amp;shem=dlvs1,epsd1,esd2e,ltae,rimspwouoe&amp;shndl=30&amp;source=sh/x/loc/uni/m1/1&amp;kgs=0c4b0a5dfc8635e4&amp;utm_source=dlvs1,epsd1,esd2e,ltae,rimspwouoe,sh/x/loc/uni/m1/1" target="_blank" rel="noopener nofollow" data-i18n="pynn_review_cta2">Ver a PYNN no Google</a>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -3993,7 +4010,7 @@ var QRCode;
         <p data-i18n="terms_p5">Este site não utiliza cookies de rastreamento ou de publicidade de terceiros. Utilizamos apenas armazenamento local do navegador (localStorage) e cache de aplicativo (service worker), estritamente necessários para lembrar suas preferências de exibição e a sua decisão de aceite, e para permitir que o site funcione como aplicativo instalável (PWA), inclusive offline. Você pode apagar esses dados a qualquer momento limpando os dados de navegação do seu navegador.</p>
 
         <h3 data-i18n="terms_h6">6. Compartilhamento com terceiros</h3>
-        <p data-i18n="terms_p6">Não vendemos, alugamos ou compartilhamos dados com terceiros para fins comerciais. O único terceiro envolvido na comunicação é o próprio WhatsApp (Meta), necessário para que sua mensagem chegue até nós quando você opta por nos contatar, regido pela política de privacidade do WhatsApp.</p>
+        <p data-i18n="terms_p6">Não vendemos, alugamos ou compartilhamos dados com terceiros para fins comerciais. O único terceiro envolvido na comunicação é o próprio WhatsApp (Meta), necessário para que sua mensagem chegue até nós quando você opta por nos contatar, regido pela política de privacidade do WhatsApp. Também oferecemos o botão opcional de acessibilidade VLibras, serviço do Governo Federal: ele é carregado dos servidores do gov.br e, se você o usar, o texto selecionado é enviado a esse serviço para ser traduzido em Libras.</p>
 
         <h3 data-i18n="terms_h7">7. Retenção e exclusão de dados</h3>
         <p data-i18n="terms_p7">Como este site não coleta dados por meio de formulários, não há dados nossos para reter ou excluir. As conversas mantidas no WhatsApp seguem a retenção do próprio aplicativo, e você pode apagá-las quando quiser diretamente no seu celular. Suas preferências locais de exibição podem ser apagadas limpando os dados do navegador.</p>
@@ -4062,7 +4079,7 @@ var QRCode;
         <p>This site does not use third-party tracking or advertising cookies. We only use browser local storage (localStorage) and an app cache (service worker), strictly necessary to remember your display preferences and consent decision, and to allow the site to work as an installable app (PWA), including offline. You can delete this data at any time by clearing your browser's browsing data.</p>
 
         <h3>6. Sharing with third parties</h3>
-        <p>We do not sell, rent, or share personal information with third parties for commercial purposes, as those terms are defined under the CCPA/CPRA. The only third party involved in communication is WhatsApp (Meta) itself, necessary for your message to reach us when you choose to contact us, governed by WhatsApp's own privacy policy.</p>
+        <p>We do not sell, rent, or share personal information with third parties for commercial purposes, as those terms are defined under the CCPA/CPRA. The only third party involved in communication is WhatsApp (Meta) itself, necessary for your message to reach us when you choose to contact us, governed by WhatsApp's own privacy policy. We also offer the optional VLibras accessibility button, a Brazilian federal government service: it loads from gov.br servers and, if you use it, the text you select is sent to that service to be translated into Brazilian Sign Language (Libras).</p>
 
         <h3>7. Your rights under U.S. state privacy laws</h3>
         <p>Depending on your state of residence (for example, California under the CCPA/CPRA), you may have the right to know what personal information is collected, the right to delete personal information, the right to correct inaccurate information, the right to opt out of the sale or sharing of personal information, and the right to non-discrimination for exercising these rights. Because this site does not collect personal data through forms, most of these rights are not applicable in practice, since there is no data on file to know, delete, or correct. Requests can still be sent via WhatsApp at +55 (86) 98884-6870 and will be answered on a best-efforts basis. Other U.S. states may provide similar but not identical rights; this policy does not enumerate every state law individually.</p>
@@ -4125,7 +4142,7 @@ var QRCode;
         <p>Este sitio no utiliza cookies de rastreo ni de publicidad de terceros. Solo utilizamos almacenamiento local del navegador (localStorage) y caché de aplicación (service worker), estrictamente necesarios para recordar tus preferencias de visualización y tu decisión de aceptación, y para permitir que el sitio funcione como aplicación instalable (PWA), incluso sin conexión. Puedes borrar estos datos en cualquier momento limpiando los datos de navegación de tu navegador.</p>
 
         <h3>6. Cesión a terceros</h3>
-        <p>No vendemos, alquilamos ni compartimos datos con terceros con fines comerciales. El único tercero involucrado en la comunicación es el propio WhatsApp (Meta), necesario para que tu mensaje nos llegue cuando decides contactarnos, regido por la política de privacidad de WhatsApp.</p>
+        <p>No vendemos, alquilamos ni compartimos datos con terceros con fines comerciales. El único tercero involucrado en la comunicación es el propio WhatsApp (Meta), necesario para que tu mensaje nos llegue cuando decides contactarnos, regido por la política de privacidad de WhatsApp. También ofrecemos el botón opcional de accesibilidad VLibras, servicio del Gobierno Federal de Brasil: se carga desde los servidores de gov.br y, si lo usas, el texto seleccionado se envía a ese servicio para traducirlo a Libras.</p>
 
         <h3>7. Tus derechos conforme al RGPD</h3>
         <p>Conforme al RGPD y la LOPDGDD, tienes derecho a acceder, rectificar, suprimir (derecho al olvido), limitar el tratamiento, oponerte al tratamiento y solicitar la portabilidad de tus datos, además de retirar el consentimiento en cualquier momento, mediante solicitud por nuestro WhatsApp +55 (86) 98884-6870. También tienes derecho a presentar una reclamación ante la Agencia Española de Protección de Datos (AEPD) si consideras que el tratamiento de tus datos infringe la normativa aplicable.</p>
@@ -4546,6 +4563,7 @@ var translations = {
     ba_before_photos:"Sem fotos", ba_after_photos:"12 fotos profissionais", ba_before_hours:"Horário desatualizado", ba_after_hours:"Horário sempre atualizado",
     ba_before_rank_label:"no mapa", ba_after_rank_label:"no mapa", ba_after_open:"● Aberto agora", ba_visibility_label:"Visibilidade estimada", ba_before_visibility_pct:"Baixa", ba_after_visibility_pct:"Alta",
     ba_note:"Ilustração representativa, os ganhos reais variam por negócio, mas o padrão de melhoria (categoria, fotos, avaliações e horários) é o mesmo aplicado em todos os perfis que otimizamos.",
+    pynn_review_text:"Já foi atendido pela PYNN? Conte como foi a sua experiência.", pynn_review_cta1:"Avalie a PYNN no Google", pynn_review_cta2:"Ver a PYNN no Google",
     testi_eyebrow:"Depoimentos", testi_title:'Empresas que já <em>confiaram na PYNN</em>', testi_lead:"Alguns dos negócios que otimizamos no Google Maps e na web, mais estão sendo adicionados aqui com o tempo.", testi_summary_count:"baseado nos clientes atendidos", testi_photo_note:"Algumas fotos exibidas nos perfis do Google foram tiradas pelos próprios donos ou clientes das empresas, por isso a qualidade pode variar entre elas.",
     partners_eyebrow:"Parcerias", partners_title:'Parceiros <em>oficiais</em>',
     partners_lead:"Quem se torna parceiro oficial da PYNN ganha um espaço fixo aqui no site: seu logotipo, o nome do seu negócio e o link para o seu site ou rede social, direto nesta área, visível para todo mundo que visita a nossa página.",
@@ -4707,7 +4725,7 @@ var translations = {
     terms_h3:"3. Finalidade do uso", terms_p3:"As mensagens que você inicia voluntariamente pelo WhatsApp são usadas exclusivamente para responder à sua solicitação de orçamento ou suporte técnico. Não usamos essas conversas para marketing não solicitado nem as compartilhamos para outros fins.",
     terms_h4:"4. Base legal", terms_p4:"Como este site não coleta dados pessoais, o tratamento de qualquer informação trocada acontece apenas dentro do WhatsApp, por sua própria iniciativa ao entrar em contato, com base no seu interesse legítimo em obter uma resposta comercial (art. 7º, IX, da LGPD). O uso das preferências locais de exibição tem base no seu consentimento, manifestado ao aceitar esta política no aviso inicial, podendo ser retirado a qualquer momento sem prejuízo ao restante da navegação.",
     terms_h5:"5. Cookies e armazenamento local", terms_p5:"Este site não utiliza cookies de rastreamento ou de publicidade de terceiros. Utilizamos apenas armazenamento local do navegador (localStorage) e cache de aplicativo (service worker), estritamente necessários para lembrar suas preferências de exibição e a sua decisão de aceite, e para permitir que o site funcione como aplicativo instalável (PWA), inclusive offline. Você pode apagar esses dados a qualquer momento limpando os dados de navegação do seu navegador.",
-    terms_h6:"6. Compartilhamento com terceiros", terms_p6:"Não vendemos, alugamos ou compartilhamos dados com terceiros para fins comerciais. O único terceiro envolvido na comunicação é o próprio WhatsApp (Meta), necessário para que sua mensagem chegue até nós quando você opta por nos contatar, regido pela política de privacidade do WhatsApp.",
+    terms_h6:"6. Compartilhamento com terceiros", terms_p6:"Não vendemos, alugamos ou compartilhamos dados com terceiros para fins comerciais. O único terceiro envolvido na comunicação é o próprio WhatsApp (Meta), necessário para que sua mensagem chegue até nós quando você opta por nos contatar, regido pela política de privacidade do WhatsApp. Também oferecemos o botão opcional de acessibilidade VLibras, serviço do Governo Federal: ele é carregado dos servidores do gov.br e, se você o usar, o texto selecionado é enviado a esse serviço para ser traduzido em Libras.",
     terms_h7:"7. Retenção e exclusão de dados", terms_p7:"Como este site não coleta dados por meio de formulários, não há dados nossos para reter ou excluir. As conversas mantidas no WhatsApp seguem a retenção do próprio aplicativo, e você pode apagá-las quando quiser diretamente no seu celular. Suas preferências locais de exibição podem ser apagadas limpando os dados do navegador.",
     terms_h8:"8. Segurança", terms_p8:"Adotamos medidas técnicas e organizacionais razoáveis para proteger seus dados contra acessos não autorizados. Todo contato oficial da PYNN parte exclusivamente dos canais informados nesta página. Desconfie de mensagens que solicitem pagamentos antecipados ou dados fora desses canais.",
     terms_h9:"9. Seus direitos", terms_p9:"Nos termos da LGPD, você tem direito a confirmar a existência de tratamento, acessar, corrigir, anonimizar, bloquear, eliminar ou solicitar a portabilidade dos seus dados, além de revogar o consentimento a qualquer momento, mediante solicitação pelo nosso WhatsApp (86) 98884-6870.",
@@ -4782,6 +4800,7 @@ var translations = {
     ba_before_photos:"Sin fotos", ba_after_photos:"12 fotos profesionales", ba_before_hours:"Horario desactualizado", ba_after_hours:"Horario siempre actualizado",
     ba_before_rank_label:"en el mapa", ba_after_rank_label:"en el mapa", ba_after_open:"● Abierto ahora", ba_visibility_label:"Visibilidad estimada", ba_before_visibility_pct:"Baja", ba_after_visibility_pct:"Alta",
     ba_note:"Ilustración representativa, las ganancias reales varían según el negocio, pero el patrón de mejora (categoría, fotos, reseñas y horarios) es el mismo aplicado en todos los perfiles que optimizamos.",
+    pynn_review_text:"¿Ya fuiste atendido por PYNN? Cuéntanos cómo fue tu experiencia.", pynn_review_cta1:"Evalúa a PYNN en Google", pynn_review_cta2:"Ver a PYNN en Google",
     testi_eyebrow:"Testimonios", testi_title:'Empresas que ya <em>confiaron en PYNN</em>', testi_lead:"Algunos de los negocios que optimizamos en Google Maps y en la web, se agregan más con el tiempo.", testi_summary_count:"basado en los clientes atendidos", testi_photo_note:"Algunas fotos mostradas en los perfiles de Google fueron tomadas por los propios dueños o clientes de las empresas, por eso la calidad puede variar entre ellas.",
     partners_eyebrow:"Alianzas", partners_title:'Socios <em>oficiales</em>',
     partners_lead:"Quien se convierte en socio oficial de PYNN gana un espacio fijo aquí en el sitio: tu logotipo, el nombre de tu negocio y el enlace a tu sitio web o red social, directo en esta área, visible para todos los que visitan nuestra página.",
@@ -4942,7 +4961,7 @@ var translations = {
     terms_h3:"3. Finalidad del uso", terms_p3:"Los mensajes que inicias voluntariamente por WhatsApp se usan exclusivamente para responder a tu solicitud de presupuesto o soporte técnico. No usamos esas conversaciones para marketing no solicitado.",
     terms_h4:"4. Base legal", terms_p4:"Como este sitio no recopila datos personales, el tratamiento de cualquier información ocurre solo dentro de WhatsApp, por tu propia iniciativa al contactarnos, con base en nuestro interés legítimo en responder a una solicitud comercial. El uso de las preferencias locales de visualización se basa en tu consentimiento, manifestado al aceptar esta política, revocable en cualquier momento.",
     terms_h5:"5. Cookies y almacenamiento local", terms_p5:"Este sitio no utiliza cookies de rastreo ni de publicidad de terceros. Usamos solo almacenamiento local del navegador (localStorage) y caché de aplicación (service worker), estrictamente necesarios para recordar tus preferencias de visualización y tu decisión de aceptación, y para permitir que el sitio funcione como aplicación instalable (PWA), incluso sin conexión. Puedes borrar estos datos en cualquier momento limpiando los datos de navegación de tu navegador.",
-    terms_h6:"6. Compartir con terceros", terms_p6:"No vendemos, alquilamos ni compartimos datos con terceros con fines comerciales. El único tercero involucrado es el propio WhatsApp (Meta), necesario para que tu mensaje nos llegue cuando decides contactarnos, regido por la política de privacidad de WhatsApp.",
+    terms_h6:"6. Compartir con terceros", terms_p6:"No vendemos, alquilamos ni compartimos datos con terceros con fines comerciales. El único tercero involucrado es el propio WhatsApp (Meta), necesario para que tu mensaje nos llegue cuando decides contactarnos, regido por la política de privacidad de WhatsApp. También ofrecemos el botón opcional de accesibilidad VLibras, servicio del Gobierno Federal de Brasil: se carga desde los servidores de gov.br y, si lo usas, el texto seleccionado se envía a ese servicio para traducirlo a Libras.",
     terms_h7:"7. Retención y eliminación de datos", terms_p7:"Como este sitio no recopila datos mediante formularios, no hay datos nuestros que retener o eliminar. Las conversaciones en WhatsApp siguen la retención de la propia app, y puedes borrarlas cuando quieras desde tu celular. Tus preferencias locales de visualización pueden borrarse limpiando los datos del navegador.",
     terms_h8:"8. Seguridad", terms_p8:"Adoptamos medidas técnicas y organizativas razonables para proteger tus datos contra accesos no autorizados. Todo contacto oficial de PYNN parte exclusivamente de los canales indicados en esta página. Desconfía de mensajes que soliciten pagos anticipados o datos fuera de estos canales.",
     terms_h9:"9. Tus derechos", terms_p9:"Tienes derecho a confirmar la existencia de tratamiento, acceder, corregir, anonimizar, bloquear, eliminar o solicitar la portabilidad de tus datos, además de revocar el consentimiento en cualquier momento, mediante solicitud por nuestro WhatsApp (86) 98884-6870.",
@@ -5017,6 +5036,7 @@ var translations = {
     ba_before_photos:"No photos", ba_after_photos:"12 professional photos", ba_before_hours:"Outdated hours", ba_after_hours:"Always up-to-date hours",
     ba_before_rank_label:"on the map", ba_after_rank_label:"on the map", ba_after_open:"● Open now", ba_visibility_label:"Estimated visibility", ba_before_visibility_pct:"Low", ba_after_visibility_pct:"High",
     ba_note:"Representative illustration, real gains vary by business, but the improvement pattern (category, photos, reviews, and hours) is the same one applied to every profile we optimize.",
+    pynn_review_text:"Been served by PYNN? Tell us how it went.", pynn_review_cta1:"Rate PYNN on Google", pynn_review_cta2:"View PYNN on Google",
     testi_eyebrow:"Testimonials", testi_title:'Businesses that already <em>trusted PYNN</em>', testi_lead:"Some of the businesses we optimized on Google Maps and the web, more are being added here over time.", testi_summary_count:"based on clients served", testi_photo_note:"Some photos shown on the Google profiles were taken by the business owners or their customers, that's why quality may vary between them.",
     partners_eyebrow:"Partnerships", partners_title:'Official <em>partners</em>',
     partners_lead:"Businesses that become official PYNN partners get a permanent spot right here on the site: your logo, business name, and a link to your website or social media, visible to everyone who visits our page.",
@@ -5177,7 +5197,7 @@ var translations = {
     terms_h3:"3. Purpose of use", terms_p3:"Messages you voluntarily start via WhatsApp are used exclusively to respond to your quote or support request. We do not use these conversations for unsolicited marketing.",
     terms_h4:"4. Legal basis", terms_p4:"Since this site collects no personal data, any information exchanged happens only within WhatsApp, at your own initiative when reaching out, based on our legitimate interest in responding to a commercial request. Use of your local display preferences is based on your consent, given when accepting this policy, revocable at any time.",
     terms_h5:"5. Cookies and local storage", terms_p5:"This site does not use tracking cookies or third-party advertising cookies. We only use browser local storage (localStorage) and app cache (service worker), strictly necessary to remember your display preferences and your acceptance decision, and to let the site work as an installable app (PWA), including offline. You can clear this data at any time by clearing your browser's browsing data.",
-    terms_h6:"6. Sharing with third parties", terms_p6:"We do not sell, rent, or share data with third parties for commercial purposes. The only third party involved is WhatsApp (Meta) itself, needed for your message to reach us when you choose to contact us, governed by WhatsApp's own privacy policy.",
+    terms_h6:"6. Sharing with third parties", terms_p6:"We do not sell, rent, or share data with third parties for commercial purposes. The only third party involved is WhatsApp (Meta) itself, needed for your message to reach us when you choose to contact us, governed by WhatsApp's own privacy policy. We also offer the optional VLibras accessibility button, a Brazilian federal government service: it loads from gov.br servers and, if you use it, the text you select is sent to that service to be translated into Brazilian Sign Language (Libras).",
     terms_h7:"7. Data retention and deletion", terms_p7:"Since this site does not collect data through forms, there is no data of ours to retain or delete. Conversations kept on WhatsApp follow that app's own retention, and you can delete them anytime from your phone. Your local display preferences can be cleared by clearing your browser data.",
     terms_h8:"8. Security", terms_p8:"We adopt reasonable technical and organizational measures to protect your data against unauthorized access. All official PYNN contact comes exclusively from the channels listed on this page. Be wary of messages requesting upfront payments or data outside these channels.",
     terms_h9:"9. Your rights", terms_p9:"You have the right to confirm whether processing exists, access, correct, anonymize, block, delete, or request portability of your data, as well as to withdraw consent at any time, by request via our WhatsApp at (86) 98884-6870.",
@@ -6926,5 +6946,57 @@ if('serviceWorker' in navigator){
 </script>
 
 
+
+<!-- VLibras: tradução automática do conteúdo para Libras (widget oficial do Governo Federal) -->
+<div vw class="enabled">
+  <div vw-access-button class="active"></div>
+  <div vw-plugin-wrapper>
+    <div class="vw-plugin-top-wrapper"></div>
+  </div>
+</div>
+<script>
+/* Carrega o VLibras só depois que a página terminou de abrir, pra não pesar o carregamento. */
+window.addEventListener('load', function(){
+  try{
+    var s = document.createElement('script');
+    s.src = 'https://vlibras.gov.br/app/vlibras-plugin.js';
+    s.async = true;
+    s.onload = function(){
+      try{ new window.VLibras.Widget('https://vlibras.gov.br/app'); }catch(e){}
+    };
+    document.body.appendChild(s);
+  }catch(e){}
+});
+</script>
+
+<script>
+/* ---------- VLIBRAS (tradutor oficial de Libras do Governo Federal) ----------
+   Carrega depois que a página termina de abrir, pra não pesar o início. */
+(function(){
+  function loadVLibras(){
+    if(window.__vlibrasLoaded) return; window.__vlibrasLoaded = true;
+    var s = document.createElement('script');
+    s.src = 'https://vlibras.gov.br/app/vlibras-plugin.js';
+    s.async = true;
+    s.onload = function(){
+      try{
+        new window.VLibras.Widget({
+          rootPath: 'https://vlibras.gov.br/app',
+          personalization: 'https://vlibras.gov.br/config/default_logo.json',
+          avatar: 'random',
+          position: 'R'
+        });
+      }catch(e){}
+    };
+    document.body.appendChild(s);
+  }
+  function schedule(){
+    if('requestIdleCallback' in window){ requestIdleCallback(loadVLibras, {timeout:3000}); }
+    else { setTimeout(loadVLibras, 1500); }
+  }
+  if(document.readyState === 'complete') schedule();
+  else window.addEventListener('load', schedule);
+})();
+</script>
 </body>
 </html>
