@@ -2,7 +2,7 @@
 // Necessário para o site atender aos critérios de "instalável" (PWA) em
 // Chrome/Edge/Android e para permitir abertura básica offline.
 
-const CACHE_NAME = 'pynn-cache-v8';
+const CACHE_NAME = 'pynn-cache-v9';
 const APP_SHELL = [
   './',
   './manifest.json'
@@ -46,6 +46,12 @@ self.addEventListener('activate', (event) => {
 // Estratégia: tenta a rede primeiro; se falhar (offline), usa o cache.
 self.addEventListener('fetch', (event) => {
   if (event.request.method !== 'GET') return;
+
+  // O VLibras (gov.br) baixa arquivos grandes do avatar 3D. Deixa o navegador
+  // tratar direto, sem passar pelo cache do site.
+  try {
+    if (new URL(event.request.url).hostname.endsWith('vlibras.gov.br')) return;
+  } catch (e) {}
 
   event.respondWith(
     fetch(event.request)
