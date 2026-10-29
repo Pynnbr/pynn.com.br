@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -1361,7 +1360,7 @@ var QRCode;
     perspective:1200px;
   }
   .why-card{
-    flex:0 1 340px; min-height:130px;
+    flex:0 1 380px; min-height:130px;
     display:flex; flex-direction:column;
     background:var(--bg-panel-2); border:1px solid var(--border); border-radius:var(--radius);
     padding:20px 22px;
@@ -1374,15 +1373,13 @@ var QRCode;
   .why-card h3{ font-family:'Manrope',sans-serif; font-size:1.05rem; margin-bottom:8px; }
   .why-card p{ color:var(--fg-muted); font-size:.85rem; line-height:1.55; }
   @media(max-width:700px){
-    /* Carrossel horizontal no celular, largo e espaçoso. Ativa na mesma largura
-       em que o menu vira hambúrguer, pra não sobrar uma faixa intermediária
-       onde os cards ficam cortados. */
+    /* Empilhado, um embaixo do outro, no celular — sem carrossel, sem
+       risco de cortar card nenhum. */
     .why-grid{
-      display:flex; flex-wrap:nowrap; overflow-x:auto; overflow-y:hidden;
-      scroll-snap-type:x proximity; -webkit-overflow-scrolling:touch;
-      margin:32px -20px 0; padding:4px 20px 18px; gap:18px;
+      display:flex; flex-direction:column; flex-wrap:nowrap;
+      margin-top:24px; gap:14px;
     }
-    .why-grid .why-card{ flex:0 0 92%; max-width:440px; scroll-snap-align:start; }
+    .why-grid .why-card{ flex:none; width:100%; }
   }
   .about-name{ font-family:'Manrope',sans-serif; font-size:1.4rem; margin-top:18px; }
   .about-role{ color:var(--coral-fg); font-size:.82rem; margin-top:4px; font-family:'Inter',sans-serif; letter-spacing:.04em; text-transform:uppercase; }
@@ -1609,8 +1606,9 @@ var QRCode;
        Cards bem largos e espaçosos, não apertados. */
     .testi-grid{
       display:flex; flex-wrap:nowrap; grid-template-columns:none;
-      overflow-x:auto; overflow-y:hidden; scroll-snap-type:x proximity;
+      overflow-x:auto; overflow-y:hidden; scroll-snap-type:x mandatory;
       -webkit-overflow-scrolling:touch;
+      scroll-padding-left:20px; scroll-padding-right:20px;
       margin:8px -20px 0; padding:4px 20px 18px; gap:18px;
     }
     .testi-grid .testi-card{
@@ -1645,8 +1643,9 @@ var QRCode;
        esquerda/direita, em vez de empilhar um debaixo do outro. */
     .partners-showcase{
       flex-wrap:nowrap; justify-content:flex-start;
-      overflow-x:auto; overflow-y:hidden; scroll-snap-type:x proximity;
+      overflow-x:auto; overflow-y:hidden; scroll-snap-type:x mandatory;
       -webkit-overflow-scrolling:touch;
+      scroll-padding-left:20px; scroll-padding-right:20px;
       margin:44px -20px 0; padding:4px 20px 18px;
     }
     .partners-showcase .partners-slot{
@@ -1676,12 +1675,13 @@ var QRCode;
     /* Carrossel horizontal no celular, arrastando esquerda/direita. */
     .process-grid{
       display:flex; flex-wrap:nowrap; grid-template-columns:none;
-      overflow-x:auto; overflow-y:hidden; scroll-snap-type:x proximity;
+      overflow-x:auto; overflow-y:hidden; scroll-snap-type:x mandatory;
       -webkit-overflow-scrolling:touch; align-items:flex-start;
+      scroll-padding-left:20px; scroll-padding-right:20px;
       margin:8px -20px 0; padding:4px 20px 18px;
     }
     .process-grid .process-col{
-      flex:0 0 92%; max-width:440px; scroll-snap-align:start;
+      flex:0 0 92%; max-width:none; scroll-snap-align:start;
     }
   }
   .process-col{
@@ -1956,7 +1956,7 @@ var QRCode;
     perspective:1300px;
   }
   .tip-card{
-    flex:0 1 300px; min-height:130px;
+    flex:0 1 340px; min-height:130px;
     display:flex; flex-direction:column;
     background:var(--bg-panel-2); border:1px solid var(--border); border-radius:var(--radius);
     padding:20px;
@@ -1971,13 +1971,12 @@ var QRCode;
   .tip-card h3{ font-family:'Manrope',sans-serif; font-size:.98rem; margin-bottom:6px; }
   .tip-card p{ color:var(--fg-muted); font-size:.82rem; line-height:1.5; }
   @media(max-width:700px){
-    /* Carrossel horizontal no celular, largo e espaçoso, sem apertar. */
+    /* Empilhado, um embaixo do outro, no celular. */
     .tips-grid{
-      display:flex; flex-wrap:nowrap; overflow-x:auto; overflow-y:hidden;
-      scroll-snap-type:x proximity; -webkit-overflow-scrolling:touch;
-      margin:32px -20px 0; padding:4px 20px 18px; gap:18px;
+      display:flex; flex-direction:column; flex-wrap:nowrap;
+      margin-top:24px; gap:14px;
     }
-    .tips-grid .tip-card{ flex:0 0 92%; max-width:440px; scroll-snap-align:start; }
+    .tips-grid .tip-card{ flex:none; width:100%; }
   }
 
   .faq-list{ max-width:760px; margin:32px auto 0; display:flex; flex-direction:column; gap:12px; perspective:1200px; }
@@ -3589,7 +3588,7 @@ var QRCode;
           <div class="team-card">
             <p class="team-name">Arthur Richard</p>
             <p class="team-role" data-i18n="team1_role">Fundador e Desenvolvedor</p>
-            <p data-i18n="team1_bio">Fundador e Desenvolvedor na PYNN. Cursando o ensino superior em Redes de Computadores no IFMA, atua no desenvolvimento de sites, otimização de presença digital e suporte técnico. Participa ativamente do primeiro contato com clientes, agendamento de reuniões, diagnósticos e elaboração de orçamentos.</p>
+            <p data-i18n="team1_bio">Fundador e Desenvolvedor na PYNN. Cursando o ensino superior em Redes de Computadores no IFMA, atua no desenvolvimento de sites com o apoio da inteligência artificial, otimização da presença digital e suporte técnico. Participa ativamente do relacionamento inicial com clientes, agendamento de reuniões, realização de diagnósticos e elaboração de orçamentos para soluções digitais.</p>
           </div>
           <div class="team-card">
             <p class="team-name">Carlos Augusto</p>
@@ -4572,7 +4571,7 @@ var translations = {
     about_p3:"Hoje a PYNN atende empresas no Maranhão, onde fica sua sede, e no Piauí, com atendimento remoto e o mesmo padrão técnico em qualquer lugar.",
     team_eyebrow:"Equipe", team_title:'Quem faz a <em>PYNN</em> acontecer', team_lead:"Formação técnica sólida e dedicação direta a cada cliente, sem intermediários.",
     team1_role:"Fundador e Desenvolvedor",
-    team1_bio:"Fundador e Desenvolvedor na PYNN. Cursando o ensino superior em Redes de Computadores no IFMA, atua no desenvolvimento de sites, otimização de presença digital e suporte técnico. Participa ativamente do primeiro contato com clientes, agendamento de reuniões, diagnósticos e elaboração de orçamentos.",
+    team1_bio:"Fundador e Desenvolvedor na PYNN. Cursando o ensino superior em Redes de Computadores no IFMA, atua no desenvolvimento de sites com o apoio da inteligência artificial, otimização da presença digital e suporte técnico. Participa ativamente do relacionamento inicial com clientes, agendamento de reuniões, realização de diagnósticos e elaboração de orçamentos para soluções digitais.",
     team2_role:"Sócio e Desenvolvedor Fullstack",
     team2_bio:"Sócio e Desenvolvedor Fullstack na PYNN. Graduado em Redes de Computadores pelo IFMA, atua no desenvolvimento de sistemas, websites, suporte técnico, manutenção e automação. Participa das reuniões com clientes, negociação de orçamentos e alinhamento das soluções técnicas, combinando visão prática e usabilidade em cada projeto.",
     coverage_eyebrow:"Cobertura", coverage_title:'Presente em <em>2 estados</em> do Brasil', coverage_desc:"Já atendemos empresas e clientes no Maranhão e no Piauí, com o mesmo padrão técnico em qualquer lugar do mapa.", coverage_ma_tag:"Sede da PYNN", coverage_remote_tag:"Atendimento remoto",
@@ -4815,7 +4814,7 @@ var translations = {
     about_p3:"Hoy PYNN atiende empresas en Maranhão, donde está su sede, y en Piauí, con atención remota y el mismo estándar técnico en cualquier lugar.",
     team_eyebrow:"Equipo", team_title:'Quién hace que <em>PYNN</em> suceda', team_lead:"Formación técnica sólida y dedicación directa a cada cliente, sin intermediarios.",
     team1_role:"Fundador y Desarrollador",
-    team1_bio:"Fundador y Desarrollador en PYNN. Cursando estudios superiores en Redes de Computadoras en el IFMA, trabaja en el desarrollo de sitios web, optimización de presencia digital y soporte técnico. Participa activamente en el primer contacto con clientes, agendamiento de reuniones, diagnósticos y elaboración de presupuestos.",
+    team1_bio:"Fundador y Desarrollador en PYNN. Cursando estudios superiores en Redes de Computadoras en el IFMA, trabaja en el desarrollo de sitios web con el apoyo de inteligencia artificial, optimización de la presencia digital y soporte técnico. Participa activamente en la relación inicial con clientes, agendamiento de reuniones, realización de diagnósticos y elaboración de presupuestos para soluciones digitales.",
     team2_role:"Socio y Desarrollador Fullstack",
     team2_bio:"Socio y Desarrollador Fullstack en PYNN. Graduado en Redes de Computadoras por el IFMA, trabaja en el desarrollo de sistemas, sitios web, soporte técnico, mantenimiento y automatización. Participa en las reuniones con clientes, negociación de presupuestos y alineación de las soluciones técnicas, combinando visión práctica y usabilidad en cada proyecto.",
     coverage_eyebrow:"Cobertura", coverage_title:'Presentes en <em>2 estados</em> de Brasil', coverage_desc:"Ya atendimos empresas y clientes en Maranhão y Piauí, con el mismo estándar técnico en cualquier lugar del mapa.", coverage_ma_tag:"Sede de PYNN", coverage_remote_tag:"Atención remota",
@@ -5057,7 +5056,7 @@ var translations = {
     about_p3:"Today PYNN serves businesses in Maranhão, where it's headquartered, and in Piauí, with remote service and the same technical standard everywhere.",
     team_eyebrow:"Team", team_title:'Who makes <em>PYNN</em> happen', team_lead:"Solid technical training and hands-on dedication to every client, with no middlemen.",
     team1_role:"Founder and Developer",
-    team1_bio:"Founder and Developer at PYNN. Currently studying Computer Networking (bachelor's degree) at IFMA, he works on website development, digital presence optimization, and technical support. He actively handles first contact with clients, scheduling meetings, diagnostics, and preparing quotes.",
+    team1_bio:"Founder and Developer at PYNN. Currently studying Computer Networking (bachelor's degree) at IFMA, he works on website development with the support of artificial intelligence, digital presence optimization, and technical support. He actively handles the initial relationship with clients, scheduling meetings, running diagnostics, and preparing quotes for digital solutions.",
     team2_role:"Partner and Fullstack Developer",
     team2_bio:"Partner and Fullstack Developer at PYNN. A Computer Networking graduate from IFMA, he works on systems and website development, technical support, maintenance, and automation. He takes part in client meetings, quote negotiation, and aligning technical solutions, combining practical thinking with usability in every project.",
     coverage_eyebrow:"Coverage", coverage_title:'Present in <em>2 states</em> across Brazil', coverage_desc:"We've already served businesses and clients in Maranhão and Piauí, with the same technical standard anywhere on the map.", coverage_ma_tag:"PYNN headquarters", coverage_remote_tag:"Remote support",
@@ -6843,31 +6842,23 @@ if('serviceWorker' in navigator){
 </div>
 <script>
 /* ---------- VLIBRAS (tradutor oficial de Libras do Governo Federal) ----------
-   Carrega depois que a página termina de abrir, pra não pesar o início. */
+   É um recurso de acessibilidade, então carrega logo, sem espera artificial. */
 (function(){
-  function loadVLibras(){
-    if(window.__vlibrasLoaded) return; window.__vlibrasLoaded = true;
-    var s = document.createElement('script');
-    s.src = 'https://vlibras.gov.br/app/vlibras-plugin.js';
-    s.async = true;
-    s.onload = function(){
-      try{
-        new window.VLibras.Widget({
-          rootPath: 'https://vlibras.gov.br/app',
-          personalization: 'https://vlibras.gov.br/config/default_logo.json',
-          avatar: 'random',
-          position: 'R'
-        });
-      }catch(e){}
-    };
-    document.body.appendChild(s);
-  }
-  function schedule(){
-    if('requestIdleCallback' in window){ requestIdleCallback(loadVLibras, {timeout:3000}); }
-    else { setTimeout(loadVLibras, 1500); }
-  }
-  if(document.readyState === 'complete') schedule();
-  else window.addEventListener('load', schedule);
+  if(window.__vlibrasLoaded) return; window.__vlibrasLoaded = true;
+  var s = document.createElement('script');
+  s.src = 'https://vlibras.gov.br/app/vlibras-plugin.js';
+  s.async = true;
+  s.onload = function(){
+    try{
+      new window.VLibras.Widget({
+        rootPath: 'https://vlibras.gov.br/app',
+        personalization: 'https://vlibras.gov.br/config/default_logo.json',
+        avatar: 'random',
+        position: 'R'
+      });
+    }catch(e){}
+  };
+  document.body.appendChild(s);
 })();
 </script>
 </body>
