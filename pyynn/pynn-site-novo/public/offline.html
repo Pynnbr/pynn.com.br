@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sem conexão com a internet — PYNN</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#1652C4">
+<link rel="icon" type="image/png" href="/pynn-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;600&family=Manrope:wght@700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script>
+  (function(){
+    try {
+      var saved = localStorage.getItem('pynn-theme');
+      if (saved === 'dark' || (!saved && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    } catch (e) {}
+  })();
+</script>
+<style>
+  :root{
+    --bg:#fafafa;
+    --surface:#ffffff;
+    --surface-2:#f0f0ef;
+    --fg:#121212;
+    --fg-muted:#6b6b68;
+    --border:#e2e2df;
+    --cobalt:#1652C4;
+    --green:#1fae63;
+    --shadow:0 24px 60px -28px rgba(15,23,42,.16);
+    --ease:cubic-bezier(.16,1,.3,1);
+  }
+  html.dark{
+    --bg:#050505;
+    --surface:#111113;
+    --surface-2:#19191c;
+    --fg:#f5f5f4;
+    --fg-muted:#96968f;
+    --border:#2a2a2c;
+    --cobalt:#2F8CFF;
+    --green:#2ecc71;
+    --shadow:0 28px 70px -28px rgba(0,0,0,.75);
+  }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html,body{ min-height:100%; }
+  body{
+    background:var(--bg); color:var(--fg);
+    font-family:'Plus Jakarta Sans',system-ui,-apple-system,sans-serif;
+    line-height:1.55; display:flex; flex-direction:column; -webkit-font-smoothing:antialiased;
+    transition:background-color .2s var(--ease), color .2s var(--ease);
+  }
+  a{ color:inherit; text-decoration:none; }
+  button{ font:inherit; color:inherit; }
+  :focus-visible{ outline:2px solid var(--cobalt); outline-offset:2px; }
+
+  .topbar{ width:100%; border-bottom:1px solid var(--border); background:var(--surface); }
+  .topbar-inner{
+    max-width:1100px; margin:0 auto; padding:16px clamp(16px, 3vw, 32px);
+    display:flex; align-items:center; justify-content:space-between; gap:24px;
+  }
+  .logo-mask{
+    display:block; height:26px; aspect-ratio:1366/310; background-color:var(--fg);
+    -webkit-mask-image:url('/pynn-logo.png'); mask-image:url('/pynn-logo.png');
+    -webkit-mask-repeat:no-repeat; mask-repeat:no-repeat;
+    -webkit-mask-position:center; mask-position:center;
+    -webkit-mask-size:contain; mask-size:contain;
+  }
+  .topbar-controls{ display:flex; align-items:center; gap:10px; }
+  .lang-seg{
+    display:inline-flex; gap:2px; padding:3px;
+    background:var(--surface-2); border:1px solid var(--border); border-radius:10px;
+  }
+  .lang-seg button{
+    border:none; background:transparent; padding:5px 9px; border-radius:7px;
+    font-size:.75rem; font-weight:700; color:var(--fg-muted); cursor:pointer;
+  }
+  .lang-seg button[aria-pressed="true"]{ background:var(--surface); color:var(--fg); }
+  .icon-btn{
+    width:38px; height:38px; border-radius:10px;
+    border:1px solid var(--border); background:var(--surface);
+    display:inline-flex; align-items:center; justify-content:center; cursor:pointer;
+  }
+  .icon-btn:hover{ border-color:var(--cobalt); color:var(--cobalt); }
+  .icon-moon{ display:none; }
+  html.dark .icon-sun{ display:none; }
+  html.dark .icon-moon{ display:block; }
+
+  .main{
+    flex:1; display:flex; align-items:center; justify-content:center;
+    padding:clamp(28px, 5vw, 56px) clamp(16px, 3vw, 32px);
+  }
+  .card{
+    width:100%; max-width:940px; background:var(--surface);
+    border:1px solid var(--border); border-radius:28px; box-shadow:var(--shadow);
+    padding:clamp(24px, 4vw, 48px);
+    display:grid; grid-template-columns:1.1fr .9fr; gap:clamp(24px, 4vw, 44px); align-items:center;
+  }
+  @media(max-width:820px){ .card{ grid-template-columns:1fr; } }
+
+  .meta{
+    font-family:'JetBrains Mono',monospace; font-size:.78rem; font-weight:600;
+    color:var(--cobalt); display:flex; align-items:center; gap:8px;
+  }
+  .meta-muted{ color:var(--fg-muted); }
+  h1{
+    font-family:'Manrope',sans-serif; font-weight:800;
+    font-size:clamp(1.65rem, 3vw, 2.3rem); line-height:1.16; letter-spacing:-0.025em;
+    text-wrap:balance; margin:14px 0 12px;
+  }
+  .lead{ color:var(--fg-muted); font-size:.96rem; max-width:50ch; margin-bottom:20px; }
+
+  .contact-box{
+    padding:14px 16px; border-radius:14px;
+    background:var(--surface-2); border:1px solid var(--border);
+    font-size:.84rem; margin-bottom:22px;
+    display:flex; flex-direction:column; gap:4px;
+  }
+  .contact-box strong{ font-size:.8rem; color:var(--fg); }
+  .contact-box span{ color:var(--fg-muted); }
+
+  .net-msg{ min-height:20px; font-size:.84rem; font-weight:600; margin-bottom:14px; color:var(--fg-muted); }
+  .net-msg.is-online{ color:var(--green); }
+
+  .actions{ display:flex; flex-wrap:wrap; gap:12px; }
+  .btn{
+    display:inline-flex; align-items:center; justify-content:center; gap:8px;
+    min-height:44px; padding:11px 22px; border-radius:12px;
+    font-size:.88rem; font-weight:700; white-space:nowrap;
+    border:1px solid transparent; cursor:pointer;
+    transition:transform .16s var(--ease), filter .16s var(--ease), border-color .16s;
+  }
+  .btn:hover{ transform:translateY(-1px); }
+  .btn-primary{ background:var(--cobalt); color:#fff; }
+  .btn-primary:hover{ filter:brightness(1.08); }
+  .btn-secondary{ background:var(--surface); border-color:var(--border); color:var(--fg); }
+  .btn-secondary:hover{ border-color:var(--cobalt); color:var(--cobalt); }
+
+  .offline-art{
+    background:var(--surface-2); border:1px solid var(--border); border-radius:20px;
+    padding:28px; display:flex; align-items:center; justify-content:center; min-height:250px;
+  }
+  .offline-art svg{ width:100%; max-width:250px; height:auto; }
+
+  .foot{
+    max-width:1100px; width:100%; margin:0 auto;
+    padding:18px clamp(16px, 3vw, 32px) 28px;
+    display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;
+    font-size:.8rem; color:var(--fg-muted);
+  }
+</style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a href="/" aria-label="PYNN"><span class="logo-mask" role="img" aria-label="PYNN"></span></a>
+      <div class="topbar-controls">
+        <div class="lang-seg" role="group" aria-label="Idioma">
+          <button type="button" data-lang="pt" aria-pressed="true">PT</button>
+          <button type="button" data-lang="es" aria-pressed="false">ES</button>
+          <button type="button" data-lang="en" aria-pressed="false">EN</button>
+        </div>
+        <button type="button" class="icon-btn" id="themeBtn" aria-label="Alternar tema">
+          <svg class="icon-sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2m-7.07-15.07 1.41 1.41m11.32 11.32 1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+          <svg class="icon-moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="main">
+    <section class="card" aria-labelledby="errTitle">
+      <div>
+        <div class="meta">
+          <span>OFFLINE</span>
+          <span class="meta-muted" aria-hidden="true">·</span>
+          <span class="meta-muted" data-i18n="meta">Sem conexão com a internet</span>
+        </div>
+        <h1 id="errTitle" data-i18n="title">Você está sem conexão no momento</h1>
+        <p class="lead" data-i18n="desc">Verifique seu Wi-Fi ou dados móveis. Assim que o sinal voltar, a PYNN reconecta automaticamente.</p>
+
+        <div class="contact-box">
+          <strong data-i18n="directTitle">Atendimento direto (mesmo offline, por ligação):</strong>
+          <span>Telefone / WhatsApp: (86) 98884-6870</span>
+          <span>E-mail: pynn.br@gmail.com · @pynn.br</span>
+        </div>
+
+        <p class="net-msg" id="netMsg" aria-live="polite"></p>
+
+        <div class="actions">
+          <button type="button" class="btn btn-primary" id="retryBtn" data-i18n="retry">Tentar reconectar</button>
+          <a href="/" class="btn btn-secondary" data-i18n="cached">Abrir página inicial</a>
+        </div>
+      </div>
+
+      <div class="offline-art" aria-hidden="true">
+        <svg viewBox="0 0 240 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M44 96a108 108 0 0 1 152 0" stroke="currentColor" stroke-opacity=".16" stroke-width="4" stroke-linecap="round"/>
+          <path d="M72 124a68 68 0 0 1 96 0" stroke="#1652C4" stroke-opacity=".35" stroke-width="4" stroke-linecap="round"/>
+          <circle cx="120" cy="158" r="14" fill="#1652C4"/>
+          <path d="M52 52 188 188" stroke="#e5484d" stroke-width="5" stroke-linecap="round"/>
+        </svg>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <span>© 2026 PYNN · Otimização de Presença Digital e Suporte Técnico</span>
+    <span>(86) 98884-6870 · pynn.br@gmail.com</span>
+  </footer>
+
+  <script>
+    (function(){
+      var dict = {
+        pt: {
+          docTitle: 'Sem conexão com a internet — PYNN',
+          meta: 'Sem conexão com a internet',
+          title: 'Você está sem conexão no momento',
+          desc: 'Verifique seu Wi-Fi ou dados móveis. Assim que o sinal voltar, a PYNN reconecta automaticamente.',
+          directTitle: 'Atendimento direto (mesmo offline, por ligação):',
+          retry: 'Tentar reconectar',
+          cached: 'Abrir página inicial',
+          restored: 'Conexão restabelecida! Recarregando...',
+          stillOff: 'Ainda sem acesso à rede.'
+        },
+        es: {
+          docTitle: 'Sin conexión a internet — PYNN',
+          meta: 'Sin conexión a internet',
+          title: 'Estás sin conexión en este momento',
+          desc: 'Revisa tu Wi-Fi o datos móviles. En cuanto vuelva la señal, PYNN volverá a cargar automáticamente.',
+          directTitle: 'Contacto directo (incluso sin conexión, por llamada):',
+          retry: 'Intentar reconectar',
+          cached: 'Abrir página inicial',
+          restored: '¡Conexión restablecida! Recargando...',
+          stillOff: 'Todavía sin conexión.'
+        },
+        en: {
+          docTitle: 'Offline · No internet connection — PYNN',
+          meta: 'No internet connection',
+          title: 'You are currently offline',
+          desc: 'Check your Wi-Fi or mobile data. As soon as your connection returns, PYNN will reconnect automatically.',
+          directTitle: 'Direct contact (via phone call while offline):',
+          retry: 'Try reconnecting',
+          cached: 'Open home page',
+          restored: 'Connection restored! Reloading...',
+          stillOff: 'Still offline.'
+        }
+      };
+
+      var lang = 'pt';
+      try {
+        var saved = localStorage.getItem('pynn-lang');
+        if (saved && dict[saved]) lang = saved;
+      } catch (e) {}
+
+      function applyLang(next){
+        lang = dict[next] ? next : 'pt';
+        var t = dict[lang];
+        document.documentElement.lang = lang === 'pt' ? 'pt-BR' : lang;
+        document.title = t.docTitle;
+        document.querySelectorAll('[data-i18n]').forEach(function(el){
+          var k = el.getAttribute('data-i18n');
+          if (t[k]) el.textContent = t[k];
+        });
+        document.querySelectorAll('.lang-seg button').forEach(function(b){
+          b.setAttribute('aria-pressed', String(b.getAttribute('data-lang') === lang));
+        });
+      }
+
+      document.querySelectorAll('.lang-seg button').forEach(function(b){
+        b.addEventListener('click', function(){
+          var next = b.getAttribute('data-lang');
+          try { localStorage.setItem('pynn-lang', next); } catch (e) {}
+          applyLang(next);
+        });
+      });
+
+      var themeBtn = document.getElementById('themeBtn');
+      if (themeBtn) {
+        themeBtn.addEventListener('click', function(){
+          var isDark = document.documentElement.classList.toggle('dark');
+          try { localStorage.setItem('pynn-theme', isDark ? 'dark' : 'light'); } catch (e) {}
+        });
+      }
+
+      var msgEl = document.getElementById('netMsg');
+      var retryBtn = document.getElementById('retryBtn');
+      function handleBackOnline(){
+        var t = dict[lang] || dict.pt;
+        if (msgEl) {
+          msgEl.className = 'net-msg is-online';
+          msgEl.textContent = t.restored;
+        }
+        setTimeout(function(){ window.location.reload(); }, 600);
+      }
+
+      window.addEventListener('online', handleBackOnline);
+      if (retryBtn) {
+        retryBtn.addEventListener('click', function(){
+          var t = dict[lang] || dict.pt;
+          fetch('/', { cache: 'no-store' }).then(function(r){
+            if (r.ok) handleBackOnline();
+            else if (msgEl) msgEl.textContent = t.stillOff;
+          }).catch(function(){
+            if (msgEl) msgEl.textContent = t.stillOff;
+          });
+        });
+      }
+
+      applyLang(lang);
+    })();
+  </script>
+</body>
+</html>

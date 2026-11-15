@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Erro 404 · Página não encontrada — PYNN</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#1652C4">
+<link rel="icon" type="image/png" href="/pynn-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;600&family=Manrope:wght@700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script>
+  (function(){
+    try {
+      var saved = localStorage.getItem('pynn-theme');
+      if (saved === 'dark' || (!saved && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    } catch (e) {}
+  })();
+</script>
+<style>
+  :root{
+    --bg:#fafafa;
+    --surface:#ffffff;
+    --surface-2:#f0f0ef;
+    --fg:#121212;
+    --fg-muted:#6b6b68;
+    --border:#e2e2df;
+    --cobalt:#1652C4;
+    --blue:#2F8CFF;
+    --blue-soft:rgba(47,140,255,.10);
+    --green:#1fae63;
+    --green-soft:rgba(31,174,99,.12);
+    --grid-line:rgba(22,82,196,.055);
+    --shadow:0 24px 60px -28px rgba(15,23,42,.16);
+    --ease:cubic-bezier(.16,1,.3,1);
+  }
+  html.dark{
+    --bg:#050505;
+    --surface:#111113;
+    --surface-2:#19191c;
+    --fg:#f5f5f4;
+    --fg-muted:#96968f;
+    --border:#2a2a2c;
+    --cobalt:#2F8CFF;
+    --blue:#60a5fa;
+    --blue-soft:rgba(47,140,255,.14);
+    --green:#2ecc71;
+    --green-soft:rgba(46,204,113,.14);
+    --grid-line:rgba(47,140,255,.07);
+    --shadow:0 28px 70px -28px rgba(0,0,0,.75);
+  }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html,body{ min-height:100%; }
+  body{
+    background:var(--bg);
+    color:var(--fg);
+    font-family:'Plus Jakarta Sans',system-ui,-apple-system,sans-serif;
+    line-height:1.55;
+    display:flex;
+    flex-direction:column;
+    -webkit-font-smoothing:antialiased;
+    background-image:
+      linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+    background-size:48px 48px;
+    transition:background-color .2s var(--ease), color .2s var(--ease);
+  }
+  a{ color:inherit; text-decoration:none; }
+  button{ font:inherit; color:inherit; }
+  :focus-visible{ outline:2px solid var(--cobalt); outline-offset:2px; }
+
+  .topbar{
+    width:100%;
+    border-bottom:1px solid var(--border);
+    background:color-mix(in srgb, var(--surface) 88%, transparent);
+    backdrop-filter:blur(12px);
+  }
+  .topbar-inner{
+    max-width:1160px;
+    margin:0 auto;
+    padding:16px clamp(16px, 3vw, 32px);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:24px;
+    flex-wrap:wrap;
+  }
+  .brand{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    flex-shrink:0;
+  }
+  .logo-mask{
+    display:block;
+    height:26px;
+    aspect-ratio:1366/310;
+    background-color:var(--fg);
+    -webkit-mask-image:url('/pynn-logo.png');
+    mask-image:url('/pynn-logo.png');
+    -webkit-mask-repeat:no-repeat;
+    mask-repeat:no-repeat;
+    -webkit-mask-position:center;
+    mask-position:center;
+    -webkit-mask-size:contain;
+    mask-size:contain;
+  }
+  .topbar-controls{
+    display:flex;
+    align-items:center;
+    gap:12px;
+  }
+  .lang-seg{
+    display:inline-flex;
+    align-items:center;
+    gap:2px;
+    padding:3px;
+    background:var(--surface-2);
+    border:1px solid var(--border);
+    border-radius:10px;
+  }
+  .lang-seg button{
+    border:none;
+    background:transparent;
+    padding:5px 9px;
+    border-radius:7px;
+    font-size:.75rem;
+    font-weight:700;
+    color:var(--fg-muted);
+    cursor:pointer;
+    transition:background-color .15s, color .15s;
+  }
+  .lang-seg button[aria-pressed="true"]{
+    background:var(--surface);
+    color:var(--fg);
+    box-shadow:0 1px 3px rgba(0,0,0,.08);
+  }
+  .icon-btn{
+    width:38px;
+    height:38px;
+    border-radius:10px;
+    border:1px solid var(--border);
+    background:var(--surface);
+    color:var(--fg);
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    transition:border-color .15s, color .15s;
+  }
+  .icon-btn:hover{ border-color:var(--cobalt); color:var(--cobalt); }
+  .icon-moon{ display:none; }
+  html.dark .icon-sun{ display:none; }
+  html.dark .icon-moon{ display:block; }
+
+  .main{
+    flex:1;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:clamp(28px, 5vw, 56px) clamp(16px, 3vw, 32px);
+  }
+  .stage{
+    width:100%;
+    max-width:1100px;
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:28px;
+    box-shadow:var(--shadow);
+    padding:clamp(24px, 4vw, 48px);
+    display:grid;
+    grid-template-columns:1.1fr .9fr;
+    gap:clamp(24px, 4vw, 48px);
+    align-items:stretch;
+  }
+  @media(max-width:880px){
+    .stage{ grid-template-columns:1fr; }
+  }
+
+  .left-col{
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    gap:24px;
+  }
+  .meta-line{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-family:'JetBrains Mono',monospace;
+    font-size:.78rem;
+    font-weight:600;
+    color:var(--cobalt);
+    font-variant-numeric:tabular-nums;
+  }
+  .meta-sep{ color:var(--fg-muted); font-weight:400; }
+  .meta-muted{ color:var(--fg-muted); }
+
+  .err-code{
+    font-family:'Manrope',sans-serif;
+    font-weight:800;
+    font-size:clamp(4rem, 10vw, 6.25rem);
+    line-height:.95;
+    letter-spacing:-0.04em;
+    font-variant-numeric:tabular-nums;
+    color:var(--fg);
+    margin:14px 0 12px;
+  }
+  .err-code span{ color:var(--cobalt); }
+
+  h1{
+    font-family:'Manrope',sans-serif;
+    font-weight:800;
+    font-size:clamp(1.45rem, 2.5vw, 2.05rem);
+    line-height:1.18;
+    letter-spacing:-0.02em;
+    text-wrap:balance;
+    margin-bottom:12px;
+  }
+  .lead{
+    color:var(--fg-muted);
+    font-size:.98rem;
+    max-width:52ch;
+    margin-bottom:20px;
+  }
+
+  .path-box{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    padding:12px 14px;
+    background:var(--surface-2);
+    border:1px solid var(--border);
+    border-radius:14px;
+    margin-bottom:24px;
+  }
+  .path-text{
+    font-family:'JetBrains Mono',monospace;
+    font-size:.8rem;
+    color:var(--fg);
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+  }
+  .copy-btn{
+    flex-shrink:0;
+    border:1px solid var(--border);
+    background:var(--surface);
+    color:var(--fg);
+    font-size:.76rem;
+    font-weight:600;
+    padding:7px 12px;
+    border-radius:8px;
+    cursor:pointer;
+    white-space:nowrap;
+    transition:border-color .15s, color .15s, background-color .15s;
+  }
+  .copy-btn:hover{ border-color:var(--cobalt); color:var(--cobalt); }
+  .copy-btn.is-done{ border-color:var(--green); color:var(--green); background:var(--green-soft); }
+
+  .actions{
+    display:flex;
+    flex-wrap:wrap;
+    gap:12px;
+  }
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    min-height:44px;
+    padding:11px 22px;
+    border-radius:12px;
+    font-size:.88rem;
+    font-weight:700;
+    white-space:nowrap;
+    cursor:pointer;
+    border:1px solid transparent;
+    transition:transform .16s var(--ease), filter .16s var(--ease), border-color .16s var(--ease);
+  }
+  .btn:hover{ transform:translateY(-1px); }
+  .btn-primary{
+    background:var(--cobalt);
+    color:#ffffff;
+    box-shadow:0 10px 24px -10px rgba(22,82,196,.65);
+  }
+  .btn-primary:hover{ filter:brightness(1.08); }
+  .btn-secondary{
+    background:var(--surface);
+    border-color:var(--border);
+    color:var(--fg);
+  }
+  .btn-secondary:hover{ border-color:var(--cobalt); color:var(--cobalt); }
+
+  .right-col{
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    gap:20px;
+  }
+  .map-art{
+    background:var(--surface-2);
+    border:1px solid var(--border);
+    border-radius:20px;
+    padding:20px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    min-height:220px;
+    position:relative;
+    overflow:hidden;
+  }
+  .map-art svg{ width:100%; max-width:340px; height:auto; }
+
+  .routes-title{
+    font-size:.78rem;
+    font-weight:700;
+    color:var(--fg-muted);
+    margin-bottom:10px;
+  }
+  .routes-grid{
+    display:grid;
+    grid-template-columns:repeat(2, minmax(0, 1fr));
+    gap:10px;
+  }
+  @media(max-width:480px){
+    .routes-grid{ grid-template-columns:1fr; }
+  }
+  .route-card{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    padding:13px 14px;
+    background:var(--surface-2);
+    border:1px solid var(--border);
+    border-radius:14px;
+    transition:border-color .16s var(--ease), transform .16s var(--ease);
+  }
+  .route-card:hover{
+    border-color:var(--cobalt);
+    transform:translateY(-1px);
+  }
+  .route-card strong{
+    display:block;
+    font-size:.86rem;
+    font-weight:700;
+    color:var(--fg);
+  }
+  .route-card span{
+    display:block;
+    font-size:.75rem;
+    color:var(--fg-muted);
+  }
+  .route-card svg{ flex-shrink:0; color:var(--cobalt); }
+
+  .foot{
+    max-width:1160px;
+    width:100%;
+    margin:0 auto;
+    padding:18px clamp(16px, 3vw, 32px) 28px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    flex-wrap:wrap;
+    font-size:.8rem;
+    color:var(--fg-muted);
+  }
+</style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a href="/" class="brand" aria-label="PYNN — Página inicial">
+        <span class="logo-mask" role="img" aria-label="PYNN"></span>
+      </a>
+      <div class="topbar-controls">
+        <div class="lang-seg" role="group" aria-label="Idioma">
+          <button type="button" data-lang="pt" aria-pressed="true">PT</button>
+          <button type="button" data-lang="es" aria-pressed="false">ES</button>
+          <button type="button" data-lang="en" aria-pressed="false">EN</button>
+        </div>
+        <button type="button" class="icon-btn" id="themeBtn" aria-label="Alternar tema">
+          <svg class="icon-sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2m-7.07-15.07 1.41 1.41m11.32 11.32 1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+          <svg class="icon-moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="main">
+    <section class="stage" aria-labelledby="errTitle">
+      <div class="left-col">
+        <div>
+          <div class="meta-line">
+            <span>HTTP 404</span>
+            <span class="meta-sep" aria-hidden="true">·</span>
+            <span class="meta-muted" data-i18n="meta">Rota não encontrada</span>
+          </div>
+          <div class="err-code" aria-hidden="true">4<span>0</span>4</div>
+          <h1 id="errTitle" data-i18n="title">Este endereço não está no mapa da PYNN</h1>
+          <p class="lead" data-i18n="desc">O link pode estar desatualizado, ter sido digitado incorretamente ou ter mudado de lugar. Use os atalhos ao lado ou volte para a página principal.</p>
+
+          <div class="path-box">
+            <code class="path-text" id="attemptedPath">/</code>
+            <button type="button" class="copy-btn" id="copyPathBtn" data-i18n="copy">Copiar caminho</button>
+          </div>
+        </div>
+
+        <div class="actions">
+          <a href="/" class="btn btn-primary">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9.5 12 3l9 6.5"/><path d="M5 10v10a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V10"/></svg>
+            <span data-i18n="home">Voltar para o início</span>
+          </a>
+          <a id="waBtn" href="https://wa.me/5586988846870" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+            <span data-i18n="wa">Falar no WhatsApp</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="right-col">
+        <div class="map-art" aria-hidden="true">
+          <svg viewBox="0 0 360 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="14" y="14" width="332" height="192" rx="16" stroke="currentColor" stroke-opacity=".14" stroke-width="1.5"/>
+            <path d="M52 162C96 162 110 88 158 88C188 88 202 126 232 126" stroke="#2F8CFF" stroke-width="3" stroke-linecap="round" stroke-dasharray="7 7"/>
+            <circle cx="52" cy="162" r="7" fill="#1fae63"/>
+            <circle cx="52" cy="162" r="14" stroke="#1fae63" stroke-opacity=".35" stroke-width="2"/>
+            <path d="M262 118l16 16m0-16-16 16" stroke="#e5484d" stroke-width="3.2" stroke-linecap="round"/>
+            <circle cx="270" cy="126" r="24" stroke="#e5484d" stroke-opacity=".3" stroke-width="2" stroke-dasharray="4 4"/>
+            <path d="M158 34c-19.9 0-36 16.1-36 36 0 26.8 36 62 36 62s36-35.2 36-62c0-19.9-16.1-36-36-36Z" fill="#1652C4"/>
+            <circle cx="158" cy="70" r="15" fill="#ffffff"/>
+            <path d="M154.5 65.5c0-2.1 1.6-3.6 3.7-3.6 2 0 3.5 1.3 3.5 3.2 0 1.4-.8 2.3-2.1 3.1-1.1.7-1.6 1.3-1.6 2.5v.6" stroke="#1652C4" stroke-width="2.4" stroke-linecap="round"/>
+            <circle cx="158" cy="75.5" r="1.5" fill="#1652C4"/>
+          </svg>
+        </div>
+
+        <div>
+          <p class="routes-title" data-i18n="shortcuts">Destinos principais do site</p>
+          <div class="routes-grid">
+            <a href="/#planos" class="route-card">
+              <div><strong data-i18n="r1_t">Planos e valores</strong><span data-i18n="r1_s">Google Maps, Site e TI</span></div>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>
+            </a>
+            <a href="/#diagnostico" class="route-card">
+              <div><strong data-i18n="r2_t">Diagnóstico grátis</strong><span data-i18n="r2_s">Avalie sua empresa</span></div>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>
+            </a>
+            <a href="/#faq" class="route-card">
+              <div><strong data-i18n="r3_t">Dúvidas frequentes</strong><span data-i18n="r3_s">Prazos e garantias</span></div>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>
+            </a>
+            <a href="/#contato" class="route-card">
+              <div><strong data-i18n="r4_t">Contato direto</strong><span data-i18n="r4_s">WhatsApp e canais</span></div>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <span>© 2026 PYNN · Otimização de Presença Digital e Suporte Técnico</span>
+    <span>(86) 98884-6870 · pynn.br@gmail.com</span>
+  </footer>
+
+  <script>
+    (function(){
+      var dict = {
+        pt: {
+          docTitle: 'Erro 404 · Página não encontrada — PYNN',
+          meta: 'Rota não encontrada',
+          title: 'Este endereço não está no mapa da PYNN',
+          desc: 'O link pode estar desatualizado, ter sido digitado incorretamente ou ter mudado de lugar. Use os atalhos ao lado ou volte para a página principal.',
+          copy: 'Copiar caminho',
+          copied: 'Copiado',
+          home: 'Voltar para o início',
+          wa: 'Falar no WhatsApp',
+          shortcuts: 'Destinos principais do site',
+          r1_t: 'Planos e valores', r1_s: 'Google Maps, Site e TI',
+          r2_t: 'Diagnóstico grátis', r2_s: 'Avalie sua empresa',
+          r3_t: 'Dúvidas frequentes', r3_s: 'Prazos e garantias',
+          r4_t: 'Contato direto', r4_s: 'WhatsApp e canais',
+          waMsg: 'Olá PYNN! Acessei um endereço que deu erro 404 no site: '
+        },
+        es: {
+          docTitle: 'Error 404 · Página no encontrada — PYNN',
+          meta: 'Ruta no encontrada',
+          title: 'Esta dirección no está en el mapa de PYNN',
+          desc: 'El enlace puede estar desactualizado, mal escrito o haberse movido. Usa los accesos rápidos o vuelve a la página principal.',
+          copy: 'Copiar ruta',
+          copied: 'Copiado',
+          home: 'Volver al inicio',
+          wa: 'Hablar por WhatsApp',
+          shortcuts: 'Destinos principales del sitio',
+          r1_t: 'Planes y precios', r1_s: 'Google Maps, Web y TI',
+          r2_t: 'Diagnóstico gratis', r2_s: 'Evalúa tu negocio',
+          r3_t: 'Preguntas frecuentes', r3_s: 'Plazos y garantías',
+          r4_t: 'Contacto directo', r4_s: 'WhatsApp y canales',
+          waMsg: '¡Hola PYNN! Entré a una ruta con error 404 en el sitio: '
+        },
+        en: {
+          docTitle: 'Error 404 · Page not found — PYNN',
+          meta: 'Route not found',
+          title: 'This address is off the PYNN map',
+          desc: 'The link may be outdated, mistyped, or moved. Use the shortcuts or head back to the home page.',
+          copy: 'Copy path',
+          copied: 'Copied',
+          home: 'Back to home',
+          wa: 'Chat on WhatsApp',
+          shortcuts: 'Main sections on this site',
+          r1_t: 'Plans & pricing', r1_s: 'Google Maps, Website & IT',
+          r2_t: 'Free assessment', r2_s: 'Check your visibility',
+          r3_t: 'FAQ', r3_s: 'Timelines & details',
+          r4_t: 'Direct contact', r4_s: 'WhatsApp & social',
+          waMsg: 'Hello PYNN! I reached a 404 page on your website: '
+        }
+      };
+
+      var fullPath = (window.location.pathname || '/') + (window.location.search || '');
+      var pathEl = document.getElementById('attemptedPath');
+      if (pathEl) pathEl.textContent = fullPath;
+
+      var lang = 'pt';
+      try {
+        var saved = localStorage.getItem('pynn-lang');
+        if (saved && dict[saved]) lang = saved;
+        else if (navigator.language) {
+          var nav = navigator.language.slice(0, 2).toLowerCase();
+          if (dict[nav]) lang = nav;
+        }
+      } catch (e) {}
+
+      function applyLang(next){
+        lang = dict[next] ? next : 'pt';
+        var t = dict[lang];
+        document.documentElement.lang = lang === 'pt' ? 'pt-BR' : lang;
+        document.title = t.docTitle;
+        document.querySelectorAll('[data-i18n]').forEach(function(el){
+          var k = el.getAttribute('data-i18n');
+          if (t[k]) el.textContent = t[k];
+        });
+        document.querySelectorAll('.lang-seg button').forEach(function(btn){
+          btn.setAttribute('aria-pressed', String(btn.getAttribute('data-lang') === lang));
+        });
+        var wa = document.getElementById('waBtn');
+        if (wa) wa.href = 'https://wa.me/5586988846870?text=' + encodeURIComponent(t.waMsg + fullPath);
+      }
+
+      document.querySelectorAll('.lang-seg button').forEach(function(btn){
+        btn.addEventListener('click', function(){
+          var next = btn.getAttribute('data-lang');
+          try { localStorage.setItem('pynn-lang', next); } catch (e) {}
+          applyLang(next);
+        });
+      });
+
+      var themeBtn = document.getElementById('themeBtn');
+      if (themeBtn) {
+        themeBtn.addEventListener('click', function(){
+          var isDark = document.documentElement.classList.toggle('dark');
+          try { localStorage.setItem('pynn-theme', isDark ? 'dark' : 'light'); } catch (e) {}
+        });
+      }
+
+      var copyBtn = document.getElementById('copyPathBtn');
+      if (copyBtn) {
+        copyBtn.addEventListener('click', function(){
+          var t = dict[lang] || dict.pt;
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(window.location.href).then(function(){
+              copyBtn.classList.add('is-done');
+              copyBtn.textContent = t.copied;
+              setTimeout(function(){
+                copyBtn.classList.remove('is-done');
+                copyBtn.textContent = t.copy;
+              }, 1800);
+            }).catch(function(){});
+          }
+        });
+      }
+
+      applyLang(lang);
+    })();
+  </script>
+</body>
+</html>
